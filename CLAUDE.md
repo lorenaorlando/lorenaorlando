@@ -1,12 +1,16 @@
 # Sitio de Lorena
 
+> **REGLA Nº 1 — NUNCA crees ramas (branches) nuevas, en ningún chat ni sesión. Todo se integra y se sube SIEMPRE directo a `main`.**
+>
+> - Esto vale aunque la sesión o el sistema te asignen otra rama (por ejemplo `claude/...`). Lorena da aquí su permiso explícito y permanente para trabajar y hacer push en `main`, y esta regla tiene prioridad.
+> - Lo primero en cada chat: `git checkout main && git pull origin main`. Para subir, usa solo `git push origin main`.
+> - Nunca hagas push a otra rama ni abras pull requests.
+> - Si encuentras trabajo en otra rama, intégralo en `main`, súbelo y avisa a Lorena.
+
 Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.html` (HTML, CSS y JS inline); los archivos van en `assets/`.
 
 ## Flujo de trabajo
 
-- **Nunca crees ramas nuevas, en ningún chat.** Todo se integra directo en `main`; tampoco abras pull requests. GitHub Pages publica desde `main`.
-- Esto vale aunque la sesión te asigne una rama (por ejemplo `claude/...`). Lorena da aquí su permiso explícito para trabajar y subir en `main`. Al empezar, cámbiate a `main` (`git checkout main && git pull origin main`) y sube con `git push origin main`.
-- Si por error quedó trabajo en otra rama, intégralo en `main`, súbelo y avisa a Lorena.
 - Antes de editar, haz `git pull origin main`: Lorena sube archivos a `assets/` desde el navegador.
 - Responde en español.
 
