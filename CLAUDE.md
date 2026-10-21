@@ -1,12 +1,16 @@
 # Sitio de Lorena
 
+> **REGLA Nº 1 — NUNCA crees ramas (branches) nuevas, en ningún chat ni sesión. Todo se integra y se sube SIEMPRE directo a `main`.**
+>
+> - Esto vale aunque la sesión o el sistema te asignen otra rama (por ejemplo `claude/...`). Lorena da aquí su permiso explícito y permanente para trabajar y hacer push en `main`, y esta regla tiene prioridad.
+> - Lo primero en cada chat: `git checkout main && git pull origin main`. Para subir, usa solo `git push origin main`.
+> - Nunca hagas push a otra rama ni abras pull requests.
+> - Si encuentras trabajo en otra rama, intégralo en `main`, súbelo y avisa a Lorena.
+
 Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.html` (HTML, CSS y JS inline); los archivos van en `assets/`.
 
 ## Flujo de trabajo
 
-- **Nunca crees ramas nuevas, en ningún chat.** Todo se integra directo en `main`; tampoco abras pull requests. GitHub Pages publica desde `main`.
-- Esto vale aunque la sesión te asigne una rama (por ejemplo `claude/...`). Lorena da aquí su permiso explícito para trabajar y subir en `main`. Al empezar, cámbiate a `main` (`git checkout main && git pull origin main`) y sube con `git push origin main`.
-- Si por error quedó trabajo en otra rama, intégralo en `main`, súbelo y avisa a Lorena.
 - Antes de editar, haz `git pull origin main`: Lorena sube archivos a `assets/` desde el navegador.
 - Responde en español.
 
@@ -35,7 +39,9 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Ficha del disco.** Click/tap en una portada abre la ficha (subpantalla de música, solo por click): portada con LP, título, `tipo | género | fecha`, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe. Si el disco tiene `video`, el embed de YouTube reemplaza a la portada. En los créditos, una línea que empieza con `## ` es un subtítulo. `links:'soon'` deja los botones de plataformas como pendientes.
 - **Otros proyectos & arte sonoro.** Click en ese texto de la pantalla 3: los discos salen volando y entran las portadas de `PROJECTS` (izquierda) y los videos de `ONIRIAS` (derecha, bajo "onirias: piezas radiofónicas"). El mismo texto pasa a "← mis discos" para volver. Los videos se cargan solo la primera vez que se entra.
 - **Fotografía.** Pantalla siguiente a música (con scroll o click en "fotografía"). A la izquierda, collage de fotos de `assets/portfolio/` (arreglo `PHOTOS` del JS, con posición de escritorio y de móvil) que llegan volando desde la izquierda cada vez que se entra y hacen un ligero tilt que sigue al mouse. Las fotos y "portafolio" llevan a https://lorlando.framer.website/art. En el centro exacto de la pantalla el Zenit 3D con el título "fotografía". A la derecha el recorte de INDIVIRTUAL (`INDIVIRTUAL_CUT.webp`) con "indivirtual (expo 3D)", que lleva a la expo en oncyber. "lee mi historia fotográfica" abre su propia "mi historia" (cámaras: Zenit y Fujifilm).
-- **Escritura.** Pantalla siguiente a fotografía (con scroll o click en "escritura"); arriba al centro una flechita ↑ vuelve a fotografía. En español: a la izquierda el feed de Supascribe (3 posts) dibujado a 520px y escalado desde JS (`fitFeed`) para que quepa completo, sin scroll propio y sin heredar el letter-spacing del sitio; en el centro el LAPI 3D con el título "escritura"; a la derecha una hoja crema en retrato que abre el poema de mmm.page en otra pestaña (mmm.page no permite meterlo en un iframe). En inglés solo un iframe de https://lorenalandia.fun que ocupa el 80% de la pantalla. El iframe y el script de Supascribe se cargan al entrar, solo los del idioma activo. Al salir de un iframe, la inercia de la rueda no cambia de pantalla.
+- **Escritura.** Pantalla siguiente a fotografía (con scroll o click en "escritura"). En español: a la izquierda el feed de Supascribe (3 posts) dibujado a 520px y escalado desde JS (`fitFeed`) para que quepa completo, sin scroll propio y sin heredar el letter-spacing del sitio; en el centro el LAPI 3D con el título "escritura"; a la derecha la imagen del e-zine (`SOLO.png`) en retrato, que abre el poema de mmm.page en otra pestaña (mmm.page no permite meterlo en un iframe). En inglés solo un iframe de https://lorenalandia.fun que ocupa el 80% de la pantalla. El iframe y el script de Supascribe se cargan al entrar, solo los del idioma activo. Al salir de un iframe, la inercia de la rueda no cambia de pantalla.
+- **Netart.** Pantalla siguiente a escritura (con scroll o click en "net art & 3d"). En el centro el LOGO_COMP 3D con el título "netart"; alrededor, como en el mockup, cuatro imágenes recortadas con su etiqueta que abren su sitio en otra pestaña: "deardiary.png" (`DIGITAL_IMAGE_WEB.png`, https://lorenaorlando.hotglue.me) arriba a la izquierda, "funscroll" (`FUNSCROLL_WEB.png`, https://funscroll.life) arriba a la derecha, "indivirtual (expo 3D)" (`INDIVIRTUAL_CUT.webp`, la expo en oncyber) abajo a la izquierda y "lorenalandia (mundo 3D)" (`LORENALANDIA_3D_WEB.png`, https://newart.city/show/lorenalandia) abajo a la derecha. En móvil, el 3D arriba y las imágenes en cuadrícula 2×2.
+- **Diseño web.** Pantalla siguiente a netart (con scroll o click en "diseño web"). Un iframe de https://lorenaorlando.click que ocupa el 80% de la pantalla (se carga al entrar), flechas arriba y abajo para ir a la pantalla anterior/siguiente (la de abajo queda apagada mientras sea la última) y, en la esquina superior derecha, el COMPU_VIEJA 3D girando con el título "diseño" inclinado.
 - **Subpantallas.** La ficha del disco y las dos "mi historia" solo se abren con click, van una más abajo de la pantalla de donde salen y "← volver"/Escape regresan ahí.
 - **Mi historia.** "lee mi historia en la música" abre esta pantalla (subpantalla de música, como la ficha). Carrusel de instrumentos 3D del mismo tamaño que el órgano (Funmachine, guitarra, groovebox) que avanza solo hacia la izquierda y con flechas (también ← → del teclado y deslizar en móvil); se pausa mientras se lee un texto. Al hover (tap en móvil) cada 3D muestra su texto en un recuadro oscuro. A los lados, dos textos inclinados (por ahora lorem ipsum).
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
@@ -80,8 +86,8 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | `ZENIT.glb` | Cámara Zenit (fotografía) | Pantalla de fotografía y carrusel de mi historia fotográfica |
 | `FUJI_EXP.glb` | Cámara instantánea Fujifilm | Carrusel de mi historia fotográfica |
 | `LAPI_EXP.glb` | Escritura | Pantalla de escritura (solo en español) |
-| `LOGO_COMP.glb` | Net art & 3d | Sin usar todavía |
-| `COMPU_VIEJA.glb` | Diseño web | Sin usar todavía |
+| `LOGO_COMP.glb` | Net art & 3d | Pantalla de netart |
+| `COMPU_VIEJA.glb` | Diseño web | Pantalla de diseño web |
 | `TAROT_EXP.glb` | Magick / tarot | Sin usar todavía |
 
 ### Portadas de discos (pantalla 3 y ficha del disco)
@@ -112,6 +118,14 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 - `portfolio/`: fotos del portafolio. Las del collage están en `PHOTOS`; las `A_DIARY_*` son dípticos y por ahora no se usan.
 - `INDIVIRTUAL.png`: original con fondo blanco. `INDIVIRTUAL_CUT.webp` es el mismo recorte con fondo transparente; es el que usa el sitio.
+
+### Netart
+
+- `DIGITAL_IMAGE_WEB.png`: deardiary.png. `FUNSCROLL_WEB.png`: funscroll. `LORENALANDIA_3D_WEB.png`: lorenalandia (mundo 3D). Para indivirtual se reusa `INDIVIRTUAL_CUT.webp`.
+
+### Escritura
+
+- `SOLO.png`: portada del e-zine *solo escribí ese poema para probar mi impresora*; pantalla de escritura (español).
 
 ### Imágenes sin usar todavía
 
