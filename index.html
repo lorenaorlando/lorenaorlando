@@ -138,11 +138,23 @@
   .write{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
   .lapi{position:absolute;z-index:10;left:50vw;top:46vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
   .wtitle{position:absolute;z-index:20;left:50vw;top:66vh;transform:translate(-50%,-50%);rotate:-8deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
-  .wfeed{position:absolute;left:4vw;top:10vh;width:30vw;height:80vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(1.6 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
-  .wframe{position:absolute;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
-  /* poema: retrato alargado, 80% del espacio a la derecha del 3D */
-  .wpoem{left:82vw;top:50vh;width:min(28vw,46vh);height:84vh;transform:translate(-50%,-50%)}
-  .wsite{left:10vw;top:10vh;width:80vw;height:80vh}
+  /* feed: .wfeed es el espacio disponible; el panel se escala desde JS para que los 3 posts quepan completos, sin scroll */
+  .wfeed{position:absolute;left:2vw;top:9vh;width:36vw;height:84vh;display:flex;align-items:center;justify-content:center}
+  .wcard{flex:none;overflow:hidden;pointer-events:auto;padding:calc(1.2 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));visibility:hidden}
+  .wcard.ready{visibility:visible}
+  /* el feed trae sus propios estilos: que no herede las letras apretadas ni la sombra del sitio */
+  .wfeed-in{width:520px;transform-origin:0 0;transform:scale(var(--s,1));letter-spacing:normal;line-height:normal;text-shadow:none;color:#222;font-family:system-ui,sans-serif}
+  .wfeed-in *{letter-spacing:normal}
+  /* poema: mmm.page no deja meterlo en un iframe, así que va como hoja en retrato que lo abre aparte */
+  .wpoem{position:absolute;left:82vw;top:50vh;width:min(28vw,46vh);height:84vh;transform:translate(-50%,-50%);rotate:2deg;display:flex;flex-direction:column;justify-content:center;gap:4vh;padding:calc(3 * var(--uv));background:var(--crema);color:var(--morado);text-decoration:none;text-align:center;pointer-events:auto;border-radius:calc(.5 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45);transition:rotate .3s,scale .3s}
+  .wpoem:hover,.wpoem:focus-visible{rotate:0deg;scale:1.03;outline:none}
+  .wpoem:focus-visible{box-shadow:0 0 0 3px var(--crema),0 0 0 6px var(--morado)}
+  .wpoem em{font-size:calc(3.4 * var(--uv));line-height:1.05;letter-spacing:-.03em}
+  .wpoem b{align-self:center;font-weight:400;font-size:max(calc(1.7 * var(--uv)),15px);letter-spacing:0;padding:.35em 1em .45em;border-radius:999px;background:var(--morado);color:var(--crema)}
+  .wsite{position:absolute;left:10vw;top:10vh;width:80vw;height:80vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .wup{position:absolute;z-index:30;left:50vw;top:1.5vh;translate:-50% 0;width:calc(4.4 * var(--uv));height:calc(4.4 * var(--uv));display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:var(--morado);color:var(--crema);cursor:pointer;pointer-events:auto;box-shadow:.12vw .18vw .35vw rgba(54,1,133,.85);transition:color .2s,scale .2s}
+  .wup:hover,.wup:focus-visible{color:var(--mostaza);scale:1.1;outline:none}
+  .wup svg{width:55%;height:55%}
   html[lang="en"] .write .es,html:not([lang="en"]) .write .en{display:none}
   /* indivirtual: el recorte de la imagen tal cual */
   .indi{position:absolute;left:63vw;top:50vh;width:min(46vw,90vh);translate:0 -50%;color:inherit;text-decoration:none;pointer-events:auto;transition:scale .4s,rotate .4s}
@@ -276,10 +288,15 @@
     .photo .ptitle{left:50vw;top:64vh;font-size:13vw}
     .indi{left:auto;right:4vw;top:auto;bottom:1vh;translate:none;width:min(56vw,28vh)}
     .indi span{font-size:5vw;left:24%}
-    .lapi{top:13vh;width:50vw;height:17vh}
-    .wtitle{top:24vh;font-size:13vw}
-    .wfeed{left:4vw;top:33vh;width:47vw;height:62vh;padding:3vw;border-radius:2vw}
-    .wpoem{left:76vw;top:64vh;width:44vw;height:62vh;border-radius:2vw}
+    .lapi{top:12vh;width:44vw;height:13vh}
+    .wtitle{top:21vh;font-size:12vw}
+    .wfeed{left:3vw;top:27vh;width:94vw;height:55vh}
+    .wcard{padding:2vw;border-radius:2vw}
+    .wpoem{left:50vw;top:90vh;width:84vw;height:12vh;rotate:-1deg;flex-direction:row;align-items:center;gap:3vw;padding:2vw 4vw;border-radius:1.5vw}
+    .wpoem em{font-size:4.6vw;text-align:left}
+    .wpoem b{font-size:3.6vw;white-space:nowrap}
+    .wsite{left:5vw;top:10vh;width:90vw;height:80vh;border-radius:2vw}
+    .wup{width:10vw;height:10vw;top:2vh}
   }
 </style>
 </head>
@@ -388,15 +405,16 @@ fotográfica</button>
 
   <div class="layer write" id="write">
     <!-- esp: feed de Supascribe (el script se carga al entrar), LAPI y el poema; eng: solo lorenalandia.fun -->
-    <div class="wfeed es"><div data-supascribe-embed-id="59190241344" data-supascribe-feed></div></div>
+    <button type="button" class="wup" id="writeUp" aria-label="Volver a fotografía"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15l8-8 8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="wfeed es"><div class="wcard"><div class="wfeed-in"><div data-supascribe-embed-id="59190241344" data-supascribe-feed></div></div></div></div>
     <div class="lapi es" aria-hidden="true">
       <model-viewer id="lapi" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="wtitle es">escritura</h2>
-    <iframe class="wframe wpoem es" title="solo escribí ese poema para probar mi impresora" data-src="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" loading="lazy"></iframe>
-    <iframe class="wframe wsite en" title="Lorenalandia" data-src="https://lorenalandia.fun" loading="lazy"></iframe>
+    <a class="wpoem es" href="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" target="_blank" rel="noopener"><em>solo escribí ese poema para probar mi impresora</em><b>lee el poema ↗</b></a>
+    <iframe class="wsite en" title="Lorenalandia" data-src="https://lorenalandia.fun" loading="lazy"></iframe>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -893,23 +911,33 @@ fotográfica</button>
   document.getElementById('toMusic').addEventListener('click', function(){ go(2); });
   document.getElementById('toPhoto').addEventListener('click', function(){ go(3); });
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
-  // escritura: los iframes y el feed de Supascribe se cargan al entrar, solo los del idioma activo
+  document.getElementById('writeUp').addEventListener('click', function(){ go(3); });
+  // escritura: el iframe y el feed de Supascribe se cargan al entrar, solo los del idioma activo
   var feedLoaded = false;
+  var wfeed = write.querySelector('.wfeed'), wcard = write.querySelector('.wcard'), wfeedIn = write.querySelector('.wfeed-in');
   function loadWrite(){
     var l = document.documentElement.lang === 'en' ? 'en' : 'es';
     write.querySelectorAll('iframe.' + l).forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
     if (l === 'es' && !feedLoaded) {
       feedLoaded = true;
+      // el script va dentro del panel: si agrega algo junto a sí mismo, queda ahí y no suelto en la página
       var sc = document.createElement('script');
       sc.src = 'https://js.supascribe.com/v1/loader/KqxuINKFv1ORBb8ZIZL9Ax1OB9k1.js'; sc.async = true;
-      document.body.appendChild(sc);
+      wfeedIn.appendChild(sc);
+      new ResizeObserver(fitFeed).observe(wfeedIn);
+      window.addEventListener('resize', fitFeed);
     }
   }
-  // el feed hace scroll propio: la rueda/táctil solo cambian de pantalla cuando ya llegó al borde
-  function scrollsInside(el, dir){
-    var box = el && el.closest && el.closest('.wfeed');
-    if (!box || box.scrollHeight <= box.clientHeight + 1) return false;
-    return dir > 0 ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
+  // el feed se dibuja a 520px y se escala para que entre completo en su espacio (sin scroll propio)
+  function fitFeed(){
+    var w = wfeedIn.offsetWidth, h = wfeedIn.offsetHeight;
+    if (h < 40) return;                               // todavía no carga
+    var pad = parseFloat(getComputedStyle(wcard).paddingLeft) * 2;
+    var sc = Math.min(1.25, (wfeed.clientWidth - pad) / w, (wfeed.clientHeight - pad) / h);
+    wfeedIn.style.setProperty('--s', sc);
+    wcard.style.width = (w * sc + pad) + 'px';
+    wcard.style.height = (h * sc + pad) + 'px';
+    wcard.classList.add('ready');
   }
   function loadGlb(m, f){
     if (m.getAttribute('src')) return;
@@ -1033,30 +1061,30 @@ fotográfica</button>
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
   // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)
-  var lastWheel = 0, gestureUsed = false;
+  var lastWheel = 0, gestureUsed = false, overFrame = false;
+  // sobre un iframe la rueda no llega aquí; al salir de él, la inercia que sigue no debe cambiar de pantalla
+  document.addEventListener('pointerover', function(e){
+    var f = e.target.tagName === 'IFRAME';
+    if (overFrame && !f) { lastWheel = performance.now(); gestureUsed = true; }
+    overFrame = f;
+  });
+  document.addEventListener('pointerout', function(e){ if (e.relatedTarget && e.relatedTarget.tagName === 'IFRAME') overFrame = true; });
   window.addEventListener('wheel', function(e){
     var now = performance.now();
     if (now - lastWheel > 180) gestureUsed = false;
     lastWheel = now;
     if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4 || busy()) return;
-    if (scrollsInside(e.target, e.deltaY)) { gestureUsed = true; return; }
     gestureUsed = true;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
-  var touchTop = 0, touchBox = null;
-  window.addEventListener('touchstart', function(e){
-    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
-    touchBox = e.target.closest && e.target.closest('.wfeed'); touchTop = touchBox ? touchBox.scrollTop : 0;
-  }, {passive:true});
+  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
-    // en el feed, si el gesto hizo scroll (o aún puede hacerlo) no cambia de pantalla
-    var inFeed = touchBox && (touchBox.scrollTop !== touchTop || scrollsInside(touchBox, dy));
-    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) { if (!inFeed) step(dy > 0 ? 1 : -1); }
+    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
     else if (subOpen && CAROUSELS.has(sub) && Math.abs(dx) > 40 && e.target.closest && e.target.closest('.carousel')) CAROUSELS.get(sub).move(dx > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
