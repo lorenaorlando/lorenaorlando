@@ -147,12 +147,11 @@
   /* el feed trae sus propios estilos: que no herede las letras apretadas ni la sombra del sitio */
   .wfeed-in{width:520px;transform-origin:0 0;transform:scale(var(--s,1));letter-spacing:normal;line-height:normal;text-shadow:none;color:#222;font-family:system-ui,sans-serif}
   .wfeed-in *{letter-spacing:normal}
-  /* poema: mmm.page no deja meterlo en un iframe, así que va como hoja en retrato que lo abre aparte */
-  .wpoem{position:absolute;left:82vw;top:50vh;width:min(28vw,46vh);height:84vh;transform:translate(-50%,-50%);rotate:2deg;display:flex;flex-direction:column;justify-content:center;gap:4vh;padding:calc(3 * var(--uv));background:var(--crema);color:var(--morado);text-decoration:none;text-align:center;pointer-events:auto;border-radius:calc(.5 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45);transition:rotate .3s,scale .3s}
+  /* poema: imagen del e-zine (SOLO.png) en retrato; abre la página de mmm.page aparte */
+  .wpoem{position:absolute;left:82vw;top:50vh;transform:translate(-50%,-50%);rotate:2deg;pointer-events:auto;transition:rotate .3s,scale .3s}
+  .wpoem img{display:block;height:min(84vh,41.8vw);width:auto;border-radius:calc(.5 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .wpoem:hover,.wpoem:focus-visible{rotate:0deg;scale:1.03;outline:none}
-  .wpoem:focus-visible{box-shadow:0 0 0 3px var(--crema),0 0 0 6px var(--morado)}
-  .wpoem em{font-size:calc(3.4 * var(--uv));line-height:1.05;letter-spacing:-.03em}
-  .wpoem b{align-self:center;font-weight:400;font-size:max(calc(1.7 * var(--uv)),15px);letter-spacing:0;padding:.35em 1em .45em;border-radius:999px;background:var(--morado);color:var(--crema)}
+  .wpoem:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .wsite{position:absolute;left:10vw;top:10vh;width:80vw;height:80vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .wup{position:absolute;z-index:30;left:50vw;top:1.5vh;translate:-50% 0;width:calc(4.4 * var(--uv));height:calc(4.4 * var(--uv));display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:var(--morado);color:var(--crema);cursor:pointer;pointer-events:auto;box-shadow:.12vw .18vw .35vw rgba(54,1,133,.85);transition:color .2s,scale .2s}
   .wup:hover,.wup:focus-visible{color:var(--mostaza);scale:1.1;outline:none}
@@ -292,11 +291,10 @@
     .indi span{font-size:5vw;left:24%}
     .lapi{top:12vh;width:44vw;height:13vh}
     .wtitle{top:21vh;font-size:12vw}
-    .wfeed{left:3vw;top:27vh;width:94vw;height:55vh}
+    .wfeed{left:3vw;top:27vh;width:94vw;height:44vh}
     .wcard{padding:2vw;border-radius:2vw}
-    .wpoem{left:50vw;top:90vh;width:84vw;height:12vh;rotate:-1deg;flex-direction:row;align-items:center;gap:3vw;padding:2vw 4vw;border-radius:1.5vw}
-    .wpoem em{font-size:4.6vw;text-align:left}
-    .wpoem b{font-size:3.6vw;white-space:nowrap}
+    .wpoem{top:85.5vh;left:50vw}
+    .wpoem img{height:25vh;max-width:none;border-radius:1vw}
     .wsite{left:5vw;top:10vh;width:90vw;height:80vh;border-radius:2vw}
     .wup{width:10vw;height:10vw;top:2vh}
   }
@@ -415,7 +413,7 @@ fotográfica</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="wtitle es">escritura</h2>
-    <a class="wpoem es" href="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" target="_blank" rel="noopener"><em>solo escribí ese poema para probar mi impresora</em><b>lee el poema ↗</b></a>
+    <a class="wpoem es" href="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" target="_blank" rel="noopener"><img id="soloImg" alt="solo escribí ese poema para probar mi impresora: un e-zine de poesía por Lorena Orlando"></a>
     <iframe class="wsite en" title="Lorenalandia" data-src="https://lorenalandia.fun" loading="lazy"></iframe>
   </div>
 
@@ -836,6 +834,9 @@ fotográfica</button>
   var indiImg = document.getElementById('indiImg');
   indiImg.onerror = function(){ indiImg.onerror = null; indiImg.src = REMOTE + 'INDIVIRTUAL_CUT.webp'; };
   indiImg.src = LOCAL + 'INDIVIRTUAL_CUT.webp';
+  var soloImg = document.getElementById('soloImg');
+  soloImg.onerror = function(){ soloImg.onerror = null; soloImg.src = REMOTE + 'SOLO.png'; };
+  soloImg.src = LOCAL + 'SOLO.png';
 
   /* ---------- ANIMACIÓN ----------
      Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura. Las subpantallas (ficha de un disco, "mi historia"
