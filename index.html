@@ -183,6 +183,19 @@
   .web .arrow:disabled{opacity:.35;cursor:default;scale:1;background:var(--crema)}
   .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
+  /* SECCIÓN 8: MAGICK — texto de Pragmagicka a la izquierda, VELA al centro, pantallas de la app a la derecha (como en .net: --x/--y/--w/--r y etiqueta --lx/--ly/--lr) */
+  .magick{z-index:3;transform-origin:50% 0;--u:min(1vw,1.78vh);--uv:min(1vw,1.7vh)}
+  .vela{position:absolute;z-index:10;left:50vw;top:47vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
+  .mgtitle{position:absolute;z-index:20;left:48vw;top:66vh;transform:translate(-50%,-50%);rotate:8deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+  .mhistoria{position:absolute;z-index:20;left:43vw;top:24vh;transform:translate(-50%,-50%);rotate:-5deg;background:none;border:0;padding:0;color:inherit;font-family:inherit;font-weight:400;font-size:2.6vw;line-height:.95;letter-spacing:inherit;text-align:center;white-space:pre-line;text-shadow:var(--shadow-sm);cursor:pointer;pointer-events:auto;transition:color .2s}
+  .mhistoria:hover{color:var(--mostaza)}
+  .mhistoria:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
+  .mhead{position:absolute;left:16vw;top:17vh;transform:translate(-50%,-50%);rotate:-5deg;font-weight:400;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .mpanel{position:absolute;left:4vw;top:25vh;width:27vw;rotate:-2deg;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .mpanel p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .mpanel p+p{margin-top:1.2vh}
+  html[lang="en"] .magick .es,html:not([lang="en"]) .magick .en{display:none}
+
   /* FICHA DEL DISCO */
   .album{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}   /* en pantallas anchas y bajitas el texto se achica con la altura */
   .back{all:unset;position:absolute;left:3vw;top:4vh;z-index:2;font-size:2vw;line-height:1;cursor:pointer;pointer-events:auto;text-shadow:var(--shadow-sm);transition:color .2s}
@@ -322,6 +335,17 @@
     .wwsite{left:5vw;width:90vw;border-radius:2vw}
     .compu{width:30vw;height:12vh}
     .dtitle{right:4vw;top:10.5vh;font-size:10vw}
+    .vela{top:10vh;width:44vw;height:14vh}
+    .mgtitle{left:50vw;top:19vh;font-size:12vw;rotate:5deg}
+    .mhistoria{left:50vw;top:26vh;font-size:5vw;rotate:-3deg}
+    .magick .nitem img{width:min(48vw,27vh);left:calc(var(--mx) * 1vw - min(48vw,27vh) / 2)}
+    .magick .nitem span{top:calc(var(--my) * 1vh + min(24vw,13.5vh) + 2.5vh);font-size:4.4vw}
+    .magick .nitem.en img{width:min(40vw,22vh);left:calc(50vw - min(40vw,22vh) / 2)}   /* PRAG_ENG es más alta que ancha */
+    .magick .nitem.en span{top:calc(var(--my) * 1vh + min(25.8vw,14.2vh) + 2.5vh)}
+    .mhead{left:50vw;top:66.5vh;font-size:6vw;rotate:-2deg}
+    .mpanel{left:4vw;top:70vh;width:92vw;rotate:-1deg;padding:4vw 5vw;border-radius:3vw}
+    .mpanel p{font-size:max(3.8vw,15px);line-height:1.35}
+    .mpanel p+p{margin-top:.8vh}
   }
 </style>
 </head>
@@ -380,7 +404,7 @@
       <button type="button" class="word w3" id="toWrite"><span data-es="escritura" data-en="writing">escritura</span></button>
       <button type="button" class="word w4" id="toNet"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></button>
       <button type="button" class="word w5" id="toWeb"><span data-es="diseño web" data-en="web design">diseño web</span></button>
-      <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
+      <button type="button" class="word w6" id="toMagick"><span data-es="magick" data-en="magick">magick</span></button>
     </div>
   </div>
 
@@ -472,6 +496,35 @@ fotográfica</button>
     <button type="button" class="arrow down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24"><path d="M4 9l8 8 8-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 
+  <div class="layer magick" id="magick">
+    <h3 class="mhead">Pragmagicka</h3>
+    <div class="mpanel">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet.</p>
+      <p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.</p>
+      <p>Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+    </div>
+    <button type="button" class="mhistoria" id="toMagickStory" data-es="lee mi historia&#10;esotérica" data-en="read my&#10;esoteric story">lee mi historia
+esotérica</button>
+    <div class="vela" aria-hidden="true">
+      <model-viewer id="vela" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="mgtitle">magick</h2>
+    <!-- esp: pragmagick.app y amigah; eng: solo pragmagick.app en inglés (PRAG_ENG) -->
+    <a class="nitem es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:82.3;--y:29;--w:26;--r:8deg;--z:1;--lx:65;--ly:30;--lr:-6deg;--mx:26;--my:43">
+      <img data-f="PRAGMAGICKAPP.png" alt=""><span>Pragmagick.app
+app de lecturas de
+tarot</span></a>
+    <a class="nitem es" href="https://pragmagick.app/amigah" target="_blank" rel="noopener" style="--x:85;--y:71;--w:28;--r:-6deg;--z:2;--lx:69;--ly:71;--lr:7deg;--mx:74;--my:43">
+      <img data-f="AMIGAH.png" alt=""><span>AMIGAAAAAH
+oráculo de
+stickers</span></a>
+    <a class="nitem en" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:83.8;--y:52;--w:26.4;--r:0deg;--z:1;--lx:68.5;--ly:15;--lr:-6deg;--mx:50;--my:44">
+      <img data-f="PRAG_ENG.png" alt=""><span>Pragmagick.app
+tarot reading app</span></a>
+  </div>
+
   <section class="layer album" id="album" aria-labelledby="albumTitle">
     <button type="button" class="back" id="back" data-es="← volver" data-en="← back">← volver</button>
     <div class="album-in">
@@ -555,6 +608,42 @@ fotográfica</button>
             <h3>fujifilm</h3>
             <p data-es="Réplica de la cámara instantánea Fujifilm existente en Lorenalandia (versión física)." data-en="Replica of the Fujifilm instant camera that lives in Lorenalandia (physical version).">Réplica de la cámara instantánea Fujifilm existente en Lorenalandia (versión física).</p>
             <p data-es="La he usado menos de lo que me gustaría, duele perder plata en cada foto." data-en="I’ve used it less than I’d like to; it hurts to lose money on every shot.">La he usado menos de lo que me gustaría, duele perder plata en cada foto.</p>
+          </div>
+        </div>
+        <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="lore l">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare.</p>
+      </div>
+      <div class="lore r">
+        <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="layer story" id="magickStory" aria-label="Mi historia esotérica">
+    <button type="button" class="back" data-es="← volver" data-en="← back">← volver</button>
+    <div class="story-in">
+      <h2 class="instr" data-es="estas son algunas de mis herramientas mágicas:" data-en="these are some of my magick tools:">estas son algunas de mis herramientas mágicas:</h2>
+      <div class="carousel">
+        <p class="tapme" aria-hidden="true" data-es="tócame!" data-en="tap me!">tócame!</p>
+        <button type="button" class="arrow prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="slide" data-p="0" data-glb="TAROT_EXP.glb" tabindex="0">
+          <model-viewer alt="Tarot" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3>tarot</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+          <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum.</p>
+          </div>
+        </div>
+        <div class="slide" data-p="1" data-glb="VELA.glb" tabindex="-1">
+          <model-viewer alt="Vela" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3 data-es="vela" data-en="candle">vela</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+          <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum.</p>
           </div>
         </div>
         <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -898,8 +987,8 @@ fotográfica</button>
   });
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart, 6 diseño web. Las subpantallas (ficha de un disco, "mi historia"
-     en la música o en la fotografía) solo se abren con click: van una más abajo de la pantalla de donde
+     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart, 6 diseño web, 7 magick. Las subpantallas (ficha de un disco, "mi historia"
+     en la música, en la fotografía o esotérica) solo se abren con click: van una más abajo de la pantalla de donde
      salen (home) y, mientras tanto, lo que hay más abajo de home espera escondido. */
   var hero = document.getElementById('hero');
   var title = document.getElementById('heroTitle');
@@ -912,6 +1001,8 @@ fotográfica</button>
   var write = document.getElementById('write');
   var net = document.getElementById('net');
   var web = document.getElementById('web');
+  var magick = document.getElementById('magick');
+  var magickStory = document.getElementById('magickStory');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
   var model = document.getElementById('model');
@@ -920,7 +1011,8 @@ fotográfica</button>
   var lapi = document.getElementById('lapi');
   var logo3d = document.getElementById('logo3d');
   var compu = document.getElementById('compu');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [album, 's'], [story, 's'], [photoStory, 's']];
+  var vela = document.getElementById('vela');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [magick, 7], [album, 's'], [story, 's'], [photoStory, 's'], [magickStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
@@ -968,11 +1060,12 @@ fotográfica</button>
     if (v >= 3) loadGlb(lapi, 'LAPI_EXP.glb');
     if (v >= 4) loadGlb(logo3d, 'LOGO_COMP.glb');
     if (v >= 5) loadGlb(compu, 'COMPU_VIEJA.glb');
+    if (v >= 6) loadGlb(vela, 'VELA.glb');
     if (v === 4) loadWrite();
     // diseño web: el iframe se carga al entrar
     if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
   }
-  var LAST = 6;                                      // última pantalla
+  var LAST = 7;                                      // última pantalla
   function step(dir){ if (!subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
@@ -984,6 +1077,7 @@ fotográfica</button>
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
   document.getElementById('toNet').addEventListener('click', function(){ go(5); });
   document.getElementById('toWeb').addEventListener('click', function(){ go(6); });
+  document.getElementById('toMagick').addEventListener('click', function(){ go(7); });
   // flechas de diseño web: la de abajo queda apagada mientras sea la última pantalla
   document.getElementById('webUp').addEventListener('click', function(){ step(-1); });
   var webDown = document.getElementById('webDown');
@@ -1120,7 +1214,7 @@ fotográfica</button>
       }
     };
   }
-  var CAROUSELS = new Map([[story, makeCarousel(story)], [photoStory, makeCarousel(photoStory)]]);
+  var CAROUSELS = new Map([[story, makeCarousel(story)], [photoStory, makeCarousel(photoStory)], [magickStory, makeCarousel(magickStory)]]);
   // avanza solo hacia la izquierda, salvo mientras se lee un texto
   setInterval(function(){
     var car = subOpen && CAROUSELS.get(sub);
@@ -1128,13 +1222,14 @@ fotográfica</button>
     car.move(1);
   }, 6500);
   function openStory(sec, btn){
-    opener = btn; sub = sec; home = sec === photoStory ? 3 : 2; last = -1;
+    opener = btn; sub = sec; home = sec === photoStory ? 3 : sec === magickStory ? 7 : 2; last = -1;
     CAROUSELS.get(sec).load();
     go(home + 1, true);
     sec.querySelector('.back').focus({preventScroll:true});
   }
   document.getElementById('toStory').addEventListener('click', function(){ openStory(story, this); });
   document.getElementById('toPhotoStory').addEventListener('click', function(){ openStory(photoStory, this); });
+  document.getElementById('toMagickStory').addEventListener('click', function(){ openStory(magickStory, this); });
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
   // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)

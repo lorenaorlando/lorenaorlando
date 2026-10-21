@@ -38,11 +38,12 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Pantalla 3 (música).** Collage de portadas en la posición del mockup (en móvil, cuadrícula 3×3), con el órgano 3D al centro (se carga al salir de la pantalla 1). Al hover sale un LP de la portada y aparece el nombre del disco. Los datos de cada disco están en el arreglo `ALBUMS` del JS.
 - **Ficha del disco.** Click/tap en una portada abre la ficha (subpantalla de música, solo por click): portada con LP, título, `tipo | género | fecha`, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe. Si el disco tiene `video`, el embed de YouTube reemplaza a la portada. En los créditos, una línea que empieza con `## ` es un subtítulo. `links:'soon'` deja los botones de plataformas como pendientes.
 - **Otros proyectos & arte sonoro.** Click en ese texto de la pantalla 3: los discos salen volando y entran las portadas de `PROJECTS` (izquierda) y los videos de `ONIRIAS` (derecha, bajo "onirias: piezas radiofónicas"). El mismo texto pasa a "← mis discos" para volver. Los videos se cargan solo la primera vez que se entra.
-- **Fotografía.** Pantalla siguiente a música (con scroll o click en "fotografía"). A la izquierda, collage de fotos de `assets/portfolio/` (arreglo `PHOTOS` del JS, con posición de escritorio y de móvil) que llegan volando desde la izquierda cada vez que se entra y hacen un ligero tilt que sigue al mouse. Las fotos y "portafolio" llevan a https://lorlando.framer.website/art. En el centro exacto de la pantalla el Zenit 3D con el título "fotografía". A la derecha el recorte de INDIVIRTUAL (`INDIVIRTUAL_CUT.webp`) con "indivirtual (expo 3D)", que lleva a la expo en oncyber. "lee mi historia fotográfica" abre su propia "mi historia" (cámaras: Zenit y Fujifilm).
+- **Fotografía.** Pantalla siguiente a música (con scroll o click en "fotografía"). A la izquierda, collage de fotos de `assets/portfolio/` (arreglo `PHOTOS` del JS, con posición de escritorio y de móvil) que llegan volando desde la izquierda cada vez que se entra y hacen un ligero tilt que sigue al mouse. Las fotos y "portafolio" llevan a https://lorlando.framer.website/art. En el centro exacto de la pantalla el Zenit 3D con el título "fotografía". A la derecha el recorte de INDIVIRTUAL (`INDIVIRTUAL_CUT.webp`) con "indivirtual (expo 3D)", que lleva a la expo en oncyber. "lee mi historia fotográfica" abre su propia "mi historia" (cámaras: Zenit y Fujifilm). "lee mi historia esotérica" abre la de magick (tarot y vela, por ahora con lorem ipsum).
 - **Escritura.** Pantalla siguiente a fotografía (con scroll o click en "escritura"). En español: a la izquierda el feed de Supascribe (3 posts) dibujado a 520px y escalado desde JS (`fitFeed`) para que quepa completo, sin scroll propio y sin heredar el letter-spacing del sitio; en el centro el LAPI 3D con el título "escritura"; a la derecha la imagen del e-zine (`SOLO.png`) en retrato, que abre el poema de mmm.page en otra pestaña (mmm.page no permite meterlo en un iframe). En inglés solo un iframe de https://lorenalandia.fun que ocupa el 80% de la pantalla. El iframe y el script de Supascribe se cargan al entrar, solo los del idioma activo. Al salir de un iframe, la inercia de la rueda no cambia de pantalla.
 - **Netart.** Pantalla siguiente a escritura (con scroll o click en "net art & 3d"). En el centro el LOGO_COMP 3D con el título "netart"; alrededor, como en el mockup, cuatro imágenes recortadas con su etiqueta que abren su sitio en otra pestaña: "deardiary.png" (`DIGITAL_IMAGE_WEB.png`, https://lorenaorlando.hotglue.me) arriba a la izquierda, "funscroll" (`FUNSCROLL_WEB.png`, https://funscroll.life) arriba a la derecha, "indivirtual (expo 3D)" (`INDIVIRTUAL_CUT.webp`, la expo en oncyber) abajo a la izquierda y "lorenalandia (mundo 3D)" (`LORENALANDIA_3D_WEB.png`, https://newart.city/show/lorenalandia) abajo a la derecha. En móvil, el 3D arriba y las imágenes en cuadrícula 2×2.
-- **Diseño web.** Pantalla siguiente a netart (con scroll o click en "diseño web"). Un iframe de https://lorenaorlando.click que ocupa el 80% de la pantalla (se carga al entrar), flechas arriba y abajo para ir a la pantalla anterior/siguiente (la de abajo queda apagada mientras sea la última) y, en la esquina superior derecha, el COMPU_VIEJA 3D girando con el título "diseño" inclinado.
-- **Subpantallas.** La ficha del disco y las dos "mi historia" solo se abren con click, van una más abajo de la pantalla de donde salen y "← volver"/Escape regresan ahí.
+- **Diseño web.** Pantalla siguiente a netart (con scroll o click en "diseño web"). Un iframe de https://lorenaorlando.click que ocupa el 80% de la pantalla (se carga al entrar), flechas arriba y abajo para ir a la pantalla anterior/siguiente (la de abajo se apaga sola si es la última) y, en la esquina superior derecha, el COMPU_VIEJA 3D girando con el título "diseño" inclinado.
+- **Magick.** Pantalla siguiente a diseño web (con scroll, con la flecha de abajo de diseño web o click en "magick"); es la última. Según el mockup: a la izquierda "Pragmagicka" y un panel de texto (por ahora lorem ipsum de 3 párrafos); en el centro el VELA 3D con el título "magick" y arriba "lee mi historia esotérica"; a la derecha las pantallas de la app con su etiqueta. En español `PRAGMAGICKAPP.png` (https://pragmagick.app/) y `AMIGAH.png` (https://pragmagick.app/amigah); en inglés solo `PRAG_ENG.png` (https://pragmagick.app/). En móvil, el 3D arriba, las imágenes al medio y el texto abajo.
+- **Subpantallas.** La ficha del disco y las tres "mi historia" solo se abren con click, van una más abajo de la pantalla de donde salen y "← volver"/Escape regresan ahí.
 - **Mi historia.** "lee mi historia en la música" abre esta pantalla (subpantalla de música, como la ficha). Carrusel de instrumentos 3D del mismo tamaño que el órgano (Funmachine, guitarra, groovebox) que avanza solo hacia la izquierda y con flechas (también ← → del teclado y deslizar en móvil); se pausa mientras se lee un texto. Al hover (tap en móvil) cada 3D muestra su texto en un recuadro oscuro. A los lados, dos textos inclinados (por ahora lorem ipsum).
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
 - **Pantallas ocultas.** Llevan `inert` para que no se puedan enfocar.
@@ -82,13 +83,13 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | `GUITAR_EXP.glb` | Guitarra Fender Squier rosada | Carrusel de mi historia |
 | `GROOVEBOX.glb` | Groovebox | Carrusel de mi historia |
 | `BATERIA_TRIP.glb` | Batería | Sin usar todavía |
-| `VELA.glb` | Vela | Sin usar todavía |
+| `VELA.glb` | Vela | Pantalla de magick y carrusel de mi historia esotérica |
 | `ZENIT.glb` | Cámara Zenit (fotografía) | Pantalla de fotografía y carrusel de mi historia fotográfica |
 | `FUJI_EXP.glb` | Cámara instantánea Fujifilm | Carrusel de mi historia fotográfica |
 | `LAPI_EXP.glb` | Escritura | Pantalla de escritura (solo en español) |
 | `LOGO_COMP.glb` | Net art & 3d | Pantalla de netart |
 | `COMPU_VIEJA.glb` | Diseño web | Pantalla de diseño web |
-| `TAROT_EXP.glb` | Magick / tarot | Sin usar todavía |
+| `TAROT_EXP.glb` | Magick / tarot | Carrusel de mi historia esotérica |
 
 ### Portadas de discos (pantalla 3 y ficha del disco)
 
@@ -127,9 +128,13 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 - `SOLO.png`: portada del e-zine *solo escribí ese poema para probar mi impresora*; pantalla de escritura (español).
 
+### Magick
+
+- `PRAGMAGICKAPP.png`: pantalla de pragmagick.app (español). `PRAG_ENG.png`: la misma en inglés. `AMIGAH.png`: AMIGAAAAAH, oráculo de stickers (solo en español).
+
 ### Imágenes sin usar todavía
 
-- `RADIO.png`, `REINO.png`.
+- `RADIO.png`, `REINO.png`, `DFOS.png`, `SUBLIME.png`.
 
 ### Nubes
 
