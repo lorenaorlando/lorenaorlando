@@ -18,7 +18,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;overflow:hidden;background:var(--fondo);overscroll-behavior:none}
   body{font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
-  .stage{position:fixed;inset:0;overflow:hidden;background:var(--fondo);touch-action:none}
+  .stage{position:fixed;inset:0;overflow:hidden;overflow:clip;background:var(--fondo);touch-action:none}
   .layer{position:absolute;inset:0;will-change:transform;pointer-events:none}
 
   /* Nubes de fondo: fijas */
@@ -47,9 +47,71 @@
   .titles{position:absolute;top:0;bottom:0;left:46vw;right:3vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4vh}
   .word{pointer-events:auto;cursor:default;font-family:var(--display);font-size:7vw;line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
   .word:hover{animation:pulse .9s ease-in-out infinite}
+  button.word{background:none;border:0;padding:0;color:inherit;font-weight:400;cursor:pointer}
+  button.word:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   @keyframes pulse{0%,100%{scale:1}50%{scale:1.09}}
   @media (prefers-reduced-motion:reduce){#clouds img,.word:hover{animation:none}}
   .w1{rotate:-3deg}.w2{rotate:1.5deg}.w3{rotate:-2deg}.w4{rotate:2.5deg}.w5{rotate:-1.5deg}.w6{rotate:2deg}
+
+  /* SECCIÓN 3: MÚSICA */
+  .music{z-index:3;transform-origin:50% 0}
+  .music .t{position:absolute;text-align:center;line-height:.95;white-space:pre-line;text-shadow:var(--shadow-sm);transform:translate(-50%,-50%)}
+  .historia{left:42.5vw;top:19vh;font-size:3.4vw;rotate:6deg}
+  .otros{left:49.5vw;top:70vh;font-size:2.7vw;rotate:-7deg}
+  .escucha{left:47.7vw;top:80.6vh;font-size:2.5vw}
+  .organ{position:absolute;left:47.4vw;top:43vh;width:24vw;height:46vh;transform:translate(-50%,-50%)}
+  .music .mtitle{left:48vw;top:46vh;font-family:var(--display);font-weight:400;font-size:7vw;line-height:1;letter-spacing:.02em;rotate:-7deg;text-shadow:var(--shadow)}
+
+  /* Portadas: centro (--x vw, --y vh), lado (--s), giro (--r); --dir = hacia dónde sale el LP */
+  .discs{position:absolute;inset:0}
+  .disc{all:unset;box-sizing:border-box;position:absolute;--u:min(1vw,1.78vh);width:calc(var(--s) * var(--u));aspect-ratio:1;left:calc(var(--x) * 1vw - var(--s) * var(--u) / 2);top:calc(var(--y) * 1vh - var(--s) * var(--u) / 2);rotate:var(--r);z-index:var(--z);pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .disc:hover,.disc:focus-visible{z-index:30}
+  .disc:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
+  .disc:hover .lp,.disc:focus-visible .lp{translate:calc(var(--dir) * 46%) 0;animation-play-state:running}
+  .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:1.5vw;line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
+  .disc:hover .name,.disc:focus-visible .name{opacity:1;transform:none}
+
+  /* LP: surcos + etiqueta con la portada */
+  .lp{position:absolute;inset:4%;border-radius:50%;background:conic-gradient(from 20deg,transparent,rgba(255,255,255,.13) 8%,transparent 18%,transparent 50%,rgba(255,255,255,.13) 58%,transparent 68%),repeating-radial-gradient(circle,#141414 0 2px,#262626 2.5px,#141414 3.5px);box-shadow:0 0 1vw rgba(0,0,0,.35);transition:translate .7s cubic-bezier(.2,.8,.2,1);animation:spin 3.2s linear infinite paused}
+  .lp i{position:absolute;inset:33%;border-radius:50%;background:center/cover var(--morado)}
+  .lp i::after{content:"";position:absolute;inset:44%;border-radius:50%;background:var(--fondo)}
+  @keyframes spin{to{rotate:360deg}}
+
+  .listen{position:absolute;left:47.7vw;top:88.8vh;transform:translate(-50%,-50%);width:17vw;height:8.7vh;display:flex;align-items:center;justify-content:space-evenly;background:var(--mostaza);border-radius:.5vw;box-shadow:.25vw .35vw .7vw rgba(54,1,133,.5);pointer-events:auto}
+  .listen a{display:block;width:2.6vw;height:2.6vw;color:var(--morado);--i2:var(--mostaza);transition:scale .2s,color .2s}
+  .listen a:hover,.listen a:focus-visible{color:var(--magenta);scale:1.15;outline:none}
+  .listen svg,.pf svg{display:block;width:100%;height:100%}
+
+  /* FICHA DEL DISCO */
+  .album{z-index:5;transform-origin:50% 0}
+  .back{all:unset;position:absolute;left:3vw;top:4vh;z-index:2;font-size:2vw;line-height:1;cursor:pointer;pointer-events:auto;text-shadow:var(--shadow-sm);transition:color .2s}
+  .back:hover{color:var(--mostaza)}
+  .back:focus-visible,.pf:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
+  .album-in{position:absolute;inset:0;display:flex;align-items:center;gap:14vw;padding:5vh 6vw 5vh 7vw}
+  .album-art{position:relative;flex:none;width:min(34vw,64vh);aspect-ratio:1}
+  .album-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;box-shadow:.4vw .6vw 1.6vw rgba(54,1,133,.5)}
+  .album-art .lp{transition:translate 1s cubic-bezier(.2,.8,.2,1);animation:spin 6s linear infinite}
+  .album.open .album-art .lp{translate:32% 0}
+  .album-info{flex:1 1 auto;min-width:0;max-height:90vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:1vh 1.5vw 1vh 0;scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
+  .album-title{font-family:var(--display);font-weight:400;font-size:4.8vw;line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:var(--shadow)}
+  .album-title.long{font-size:3.1vw}
+  .album-meta{margin-top:1.4vh;font-size:2.2vw;line-height:1.1;text-shadow:var(--shadow-sm)}
+  .album-meta b{font-weight:400;color:var(--mostaza)}
+  .album-text{margin-top:2.4vh}
+  .album-text p,.album-credits p{font-size:1.45vw;line-height:1.3;text-shadow:var(--shadow-sm)}
+  .album-text p+p{margin-top:1.2vh}
+  .album-text a,.album-credits a{color:var(--mostaza);pointer-events:auto}
+  .album-credits{margin-top:2.6vh}
+  .album-credits p{font-size:1.25vw;opacity:.92}
+  .album-credits p+p{margin-top:.4vh}
+  .album-credits .lbl{font-size:2.2vw;line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
+  .listen-lbl{margin-top:3.2vh;font-size:2.8vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .platforms{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1vw;max-width:31vw;margin-top:1.6vh}
+  .pf{display:flex;align-items:center;gap:.8vw;padding:.65vw 1.2vw .65vw .7vw;background:var(--mostaza);color:var(--morado);--i2:var(--mostaza);border-radius:999px;text-decoration:none;font-size:1.55vw;line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
+  .pf svg{flex:none;width:2.3vw;height:2.3vw}
+  .pf:hover,.pf:focus-visible{background:var(--crema);--i2:var(--crema);translate:0 -.2vw}
+  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
@@ -62,10 +124,39 @@
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
+    .historia{left:50vw;top:5vh;font-size:5.5vw;rotate:3deg}
+    .organ{left:50vw;top:19vh;width:62vw;height:24vh}
+    .music .mtitle{left:50vw;top:23vh;font-size:17vw}
+    .otros{left:50vw;top:34.5vh;font-size:4.6vw;rotate:-3deg}
+    .discs{inset:auto 0;top:39.5vh;display:grid;grid-template-columns:repeat(3,min(27vw,13.3vh));gap:min(3vw,1.6vh);justify-content:center}
+    .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
+    .name{font-size:3.4vw}
+    .escucha{left:50vw;top:84vh;font-size:4.8vw}
+    .listen{left:50vw;top:91vh;width:62vw;height:7.5vh;border-radius:1.5vw}
+    .listen a{width:8vw;height:8vw}
+    .back{left:5vw;top:2.5vh;font-size:5.5vw;padding:.2em .6em .3em;background:var(--morado);border-radius:999px}
+    .album-in{display:block;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:11vh 7vw 7vh}
+    .album-art{width:min(62vw,40vh);margin:0 0 4vh 4vw}
+    .album-info{max-height:none;overflow:visible;padding:0}
+    .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
+    .album-meta{font-size:5vw}
+    .album-text p{font-size:4.4vw}
+    .album-credits p{font-size:4vw}
+    .album-credits .lbl{font-size:5vw}
+    .listen-lbl{margin-top:4vh;font-size:6.5vw}
+    .platforms{max-width:none;gap:2.5vw;margin-top:2vh}
+    .pf{gap:2vw;padding:2vw 3vw 2vw 2vw;font-size:4.4vw}
+    .pf svg{width:6.5vw;height:6.5vw}
   }
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M6.4 9.3c3.6-1.2 8-.9 11.4 1M7.1 12.7c3-.9 6.6-.6 9.3 1M7.9 15.9c2.4-.6 4.9-.4 7 .8" fill="none" stroke-width="1.9" stroke-linecap="round" style="stroke:var(--i2,#F4B342)"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="currentColor"/><g style="fill:var(--i2,#F4B342)"><path d="M9.6 7.2 17.6 5.6V8L9.6 9.6z"/><rect x="9.6" y="7.4" width="1.6" height="9.4"/><rect x="16" y="5.8" width="1.6" height="9.4"/><ellipse cx="8.6" cy="16.9" rx="2.6" ry="2.1"/><ellipse cx="15" cy="15.3" rx="2.6" ry="2.1"/></g></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><circle cx="12" cy="12" r="6.6" fill="none" stroke-width="1.6" style="stroke:var(--i2,#F4B342)"/><path d="M10.3 9 15.2 12l-4.9 3z" style="fill:var(--i2,#F4B342)"/></symbol>
+  <symbol id="i-bandcamp" viewBox="0 0 24 24"><path d="M0 18.5 7.2 5.5H24l-7.2 13z" fill="currentColor"/></symbol>
+</svg>
 <div class="stage" id="stage">
 
   <div id="clouds" aria-hidden="true"></div>
@@ -109,7 +200,7 @@
 
   <div class="layer about" id="about">
     <div class="titles">
-      <div class="word w1"><span data-es="música" data-en="music">música</span></div>
+      <button type="button" class="word w1" id="toMusic"><span data-es="música" data-en="music">música</span></button>
       <div class="word w2"><span data-es="fotografía" data-en="photography">fotografía</span></div>
       <div class="word w3"><span data-es="escritura" data-en="writing">escritura</span></div>
       <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></div>
@@ -117,6 +208,42 @@
       <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
     </div>
   </div>
+
+  <div class="layer music" id="music">
+    <p class="t historia" data-es="lee mi historia en&#10;la música" data-en="read my story&#10;in music">lee mi historia en
+la música</p>
+    <div class="organ" aria-hidden="true">
+      <model-viewer id="organ" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="t mtitle" data-es="música" data-en="music">música</h2>
+    <p class="t otros" data-es="otros proyectos &amp;&#10;arte sonoro" data-en="other projects &amp;&#10;sound art">otros proyectos &amp;
+arte sonoro</p>
+    <div class="discs" id="discs"></div>
+    <p class="t escucha" data-es="escucha mi música" data-en="listen to my music">escucha mi música</p>
+    <nav class="listen" aria-label="Escucha mi música">
+      <a href="https://open.spotify.com/album/570ltXLQD0sWl6KDo4ZKvr" target="_blank" rel="noopener" aria-label="Spotify"><svg><use href="#i-spotify"/></svg></a>
+      <a href="https://music.apple.com/us/album/as%C3%AD-que-no-era-una-pesadilla-sigo-viviendo-aqu%C3%AD-ep/1894703130" target="_blank" rel="noopener" aria-label="Apple Music"><svg><use href="#i-apple"/></svg></a>
+      <a href="https://www.youtube.com/watch?v=WmNj2rHnI-A&amp;list=OLAK5uy_kE0-skdxuSbU4Yrt0Kt2LJVluZDimJmPk" target="_blank" rel="noopener" aria-label="YouTube Music"><svg><use href="#i-youtube"/></svg></a>
+      <a href="https://lorenaorlando.bandcamp.com/" target="_blank" rel="noopener" aria-label="Bandcamp"><svg><use href="#i-bandcamp"/></svg></a>
+    </nav>
+  </div>
+
+  <section class="layer album" id="album" aria-labelledby="albumTitle">
+    <button type="button" class="back" id="back" data-es="← volver" data-en="← back">← volver</button>
+    <div class="album-in">
+      <div class="album-art"><span class="lp"><i id="albumLabel"></i></span><img id="albumImg" alt=""></div>
+      <div class="album-info">
+        <h2 class="album-title" id="albumTitle"></h2>
+        <p class="album-meta" id="albumMeta"></p>
+        <div class="album-text" id="albumText"></div>
+        <div class="album-credits" id="albumCredits"></div>
+        <p class="listen-lbl" data-es="escucha en:" data-en="listen on:">escucha en:</p>
+        <ul class="platforms" id="albumLinks"></ul>
+      </div>
+    </div>
+  </section>
 
   <p id="status" hidden></p>
 
@@ -176,27 +303,186 @@
     }
   }
 
-  /* ---------- ANIMACIÓN ---------- */
+  /* ---------- DISCOS ----------
+     En el orden y posición del mockup. x/y = centro (vw/vh), s = lado, r = giro,
+     z = quién va encima, dir = hacia dónde sale el LP (1 derecha, -1 izquierda). */
+  var CR_LO = {es:'Portada por Lorena Orlando.', en:'Cover by Lorena Orlando.'};
+  var ALBUMS = [
+    { f:'ASI_QUE_MIN.jpg', title:'Así que no era una pesadilla, sigo viviendo aquí', type:'ep',
+      pos:[12.5,18,21.4,'4deg',2,1],
+      links:{spotify:'https://open.spotify.com/album/570ltXLQD0sWl6KDo4ZKvr',
+        apple:'https://music.apple.com/us/album/as%C3%AD-que-no-era-una-pesadilla-sigo-viviendo-aqu%C3%AD-ep/1894703130',
+        youtube:'https://www.youtube.com/watch?v=WmNj2rHnI-A&list=OLAK5uy_kE0-skdxuSbU4Yrt0Kt2LJVluZDimJmPk',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/as-que-no-era-una-pesadilla-sigo-viviendo-aqu'},
+      info:{es:['Este es un EP que tenía engavetado desde el 2024. Su núcleo nació como una catarsis de todos mis trastornos y emociones post-electorales, luego agregué dos temas más hechos ambos en diciembre, uno en 2024 y luego en 2025. Aunque no lo planeé así desde un principio, su camino encaja en las 5 etapas del duelo y ese es el concepto que le da cierta estructura narrativa.',
+                'El nombre le hace honor a una frase de Mariano Delgado, metrosexual y pensador.'],
+            en:['This is an EP I had shelved since 2024. Its core was born as a catharsis of all my post-election disorders and emotions; later I added two more tracks, both made in December, one in 2024 and the other in 2025. Although I didn’t plan it that way from the start, its path fits the 5 stages of grief, and that is the concept that gives it a certain narrative structure.',
+                'The name pays tribute to a phrase by Mariano Delgado, metrosexual and thinker.']},
+      credits:{es:['Compuesto, grabado, producido, mezclado y masterizado por Lorena Orlando en Lorenalandia.', CR_LO.es],
+               en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
+
+    { f:'HACER_MUSICA.jpg', title:'Hacer música es hacer magia', type:'ep', date:[3,6,2024],
+      pos:[10.7,51.4,21,'-1deg',1,1],
+      links:{spotify:'https://open.spotify.com/album/2dOmD7xxDuoAWF5jkXrPY4',
+        apple:'https://music.apple.com/us/album/hacer-m%C3%BAsica-es-hacer-magia-ep/1741092774',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mfQ9VeYtHv_fRYw6FHrQqB07KaOS5j8vk',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/hacer-m-sica-es-hacer-magia-ep'},
+      credits:{es:['Compuesto, grabado, producido, mezclado y masterizado por Lorena Orlando en Lorenalandia.', CR_LO.es],
+               en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
+
+    { f:'MUNDOS_DE_VIDA.jpg', title:'Mundos de vida', type:'album', date:[24,12,2022],
+      pos:[27.6,51.4,21,'16deg',4,1],
+      links:{spotify:'https://open.spotify.com/album/1PLdVwubMQexWbIC6yXZD5',
+        apple:'https://music.apple.com/us/album/mundos-de-vida-hilandera/1779136195',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_n6QuAP11n40Qn8FskLqxLUXljOISLYDT8',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/mundos-de-vida-hilandera'},
+      info:{es:['Mundos de vida es un disco conceptual basado en una tirada del tarot llamada El Yo Realizado.',
+                'Si quieren saber más sobre el concepto del disco, <a href="https://www.youtube.com/watch?v=b0kkTuNUb2s" target="_blank" rel="noopener">vean esto</a>.'],
+            en:['Mundos de vida is a concept album based on a tarot spread called The Realized Self.',
+                'If you want to know more about the concept behind the album, <a href="https://www.youtube.com/watch?v=b0kkTuNUb2s" target="_blank" rel="noopener">watch this</a>.']},
+      credits:{es:['Grabado, producido y mezclado por Lorena Orlando en Cariaquito Morao Record (su casa).',
+                   'Gracias (cometa I), La Emperatriz (el secreto) y Sagitariana (la vía media) masterizadas por Jorge Galindo (<a href="https://moriraslejosoficial.bandcamp.com/" target="_blank" rel="noopener">Morirás Lejos</a>).',
+                   'Se hace magia (mediador) y Sé lo que quiero (asteroide I) masterizadas por Lorena Orlando.',
+                   'El resto masterizado con una inteligencia artificial porque estamos en el futuro.', CR_LO.es],
+               en:['Recorded, produced and mixed by Lorena Orlando at Cariaquito Morao Record (her home).',
+                   'Gracias (cometa I), La Emperatriz (el secreto) and Sagitariana (la vía media) mastered by Jorge Galindo (<a href="https://moriraslejosoficial.bandcamp.com/" target="_blank" rel="noopener">Morirás Lejos</a>).',
+                   'Se hace magia (mediador) and Sé lo que quiero (asteroide I) mastered by Lorena Orlando.',
+                   'The rest mastered by an artificial intelligence, because we live in the future.', CR_LO.en]} },
+
+    { f:'MUSIQUIATRIA22.jpg', title:'Musiquiatría 22 EP', type:'ep', date:[17,7,2020],
+      pos:[14.3,81.5,22,'-12deg',3,1],
+      links:{spotify:'https://open.spotify.com/album/2SEQ4rdRtpYhpJ7xCowF0h',
+        apple:'https://music.apple.com/us/album/musiquiatr%C3%ADa-22-hilandera-ep/1779986087',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_n8SIMt9Mylyw59zKpMstIDBQEvDDEfazU',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/musiquiatr-a-22-hilandera'},
+      info:{es:['Musiquiatría 22 EP es un delirio de cuarentena compuesto en total desorden.'],
+            en:['Musiquiatría 22 EP is a quarantine delirium composed in total disorder.']},
+      credits:{es:['Compuesto, grabado, producido, ¿mezclado y masterizado? por Lorena Orlando en Cariaquito Records, su casa.', CR_LO.es],
+               en:['Composed, recorded, produced, mixed and mastered(?) by Lorena Orlando at Cariaquito Records, her home.', CR_LO.en]} },
+
+    // OJO: los links que llegaron de Prima Materia eran los de "Hacer música es hacer magia";
+    // mientras tanto apuntan a la búsqueda en cada plataforma.
+    { f:'PRIMA_MATERIA.jpg', title:'Prima Materia EP', type:'ep', date:[26,4,2018],
+      pos:[66.4,17.6,20.4,'-18deg',1,-1],
+      links:{spotify:'https://open.spotify.com/search/Prima%20Materia%20Hilandera',
+        apple:'https://music.apple.com/us/search?term=Prima%20Materia%20Hilandera',
+        youtube:'https://music.youtube.com/search?q=Prima%20Materia%20Hilandera',
+        bandcamp:'https://lorenaorlando.bandcamp.com/'},
+      credits:{es:['Compuesto, producido y grabado por Lorena Orlando en Cariaquito Morao Records.', 'Mezclado y masterizado por Erly J. Ruiz.', 'Portada por José Ramirez Guaigua.'],
+               en:['Composed, produced and recorded by Lorena Orlando at Cariaquito Morao Records.', 'Mixed and mastered by Erly J. Ruiz.', 'Cover by José Ramirez Guaigua.']} },
+
+    { f:'SIN_MIEDOS.jpg', title:'Sin miedos y sin esperanzas', type:'album', date:[20,5,2015],
+      pos:[88.5,20.8,20.8,'7deg',2,-1],
+      links:{spotify:'https://open.spotify.com/album/5rS5QelSQtNoYuV1BIE52J',
+        apple:'https://music.apple.com/us/album/sin-miedos-y-sin-esperanzas-loocila/1779047421',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_l2AV_Kfdg6ud7K4uBQnHQKxdLCpztiw7U',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/sin-miedos-y-sin-esperanzas-loocila'},
+      credits:{es:['Grabado y producido por Raúl Sanabria en Cholula Records.',
+                   'Mezclado por Raúl Sanabria y Erly J. Ruiz en Cholula Records y Pin y Punk estudios.',
+                   'Masterizado por Erly J. Ruiz en Pin y Punk estudios.',
+                   'Letra y música de todos los temas compuesta por Lorena Orlando (excepto guitarra en “Momento”, compuesta por Raúl Sanabria y “Naked Eye” compuesta por Luscious Jackson).',
+                   'Portada por Erick Achang.'],
+               en:['Recorded and produced by Raúl Sanabria at Cholula Records.',
+                   'Mixed by Raúl Sanabria and Erly J. Ruiz at Cholula Records and Pin y Punk estudios.',
+                   'Mastered by Erly J. Ruiz at Pin y Punk estudios.',
+                   'Lyrics and music for every track by Lorena Orlando (except the guitar on “Momento”, by Raúl Sanabria, and “Naked Eye”, by Luscious Jackson).',
+                   'Cover by Erick Achang.']} },
+
+    { f:'COCLEA.jpg', title:'Coclea', type:'album', date:[14,10,2013],
+      pos:[81,46.8,22.4,'0deg',1,-1],
+      links:{spotify:'https://open.spotify.com/album/5jgsjSn3p1LmHOwaJddbeS',
+        apple:'https://music.apple.com/us/album/coclea-loocila/1779028568',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_nEWJ1yaJPLQ_CtltBoxWNPOMV_sD1md3Y',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/coclea-loocila'},
+      credits:{es:['Todas las canciones escritas y grabadas por Lorena Orlando (“Hoy” con colaboración de Las Acevedo).',
+                   'Grabado, mezclado y masterizado en Cholula por Raúl Sanabria.',
+                   'Producido por Raúl Sanabria y Lorena Orlando.', CR_LO.es],
+               en:['All songs written and recorded by Lorena Orlando (“Hoy” in collaboration with Las Acevedo).',
+                   'Recorded, mixed and mastered at Cholula by Raúl Sanabria.',
+                   'Produced by Raúl Sanabria and Lorena Orlando.', CR_LO.en]} },
+
+    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', type:'ep', date:[4,6,2016],
+      pos:[69.8,81.5,21.9,'-2deg',2,-1],
+      links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
+        apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mPTaR2OiwzD-gdWoT4pmPwKV0iZCsQ9iM',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/nuevas-tendencias-loocila'},
+      credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
+               en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
+
+    { f:'ROSLER.jpg', title:'Rösler', type:'comp', date:[0,0,2003],
+      pos:[91.4,78.7,22,'11deg',3,-1],
+      links:{spotify:'https://open.spotify.com/album/60jaD87uowfwdhvygoBc29',
+        apple:'https://music.apple.com/us/album/r%C3%B6sler-loocila/1779081975',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_nCrCjg3w1_vFiaC83qlzZwM29FJ8-jfGQ',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/r-sler-loocila'},
+      info:{es:['Recopilación de mis primeras grabaciones hechas rústicamente con micrófonos de computadora o mp3 con grabador. Grabaciones aproximadamente del 2003 al 2005.',
+                'El nombre Rösler se refiere a la marca del piano que tenía en esa época, donde por primera vez, me atreví a componer.',
+                'En aquella época sentía una gran timidez cantando en español, y me escudaba bajo el idioma inglés porque era el más cercano a la música que más conocía y estaba acostumbrada a escuchar, mi diccionario musical estaba basado en palabras en inglés, tiempo después, en el 2007, con jóvenes y sexys, agarré el cauce de escribir en español.'],
+            en:['A compilation of my very first recordings, made rustically with computer microphones or an mp3 player with a recorder. Recorded roughly between 2003 and 2005.',
+                'The name Rösler comes from the brand of the piano I had back then, the one where I dared to compose for the first time.',
+                'Back then I felt very shy singing in Spanish, and I hid behind English because it was the closest to the music I knew best and was used to listening to; my musical dictionary was built on English words. Later, in 2007, with jóvenes y sexys, I found my way into writing in Spanish.']},
+      credits:{es:['Todas las canciones compuestas y grabadas por Lorena Orlando.', CR_LO.es],
+               en:['All songs written and recorded by Lorena Orlando.', CR_LO.en]} }
+  ];
+  var TYPES = {album:{es:'álbum',en:'album'}, ep:{es:'EP',en:'EP'}, comp:{es:'recopilación',en:'compilation'}};
+  var MONTHS = {es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+                en:['January','February','March','April','May','June','July','August','September','October','November','December']};
+  var PLATFORMS = [['spotify','Spotify'],['apple','Apple Music'],['youtube','YouTube Music'],['bandcamp','Bandcamp']];
+
+  function coverImg(img, f, onload){
+    img.onerror = function(){ img.onerror = null; img.src = REMOTE + f; };   // sin copia local → hosting
+    if (onload) img.addEventListener('load', onload);
+    img.src = LOCAL + f;
+  }
+  var discsWrap = document.getElementById('discs');
+  ALBUMS.forEach(function(al, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'disc'; b.setAttribute('aria-label', al.title);
+    var p = al.pos;
+    b.style.cssText = '--x:' + p[0] + ';--y:' + p[1] + ';--s:' + p[2] + ';--r:' + p[3] + ';--z:' + p[4] + ';--dir:' + p[5];
+    b.innerHTML = '<span class="lp"><i></i></span><img alt=""><span class="name"></span>';
+    b.querySelector('.name').textContent = al.title;
+    var img = b.querySelector('img'), label = b.querySelector('.lp i');
+    coverImg(img, al.f, function(){ label.style.backgroundImage = 'url("' + img.src + '")'; });
+    b.addEventListener('click', function(){ openAlbum(i, b); });
+    discsWrap.appendChild(b);
+  });
+
+  /* ---------- ANIMACIÓN ----------
+     Pantallas: 0 hola, 1 lista, 2 música, 3 ficha de un disco (solo se llega con click). */
   var hero = document.getElementById('hero');
   var title = document.getElementById('heroTitle');
   var about = document.getElementById('about');
+  var music = document.getElementById('music');
+  var album = document.getElementById('album');
   var model = document.getElementById('model');
+  var organ = document.getElementById('organ');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [album, 3]];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var target = 0, current = 0, from = 0, t0 = 0;
+  var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
   var SCALE_END = 0.65, SHIFT_X = -27, SHIFT_Y = 2;
 
   function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
+  function clamp01(v){ return Math.max(0, Math.min(1, v)); }
+  // ruleta: lo que entra viene de abajo girado; lo que sale sube y gira
+  function place(d){
+    if (d <= -1) return [112, 5];                    // 112 y no 100: con el giro, la esquina izquierda asomaría
+    if (d < 0) { var e = ease(1 + d); return [(1 - e) * 112, (1 - e) * 5]; }
+    if (d < 1) { var e2 = ease(d); return [-e2 * 115, -e2 * 5]; }
+    return [-115, -5];
+  }
   function render(p){
-    var e = ease(p);
-    var up = -e * 115, rot = -e * 5;                 // los textos suben y giran un poco, como en una rueda
-    hero.style.transform  = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
-    title.style.transform = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
-    about.style.transform = 'translateY(' + ((1 - e) * 100) + 'vh) rotate(' + ((1 - e) * 5) + 'deg)';
+    LAYERS.forEach(function(l){
+      var t = place(p - l[1]);
+      l[0].style.transform = 'translateY(' + t[0] + 'vh) rotate(' + t[1] + 'deg)';
+    });
+    var e = ease(clamp01(p)), e2 = ease(clamp01(p - 1));   // 0→1: la cabeza se reduce; 1→2: sube con la lista
     var m = window.innerWidth <= 700;
     var sEnd = m ? 0.5 : SCALE_END, xEnd = m ? 0 : SHIFT_X, yEnd = m ? -24 : SHIFT_Y;
     var s = 1 - (1 - sEnd) * e;
-    model.style.transform = 'translate(-50%,-50%) translate(' + (xEnd * e) + 'vw,' + (yEnd * e) + 'vh) scale(' + s + ')';
+    model.style.transform = 'translate(-50%,-50%) translate(' + (xEnd * e) + 'vw,' + (yEnd * e - 115 * e2) + 'vh) scale(' + s + ') rotate(' + (-5 * e2) + 'deg)';
   }
   var last = -1;
   function tick(){
@@ -207,16 +493,75 @@
   }
   function go(v){
     if (v !== target) { from = current; target = v; t0 = performance.now(); }
-    // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en la 2ª)
-    hero.inert = title.inert = v === 1;
-    about.inert = v === 0;
+    // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en las demás)
+    LAYERS.forEach(function(l){ l[0].inert = l[1] !== v; });
+    album.classList.toggle('open', v === 3);
+    // el órgano 3D se carga hasta que hace falta, para no frenar la primera pantalla
+    if (v >= 1 && !organ.getAttribute('src')) {
+      organ.addEventListener('error', function(){ if (organ.getAttribute('src').indexOf(REMOTE) !== 0) organ.setAttribute('src', REMOTE + 'FUNMACHINE_EXP.glb'); });
+      organ.setAttribute('src', LOCAL + 'FUNMACHINE_EXP.glb');
+    }
   }
+  function step(dir){ if (target !== 3) go(Math.max(0, Math.min(2, target + dir))); }
+  function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
+  // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
+  var stage = document.getElementById('stage');
+  stage.addEventListener('scroll', function(){ stage.scrollTop = stage.scrollLeft = 0; });
+  document.getElementById('toMusic').addEventListener('click', function(){ go(2); });
 
-  // rueda / trackpad
+  /* ---------- FICHA DEL DISCO ---------- */
+  var opener = null;
+  function para(html){ var p = document.createElement('p'); p.innerHTML = html; return p; }
+  function openAlbum(i, btn){
+    var al = ALBUMS[i], l = document.documentElement.lang === 'en' ? 'en' : 'es';
+    opener = btn;
+    var img = document.getElementById('albumImg'), label = document.getElementById('albumLabel');
+    img.alt = al.title;
+    label.style.backgroundImage = '';
+    coverImg(img, al.f, function once(){ label.style.backgroundImage = 'url("' + img.src + '")'; img.removeEventListener('load', once); });
+    var t = document.getElementById('albumTitle');
+    t.textContent = al.title;
+    t.classList.toggle('long', al.title.length > 22);
+    var meta = '<b>' + TYPES[al.type][l] + '</b>';
+    if (al.date) {
+      var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
+      meta += ' · ' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]);
+    }
+    document.getElementById('albumMeta').innerHTML = meta;
+    var text = document.getElementById('albumText'); text.textContent = '';
+    (al.info ? al.info[l] : []).forEach(function(h){ text.appendChild(para(h)); });
+    text.hidden = !al.info;
+    var cr = document.getElementById('albumCredits'); cr.textContent = '';
+    var lbl = document.createElement('p'); lbl.className = 'lbl'; lbl.textContent = l === 'en' ? 'credits' : 'créditos';
+    cr.appendChild(lbl);
+    al.credits[l].forEach(function(h){ cr.appendChild(para(h)); });
+    var ul = document.getElementById('albumLinks'); ul.textContent = '';
+    PLATFORMS.forEach(function(pf){
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.className = 'pf'; a.href = al.links[pf[0]]; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = '<svg aria-hidden="true"><use href="#i-' + pf[0] + '"/></svg><span></span>';
+      a.lastChild.textContent = pf[1];
+      li.appendChild(a); ul.appendChild(li);
+    });
+    album.querySelector('.album-info').scrollTop = 0;
+    album.querySelector('.album-in').scrollTop = 0;
+    go(3);
+    document.getElementById('back').focus({preventScroll:true});
+  }
+  function closeAlbum(){
+    go(2);
+    if (opener) opener.focus({preventScroll:true});
+  }
+  document.getElementById('back').addEventListener('click', closeAlbum);
+
+  // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
+  var lastWheel = 0;
   window.addEventListener('wheel', function(e){
-    if (Math.abs(e.deltaY) < 4) return;
-    go(e.deltaY > 0 ? 1 : 0);
+    var now = performance.now(), quiet = now - lastWheel > 180;
+    lastWheel = now;
+    if (target === 3 || Math.abs(e.deltaY) < 4 || !quiet || busy()) return;
+    step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
@@ -225,14 +570,17 @@
     if (y0 === null) return;
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
-    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) go(dy > 0 ? 1 : 0);
+    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
   // teclado
   window.addEventListener('keydown', function(e){
-    if (e.key === ' ' && e.target.closest && e.target.closest('button')) return;  // espacio activa eng/esp
-    if (['ArrowDown','PageDown',' ','End'].indexOf(e.key) > -1) { go(1); e.preventDefault(); }
-    if (['ArrowUp','PageUp','Home'].indexOf(e.key) > -1) { go(0); e.preventDefault(); }
+    if (target === 3) { if (e.key === 'Escape') closeAlbum(); return; }   // en la ficha las flechas hacen scroll del texto
+    if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
+    if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
+    if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
+    if (e.key === 'End') { go(2); e.preventDefault(); }
+    if (e.key === 'Home') { go(0); e.preventDefault(); }
   });
 
   if (reduce) document.querySelectorAll('model-viewer').forEach(function(m){ m.removeAttribute('auto-rotate'); });

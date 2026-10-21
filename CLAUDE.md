@@ -28,7 +28,9 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Transiciones tipo ruleta.** Cada cambio de pantalla es una animación de rotación: lo actual sube y gira, y lo siguiente sube después.
 - **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca.
 - **Cabeza 3D.** `assets/HEAD_EXP.glb` en `<model-viewer>` gira sola. En la pantalla 2 se reduce y se mueve a la izquierda (en móvil, hacia arriba).
-- **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición).
+- **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición). "música" lleva a la pantalla 3.
+- **Pantalla 3 (música).** Collage de portadas en la posición del mockup (en móvil, cuadrícula 3×3), con el órgano 3D al centro (se carga al salir de la pantalla 1). Al hover sale un LP de la portada y aparece el nombre del disco. Los datos de cada disco están en el arreglo `ALBUMS` del JS.
+- **Ficha del disco.** Click/tap en una portada abre la ficha (pantalla 4, solo por click): portada con LP, título, tipo y fecha, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe.
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
 - **Pantallas ocultas.** Llevan `inert` para que no se puedan enfocar.
 - Respetar `prefers-reduced-motion`.
@@ -51,14 +53,14 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | Archivo | Corresponde a | Dónde se usa |
 | --- | --- | --- |
 | `HEAD_EXP.glb` | Hero: cabeza de Lorena sobre la isla flotante | Pantallas 1 y 2 |
-| `FUNMACHINE_EXP.glb` | Música | Sin usar todavía |
+| `FUNMACHINE_EXP.glb` | Música | Pantalla 3 |
 | `ZENIT.glb` | Fotografía | Sin usar todavía |
 | `LAPI_EXP.glb` | Escritura | Sin usar todavía |
 | `LOGO_COMP.glb` | Net art & 3d | Sin usar todavía |
 | `COMPU_VIEJA.glb` | Diseño web | Sin usar todavía |
 | `TAROT_EXP.glb` | Magick / tarot | Sin usar todavía |
 
-### Portadas de discos (sin usar todavía)
+### Portadas de discos (pantalla 3 y ficha del disco)
 
 | Archivo | Disco |
 | --- | --- |
