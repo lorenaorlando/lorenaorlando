@@ -96,14 +96,16 @@
   .album-info{flex:1 1 auto;min-width:0;max-height:90vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:4vh calc(2.6 * var(--uv)) 4.5vh;background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
   .album-title{font-family:var(--display);font-weight:400;font-size:calc(4.8 * var(--uv));line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:var(--shadow)}
   .album-title.long{font-size:calc(3.1 * var(--uv))}
-  .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.1;text-shadow:var(--shadow-sm)}
+  .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
+  .album-meta .sep{margin:0 .6em;opacity:.55}
+  .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte en los | */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
   .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .album-text p+p{margin-top:1.2vh}
   .album-text a,.album-credits a{color:var(--mostaza);pointer-events:auto}
   .album-credits{margin-top:2.6vh}
-  .album-credits p{opacity:.92}
+  .album-credits p{font-size:calc(2.2 * var(--uv));line-height:1.25;letter-spacing:0;opacity:.92}   /* mismo tamaño que tipo | género | fecha */
   .album-credits p+p{margin-top:.4vh}
   .album-credits .lbl{font-size:calc(2.2 * var(--uv));line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
   .listen-lbl{margin-top:3.2vh;font-size:calc(2.8 * var(--uv));line-height:1;text-shadow:var(--shadow-sm)}
@@ -143,7 +145,7 @@
     .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
     .album-meta{font-size:5vw}
     .album-text p{font-size:4.4vw}
-    .album-credits p{font-size:4.2vw}
+    .album-credits p{font-size:5vw}
     .album-credits .lbl{font-size:5vw}
     .listen-lbl{margin-top:4vh;font-size:6.5vw}
     .platforms{gap:1.5vw;margin-top:2vh}
@@ -524,10 +526,11 @@ arte sonoro</p>
     var t = document.getElementById('albumTitle');
     t.textContent = al.title;
     t.classList.toggle('long', al.title.length > 22);
-    var meta = '<b>' + TYPES[al.type][l] + ' · ' + al.genre + '</b>';
+    var SEP = '<span class="sep" aria-hidden="true">|</span>';
+    var meta = '<b>' + TYPES[al.type][l] + '</b>' + SEP + '<b>' + al.genre + '</b>';
     if (al.date) {
       var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
-      meta += ' · ' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]);
+      meta += SEP + '<span>' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]) + '</span>';
     }
     document.getElementById('albumMeta').innerHTML = meta;
     var text = document.getElementById('albumText'); text.textContent = '';
