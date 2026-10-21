@@ -266,6 +266,18 @@
   .lore{position:absolute;top:52vh;width:24vw;translate:-50% -50%;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);pointer-events:auto}
   .lore.l{left:16vw;rotate:-3deg}
   .lore.r{left:84vw;rotate:3deg}
+  /* mi historia en la música: 3D a la izquierda y el texto largo a la derecha, en una ventana con scroll */
+  #story .instr,#story .carousel{left:27vw}
+  .tale{position:absolute;left:52vw;right:4vw;top:8vh;bottom:6vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(3 * var(--uv)) calc(3 * var(--uv)) calc(3.5 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);scrollbar-width:thin;scrollbar-color:var(--crema) rgba(255,240,214,.15)}
+  .tale::-webkit-scrollbar{width:8px}
+  .tale::-webkit-scrollbar-thumb{background:var(--crema);border-radius:8px}
+  .tale::-webkit-scrollbar-track{background:rgba(255,240,214,.15);border-radius:8px}
+  .tale p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.45;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .tale p+p{margin-top:1.6vh}
+  .tale h2{margin:4vh 0 1.2vh;font-family:var(--display);font-weight:400;font-size:calc(3 * var(--uv));line-height:1;letter-spacing:.02em;color:var(--mostaza);text-shadow:var(--shadow-sm)}
+  .tale a.go{color:var(--mostaza);text-decoration:underline;text-underline-offset:.15em;cursor:pointer}
+  .tale a.go:hover,.tale a.go:focus-visible{color:var(--crema);outline:none}
+  .tale .coda{margin-top:4vh;font-size:max(calc(2 * var(--uv)),17px);letter-spacing:0}
 
   @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
 
@@ -323,6 +335,11 @@
     .instr{position:relative;left:auto;top:auto;translate:none;display:table;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
+    #story .instr,#story .carousel{left:auto}
+    .tale{position:relative;inset:auto;overflow:visible;margin-top:5vh;padding:6vw 5vw 7vw;border-radius:3vw}
+    .tale p{font-size:4.2vw}
+    .tale h2{font-size:7vw;margin-top:5vh}
+    .tale .coda{font-size:5vw}
     .ph{width:calc(var(--mw) * 1vw);left:calc(var(--mx) * 1vw - var(--mw) * .5vw);top:calc(var(--my) * 1vh)}
     .portafolio{left:25vw;top:41.5vh;font-size:6.4vw;rotate:-3deg}
     .phistoria{left:73vw;top:42.5vh;font-size:5.6vw;rotate:3deg}
@@ -594,14 +611,42 @@ tarot reading app</span></a>
         </div>
         <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="lore l">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare.</p>
+    <div class="tale">
+      <div class="tale-txt" data-only="es">
+        <p>Soy hija de un músico. Mi papá fue, estoy segura, uno de los mejores acordeonistas en Venezuela. En mis memorias de la infancia está impregnado el sonido del acordeón y de la voz de mi papá dando clases de música. Eventualmente yo me convertí en una de sus alumnas. A los seis años me enseñó a tocar piano junto a algo de teoría y solfeo (conocimiento que con el tiempo se borraría de mi memoria). La primera canción que aprendí a tocar, como tod@s, fue el Himno a la Alegría. Mi película predilecta de la infancia fue La novicia rebelde; veía la grabación en Beta que teníamos una y otra vez, y al día de hoy recuerdo todas y cada una de esas canciones con un cariño inmenso. Luego lo dejé, pero seguía enamorada y fascinada por la música: hacía coreografías de Britney Spears y los Backstreet Boys con mis amiguitas, me encerraba en mi cuarto, ponía música e imaginaba que era Avril Lavigne. Me gustaba mucho el R&amp;B, y FanMail de TLC es hasta el día de hoy uno de mis discos favoritos; mi primer CD fue el debut de All Saints, a falta de presupuesto para uno de las Spice Girls. Pasaba tardes enteras viendo MTV y me identificaba mucho con la energía del nu metal; el primer CD pirata que compré fue Issues de Korn. Mientras pasaba el tiempo me inclinaba más hacia el rock, hasta que eventualmente conocí el punk. Mi banda favorita de Venezuela en ese género fue y sigue siendo Reciclaje; solía ir a los toques, acercarme a las ollas sin atreverme a entrar e imprimir artículos sobre el concepto del anarquismo. Allí también conocí a Bikini Kill y el movimiento Riot Grrrl, que fue mi primer encuentro con el feminismo.</p>
+        <p>A los trece años decidí retomar mi aprendizaje musical y le pedí a mi papá que me enseñara a tocar acordeón. Es uno de los instrumentos más difíciles que he aprendido a tocar. Al mismo tiempo, mi primo me prestó su bajo y me enseñó a tocarlo. Poco tiempo después también me regalarían una guitarra acústica comprada en los chinos, que tenía un sonido muy particular. Paralelo a ello, en una tarde de ocio viendo MTV en el cuarto de mis padres, descubrí a la banda que me cambiaría la vida para siempre: The Mars Volta. De ahí en adelante mi gusto musical se amplió muchísimo y empecé a escuchar a artistas como Björk, PJ Harvey, los Pixies y Daniel Johnston (que con su crudeza lo-fi inspiraría mi primer EP), y me empecé a adentrar en el mundo del indie. En esa misma época empecé a encerrarme en el estudio de mi papá a tocar el piano libremente, ya no interpretando canciones ni haciendo prácticas de digitación, sino tocando lo que me salía en el momento; de esa forma empecé a componer. Con un mp3 que grababa sonido iba registrando esas composiciones; algunas se pueden escuchar en <a href="#" class="go" data-open="ROSLER.jpg">Rösler</a>. Luego descubrí que, si pasaba ese archivo a mi computadora y lo abría en Adobe Audition, con mi micrófono de cibercafé podía grabar voces encima, y empecé a experimentar con eso, al tiempo que también aprendía a usar FL (en ese momento conocido como Fruity Loops). Me divertía mucho haciendo todas esas cosas, y allí empezó a crecer mi persona musical. Por cuestiones de timidez o alienación escribía las letras de mis canciones en inglés; no escribiría en español hasta formar la banda <a href="#" class="go" data-open="BRUNO.jpg">Jóvenes y Sexys</a>.</p>
+        <h2>La Resistance</h2>
+        <p>A mitad de mi adolescencia entré a Oídos Sucios, una proto red social venezolana centrada en los gustos musicales de sus usuarios. Allí conocí a muchísima gente, para bien o para mal. Much@s de ell@s siguen siendo mis amig@s hasta el día de hoy. En el MSN Messenger pasaba todo el día chateando con gente que también hacía música, y entre compartir correos y chats terminé en mi primera banda, basada en el principio de The Postal Service de hacer música a distancia: <a href="#" class="go" data-open="RESISTANCE.webp">La Resistance</a>. En La Resistance yo grababa acordeones con mi mp3 y luego Erly Ruiz y Alejandra Ghersi (mejor conocida como Arca, en ese momento Nuuro) manipulaban digitalmente esas grabaciones y les hacían pistas.</p>
+        <h2>Jóvenes y Sexys</h2>
+        <p>Entre tanta gente que conocí en Oídos Sucios estaba Cheky. Compartíamos un gusto muy particular por la música y eventualmente terminamos haciendo una primera banda, La Maestra Ximena, donde tocábamos math rock y post-rock. Después hicimos Jóvenes y Sexys, una banda de pop folk que fue mi entrada al mundo real de la música. Grabamos un EP llamado <a href="#" class="go" data-open="BRUNO.jpg">Bruno</a>, que fue publicado en la disquera indie online Poni Republic. Ese EP nos llevó a tocar a México y Brasil. Ah, porque no les conté: recién cumplidos mis dieciocho años me fui a vivir a México a estudiar fotografía; justo coincidió con el éxito de la banda en dicho país, y fue una época definitoria en mi vida. Gracias a esa banda pude conocer a ídolas de mi infancia como Julieta Venegas y Natalia Lafourcade, quienes disfrutaban de lo que hacíamos y nos vieron tocar. Nuestra banda se hizo popular mayormente por los covers: The Breeders, Javiera Mena e incluso Mystikal estaban en nuestro repertorio. En 2011 nos separamos sin haber podido alcanzar todo nuestro potencial.</p>
+        <h2>Loocila</h2>
+        <p>Tras la separación de Jóvenes y Sexys y mi vuelta a Venezuela, volví a componer durante dos años hasta grabar <a href="#" class="go" data-open="COCLEA.jpg">Coclea</a> (lanzado en el 2013), mi primer LP. Ese fue mi comienzo con mi persona artística de 'Loocila'. Venía de la onda folk y ese es el género que predomina en el disco, aunque en un par de temas di mis primeros pasos hacia el rock; también hice canciones con el acordeón, el teclado y el cuatro venezolano en ese disco. Luego lancé Sin miedos y sin esperanzas (lanzado en el 2015), más enfocado en el rock con un par de piezas folk: lo contrario a Coclea. Allí exploré tonos más crudos y salvajes; fue muy influenciado por las artistas y bandas femeninas del alt-rock de los 90, pero también me atreví a hacer música más experimental, como el tema Holy Mountain, inspirado en la película del mismo nombre de Alejandro Jodorowsky, el cual empieza con una bella frase: «You are excrement». En el 2016 me aventuré a la autoproducción (cosa que sigo haciendo hasta el día de hoy), grabando y produciendo por mi cuenta Nuevas Tendencias EP, un trabajo bisagra entre Loocila y mi próximo proyecto: Hilandera. Ahí le subí por completo la intensidad a lo oscuro y también jugué con los loops de voces.</p>
+        <h2>Hilandera</h2>
+        <p>En el 2017, después de casarme e independizarme, me sentía tan poco identificada con lo que fue Loocila y los procesos por los que pasé que decidí cambiar mi nombre artístico a Hilandera. En ese momento solía ir a tatuarme a La ONG (Organización Nelson Garrido), en el estudio de Jimmy Flamante, productor de música electrónica venezolano, y allí, entre el dolor de la máquina y largas conversaciones, conocí más sobre música electrónica. Esto coincidió con que Jimmy estaba vendiendo sus instrumentos para emigrar, y le compré un controlador Arturia (que ya no tengo), un micrófono condensador (el primero que tuve y el que aún tengo) y el MC Groovebox 303, un secuenciador de los años 90. En ese tiempo también aprendí a usar Ableton Live, y de esa experimentación nació <a href="#" class="go" data-open="PRIMA_MATERIA.jpg">Prima Materia EP</a>, más enfocado en la electrónica y tocando temas mucho más introspectivos, cuestionando la naturaleza de la vida humana, como en Máquina, donde comparo al humano y sus actividades con las de un autómata. Más adelante, en la pandemia, hice Musiquiatría 22 EP con una pequeña arpa que consiguieron mis padres y las pistas hechas en el Groovebox; es uno de mis EP más experimentales a la fecha. Lo que hice fue samplear sonidos de composiciones con el arpa y manipularlos en Ableton, dándoles sentido rítmico con las pistas. Las letras de ese EP hablan del delirio en el que entramos en sociedad con la pandemia, entre fregar platos, tener insomnio, pelearnos por internet y hundirnos en la nostalgia. El último trabajo como Hilandera fue Mundos de vida (lanzado en el 2022), un LP. Fue un disco compuesto y grabado enteramente desde el Groovebox, sin usar ningún instrumento externo a él. Conceptualmente está basado en la tirada de tarot de 'El Yo Realizado', creada por Alejandro Jodorowsky en La vía del tarot. Cada canción representa un arcano mayor del tarot y habla de un aspecto de mí misma (cualidades de protagonista o antagonista, la sombra, quienes me acompañan).</p>
+        <h2>Ls Lvndrs</h2>
+        <p>En pandemia también fundé el colectivo artístico 'Ls Lvndrs' (se lee Les Lavanderes). Fue un proyecto para apoyar a artistas mujeres y personas no binarias de Venezuela. Empezó como un grupo de WhatsApp, pero rápidamente se convirtió en una plataforma de difusión y activismo en torno a la actividad en la escena musical venezolana, batallando contra el machismo y creando nuevos espacios para que nuestras voces tuvieran importancia. Difundíamos a través de nuestra plataforma la música de artistas de Venezuela, haciendo playlists y reseñas musicales de los últimos lanzamientos, y redactando y enviando notas de prensa a medios internacionales de forma gratuita. El espacio también sirvió para hacer redes entre artistas que luego hicieron un gran número de colaboraciones entre sí. El proyecto acabó en el año 2023.</p>
+        <h2>Lorena Orlando</h2>
+        <p>En el 2021 decidí usar mi nombre propio para lanzar mi música, y reagrupé y republiqué toda mi discografía bajo el perfil de 'Lorena Orlando'. En esta etapa, mi primer trabajo fue <a href="#" class="go" data-open="HACER_MUSICA.jpg">Hacer música es hacer magia</a> (lanzado en el 2024). Este EP lo catalogué como "música express", ya que fue producido y grabado en la app de música BandLab en el transcurso de una semana. Dos años después, en el 2026, lancé <a href="#" class="go" data-open="ASI_QUE_MIN.jpg">ASÍ QUE NO ERA UNA PESADILLA, SIGO VIVIENDO AQUÍ</a>, un EP mucho más inclinado al rock y al math rock; en él hice el intento de escribir sobre la situación actual de Venezuela de forma críptica, aunque por el nombre del disco se darán cuenta de que muy críptica no pude ser.</p>
+        <p class="coda">Después de todo esto que les acabo de contar, tengo 13 monthly listeners en Spotify 🤷‍♀️</p>
       </div>
-      <div class="lore r">
-        <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+      <div class="tale-txt" data-only="en" hidden>
+        <p>I'm the daughter of a musician. My dad was, I'm sure, one of the best accordion players in Venezuela. My childhood memories are steeped in the sound of the accordion and my dad's voice giving music lessons. Eventually I became one of his students. When I was six he taught me to play the piano, along with some theory and solfège (knowledge that would fade from my memory over time). The first song I learned to play, like everyone, was the Ode to Joy. My favorite movie as a kid was The Sound of Music; I watched the Betamax tape we had over and over, and to this day I remember each and every one of those songs with immense affection. Then I quit, but I was still in love with and fascinated by music: I made up Britney Spears and Backstreet Boys choreographies with my friends, locked myself in my room, put on music and imagined I was Avril Lavigne. I really liked R&amp;B, and TLC's FanMail is still one of my favorite albums; my first CD was All Saints' debut, since I couldn't afford one by the Spice Girls. I spent entire afternoons watching MTV and really identified with the energy of nu metal; the first bootleg CD I bought was Korn's Issues. As time went by I leaned more toward rock, until I eventually discovered punk. My favorite Venezuelan band in that genre was, and still is, Reciclaje; I used to go to their gigs, get close to the mosh pits without daring to go in, and print out articles about the concept of anarchism. That's also where I discovered Bikini Kill and the Riot Grrrl movement, my first encounter with feminism.</p>
+        <p>When I was thirteen I decided to pick up my music studies again and asked my dad to teach me to play the accordion. It's one of the hardest instruments I've ever learned to play. At the same time, my cousin lent me his bass and taught me to play it. Shortly after, I was also given an acoustic guitar bought at a Chinese-owned shop, which had a very particular sound. Meanwhile, on a lazy afternoon watching MTV in my parents' room, I discovered the band that would change my life forever: The Mars Volta. From then on my musical taste broadened enormously and I started listening to artists like Björk, PJ Harvey, the Pixies and Daniel Johnston (whose lo-fi rawness would inspire my first EP), and I began to dive into the world of indie. Around that same time I started locking myself in my dad's studio to play the piano freely, no longer performing songs or doing fingering exercises, but playing whatever came out in the moment; that's how I started composing. I recorded those compositions with an mp3 player that could record sound; some of them can be heard on <a href="#" class="go" data-open="ROSLER.jpg">Rösler</a>. Then I discovered that, if I moved that file to my computer and opened it in Adobe Audition, I could record vocals over it with my cybercafé microphone, and I started experimenting with that, while also learning to use FL (back then known as Fruity Loops). I had a lot of fun doing all those things, and that's where my musical persona began to grow. Out of shyness or alienation I wrote my lyrics in English; I wouldn't write in Spanish until I formed the band <a href="#" class="go" data-open="BRUNO.jpg">Jóvenes y Sexys</a>.</p>
+        <h2>La Resistance</h2>
+        <p>In my mid-teens I joined Oídos Sucios, a Venezuelan proto social network centered on its users' musical tastes. There I met tons of people, for better or for worse. Many of them are still my friends to this day. I spent all day on MSN Messenger chatting with people who also made music, and between swapping emails and chats I ended up in my first band, based on The Postal Service's principle of making music remotely: <a href="#" class="go" data-open="RESISTANCE.webp">La Resistance</a>. In La Resistance I recorded accordions with my mp3 player, and then Erly Ruiz and Alejandra Ghersi (better known as Arca, back then Nuuro) digitally manipulated those recordings and built tracks around them.</p>
+        <h2>Jóvenes y Sexys</h2>
+        <p>Among the many people I met on Oídos Sucios was Cheky. We shared a very particular taste in music and eventually ended up starting a first band, La Maestra Ximena, where we played math rock and post-rock. Then we made Jóvenes y Sexys, a pop folk band that was my entry into the real world of music. We recorded an EP called <a href="#" class="go" data-open="BRUNO.jpg">Bruno</a>, which was released on the online indie label Poni Republic. That EP took us to play in Mexico and Brazil. Oh, because I didn't tell you: right after turning eighteen I moved to Mexico to study photography; it happened to coincide with the band's success in that country, and it was a defining time in my life. Thanks to that band I got to meet childhood idols like Julieta Venegas and Natalia Lafourcade, who enjoyed what we did and came to see us play. Our band became popular mostly for its covers: The Breeders, Javiera Mena and even Mystikal were in our repertoire. In 2011 we split up without having been able to reach our full potential.</p>
+        <h2>Loocila</h2>
+        <p>After Jóvenes y Sexys split up and I moved back to Venezuela, I went back to composing for two years until I recorded <a href="#" class="go" data-open="COCLEA.jpg">Coclea</a> (released in 2013), my first LP. That was the beginning of my artistic persona 'Loocila'. I was coming from folk, and that's the genre that dominates the album, although on a couple of songs I took my first steps toward rock; I also made songs with the accordion, the keyboard and the Venezuelan cuatro on that album. Then I released Sin miedos y sin esperanzas (Without Fears and Without Hopes, released in 2015), more focused on rock with a couple of folk pieces: the opposite of Coclea. There I explored rawer, wilder tones; it was heavily influenced by the female artists and bands of '90s alt-rock, but I also dared to make more experimental music, like the song Holy Mountain, inspired by Alejandro Jodorowsky's film of the same name, which opens with a beautiful line: "You are excrement." In 2016 I ventured into self-production (something I still do to this day), recording and producing Nuevas Tendencias EP (New Trends EP) on my own, a hinge work between Loocila and my next project: Hilandera. There I turned the intensity of the darkness all the way up and also played with vocal loops.</p>
+        <h2>Hilandera</h2>
+        <p>In 2017, after getting married and becoming independent, I felt so little identified with what Loocila had been and the processes I'd gone through that I decided to change my artist name to Hilandera. Back then I used to get tattooed at La ONG (Organización Nelson Garrido), in the studio of Jimmy Flamante, a Venezuelan electronic music producer, and there, between the pain of the machine and long conversations, I learned more about electronic music. This coincided with Jimmy selling his instruments to emigrate, and I bought an Arturia controller from him (which I no longer have), a condenser microphone (the first one I ever had, and the one I still have) and the MC Groovebox 303, a sequencer from the '90s. At that time I also learned to use Ableton Live, and from that experimentation came <a href="#" class="go" data-open="PRIMA_MATERIA.jpg">Prima Materia EP</a> (Prime Matter EP), more focused on electronics and dealing with much more introspective themes, questioning the nature of human life, as in Máquina (Machine), where I compare humans and their activities to those of an automaton. Later, during the pandemic, I made Musiquiatría 22 EP (Music-iatry 22 EP) with a small harp my parents got and tracks made on the Groovebox; it's one of my most experimental EPs to date. What I did was sample sounds from compositions on the harp and manipulate them in Ableton, giving them a rhythmic sense with the tracks. The lyrics of that EP talk about the delirium we entered as a society with the pandemic, between washing dishes, having insomnia, fighting online and sinking into nostalgia. My last work as Hilandera was Mundos de vida (Worlds of Life, released in 2022), an LP. It was an album composed and recorded entirely on the Groovebox, without using any instrument outside of it. Conceptually it's based on the tarot spread 'El Yo Realizado' (The Realized Self), created by Alejandro Jodorowsky in The Way of Tarot. Each song represents a major arcana of the tarot and speaks of an aspect of myself (protagonist or antagonist qualities, the shadow, those who accompany me).</p>
+        <h2>Ls Lvndrs</h2>
+        <p>During the pandemic I also founded the art collective 'Ls Lvndrs' (read Les Lavanderes). It was a project to support women and non-binary artists from Venezuela. It started as a WhatsApp group, but it quickly became a platform for promotion and activism around the Venezuelan music scene, fighting machismo and creating new spaces where our voices mattered. Through our platform we promoted the music of Venezuelan artists, making playlists and reviews of the latest releases, and writing and sending press releases to international media for free. The space also helped build networks among artists who later did a great number of collaborations with each other. The project ended in 2023.</p>
+        <h2>Lorena Orlando</h2>
+        <p>In 2021 I decided to use my own name to release my music, and I regrouped and re-released my entire discography under the 'Lorena Orlando' profile. In this stage, my first work was <a href="#" class="go" data-open="HACER_MUSICA.jpg">Hacer música es hacer magia</a> (Making Music Is Making Magic, released in 2024). I labeled this EP "express music" because it was produced and recorded in the BandLab music app over the course of a week. Two years later, in 2026, I released <a href="#" class="go" data-open="ASI_QUE_MIN.jpg">ASÍ QUE NO ERA UNA PESADILLA, SIGO VIVIENDO AQUÍ</a> (SO IT WASN'T A NIGHTMARE, I STILL LIVE HERE), an EP leaning much more toward rock and math rock; on it I tried to write about Venezuela's current situation in a cryptic way, although judging by the album's title you'll notice I couldn't be very cryptic.</p>
+        <p class="coda">After everything I've just told you, I have 13 monthly listeners on Spotify 🤷‍♀️</p>
       </div>
+    </div>
     </div>
   </section>
 
@@ -875,7 +920,10 @@ tarot reading app</span></a>
                    'Track 1: remixed by María y José.', 'Track 3: remixed by Pepepe.', 'Track 4: reinterpreted by Nuuro.',
                    'The cover image is an intervention on Lorena Orlando’s original artwork, made by Juan José Quintanillo (San Francisco, Venezuela).']} },
     { f:'RESISTANCE.webp', title:'La Resistance', date:[0,0,2005],
-      pos:[25,50,19,'7deg',3,-1], mx:50, links:'soon',
+      pos:[25,50,19,'7deg',3,-1], mx:50,
+      track:['https://lorenaorlando.bandcamp.com/track/deux-et-trois', 'Deux et trois by La Resistance'],
+      info:{es:['La Resistance fue una banda fugaz que existió en Venezuela por ahí en los 2000. Solo se llegaron a grabar 3 canciones, todo hecho a distancia, compartiendo archivos a través del MSN Messenger. La banda estuvo integrada por Lorena Orlando, Erly J. Ruiz y Alejandra Ghersi (más conocida como Arca). No duró mucho, nunca tocamos en vivo, pero pude rescatar esta canción del fondo del baúl de mi disco duro.'],
+            en:['La Resistance was a fleeting band that existed in Venezuela sometime in the 2000s. Only 3 songs were ever recorded, all made remotely, sharing files over MSN Messenger. The band was made up of Lorena Orlando, Erly J. Ruiz and Alejandra Ghersi (better known as Arca). It didn’t last long and we never played live, but I managed to rescue this song from the bottom of my hard drive’s trunk.']},
       credits:{es:['Alejandra Ghersi (Nuuro-Arca): programación.', 'Lorena Orlando (Loo): acordeón.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programación y guitarra eléctrica.', 'Foto por Ana Sofía Espinoza.'],
                en:['Alejandra Ghersi (Nuuro-Arca): programming.', 'Lorena Orlando (Loo): accordion.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programming and electric guitar.', 'Photo by Ana Sofía Espinoza.']} },
     { f:'ENTUPIEL.jpeg', title:'En tu piel', type:'single', by:'Aida Rojas', video:'nzVvNyNLe2U',
@@ -1023,6 +1071,7 @@ tarot reading app</span></a>
   var magickStory = document.getElementById('magickStory');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
+  var prevSub = null, swapT0 = 0, returnTo = null;   // de una subpantalla a otra (mi historia → ficha → mi historia)
   var model = document.getElementById('model');
   var organ = document.getElementById('organ');
   var zenit = document.getElementById('zenit');
@@ -1047,7 +1096,8 @@ tarot reading app</span></a>
   }
   function render(p){
     LAYERS.forEach(function(l){
-      var t = place(l[1] === 's' ? (subMode && l[0] === sub ? p - home - 1 : -1) : subMode && l[1] > home ? -1 : p - l[1]);
+      var sw = prevSub ? (reduce ? 1 : clamp01((performance.now() - swapT0) / DURATION)) : 0;
+      var t = place(l[1] === 's' ? (prevSub && l[0] === prevSub ? sw : prevSub && l[0] === sub ? sw - 1 : subMode && l[0] === sub ? p - home - 1 : -1) : subMode && l[1] > home ? -1 : p - l[1]);
       l[0].style.transform = 'translateY(' + t[0] + 'vh) rotate(' + t[1] + 'deg)';
     });
     var e = ease(clamp01(p)), e2 = ease(clamp01(p - 1));   // 0→1: la cabeza se reduce; 1→2: sube con la lista
@@ -1060,7 +1110,8 @@ tarot reading app</span></a>
   function tick(){
     var k = reduce ? 1 : Math.min(1, (performance.now() - t0) / DURATION);
     current = from + (target - from) * k;
-    if (current !== last) { render(current); last = current; }
+    if (current !== last || prevSub) { render(current); last = current; }
+    if (prevSub && (reduce || performance.now() - swapT0 >= DURATION)) { prevSub = null; last = -1; }
     requestAnimationFrame(tick);
   }
   function go(v, asSub){
@@ -1138,8 +1189,11 @@ tarot reading app</span></a>
   var opener = null;
   function para(html){ var p = document.createElement('p'); p.innerHTML = html; return p; }
   var art = album.querySelector('.album-art');
+  function swapTo(sec){ prevSub = sub; sub = sec; swapT0 = performance.now(); }
   function openAlbum(al, btn){
     var l = document.documentElement.lang === 'en' ? 'en' : 'es';
+    if (subOpen && sub !== album) { returnTo = {sec: sub, home: home, opener: opener}; swapTo(album); }
+    else returnTo = null;
     opener = btn; sub = album; home = 2; last = -1;
     var img = document.getElementById('albumImg'), label = document.getElementById('albumLabel');
     // con video (En tu piel) el embed reemplaza a la portada
@@ -1176,7 +1230,14 @@ tarot reading app</span></a>
       cr.appendChild(sl);
     });
     var ul = document.getElementById('albumLinks'); ul.textContent = '';
-    ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links;
+    ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links && !al.track;
+    if (al.track) {                                  // una canción suelta en Bandcamp (La Resistance)
+      var tli = document.createElement('li'), ta = document.createElement('a');
+      ta.className = 'pf'; ta.href = al.track[0]; ta.target = '_blank'; ta.rel = 'noopener';
+      ta.innerHTML = '<svg aria-hidden="true"><use href="#i-bandcamp"/></svg><span></span>';
+      ta.lastChild.textContent = al.track[1];
+      tli.appendChild(ta); ul.appendChild(tli);
+    }
     if (al.links) PLATFORMS.forEach(function(pf){
       var li = document.createElement('li'), a = document.createElement('a');
       a.className = 'pf';
@@ -1192,6 +1253,13 @@ tarot reading app</span></a>
     document.getElementById('back').focus({preventScroll:true});
   }
   function closeSub(){
+    if (sub === album && returnTo) {                 // la ficha se abrió desde mi historia: vuelve ahí
+      var r = returnTo, link = opener; returnTo = null;
+      swapTo(r.sec); home = r.home; opener = r.opener;
+      go(home + 1, true);
+      if (link) link.focus({preventScroll:true});
+      return;
+    }
     go(home);
     if (opener) opener.focus({preventScroll:true});
     // el video de la ficha se quita al terminar de salir, para que deje de sonar
@@ -1246,6 +1314,14 @@ tarot reading app</span></a>
     sec.querySelector('.back').focus({preventScroll:true});
   }
   document.getElementById('toStory').addEventListener('click', function(){ openStory(story, this); });
+  // links del texto de mi historia → ficha del disco o banda
+  story.querySelectorAll('a.go').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var al = ALBUMS.concat(PROJECTS).filter(function(x){ return x.f === a.dataset.open; })[0];
+      if (al) openAlbum(al, a);
+    });
+  });
   document.getElementById('toPhotoStory').addEventListener('click', function(){ openStory(photoStory, this); });
   document.getElementById('toMagickStory').addEventListener('click', function(){ openStory(magickStory, this); });
 
@@ -1300,6 +1376,7 @@ tarot reading app</span></a>
   function setLang(l){
     document.documentElement.lang = l;
     document.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
+    document.querySelectorAll('[data-only]').forEach(function(el){ el.hidden = el.dataset.only !== l; });
     buttons.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'); });
   }
   buttons.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
