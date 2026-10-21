@@ -59,6 +59,9 @@
   .historia{left:43vw;top:23vh;font-size:2.4vw;rotate:6deg}
   .otros{left:49.5vw;top:66vh;font-size:2.4vw;rotate:-7deg}
   .escucha{left:47.7vw;top:81.5vh;font-size:2vw}
+  .music button.t{background:none;border:0;padding:0;color:inherit;font-family:inherit;font-weight:400;letter-spacing:inherit;cursor:pointer;pointer-events:auto;transition:color .2s}
+  .music button.t:hover{color:var(--mostaza)}
+  .music button.t:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
   .organ{position:absolute;left:47.4vw;top:44vh;width:29vw;height:55vh;transform:translate(-50%,-50%)}
   .music .mtitle{left:48vw;top:46vh;font-family:var(--display);font-weight:400;font-size:7vw;line-height:1;letter-spacing:.02em;rotate:-7deg;text-shadow:var(--shadow)}
 
@@ -67,6 +70,33 @@
   .disc{all:unset;box-sizing:border-box;position:absolute;--u:min(1vw,1.78vh);width:calc(var(--s) * var(--u));aspect-ratio:1;left:calc(var(--x) * 1vw - var(--s) * var(--u) / 2);top:calc(var(--y) * 1vh - var(--s) * var(--u) / 2);rotate:var(--r);z-index:var(--z);pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .disc:hover,.disc:focus-visible{z-index:30}
+  /* OTROS PROYECTOS: los discos salen volando (--fx/--fy/--fr/--d desde el JS) y entran las portadas de proyectos y los videos */
+  .discs .disc,.music.projects .projs .disc,.music.projects .vid,.music.projects .onirias h3{transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s var(--d,0s),visibility 0s 0s}
+  .music.projects .discs .disc,.projs .disc,.vid,.onirias h3{opacity:0;visibility:hidden;pointer-events:none;transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s calc(var(--d,0s) + .3s),visibility 0s calc(var(--d,0s) + .9s)}
+  .music.projects .discs .disc{translate:var(--fx) var(--fy);rotate:calc(var(--r) + var(--fr))}
+  .projs{position:absolute;inset:0;pointer-events:none}
+  .projs .disc{translate:-70vw 0;rotate:calc(var(--r) - 50deg)}
+  .vid,.onirias h3{translate:70vw 0;rotate:calc(var(--r) + 30deg)}
+  .music.projects .projs .disc,.music.projects .vid,.music.projects .onirias h3{translate:0 0;rotate:var(--r);opacity:1;visibility:visible;pointer-events:auto;--d:calc(var(--i) * .08s + .35s)}
+  .onirias{position:absolute;inset:0;pointer-events:none;--u:min(1vw,1.78vh)}
+  .onirias h3{position:absolute;left:79vw;top:6vh;transform:translateX(-50%);--r:-3deg;font-weight:400;font-size:2.4vw;line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm)}
+  .onirias h3 b{font-weight:400;color:var(--mostaza)}
+  .vid{position:absolute;width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh)}
+  .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--morado);box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .vid p{margin-top:.6vh;font-size:max(1.3vw,13px);line-height:1;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .noimg{background:var(--violeta)}
+  .noimg img{visibility:hidden}
+  .disc.noimg .name{opacity:1;transform:none}
+  /* aviso de toque en pantallas sin hover */
+  .tapme,.tapcloud{display:none}
+  @media (hover:none){
+    .tapme{display:block;position:absolute;left:50%;top:-1vh;translate:-50% -100%;z-index:3;padding:.15em .7em .25em;border-radius:999px;background:rgba(54,1,133,.55);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;text-shadow:var(--shadow-sm);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
+    .tapcloud{display:block;position:absolute;left:57vw;top:31vh;z-index:40;padding:.5em 1.1em .6em;border-radius:999px;background:#fff;color:var(--morado);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;rotate:6deg;box-shadow:0 .4vh 1.4vh rgba(54,1,133,.35);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
+    .tapcloud::before,.tapcloud::after{content:"";position:absolute;z-index:-1;border-radius:50%;background:#fff}
+    .tapcloud::before{width:1.6em;height:1.6em;left:.5em;top:-.7em}
+    .tapcloud::after{width:2.2em;height:2.2em;right:.5em;top:-1em}
+  }
+  @keyframes nudge{0%,100%{scale:1}50%{scale:1.07}}
   .disc:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .disc:hover .lp,.disc:focus-visible .lp{translate:calc(var(--dir) * 46%) 0;animation-play-state:running}
   .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:1.5vw;line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
@@ -97,7 +127,7 @@
   .album-title{font-family:var(--display);font-weight:400;font-size:calc(4.8 * var(--uv));line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:var(--shadow)}
   .album-title.long{font-size:calc(3.1 * var(--uv))}
   .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
-  .album-meta .sep{margin:0 .6em;opacity:.55}
+  .album-meta .sep,.lbl .sep{margin:0 .6em;opacity:.55}
   .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte en los | */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
@@ -115,7 +145,38 @@
   .pf:hover,.pf:focus-visible{background:var(--mostaza);--i2:var(--mostaza);translate:0 -2px}
   /* columna angosta: icono arriba y nombre abajo, para que las 4 quepan en un renglón */
   @media (min-width:701px) and (max-width:950px){.platforms li{flex:1 1 0;min-width:0}.pf{flex-direction:column;gap:5px;padding:8px 2px 7px;border-radius:12px;font-size:12px}.pf svg{width:22px;height:22px}}
-  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}}
+  .album-art.video{width:min(42vw,80vh);aspect-ratio:16/9}
+  .album-art.video img,.album-art.video .lp{display:none}
+  .album-art iframe{position:absolute;inset:0;width:100%;height:100%;border:0;box-shadow:.4vw .6vw 1.6vw rgba(54,1,133,.5)}
+  .album.isvideo .album-in{gap:5vw}
+  .pf.soon{opacity:.55;cursor:default;pointer-events:none}
+
+  /* MI HISTORIA: carrusel de instrumentos 3D (mismo tamaño que el órgano de la pantalla de música) */
+  .story{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
+  .story-in{position:absolute;inset:0}
+  .carousel{position:absolute;left:50vw;top:52vh;width:29vw;height:55vh;transform:translate(-50%,-50%)}
+  .slide{position:absolute;inset:0;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:translate .9s cubic-bezier(.6,0,.3,1),opacity .9s}
+  .slide[data-p="1"]{translate:80% 0;opacity:0;pointer-events:none}
+  .slide[data-p="2"]{translate:-80% 0;opacity:0;pointer-events:none}
+  .slide.jump{transition:none}
+  .slide model-viewer{width:100%;height:100%;--poster-color:transparent;background:transparent}
+  .slide:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
+  .info3d{position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(32vw,135%);padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .3s;pointer-events:none}
+  .info3d h3{font-family:var(--display);font-weight:400;font-size:calc(2.6 * var(--uv));line-height:1;letter-spacing:.02em;text-shadow:var(--shadow-sm);margin-bottom:1.2vh}
+  .info3d p,.lore p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .info3d p+p,.lore p+p{margin-top:1.2vh}
+  .slide:hover .info3d,.slide:focus-visible .info3d,.slide.show .info3d{opacity:1}
+  .arrow{all:unset;position:absolute;top:50%;translate:0 -50%;z-index:4;width:max(calc(3.6 * var(--uv)),40px);aspect-ratio:1;border-radius:50%;background:var(--crema);color:var(--morado);display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:var(--shadow-sm);transition:background .2s,scale .2s}
+  .arrow svg{width:45%;height:45%}
+  .arrow:hover,.arrow:focus-visible{background:var(--mostaza);scale:1.08}
+  .arrow:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
+  .arrow.prev{left:calc(-1 * max(calc(3.6 * var(--uv)),40px) - 1.5vw)}
+  .arrow.next{right:calc(-1 * max(calc(3.6 * var(--uv)),40px) - 1.5vw)}
+  .lore{position:absolute;top:52vh;width:24vw;translate:-50% -50%;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);pointer-events:auto}
+  .lore.l{left:16vw;rotate:-3deg}
+  .lore.r{left:84vw;rotate:3deg}
+
+  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud{transition:none!important;animation:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
@@ -134,6 +195,11 @@
     .otros{left:50vw;top:33vh;font-size:4.4vw;rotate:-3deg}
     .discs{inset:auto 0;top:39.5vh;display:grid;grid-template-columns:repeat(3,min(27vw,13.3vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
+    .projs .disc{position:absolute;width:min(27vw,13.3vh);left:calc(var(--mx) * 1vw - min(27vw,13.3vh) / 2);top:40vh}
+    .onirias h3{left:50vw;top:56vh;font-size:4.6vw}
+    .vid{width:30vw;left:calc(var(--mx) * 1vw - 15vw);top:calc(var(--my) * 1vh)}
+    .vid p{font-size:3.2vw}
+    .tapcloud{left:64vw;top:35.5vh;font-size:4vw}
     .name{font-size:3.4vw}
     .escucha{left:50vw;top:84vh;font-size:4.2vw}
     .listen{left:50vw;top:91vh;width:62vw;height:7.5vh;border-radius:1.5vw}
@@ -152,6 +218,17 @@
     .platforms li{flex:1 1 0;min-width:0}
     .pf{flex-direction:column;gap:1.2vw;padding:2.2vw .5vw 1.8vw;border-radius:3vw;font-size:2.9vw;letter-spacing:-.03em}
     .pf svg{width:6.5vw;height:6.5vw}
+    .album-art.video{width:100%;margin-left:0}
+    .story-in{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:13vh 6vw 7vh}
+    .carousel{position:relative;left:auto;top:auto;transform:none;width:72vw;height:40vh;margin:0 auto}
+    .arrow{width:10vw}
+    .arrow.prev{left:-11vw}.arrow.next{right:-11vw}
+    .info3d{width:86vw;padding:5vw}
+    .info3d h3{font-size:6.5vw}
+    .info3d p,.lore p{font-size:4.2vw}
+    .tapme{font-size:4vw;top:0}
+    .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
+    .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
   }
 </style>
 </head>
@@ -215,17 +292,22 @@
   </div>
 
   <div class="layer music" id="music">
-    <p class="t historia" data-es="lee mi historia en&#10;la música" data-en="read my story&#10;in music">lee mi historia en
-la música</p>
+    <button type="button" class="t historia" id="toStory" data-es="lee mi historia en&#10;la música" data-en="read my story&#10;in music">lee mi historia en
+la música</button>
     <div class="organ" aria-hidden="true">
       <model-viewer id="organ" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="t mtitle" data-es="música" data-en="music">música</h2>
-    <p class="t otros" data-es="otros proyectos &amp;&#10;arte sonoro" data-en="other projects &amp;&#10;sound art">otros proyectos &amp;
-arte sonoro</p>
+    <button type="button" class="t otros" id="toProjects" aria-pressed="false" data-es="otros proyectos &amp;&#10;arte sonoro" data-en="other projects &amp;&#10;sound art">otros proyectos &amp;
+arte sonoro</button>
     <div class="discs" id="discs"></div>
+    <div class="projs" id="projs"></div>
+    <div class="onirias" id="onirias">
+      <h3 style="--i:0"><b>onirias:</b> <span data-es="piezas radiofónicas" data-en="radio pieces">piezas radiofónicas</span></h3>
+    </div>
+    <p class="tapcloud" aria-hidden="true" data-es="tócame!" data-en="tap me!">tócame!</p>
     <p class="t escucha" data-es="escúchame!" data-en="listen to me!">escúchame!</p>
     <nav class="listen" aria-label="Escucha mi música">
       <a href="https://open.spotify.com/artist/4CQeBhnbUpLbhZ6DbEo6rg" target="_blank" rel="noopener" aria-label="Spotify"><svg><use href="#i-spotify"/></svg></a>
@@ -246,6 +328,52 @@ arte sonoro</p>
         <div class="album-credits" id="albumCredits"></div>
         <p class="listen-lbl" data-es="escucha en:" data-en="listen on:">escucha en:</p>
         <ul class="platforms" id="albumLinks"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="layer story" id="story" aria-label="Mi historia en la música">
+    <button type="button" class="back" id="storyBack" data-es="← volver" data-en="← back">← volver</button>
+    <div class="story-in">
+      <div class="carousel" id="carousel">
+        <p class="tapme" aria-hidden="true" data-es="tócame!" data-en="tap me!">tócame!</p>
+        <button type="button" class="arrow prev" id="prev3d" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="slide" data-p="0" data-glb="FUNMACHINE_EXP.glb" tabindex="0">
+          <model-viewer alt="Funmachine" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3>funmachine</h3>
+            <p data-es="Réplica en 3D del Funmachine existente en Lorenalandia (versión física)." data-en="3D replica of the Funmachine that lives in Lorenalandia (physical version).">Réplica en 3D del Funmachine existente en Lorenalandia (versión física).</p>
+            <p data-es="Fue usado para componer y grabar la canción 2:22, que forma parte del EP “Hacer música es hacer magia”." data-en="It was used to compose and record the song 2:22, from the EP “Hacer música es hacer magia”.">Fue usado para componer y grabar la canción 2:22, que forma parte del EP “Hacer música es hacer magia”.</p>
+            <p data-es="Este instrumento pasó por varias manos amigas a lo largo del tiempo. Llegó a mí, finalmente, gracias a Gala Garrido en el cierre de la Organización Nelson Garrido." data-en="This instrument passed through many friendly hands over time. It finally came to me thanks to Gala Garrido, when the Organización Nelson Garrido closed.">Este instrumento pasó por varias manos amigas a lo largo del tiempo. Llegó a mí, finalmente, gracias a Gala Garrido en el cierre de la Organización Nelson Garrido.</p>
+          </div>
+        </div>
+        <div class="slide" data-p="1" data-glb="GUITAR_EXP.glb" tabindex="-1">
+          <model-viewer alt="Guitarra Fender Squier rosada" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3 data-es="guitarra" data-en="guitar">guitarra</h3>
+            <p data-es="Réplica de la guitarra Fender Squier rosada existente en Lorenalandia (versión física)." data-en="Replica of the pink Fender Squier guitar that lives in Lorenalandia (physical version).">Réplica de la guitarra Fender Squier rosada existente en Lorenalandia (versión física).</p>
+            <p data-es="Esta guitarra es la única que he usado desde el 2010 para grabar y tocar todo lo que incluya guitarra eléctrica en mis producciones musicales." data-en="Since 2010, this is the only guitar I’ve used to record and play everything with electric guitar in my music productions.">Esta guitarra es la única que he usado desde el 2010 para grabar y tocar todo lo que incluya guitarra eléctrica en mis producciones musicales.</p>
+            <p data-es="A muchos hombres en mi vida les daba pudor usar esta guitarra porque es rosada, jaja." data-en="Many men in my life were too embarrassed to play this guitar because it’s pink, haha.">A muchos hombres en mi vida les daba pudor usar esta guitarra porque es rosada, jaja.</p>
+          </div>
+        </div>
+        <div class="slide" data-p="2" data-glb="GROOVEBOX.glb" tabindex="-1">
+          <model-viewer alt="Groovebox" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3>groovebox</h3>
+            <p data-es="Réplica del Groovebox existente en Lorenalandia (versión física)." data-en="Replica of the Groovebox that lives in Lorenalandia (physical version).">Réplica del Groovebox existente en Lorenalandia (versión física).</p>
+            <p data-es="Con este instrumento se compuso y grabó el disco Mundos de vida." data-en="The album Mundos de vida was composed and recorded with this instrument.">Con este instrumento se compuso y grabó el disco Mundos de vida.</p>
+            <p data-es="Este instrumento le perteneció, antes que a mí, al artista de música electrónica Jimmy Flamante." data-en="Before it was mine, this instrument belonged to electronic music artist Jimmy Flamante.">Este instrumento le perteneció, antes que a mí, al artista de música electrónica Jimmy Flamante.</p>
+          </div>
+        </div>
+        <button type="button" class="arrow next" id="next3d" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="lore l">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare.</p>
+      </div>
+      <div class="lore r">
+        <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
       </div>
     </div>
   </section>
@@ -428,40 +556,124 @@ arte sonoro</p>
       credits:{es:['Todas las canciones compuestas y grabadas por Lorena Orlando.', CR_LO.es],
                en:['All songs written and recorded by Lorena Orlando.', CR_LO.en]} }
   ];
-  var TYPES = {album:{es:'álbum',en:'album'}, ep:{es:'EP',en:'EP'}, comp:{es:'recopilación',en:'compilation'}};
+  /* Otros proyectos & arte sonoro: portadas a la izquierda (pos como en ALBUMS; mx = centro en móvil, vw).
+     En los créditos, una línea que empieza con "## " es un subtítulo. links:'soon' = botones pendientes. */
+  var JYS = {spotify:'https://open.spotify.com/artist/6uP7ZLr4Edo3GCzOrUkeEx',
+    apple:'https://music.apple.com/us/artist/j%C3%B3venes-y-sexys/303351508',
+    youtube:'https://music.youtube.com/channel/UC--d1kpsFQVJf-LsU5q86rw',
+    bandcamp:'https://jovenesysexys.bandcamp.com'};
+  var PROJECTS = [
+    { f:'BRUNO_EP.jpg', title:'Bruno EP', type:'ep', by:'Jóvenes y sexys', date:[3,5,2008],
+      pos:[14,21,20,'-6deg',2,1], mx:20, links:JYS,
+      credits:{es:['Todas las canciones compuestas por Ezequiel Bertho y Lorena Orlando, excepto “Gold Day”, compuesta por Ezequiel Bertho, Lorena Orlando y Clément Mariones, y “Divine Hammer”, compuesta por Kim Deal.',
+                   'Todas las canciones producidas, mezcladas y masterizadas por José Ignacio Benítez.', CR_LO.es,
+                   '## Bruno Remixed | 28 de junio de 2010',
+                   'Track 1: remixeado por María y José.', 'Track 3: remixeado por Pepepe.', 'Track 4: reinterpretado por Nuuro.',
+                   'La imagen de la portada es una intervención de la obra de arte original de Lorena Orlando, realizada por Juan José Quintanillo (San Francisco, Venezuela).'],
+               en:['All songs written by Ezequiel Bertho and Lorena Orlando, except “Gold Day”, written by Ezequiel Bertho, Lorena Orlando and Clément Mariones, and “Divine Hammer”, written by Kim Deal.',
+                   'All songs produced, mixed and mastered by José Ignacio Benítez.', CR_LO.en,
+                   '## Bruno Remixed | June 28, 2010',
+                   'Track 1: remixed by María y José.', 'Track 3: remixed by Pepepe.', 'Track 4: reinterpreted by Nuuro.',
+                   'The cover image is an intervention on Lorena Orlando’s original artwork, made by Juan José Quintanillo (San Francisco, Venezuela).']} },
+    { f:'RESISTANCE.jpg', title:'La Resistance', date:[0,0,2005],
+      pos:[25,50,19,'7deg',3,-1], mx:50, links:'soon',
+      credits:{es:['Alejandra Ghersi (Nuuro-Arca): programación.', 'Lorena Orlando (Loo): acordeón.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programación y guitarra eléctrica.', 'Foto por Ana Sofía Espinoza.'],
+               en:['Alejandra Ghersi (Nuuro-Arca): programming.', 'Lorena Orlando (Loo): accordion.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programming and electric guitar.', 'Photo by Ana Sofía Espinoza.']} },
+    { f:'ENTUPIEL.jpg', title:'En tu piel', type:'single', by:'Aida Rojas', video:'nzVvNyNLe2U',
+      pos:[14,79,20,'-3deg',1,1], mx:80,
+      credits:{es:['Single de la artista de folk venezolana Aida Rojas.', 'Grabación, producción, mezcla y master por Lorena Orlando en Cariaquito Morao Estudios.'],
+               en:['Single by Venezuelan folk artist Aida Rojas.', 'Recording, production, mixing and mastering by Lorena Orlando at Cariaquito Morao Estudios.']} }
+  ];
+  // Onirias: x/y = centro horizontal y borde de arriba (vw/vh), w = ancho; mx/my lo mismo en móvil
+  var ONIRIAS = [
+    {id:'7Ti3l5sZreo', title:'Radio Patio',                 x:73, y:14, w:25, r:'-4deg', mx:18, my:62},
+    {id:'aQQPrGNCdec', title:'El milagro de la comunicación', x:86, y:42, w:22, r:'3deg',  mx:50, my:65},
+    {id:'qQzwmWBkMRw', title:'Adult Contempo',               x:72, y:67, w:24, r:'-2deg', mx:82, my:61.5}
+  ];
+  var TYPES = {album:{es:'álbum',en:'album'}, ep:{es:'EP',en:'EP'}, comp:{es:'recopilación',en:'compilation'}, single:{es:'single',en:'single'}};
   var MONTHS = {es:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
                 en:['January','February','March','April','May','June','July','August','September','October','November','December']};
   var PLATFORMS = [['spotify','Spotify'],['apple','Apple Music'],['youtube','YouTube Music'],['bandcamp','Bandcamp']];
 
+  // si la portada no está ni en assets/ ni en el hosting, queda un recuadro violeta con el nombre
   function coverImg(img, f, onload){
-    img.onerror = function(){ img.onerror = null; img.src = REMOTE + f; };   // sin copia local → hosting
+    var box = img.parentNode;
+    box.classList.remove('noimg');
+    img.onerror = function(){ img.onerror = function(){ img.onerror = null; box.classList.add('noimg'); }; img.src = REMOTE + f; };
     if (onload) img.addEventListener('load', onload);
     img.src = LOCAL + f;
   }
-  var discsWrap = document.getElementById('discs');
-  ALBUMS.forEach(function(al, i){
+  function makeDisc(al, i, wrapEl){
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'disc'; b.setAttribute('aria-label', al.title);
     var p = al.pos;
-    b.style.cssText = '--x:' + p[0] + ';--y:' + p[1] + ';--s:' + p[2] + ';--r:' + p[3] + ';--z:' + p[4] + ';--dir:' + p[5];
+    b.style.cssText = '--x:' + p[0] + ';--y:' + p[1] + ';--s:' + p[2] + ';--r:' + p[3] + ';--z:' + p[4] + ';--dir:' + p[5] + ';--i:' + i + (al.mx ? ';--mx:' + al.mx : '');
     b.innerHTML = '<span class="lp"><i></i></span><img alt=""><span class="name"></span>';
     b.querySelector('.name').textContent = al.title;
     var img = b.querySelector('img'), label = b.querySelector('.lp i');
     coverImg(img, al.f, function(){ label.style.backgroundImage = 'url("' + img.src + '")'; });
-    b.addEventListener('click', function(){ openAlbum(i, b); });
-    discsWrap.appendChild(b);
+    b.addEventListener('click', function(){ openAlbum(al, b); });
+    wrapEl.appendChild(b);
+    return b;
+  }
+  var discsWrap = document.getElementById('discs');
+  ALBUMS.forEach(function(al, i){
+    var b = makeDisc(al, i, discsWrap);
+    // hacia dónde sale volando en "otros proyectos": lejos del centro, con giro y un poco de desfase
+    var dx = al.pos[0] - 48, dy = al.pos[1] - 50, len = Math.hypot(dx, dy) || 1;
+    b.style.setProperty('--fx', (dx / len * 120).toFixed(1) + 'vw');
+    b.style.setProperty('--fy', (dy / len * 120).toFixed(1) + 'vh');
+    b.style.setProperty('--fr', ((i % 2 ? 1 : -1) * (40 + i * 9)) + 'deg');
+    b.style.setProperty('--d', (i * .04).toFixed(2) + 's');
   });
+  var projsWrap = document.getElementById('projs');
+  PROJECTS.forEach(function(al, i){ makeDisc(al, i, projsWrap); });
+
+  /* ---------- OTROS PROYECTOS ---------- */
+  var oniriasWrap = document.getElementById('onirias');
+  ONIRIAS.forEach(function(v, i){
+    var d = document.createElement('div');
+    d.className = 'vid';
+    d.style.cssText = '--x:' + v.x + ';--y:' + v.y + ';--w:' + v.w + ';--r:' + v.r + ';--mx:' + v.mx + ';--my:' + v.my + ';--i:' + (i + 1);
+    d.innerHTML = '<div class="frame"></div><p></p>';
+    d.lastChild.textContent = v.title;
+    d.dataset.id = v.id; d.dataset.title = v.title;
+    oniriasWrap.appendChild(d);
+  });
+  function ytFrame(id, title){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id;
+    f.title = title; f.loading = 'lazy'; f.allowFullscreen = true;
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    return f;
+  }
+  var projBtn = document.getElementById('toProjects');
+  function setProjects(on){
+    music.classList.toggle('projects', on);
+    projBtn.setAttribute('aria-pressed', on);
+    projBtn.setAttribute('data-es', on ? '← mis discos' : 'otros proyectos &\narte sonoro');
+    projBtn.setAttribute('data-en', on ? '← my records' : 'other projects &\nsound art');
+    projBtn.textContent = projBtn.getAttribute('data-' + (document.documentElement.lang === 'en' ? 'en' : 'es'));
+    // los videos se cargan solo la primera vez que se entra
+    if (on) oniriasWrap.querySelectorAll('.vid .frame:empty').forEach(function(fr){
+      fr.appendChild(ytFrame(fr.parentNode.dataset.id, fr.parentNode.dataset.title));
+    });
+  }
+  projBtn.addEventListener('click', function(){ setProjects(!music.classList.contains('projects')); });
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 ficha de un disco (solo se llega con click). */
+     Pantallas: 0 hola, 1 lista, 2 música, 3 ficha de un disco o "mi historia" (solo se llega con click;
+     las dos comparten el lugar 3 y la que no está activa espera abajo). */
   var hero = document.getElementById('hero');
   var title = document.getElementById('heroTitle');
   var about = document.getElementById('about');
   var music = document.getElementById('music');
   var album = document.getElementById('album');
+  var story = document.getElementById('story');
+  var sub = album;                                   // qué pantalla ocupa el lugar 3
   var model = document.getElementById('model');
   var organ = document.getElementById('organ');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [album, 3]];
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [album, 3], [story, 3]];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
@@ -478,7 +690,7 @@ arte sonoro</p>
   }
   function render(p){
     LAYERS.forEach(function(l){
-      var t = place(p - l[1]);
+      var t = place(l[1] === 3 && l[0] !== sub ? -1 : p - l[1]);
       l[0].style.transform = 'translateY(' + t[0] + 'vh) rotate(' + t[1] + 'deg)';
     });
     var e = ease(clamp01(p)), e2 = ease(clamp01(p - 1));   // 0→1: la cabeza se reduce; 1→2: sube con la lista
@@ -497,8 +709,8 @@ arte sonoro</p>
   function go(v){
     if (v !== target) { from = current; target = v; t0 = performance.now(); }
     // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en las demás)
-    LAYERS.forEach(function(l){ l[0].inert = l[1] !== v; });
-    album.classList.toggle('open', v === 3);
+    LAYERS.forEach(function(l){ l[0].inert = l[1] !== v || (v === 3 && l[0] !== sub); });
+    album.classList.toggle('open', v === 3 && sub === album);
     // el órgano 3D se carga hasta que hace falta, para no frenar la primera pantalla
     if (v >= 1 && !organ.getAttribute('src')) {
       organ.addEventListener('error', function(){ if (organ.getAttribute('src').indexOf(REMOTE) !== 0) organ.setAttribute('src', REMOTE + 'FUNMACHINE_EXP.glb'); });
@@ -512,14 +724,25 @@ arte sonoro</p>
   var stage = document.getElementById('stage');
   stage.addEventListener('scroll', function(){ stage.scrollTop = stage.scrollLeft = 0; });
   document.getElementById('toMusic').addEventListener('click', function(){ go(2); });
+  function loadGlb(m, f){
+    if (m.getAttribute('src')) return;
+    m.addEventListener('error', function(){ if (m.getAttribute('src').indexOf(REMOTE) !== 0) m.setAttribute('src', REMOTE + f); });
+    m.setAttribute('src', LOCAL + f);
+  }
 
   /* ---------- FICHA DEL DISCO ---------- */
   var opener = null;
   function para(html){ var p = document.createElement('p'); p.innerHTML = html; return p; }
-  function openAlbum(i, btn){
-    var al = ALBUMS[i], l = document.documentElement.lang === 'en' ? 'en' : 'es';
-    opener = btn;
+  var art = album.querySelector('.album-art');
+  function openAlbum(al, btn){
+    var l = document.documentElement.lang === 'en' ? 'en' : 'es';
+    opener = btn; sub = album; last = -1;
     var img = document.getElementById('albumImg'), label = document.getElementById('albumLabel');
+    // con video (En tu piel) el embed reemplaza a la portada
+    var old = art.querySelector('iframe'); if (old) old.remove();
+    art.classList.toggle('video', !!al.video);
+    album.classList.toggle('isvideo', !!al.video);
+    if (al.video) art.appendChild(ytFrame(al.video, al.title));
     img.alt = al.title;
     label.style.backgroundImage = '';
     coverImg(img, al.f, function once(){ label.style.backgroundImage = 'url("' + img.src + '")'; img.removeEventListener('load', once); });
@@ -527,25 +750,36 @@ arte sonoro</p>
     t.textContent = al.title;
     t.classList.toggle('long', al.title.length > 22);
     var SEP = '<span class="sep" aria-hidden="true">|</span>';
-    var meta = '<b>' + TYPES[al.type][l] + '</b>' + SEP + '<b>' + al.genre + '</b>';
+    var parts = [];
+    if (al.type) parts.push('<b>' + TYPES[al.type][l] + '</b>');
+    if (al.genre) parts.push('<b>' + al.genre + '</b>');
+    if (al.by) parts.push('<b>' + al.by + '</b>');
     if (al.date) {
       var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
-      meta += SEP + '<span>' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]) + '</span>';
+      parts.push('<span>' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]) + '</span>');
     }
-    document.getElementById('albumMeta').innerHTML = meta;
+    document.getElementById('albumMeta').innerHTML = parts.join(SEP);
     var text = document.getElementById('albumText'); text.textContent = '';
     (al.info ? al.info[l] : []).forEach(function(h){ text.appendChild(para(h)); });
     text.hidden = !al.info;
     var cr = document.getElementById('albumCredits'); cr.textContent = '';
     var lbl = document.createElement('p'); lbl.className = 'lbl'; lbl.textContent = l === 'en' ? 'credits' : 'créditos';
     cr.appendChild(lbl);
-    al.credits[l].forEach(function(h){ cr.appendChild(para(h)); });
+    al.credits[l].forEach(function(h){
+      if (h.indexOf('## ') !== 0) return cr.appendChild(para(h));
+      var sl = document.createElement('p'); sl.className = 'lbl'; sl.style.marginTop = '2.4vh';
+      sl.innerHTML = h.slice(3).split(' | ').map(function(x){ var b = document.createElement('b'); b.textContent = x; return b.outerHTML; }).join(SEP);
+      cr.appendChild(sl);
+    });
     var ul = document.getElementById('albumLinks'); ul.textContent = '';
-    PLATFORMS.forEach(function(pf){
+    ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links;
+    if (al.links) PLATFORMS.forEach(function(pf){
       var li = document.createElement('li'), a = document.createElement('a');
-      a.className = 'pf'; a.href = al.links[pf[0]]; a.target = '_blank'; a.rel = 'noopener';
+      a.className = 'pf';
       a.innerHTML = '<svg aria-hidden="true"><use href="#i-' + pf[0] + '"/></svg><span></span>';
       a.lastChild.textContent = pf[1];
+      if (al.links === 'soon') { a.classList.add('soon'); a.setAttribute('aria-disabled', 'true'); a.title = l === 'en' ? 'coming soon' : 'pronto'; }
+      else { a.href = al.links[pf[0]]; a.target = '_blank'; a.rel = 'noopener'; }
       li.appendChild(a); ul.appendChild(li);
     });
     album.querySelector('.album-info').scrollTop = 0;
@@ -556,8 +790,47 @@ arte sonoro</p>
   function closeAlbum(){
     go(2);
     if (opener) opener.focus({preventScroll:true});
+    // el video de la ficha se quita al terminar de salir, para que deje de sonar
+    setTimeout(function(){ if (target !== 3 || sub !== album) { var f = art.querySelector('iframe'); if (f) f.remove(); } }, DURATION);
   }
   document.getElementById('back').addEventListener('click', closeAlbum);
+  document.getElementById('storyBack').addEventListener('click', closeAlbum);
+
+  /* ---------- MI HISTORIA: carrusel ---------- */
+  var slides = [].slice.call(story.querySelectorAll('.slide')), idx = 0, hovering = false;
+  function move(dir){
+    idx = (idx + dir + slides.length) % slides.length;
+    slides.forEach(function(sl, i){
+      var was = +sl.dataset.p, now = (i - idx + slides.length) % slides.length;
+      sl.classList.remove('show');
+      // el que pasa de un lado al otro por detrás no se anima
+      if ((was === 2 && now === 1) || (was === 1 && now === 2)) { sl.classList.add('jump'); sl.offsetWidth; }
+      sl.dataset.p = now;
+      sl.tabIndex = now === 0 ? 0 : -1;
+      if (sl.classList.contains('jump')) requestAnimationFrame(function(){ requestAnimationFrame(function(){ sl.classList.remove('jump'); }); });
+    });
+  }
+  document.getElementById('prev3d').addEventListener('click', function(){ move(-1); });
+  document.getElementById('next3d').addEventListener('click', function(){ move(1); });
+  slides.forEach(function(sl){
+    sl.addEventListener('click', function(){ sl.classList.toggle('show'); });     // en móvil el tap muestra/oculta el texto
+    sl.addEventListener('keydown', function(e){ if (e.key === 'Enter') sl.classList.toggle('show'); });
+    sl.addEventListener('mouseenter', function(){ hovering = true; });
+    sl.addEventListener('mouseleave', function(){ hovering = false; });
+  });
+  // avanza solo hacia la izquierda, salvo mientras se lee un texto
+  setInterval(function(){
+    if (reduce || target !== 3 || sub !== story || hovering || busy()) return;
+    if (slides.some(function(sl){ return sl.classList.contains('show'); }) || story.contains(document.activeElement) && document.activeElement.classList.contains('slide')) return;
+    move(1);
+  }, 6500);
+  function openStory(btn){
+    opener = btn; sub = story; last = -1;
+    slides.forEach(function(sl){ loadGlb(sl.querySelector('model-viewer'), sl.dataset.glb); });
+    go(3);
+    document.getElementById('storyBack').focus({preventScroll:true});
+  }
+  document.getElementById('toStory').addEventListener('click', function(){ openStory(this); });
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
   // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)
@@ -578,11 +851,16 @@ arte sonoro</p>
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
     if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
+    else if (target === 3 && sub === story && Math.abs(dx) > 40 && e.target.closest && e.target.closest('.carousel')) move(dx > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
   // teclado
   window.addEventListener('keydown', function(e){
-    if (target === 3) { if (e.key === 'Escape') closeAlbum(); return; }   // en la ficha las flechas hacen scroll del texto
+    if (target === 3) {                               // en la ficha las flechas hacen scroll del texto
+      if (e.key === 'Escape') closeAlbum();
+      if (sub === story && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) move(e.key === 'ArrowRight' ? 1 : -1);
+      return;
+    }
     if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
     if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
     if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
