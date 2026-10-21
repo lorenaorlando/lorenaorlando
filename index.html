@@ -360,11 +360,9 @@ arte sonoro</p>
       credits:{es:['Compuesto, grabado, producido, ¿mezclado y masterizado? por Lorena Orlando en Cariaquito Records, su casa.', CR_LO.es],
                en:['Composed, recorded, produced, mixed and mastered(?) by Lorena Orlando at Cariaquito Records, her home.', CR_LO.en]} },
 
-    // OJO: el Spotify que llegó para Prima Materia es el mismo de "Hacer música es hacer magia";
-    // mientras tanto apunta a la búsqueda en Spotify.
     { f:'PRIMA_MATERIA.jpg', title:'Prima Materia EP', type:'ep', date:[26,4,2018],
       pos:[66.4,17.6,20.4,'-18deg',1,-1],
-      links:{spotify:'https://open.spotify.com/search/Prima%20Materia%20Hilandera',
+      links:{spotify:'https://open.spotify.com/album/7k6Owp5KEcOfM1jnKiZXEw',
         apple:'https://music.apple.com/us/album/prima-materia-hilandera-ep/1779986132',
         youtube:'https://music.youtube.com/playlist?list=OLAK5uy_l-7pd5LftXeCw6uBZwceczbSarlyGhFmc',
         bandcamp:'https://lorenaorlando.bandcamp.com/album/prima-materia-hilandera'},
@@ -556,11 +554,14 @@ arte sonoro</p>
   document.getElementById('back').addEventListener('click', closeAlbum);
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
-  var lastWheel = 0;
+  // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)
+  var lastWheel = 0, gestureUsed = false;
   window.addEventListener('wheel', function(e){
-    var now = performance.now(), quiet = now - lastWheel > 180;
+    var now = performance.now();
+    if (now - lastWheel > 180) gestureUsed = false;
     lastWheel = now;
-    if (target === 3 || Math.abs(e.deltaY) < 4 || !quiet || busy()) return;
+    if (target === 3 || gestureUsed || Math.abs(e.deltaY) < 4 || busy()) return;
+    gestureUsed = true;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
