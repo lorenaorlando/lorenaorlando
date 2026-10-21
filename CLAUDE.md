@@ -123,6 +123,7 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 ### Otros
 
+- `FAVICON.png`: icono de la pestaña (y de acceso directo en iPhone).
 - `vacio`: archivo de relleno que se usó para crear la carpeta; no se usa.
 - `.DS_Store`: archivo automático de Mac; no se usa.
 
