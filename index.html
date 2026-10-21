@@ -172,11 +172,16 @@
   .nitem:hover span,.nitem:focus-visible span{color:var(--mostaza)}
   .nitem:focus-visible span{outline:2px solid var(--crema);outline-offset:6px}
 
-  /* SECCIÓN 7: DISEÑO WEB — lorenaorlando.click en un iframe (95% de la pantalla); COMPU_VIEJA y el título en la esquina superior izquierda */
+  /* SECCIÓN 7: DISEÑO WEB — lorenaorlando.click en un iframe (80% de la pantalla); COMPU_VIEJA y el título en la esquina superior derecha;
+     flechas arriba y abajo para cambiar de pantalla (sobre el iframe la rueda no llega al sitio) */
   .web{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
-  .wwsite{position:absolute;left:2.5vw;top:2.5vh;width:95vw;height:95vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
-  .compu{position:absolute;z-index:10;left:0;top:0;width:16vw;height:22vh}
-  .dtitle{position:absolute;z-index:20;left:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+  .wwsite{position:absolute;left:10vw;top:10vh;width:80vw;height:80vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .compu{position:absolute;z-index:10;right:0;top:0;width:16vw;height:22vh}
+  .web .arrow{left:50vw;translate:-50% -50%}
+  .web .arrow.up{top:5vh}
+  .web .arrow.down{top:95vh}
+  .web .arrow:disabled{opacity:.35;cursor:default;scale:1;background:var(--crema)}
+  .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
   /* FICHA DEL DISCO */
   .album{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}   /* en pantallas anchas y bajitas el texto se achica con la altura */
@@ -314,9 +319,9 @@
     .ntitle{top:23vh;font-size:13vw}
     .nitem img{width:min(46vw,23vh);left:calc(var(--mx) * 1vw - min(46vw,23vh) / 2);top:calc(var(--my) * 1vh)}
     .nitem span{left:calc(var(--mx) * 1vw);top:calc(var(--my) * 1vh + min(23vw,11.5vh) + 2.5vh);font-size:5vw}
-    .wwsite{border-radius:2vw}
+    .wwsite{left:5vw;width:90vw;border-radius:2vw}
     .compu{width:30vw;height:12vh}
-    .dtitle{left:4vw;top:10.5vh;font-size:10vw}
+    .dtitle{right:4vw;top:10.5vh;font-size:10vw}
   }
 </style>
 </head>
@@ -463,6 +468,8 @@ fotográfica</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="dtitle" data-es="diseño" data-en="design">diseño</h2>
+    <button type="button" class="arrow up" id="webUp" aria-label="Pantalla anterior"><svg viewBox="0 0 24 24"><path d="M4 15l8-8 8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="arrow down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24"><path d="M4 9l8 8 8-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -965,7 +972,8 @@ fotográfica</button>
     // diseño web: el iframe se carga al entrar
     if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
   }
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(6, target + dir))); }
+  var LAST = 6;                                      // última pantalla
+  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -976,6 +984,11 @@ fotográfica</button>
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
   document.getElementById('toNet').addEventListener('click', function(){ go(5); });
   document.getElementById('toWeb').addEventListener('click', function(){ go(6); });
+  // flechas de diseño web: la de abajo queda apagada mientras sea la última pantalla
+  document.getElementById('webUp').addEventListener('click', function(){ step(-1); });
+  var webDown = document.getElementById('webDown');
+  webDown.disabled = LAST <= 6;
+  webDown.addEventListener('click', function(){ step(1); });
   // escritura: el iframe y el feed de Supascribe se cargan al entrar, solo los del idioma activo
   var feedLoaded = false;
   var wfeed = write.querySelector('.wfeed'), wcard = write.querySelector('.wcard'), wfeedIn = write.querySelector('.wfeed-in');
@@ -1162,7 +1175,7 @@ fotográfica</button>
     if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
     if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
     if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
-    if (e.key === 'End') { go(6); e.preventDefault(); }
+    if (e.key === 'End') { go(LAST); e.preventDefault(); }
     if (e.key === 'Home') { go(0); e.preventDefault(); }
   });
 
