@@ -167,6 +167,8 @@
       img.style.setProperty('--dy', ((rnd2() * 2 - 1) * 2.6).toFixed(2) + 'vh');
       img.style.animationDuration = (8 + rnd2() * 8).toFixed(1) + 's';
       img.style.animationDelay = '-' + (rnd2() * 12).toFixed(1) + 's';
+      img.onerror = function(){ this.onerror = null; this.src = REMOTE + this.dataset.f; };  // sin copia local → hosting
+      img.dataset.f = f;
       img.src = LOCAL + f;
       wrap.appendChild(img);
     }
@@ -193,13 +195,20 @@
     var s = 1 - (1 - sEnd) * e;
     model.style.transform = 'translate(-50%,-50%) translate(' + (xEnd * e) + 'vw,' + (yEnd * e) + 'vh) scale(' + s + ')';
   }
+  var last = -1;
   function tick(){
     current += (target - current) * (reduce ? 1 : 0.075);
     if (Math.abs(target - current) < 0.0004) current = target;
-    render(current);
+    if (current !== last) { render(current); last = current; }
     requestAnimationFrame(tick);
   }
-  function go(v){ target = v; }
+  function go(v){
+    target = v;
+    // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en la 2ª)
+    hero.inert = title.inert = v === 1;
+    about.inert = v === 0;
+  }
+  window.addEventListener('resize', function(){ last = -1; });
 
   // rueda / trackpad
   window.addEventListener('wheel', function(e){
@@ -207,22 +216,24 @@
     go(e.deltaY > 0 ? 1 : 0);
   }, {passive:true});
   // táctil (deslizar)
-  var y0 = null;
-  window.addEventListener('touchstart', function(e){ y0 = e.touches[0].clientY; }, {passive:true});
+  var x0 = null, y0 = null;
+  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
-    var dy = y0 - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 30) go(dy > 0 ? 1 : 0);
-    y0 = null;
+    var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
+    // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
+    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) go(dy > 0 ? 1 : 0);
+    x0 = y0 = null;
   }, {passive:true});
   // teclado
   window.addEventListener('keydown', function(e){
+    if (e.key === ' ' && e.target.closest && e.target.closest('button')) return;  // espacio activa eng/esp
     if (['ArrowDown','PageDown',' ','End'].indexOf(e.key) > -1) { go(1); e.preventDefault(); }
     if (['ArrowUp','PageUp','Home'].indexOf(e.key) > -1) { go(0); e.preventDefault(); }
   });
 
   if (reduce) mv.removeAttribute('auto-rotate');
-  render(0); tick();
+  go(0); tick();
 
   /* ---------- IDIOMA ---------- */
   var buttons = document.querySelectorAll('[data-lang]');
