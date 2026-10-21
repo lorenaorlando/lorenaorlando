@@ -119,10 +119,10 @@
   .photo a.t,.photo button.t{background:none;border:0;padding:0;font-family:inherit;font-weight:400;letter-spacing:inherit;cursor:pointer;pointer-events:auto;transition:color .2s}
   .photo a.t:hover,.photo button.t:hover{color:var(--mostaza)}
   .photo a.t:focus-visible,.photo button.t:focus-visible,.indi:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
-  .portafolio{left:33.6vw;top:29.6vh;font-size:2.6vw;rotate:4deg}
-  .phistoria{left:50.5vw;top:36vh;font-size:2.6vw;rotate:4deg}
-  .zenit{position:absolute;z-index:10;left:45.5vw;top:53vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
-  .photo .ptitle{left:48.6vw;top:61.5vh;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;rotate:-8deg;text-shadow:var(--shadow);pointer-events:none}
+  .portafolio{left:41vw;top:22vh;font-size:2.6vw;rotate:-4deg}
+  .phistoria{left:58vw;top:24vh;font-size:2.6vw;rotate:4deg}
+  .zenit{position:absolute;z-index:10;left:50vw;top:50vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
+  .photo .ptitle{left:50vw;top:66vh;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;rotate:-8deg;text-shadow:var(--shadow);pointer-events:none}
   /* collage: centro (--x vw, --y vh), ancho (--w), giro (--r); llegan volando desde la izquierda */
   .ph{position:absolute;z-index:var(--z);width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh);transform:translateY(-50%);pointer-events:auto;-webkit-tap-highlight-color:transparent;
     translate:-80vw var(--fy,0);rotate:calc(var(--r) - 35deg);opacity:0;transition:translate .7s cubic-bezier(.55,0,.6,1),rotate .7s cubic-bezier(.55,0,.6,1),opacity .4s .2s}
@@ -134,7 +134,7 @@
   .ph:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .ph.noimg{aspect-ratio:3/2}
   /* indivirtual: el recorte de la imagen tal cual */
-  .indi{position:absolute;left:59vw;top:50vh;width:min(52vw,95vh);translate:0 -50%;color:inherit;text-decoration:none;pointer-events:auto;transition:scale .4s,rotate .4s}
+  .indi{position:absolute;left:63vw;top:50vh;width:min(46vw,90vh);translate:0 -50%;color:inherit;text-decoration:none;pointer-events:auto;transition:scale .4s,rotate .4s}
   .indi img{display:block;width:100%;height:auto;filter:drop-shadow(.3vw .5vw 1vw rgba(54,1,133,.45))}
   .indi span{position:absolute;left:13%;top:87%;translate:-50% -50%;rotate:-8deg;font-size:2.6vw;line-height:.95;text-align:center;white-space:pre-line;text-shadow:var(--shadow-sm);transition:color .2s}
   .indi:hover{scale:1.02;rotate:-1deg}
@@ -259,11 +259,11 @@
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
     .ph{width:calc(var(--mw) * 1vw);left:calc(var(--mx) * 1vw - var(--mw) * .5vw);top:calc(var(--my) * 1vh)}
-    .portafolio{left:24vw;top:47vh;font-size:6.4vw;rotate:-3deg}
-    .phistoria{left:72vw;top:48vh;font-size:5.6vw;rotate:3deg}
-    .zenit{left:31vw;top:63vh;width:58vw;height:22vh}
-    .photo .ptitle{left:33vw;top:71vh;font-size:13vw}
-    .indi{left:auto;right:-6vw;top:auto;bottom:2vh;translate:none;width:min(62vw,36vh)}
+    .portafolio{left:25vw;top:41.5vh;font-size:6.4vw;rotate:-3deg}
+    .phistoria{left:73vw;top:42.5vh;font-size:5.6vw;rotate:3deg}
+    .zenit{left:50vw;top:55vh;width:58vw;height:20vh}
+    .photo .ptitle{left:50vw;top:64vh;font-size:13vw}
+    .indi{left:auto;right:4vw;top:auto;bottom:1vh;translate:none;width:min(56vw,28vh)}
     .indi span{font-size:5vw;left:24%}
   }
 </style>
@@ -448,7 +448,7 @@ fotográfica</button>
             <p data-es="Esta fue una cámara que heredé de mi papá, con la cual empecé a hacer mis primeras fotografías alrededor del 2003. Fue usada para cursar todos mis estudios en la Organización Nelson Garrido." data-en="I inherited this camera from my dad, and with it I started taking my first photographs around 2003. I used it throughout all my studies at the Organización Nelson Garrido.">Esta fue una cámara que heredé de mi papá, con la cual empecé a hacer mis primeras fotografías alrededor del 2003. Fue usada para cursar todos mis estudios en la Organización Nelson Garrido.</p>
           </div>
         </div>
-        <div class="slide" data-p="1" data-glb="FUJI.glb" tabindex="-1">
+        <div class="slide" data-p="1" data-glb="FUJI_EXP.glb" tabindex="-1">
           <model-viewer alt="Cámara instantánea Fujifilm" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
           <div class="info3d">
             <h3>fujifilm</h3>
@@ -757,14 +757,13 @@ fotográfica</button>
      m = [centro x, centro y, ancho] en móvil (vw, vh, vw). Todas llevan al portafolio. */
   var PORTFOLIO = 'https://lorlando.framer.website/art';
   var PHOTOS = [
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg', x:10,   y:11, w:25, r:'-3deg', z:1, m:[20, 6, 42] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',      x:31.5, y:9,  w:23, r:'-5deg', z:2, m:[66, 5, 40] },
-    { f:'FUGLY_LORENA_ORLANDO__1.jpg',           x:12,   y:40, w:26, r:'1deg',  z:3, m:[27, 18, 46] },
-    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__3.jpg', x:6, y:73, w:13, r:'-4deg', z:2, m:[89, 22, 17] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',      x:22.5, y:63, w:25, r:'0deg',  z:4, m:[64, 20, 40] },
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg', x:19,   y:92, w:28, r:'-6deg', z:5, m:[30, 33, 44] },
-    { f:'BODY_LORENA_ORLANDO_3.jpg',             x:39,   y:86, w:13, r:'8deg',  z:6, m:[78, 35, 24] },
-    { f:'A_WOMAN_WITH_A_CAMERA_LORENA_ORLANDO_2.jpg', x:35, y:57, w:12, r:'7deg', z:1, m:[8, 25, 22] }
+    { f:'FUGLY_LORENA_ORLANDO__1.jpg',                x:9.5,  y:13, w:19, r:'-4deg', z:2, m:[24, 7, 42] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',           x:28,   y:11, w:18, r:'5deg',  z:1, m:[72, 7, 40] },
+    { f:'BODY_LORENA_ORLANDO_3.jpg',                  x:27.5, y:37, w:14, r:'-6deg', z:3, m:[85, 20, 24] },
+    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__2.jpg', x:9.5,  y:46, w:13, r:'3deg',  z:1, m:[13, 20, 21] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',           x:28,   y:63, w:18, r:'4deg',  z:2, m:[49, 20, 40] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg',      x:10,   y:82, w:19, r:'-3deg', z:3, m:[27, 32, 42] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg',      x:28,   y:88, w:17, r:'-5deg', z:4, m:[73, 32, 40] }
   ];
   var photoWrap = document.getElementById('photos');
   PHOTOS.forEach(function(ph, i){
