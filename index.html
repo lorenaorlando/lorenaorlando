@@ -6,18 +6,19 @@
 <title>Lorena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Modak&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Modak&display=swap" rel="stylesheet">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
   :root{
-    --morado:#360185; --violeta:#8F0177; --magenta:#DE1A58; --mostaza:#F4B342; --crema:#FFF0D6;
+    --morado:#360185; --violeta:#8F0177; --magenta:#DE1A58; --mostaza:#F4B342; --crema:#FFF0D6; --fondo:#8441b7;
     --display:"Modak",cursive;
-    --shadow: .28vw .28vw 0 var(--violeta), .5vw .5vw 0 var(--morado);
+    --shadow: .25vw .35vw .7vw rgba(54,1,133,.85);          /* drop shadow morado, para todos los textos */
+    --shadow-sm: .12vw .18vw .35vw rgba(54,1,133,.85);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;overflow:hidden;background:var(--magenta);overscroll-behavior:none}
-  body{font-family:"Source Serif 4","Source Serif Pro",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
-  .stage{position:fixed;inset:0;overflow:hidden;background:var(--magenta);touch-action:none}
+  html,body{height:100%;overflow:hidden;background:var(--fondo);overscroll-behavior:none}
+  body{font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
+  .stage{position:fixed;inset:0;overflow:hidden;background:var(--fondo);touch-action:none}
   .layer{position:absolute;inset:0;will-change:transform;pointer-events:none}
 
   /* Nubes de fondo: fijas */
@@ -26,25 +27,27 @@
   @keyframes float{0%,100%{translate:0 0}50%{translate:var(--dx,1vw) var(--dy,-1.5vh)}}
 
   /* 3D: solo escala */
-  .model-wrap{position:absolute;left:50%;top:46%;width:46vw;height:92vh;transform:translate(-50%,-50%);will-change:transform;z-index:2}
+  .model-wrap{position:absolute;left:50%;top:50%;width:70vw;height:120vh;transform:translate(-50%,-50%);will-change:transform;z-index:2}
   model-viewer{width:100%;height:100%;--poster-color:transparent;background:transparent}
 
   /* HERO */
   .hero{z-index:3;transform-origin:50% 100%}
-  .hola{position:absolute;left:8vw;top:5vh;font-size:13vw;line-height:.9;font-weight:600;transform:rotate(-9deg);transform-origin:left bottom;text-shadow:var(--shadow)}
-  .soy{position:absolute;left:16vw;top:33vh;font-size:8.5vw;line-height:1;font-weight:600;transform:rotate(-6deg);text-shadow:var(--shadow)}
-  .lorena{position:absolute;left:0;right:0;bottom:7vh;text-align:center;font-family:var(--display);font-size:21vw;line-height:.8;letter-spacing:.05em;text-shadow:var(--shadow);white-space:nowrap}
-  .cosas{position:absolute;right:2vw;top:39vh;font-size:3.3vw;line-height:1;text-shadow:.1vw .1vw 0 var(--morado)}
+  .hola{position:absolute;left:10.5vw;top:13vh;font-size:15vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
+  .soy{position:absolute;left:16.5vw;top:30vh;font-size:10vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
+  .lorena{position:absolute;left:0;right:0;top:47vh;text-align:center;font-family:var(--display);font-weight:400;font-size:24vw;line-height:1;letter-spacing:-.02em;text-shadow:var(--shadow);white-space:nowrap}
+  .cosas{position:absolute;right:2vw;top:38vh;font-size:4vw;line-height:1;text-shadow:var(--shadow-sm)}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
-  .lang button{all:unset;cursor:pointer;font-size:2.8vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:.1vw .1vw 0 var(--morado)}
+  .lang button{all:unset;cursor:pointer;font-size:2.8vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
   .lang button:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .lang button[aria-pressed="false"]{opacity:.6}
-  .lang .f{font-size:2.4vw;letter-spacing:0}
+  .lang .f{font-size:2.4vw;letter-spacing:0;text-shadow:none}
 
   /* SECCIÓN 2 */
   .about{z-index:3;transform-origin:50% 0}
   .titles{position:absolute;top:0;bottom:0;left:46vw;right:3vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4vh}
-  .word{pointer-events:auto;cursor:default;font-family:var(--display);font-size:7vw;line-height:1;letter-spacing:.04em;white-space:nowrap;text-align:center;text-shadow:.2vw .2vw 0 var(--violeta),.35vw .35vw 0 var(--morado)}
+  .word{pointer-events:auto;cursor:default;display:flex;align-items:center;gap:1vw;font-family:var(--display);font-size:6.4vw;line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
+  /* 3D pequeño al lado de cada título */
+  .word .ico{width:1.15em;height:1.15em;flex:none;pointer-events:none;--poster-color:transparent;background:transparent;filter:drop-shadow(.2vw .3vw .4vw rgba(54,1,133,.6))}
   .word:hover{animation:pulse .9s ease-in-out infinite}
   @keyframes pulse{0%,100%{scale:1}50%{scale:1.09}}
   @media (prefers-reduced-motion:reduce){#clouds img,.word:hover{animation:none}}
@@ -53,14 +56,14 @@
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
   @media (max-width:700px){
-    .model-wrap{width:90vw;height:60vh;top:44%}
-    .hola{font-size:26vw;left:5vw;top:8vh}
-    .soy{font-size:16vw;left:10vw;top:26vh}
-    .lorena{font-size:32vw;bottom:14vh}
-    .cosas{font-size:6.5vw;top:62vh;right:4vw}
+    .model-wrap{width:110vw;height:62vh;top:47%}
+    .hola{font-size:28vw;left:6vw;top:7vh}
+    .soy{font-size:17vw;left:12vw;top:20vh}
+    .lorena{font-size:30vw;top:56vh}
+    .cosas{font-size:7vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
-    .titles{left:0;right:0;top:50vh}
-    .word{font-size:12vw}
+    .titles{left:0;right:0;top:38vh}
+    .word{font-size:10vw}
   }
 </style>
 </head>
@@ -108,12 +111,12 @@
 
   <div class="layer about" id="about">
     <div class="titles">
-      <p class="word w1" data-es="música" data-en="music">música</p>
-      <p class="word w2" data-es="fotografía" data-en="photography">fotografía</p>
-      <p class="word w3" data-es="escritura" data-en="writing">escritura</p>
-      <p class="word w4" data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</p>
-      <p class="word w5" data-es="diseño web" data-en="web design">diseño web</p>
-      <p class="word w6" data-es="magick" data-en="magick">magick</p>
+      <div class="word w1"><span data-es="música" data-en="music">música</span><model-viewer class="ico" data-model="FUNMACHINE_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w2"><span data-es="fotografía" data-en="photography">fotografía</span><model-viewer class="ico" data-model="ZENIT.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w3"><span data-es="escritura" data-en="writing">escritura</span><model-viewer class="ico" data-model="LAPI_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span><model-viewer class="ico" data-model="LOGO_COMP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span><model-viewer class="ico" data-model="COMPU_VIEJA.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w6"><span data-es="magick" data-en="magick">magick</span><model-viewer class="ico" data-model="TAROT_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
     </div>
   </div>
 
@@ -142,6 +145,12 @@
   });
   mv.addEventListener('load', function(){ status.hidden = true; console.log('GLB cargado:', mv.getAttribute('src')); });
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
+
+  // 3D pequeños de cada título (si falta el archivo, se oculta sin mover el título)
+  document.querySelectorAll('.ico').forEach(function(ico){
+    ico.addEventListener('error', function(){ ico.style.visibility = 'hidden'; });
+    ico.setAttribute('src', LOCAL + ico.dataset.model);
+  });
 
   // Nubes de fondo: cuadrícula con posiciones aleatorias (semilla fija = siempre igual)
   var seed = 7;
@@ -232,7 +241,7 @@
     if (['ArrowUp','PageUp','Home'].indexOf(e.key) > -1) { go(0); e.preventDefault(); }
   });
 
-  if (reduce) mv.removeAttribute('auto-rotate');
+  if (reduce) document.querySelectorAll('model-viewer').forEach(function(m){ m.removeAttribute('auto-rotate'); });
   go(0); tick();
 
   /* ---------- IDIOMA ---------- */
