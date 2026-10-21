@@ -47,7 +47,7 @@
   .titles{position:absolute;top:0;bottom:0;left:46vw;right:3vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4vh}
   .word{pointer-events:auto;cursor:default;display:flex;align-items:center;gap:1vw;font-family:var(--display);font-size:6.4vw;line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
   /* 3D pequeño al lado de cada título */
-  .word .ico{width:1.15em;height:1.15em;flex:none;pointer-events:none;--poster-color:transparent;background:transparent;filter:drop-shadow(.2vw .3vw .4vw rgba(54,1,133,.6))}
+  .word .ico{width:1.15em;height:1.15em;flex:none;pointer-events:none;--poster-color:transparent;background:transparent}
   .word:hover{animation:pulse .9s ease-in-out infinite}
   @keyframes pulse{0%,100%{scale:1}50%{scale:1.09}}
   @media (prefers-reduced-motion:reduce){#clouds img,.word:hover{animation:none}}
@@ -147,10 +147,13 @@
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
 
   // 3D pequeños de cada título (si falta el archivo, se oculta sin mover el título)
-  document.querySelectorAll('.ico').forEach(function(ico){
-    ico.addEventListener('error', function(){ ico.style.visibility = 'hidden'; });
+  var icos = document.querySelectorAll('.ico'), pending = icos.length;
+  icos.forEach(function(ico){
+    ico.addEventListener('error', function(){ ico.style.visibility = 'hidden'; icoDone(); });
+    ico.addEventListener('load', icoDone);
     ico.setAttribute('src', LOCAL + ico.dataset.model);
   });
+  function icoDone(){ if (--pending <= 0) setTimeout(endWarm, 600); }
 
   // Nubes de fondo: cuadrícula con posiciones aleatorias (semilla fija = siempre igual)
   var seed = 7;
@@ -189,7 +192,14 @@
   var about = document.getElementById('about');
   var model = document.getElementById('model');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var target = 0, current = 0;
+  var target = 0, current = 0, from = 0, t0 = 0;
+  var DURATION = 1100;                               // ms por transición, sin importar los fps
+  /* Calentamiento: los 3D de la pantalla 2 se dibujan una vez, invisibles, mientras se ve la 1ª.
+     Así el navegador prepara sus gráficos antes y la entrada no se traba. */
+  var warming = true;
+  about.style.opacity = '0';
+  function endWarm(){ if (!warming) return; warming = false; about.style.opacity = ''; last = -1; }
+  setTimeout(endWarm, 8000);
   var SCALE_END = 0.65, SHIFT_X = -27, SHIFT_Y = 2;
 
   function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
@@ -198,7 +208,8 @@
     var up = -e * 115, rot = -e * 5;                 // los textos suben y giran un poco, como en una rueda
     hero.style.transform  = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
     title.style.transform = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
-    about.style.transform = 'translateY(' + ((1 - e) * 100) + 'vh) rotate(' + ((1 - e) * 5) + 'deg)';
+    about.style.transform = warming && p === 0 ? 'none'
+      : 'translateY(' + ((1 - e) * 100) + 'vh) rotate(' + ((1 - e) * 5) + 'deg)';
     var m = window.innerWidth <= 700;
     var sEnd = m ? 0.5 : SCALE_END, xEnd = m ? 0 : SHIFT_X, yEnd = m ? -24 : SHIFT_Y;
     var s = 1 - (1 - sEnd) * e;
@@ -206,13 +217,14 @@
   }
   var last = -1;
   function tick(){
-    current += (target - current) * (reduce ? 1 : 0.075);
-    if (Math.abs(target - current) < 0.0004) current = target;
+    var k = reduce ? 1 : Math.min(1, (performance.now() - t0) / DURATION);
+    current = from + (target - from) * k;
     if (current !== last) { render(current); last = current; }
     requestAnimationFrame(tick);
   }
   function go(v){
-    target = v;
+    if (v === 1) endWarm();
+    if (v !== target) { from = current; target = v; t0 = performance.now(); }
     // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en la 2ª)
     hero.inert = title.inert = v === 1;
     about.inert = v === 0;
