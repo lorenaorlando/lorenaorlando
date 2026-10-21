@@ -56,10 +56,10 @@
   /* SECCIÓN 3: MÚSICA */
   .music{z-index:3;transform-origin:50% 0}
   .music .t{position:absolute;text-align:center;line-height:.95;white-space:pre-line;text-shadow:var(--shadow-sm);transform:translate(-50%,-50%)}
-  .historia{left:42.5vw;top:19vh;font-size:3.4vw;rotate:6deg}
-  .otros{left:49.5vw;top:70vh;font-size:2.7vw;rotate:-7deg}
-  .escucha{left:47.7vw;top:80.6vh;font-size:2.5vw}
-  .organ{position:absolute;left:47.4vw;top:43vh;width:24vw;height:46vh;transform:translate(-50%,-50%)}
+  .historia{left:43vw;top:23vh;font-size:2.4vw;rotate:6deg}
+  .otros{left:49.5vw;top:66vh;font-size:2.4vw;rotate:-7deg}
+  .escucha{left:47.7vw;top:81.5vh;font-size:2vw}
+  .organ{position:absolute;left:47.4vw;top:44vh;width:29vw;height:55vh;transform:translate(-50%,-50%)}
   .music .mtitle{left:48vw;top:46vh;font-family:var(--display);font-weight:400;font-size:7vw;line-height:1;letter-spacing:.02em;rotate:-7deg;text-shadow:var(--shadow)}
 
   /* Portadas: centro (--x vw, --y vh), lado (--s), giro (--r); --dir = hacia dónde sale el LP */
@@ -78,8 +78,8 @@
   .lp i::after{content:"";position:absolute;inset:44%;border-radius:50%;background:var(--fondo)}
   @keyframes spin{to{rotate:360deg}}
 
-  .listen{position:absolute;left:47.7vw;top:88.8vh;transform:translate(-50%,-50%);width:17vw;height:8.7vh;display:flex;align-items:center;justify-content:space-evenly;background:var(--mostaza);border-radius:.5vw;box-shadow:.25vw .35vw .7vw rgba(54,1,133,.5);pointer-events:auto}
-  .listen a{display:block;width:2.6vw;height:2.6vw;color:var(--morado);--i2:var(--mostaza);transition:scale .2s,color .2s}
+  .listen{position:absolute;left:47.7vw;top:88.8vh;transform:translate(-50%,-50%);width:17vw;height:8.7vh;display:flex;align-items:center;justify-content:space-evenly;background:var(--crema);border-radius:.5vw;box-shadow:.25vw .35vw .7vw rgba(54,1,133,.5);pointer-events:auto}
+  .listen a{display:block;width:2.6vw;height:2.6vw;color:var(--morado);--i2:var(--crema);transition:scale .2s,color .2s}
   .listen a:hover,.listen a:focus-visible{color:var(--magenta);scale:1.15;outline:none}
   .listen svg,.pf svg{display:block;width:100%;height:100%}
 
@@ -108,9 +108,9 @@
   .album-credits .lbl{font-size:2.2vw;line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
   .listen-lbl{margin-top:3.2vh;font-size:2.8vw;line-height:1;text-shadow:var(--shadow-sm)}
   .platforms{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1vw;max-width:31vw;margin-top:1.6vh}
-  .pf{display:flex;align-items:center;gap:.8vw;padding:.65vw 1.2vw .65vw .7vw;background:var(--mostaza);color:var(--morado);--i2:var(--mostaza);border-radius:999px;text-decoration:none;font-size:1.55vw;line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
+  .pf{display:flex;align-items:center;gap:.8vw;padding:.65vw 1.2vw .65vw .7vw;background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:1.55vw;line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
   .pf svg{flex:none;width:2.3vw;height:2.3vw}
-  .pf:hover,.pf:focus-visible{background:var(--crema);--i2:var(--crema);translate:0 -.2vw}
+  .pf:hover,.pf:focus-visible{background:var(--mostaza);--i2:var(--mostaza);translate:0 -.2vw}
   @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
@@ -124,14 +124,14 @@
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
-    .historia{left:50vw;top:5vh;font-size:5.5vw;rotate:3deg}
-    .organ{left:50vw;top:19vh;width:62vw;height:24vh}
+    .historia{left:50vw;top:7vh;font-size:4.4vw;rotate:3deg}
+    .organ{left:50vw;top:19.5vh;width:72vw;height:27vh}
     .music .mtitle{left:50vw;top:23vh;font-size:17vw}
-    .otros{left:50vw;top:34.5vh;font-size:4.6vw;rotate:-3deg}
+    .otros{left:50vw;top:33vh;font-size:4.4vw;rotate:-3deg}
     .discs{inset:auto 0;top:39.5vh;display:grid;grid-template-columns:repeat(3,min(27vw,13.3vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
     .name{font-size:3.4vw}
-    .escucha{left:50vw;top:84vh;font-size:4.8vw}
+    .escucha{left:50vw;top:84vh;font-size:4.2vw}
     .listen{left:50vw;top:91vh;width:62vw;height:7.5vh;border-radius:1.5vw}
     .listen a{width:8vw;height:8vw}
     .back{left:5vw;top:2.5vh;font-size:5.5vw;padding:.2em .6em .3em;background:var(--morado);border-radius:999px}
@@ -221,7 +221,7 @@ la música</p>
     <p class="t otros" data-es="otros proyectos &amp;&#10;arte sonoro" data-en="other projects &amp;&#10;sound art">otros proyectos &amp;
 arte sonoro</p>
     <div class="discs" id="discs"></div>
-    <p class="t escucha" data-es="escucha mi música" data-en="listen to my music">escucha mi música</p>
+    <p class="t escucha" data-es="escúchame!" data-en="listen to me!">escúchame!</p>
     <nav class="listen" aria-label="Escucha mi música">
       <a href="https://open.spotify.com/artist/4CQeBhnbUpLbhZ6DbEo6rg" target="_blank" rel="noopener" aria-label="Spotify"><svg><use href="#i-spotify"/></svg></a>
       <a href="https://music.apple.com/us/artist/lorena-orlando/1383467034" target="_blank" rel="noopener" aria-label="Apple Music"><svg><use href="#i-apple"/></svg></a>
@@ -309,7 +309,7 @@ arte sonoro</p>
   var CR_LO = {es:'Portada por Lorena Orlando.', en:'Cover by Lorena Orlando.'};
   var ALBUMS = [
     { f:'ASI_QUE_MIN.jpg', title:'Así que no era una pesadilla, sigo viviendo aquí', type:'ep', date:[5,5,2026],
-      pos:[12.5,18,21.4,'4deg',2,1],
+      pos:[12.5,18,21.4,'4deg',3,1],
       links:{spotify:'https://open.spotify.com/album/570ltXLQD0sWl6KDo4ZKvr',
         apple:'https://music.apple.com/us/album/as%C3%AD-que-no-era-una-pesadilla-sigo-viviendo-aqu%C3%AD-ep/1894703130',
         youtube:'https://www.youtube.com/watch?v=WmNj2rHnI-A&list=OLAK5uy_kE0-skdxuSbU4Yrt0Kt2LJVluZDimJmPk',
@@ -322,7 +322,7 @@ arte sonoro</p>
                en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
 
     { f:'HACER_MUSICA.jpg', title:'Hacer música es hacer magia', type:'ep', date:[3,6,2024],
-      pos:[10.7,51.4,21,'-1deg',1,1],
+      pos:[10.7,51.4,21,'-1deg',2,1],
       links:{spotify:'https://open.spotify.com/album/2dOmD7xxDuoAWF5jkXrPY4',
         apple:'https://music.apple.com/us/album/hacer-m%C3%BAsica-es-hacer-magia-ep/1741092774',
         youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mfQ9VeYtHv_fRYw6FHrQqB07KaOS5j8vk',
@@ -331,7 +331,7 @@ arte sonoro</p>
                en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
 
     { f:'MUNDOS_DE_VIDA.jpg', title:'Mundos de vida', type:'album', date:[24,12,2022],
-      pos:[27.6,51.4,21,'16deg',4,1],
+      pos:[24.5,51.4,21,'16deg',1,1],
       links:{spotify:'https://open.spotify.com/album/1PLdVwubMQexWbIC6yXZD5',
         apple:'https://music.apple.com/us/album/mundos-de-vida-hilandera/1779136195',
         youtube:'https://music.youtube.com/playlist?list=OLAK5uy_n6QuAP11n40Qn8FskLqxLUXljOISLYDT8',
@@ -350,7 +350,7 @@ arte sonoro</p>
                    'The rest mastered by an artificial intelligence, because we live in the future.', CR_LO.en]} },
 
     { f:'MUSIQUIATRIA22.jpg', title:'Musiquiatría 22 EP', type:'ep', date:[17,7,2020],
-      pos:[14.3,81.5,22,'-12deg',3,1],
+      pos:[14.3,81.5,22,'-12deg',4,1],
       links:{spotify:'https://open.spotify.com/album/2SEQ4rdRtpYhpJ7xCowF0h',
         apple:'https://music.apple.com/us/album/musiquiatr%C3%ADa-22-hilandera-ep/1779986087',
         youtube:'https://music.youtube.com/playlist?list=OLAK5uy_n8SIMt9Mylyw59zKpMstIDBQEvDDEfazU',
