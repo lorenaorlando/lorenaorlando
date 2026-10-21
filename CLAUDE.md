@@ -40,6 +40,7 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Otros proyectos & arte sonoro.** Click en ese texto de la pantalla 3: los discos salen volando y entran las portadas de `PROJECTS` (izquierda) y los videos de `ONIRIAS` (derecha, bajo "onirias: piezas radiofónicas"). El mismo texto pasa a "← mis discos" para volver. Los videos se cargan solo la primera vez que se entra.
 - **Fotografía.** Pantalla siguiente a música (con scroll o click en "fotografía"). A la izquierda, collage de fotos de `assets/portfolio/` (arreglo `PHOTOS` del JS, con posición de escritorio y de móvil) que llegan volando desde la izquierda cada vez que se entra y hacen un ligero tilt que sigue al mouse. Las fotos y "portafolio" llevan a https://lorlando.framer.website/art. En el centro exacto de la pantalla el Zenit 3D con el título "fotografía". A la derecha el recorte de INDIVIRTUAL (`INDIVIRTUAL_CUT.webp`) con "indivirtual (expo 3D)", que lleva a la expo en oncyber. "lee mi historia fotográfica" abre su propia "mi historia" (cámaras: Zenit y Fujifilm).
 - **Escritura.** Pantalla siguiente a fotografía (con scroll o click en "escritura"). En español: a la izquierda el feed de Supascribe (3 posts) dibujado a 520px y escalado desde JS (`fitFeed`) para que quepa completo, sin scroll propio y sin heredar el letter-spacing del sitio; en el centro el LAPI 3D con el título "escritura"; a la derecha la imagen del e-zine (`SOLO.png`) en retrato, que abre el poema de mmm.page en otra pestaña (mmm.page no permite meterlo en un iframe). En inglés solo un iframe de https://lorenalandia.fun que ocupa el 80% de la pantalla. El iframe y el script de Supascribe se cargan al entrar, solo los del idioma activo. Al salir de un iframe, la inercia de la rueda no cambia de pantalla.
+- **Netart.** Pantalla siguiente a escritura (con scroll o click en "net art & 3d"). En el centro el LOGO_COMP 3D con el título "netart"; alrededor, como en el mockup, cuatro imágenes recortadas con su etiqueta que abren su sitio en otra pestaña: "deardiary.png" (`DIGITAL_IMAGE_WEB.png`, https://lorenaorlando.hotglue.me) arriba a la izquierda, "funscroll" (`FUNSCROLL_WEB.png`, https://funscroll.life) arriba a la derecha, "indivirtual (expo 3D)" (`INDIVIRTUAL_CUT.webp`, la expo en oncyber) abajo a la izquierda y "lorenalandia (mundo 3D)" (`LORENALANDIA_3D_WEB.png`, https://newart.city/show/lorenalandia) abajo a la derecha. En móvil, el 3D arriba y las imágenes en cuadrícula 2×2.
 - **Subpantallas.** La ficha del disco y las dos "mi historia" solo se abren con click, van una más abajo de la pantalla de donde salen y "← volver"/Escape regresan ahí.
 - **Mi historia.** "lee mi historia en la música" abre esta pantalla (subpantalla de música, como la ficha). Carrusel de instrumentos 3D del mismo tamaño que el órgano (Funmachine, guitarra, groovebox) que avanza solo hacia la izquierda y con flechas (también ← → del teclado y deslizar en móvil); se pausa mientras se lee un texto. Al hover (tap en móvil) cada 3D muestra su texto en un recuadro oscuro. A los lados, dos textos inclinados (por ahora lorem ipsum).
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
@@ -84,7 +85,7 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | `ZENIT.glb` | Cámara Zenit (fotografía) | Pantalla de fotografía y carrusel de mi historia fotográfica |
 | `FUJI_EXP.glb` | Cámara instantánea Fujifilm | Carrusel de mi historia fotográfica |
 | `LAPI_EXP.glb` | Escritura | Pantalla de escritura (solo en español) |
-| `LOGO_COMP.glb` | Net art & 3d | Sin usar todavía |
+| `LOGO_COMP.glb` | Net art & 3d | Pantalla de netart |
 | `COMPU_VIEJA.glb` | Diseño web | Sin usar todavía |
 | `TAROT_EXP.glb` | Magick / tarot | Sin usar todavía |
 
@@ -116,6 +117,10 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 - `portfolio/`: fotos del portafolio. Las del collage están en `PHOTOS`; las `A_DIARY_*` son dípticos y por ahora no se usan.
 - `INDIVIRTUAL.png`: original con fondo blanco. `INDIVIRTUAL_CUT.webp` es el mismo recorte con fondo transparente; es el que usa el sitio.
+
+### Netart
+
+- `DIGITAL_IMAGE_WEB.png`: deardiary.png. `FUNSCROLL_WEB.png`: funscroll. `LORENALANDIA_3D_WEB.png`: lorenalandia (mundo 3D). Para indivirtual se reusa `INDIVIRTUAL_CUT.webp`.
 
 ### Escritura
 

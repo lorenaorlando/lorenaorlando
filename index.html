@@ -161,6 +161,17 @@
   .indi:hover{scale:1.02;rotate:-1deg}
   .indi:hover span{color:var(--mostaza)}
 
+  /* SECCIÓN 6: NETART — imágenes recortadas (centro --x vw / --y vh, ancho --w, giro --r) con su etiqueta (--lx/--ly, giro --lr); LOGO_COMP al centro */
+  .net{z-index:3;transform-origin:50% 0;--u:min(1vw,1.78vh)}
+  .logo3d{position:absolute;z-index:10;left:50vw;top:28vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
+  .ntitle{position:absolute;z-index:20;left:50vw;top:44vh;transform:translate(-50%,-50%);rotate:-6deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+  .nitem{color:inherit;text-decoration:none;outline:none}
+  .nitem img{position:absolute;z-index:var(--z);width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh);translate:0 -50%;rotate:var(--r,0deg);pointer-events:auto;filter:drop-shadow(.3vw .5vw 1vw rgba(54,1,133,.45));transition:scale .4s,rotate .4s}
+  .nitem span{position:absolute;z-index:20;left:calc(var(--lx) * 1vw);top:calc(var(--ly) * 1vh);translate:-50% -50%;rotate:var(--lr);font-size:2.6vw;line-height:.95;text-align:center;white-space:pre;text-shadow:var(--shadow-sm);pointer-events:auto;transition:color .2s}
+  .nitem:hover img,.nitem:focus-visible img{scale:1.02;rotate:calc(var(--r,0deg) - 1deg)}
+  .nitem:hover span,.nitem:focus-visible span{color:var(--mostaza)}
+  .nitem:focus-visible span{outline:2px solid var(--crema);outline-offset:6px}
+
   /* FICHA DEL DISCO */
   .album{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}   /* en pantallas anchas y bajitas el texto se achica con la altura */
   .back{all:unset;position:absolute;left:3vw;top:4vh;z-index:2;font-size:2vw;line-height:1;cursor:pointer;pointer-events:auto;text-shadow:var(--shadow-sm);transition:color .2s}
@@ -225,7 +236,7 @@
   .lore.l{left:16vw;rotate:-3deg}
   .lore.r{left:84vw;rotate:3deg}
 
-  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi{transition:none!important;animation:none!important}}
+  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
@@ -293,6 +304,10 @@
     .wpoem{top:85.5vh;left:50vw}
     .wpoem img{height:25vh;max-width:none;border-radius:1vw}
     .wsite{left:5vw;top:10vh;width:90vw;height:80vh;border-radius:2vw}
+    .logo3d{top:12vh;width:44vw;height:15vh}
+    .ntitle{top:23vh;font-size:13vw}
+    .nitem img{width:min(46vw,23vh);left:calc(var(--mx) * 1vw - min(46vw,23vh) / 2);top:calc(var(--my) * 1vh)}
+    .nitem span{left:calc(var(--mx) * 1vw);top:calc(var(--my) * 1vh + min(23vw,11.5vh) + 2.5vh);font-size:5vw}
   }
 </style>
 </head>
@@ -349,7 +364,7 @@
       <button type="button" class="word w1" id="toMusic"><span data-es="música" data-en="music">música</span></button>
       <button type="button" class="word w2" id="toPhoto"><span data-es="fotografía" data-en="photography">fotografía</span></button>
       <button type="button" class="word w3" id="toWrite"><span data-es="escritura" data-en="writing">escritura</span></button>
-      <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></div>
+      <button type="button" class="word w4" id="toNet"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></button>
       <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span></div>
       <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
     </div>
@@ -410,6 +425,25 @@ fotográfica</button>
     <h2 class="wtitle es">escritura</h2>
     <a class="wpoem es" href="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" target="_blank" rel="noopener"><img id="soloImg" alt="solo escribí ese poema para probar mi impresora: un e-zine de poesía por Lorena Orlando"></a>
     <iframe class="wsite en" title="Lorenalandia" data-src="https://lorenalandia.fun" loading="lazy"></iframe>
+  </div>
+
+  <div class="layer net" id="net">
+    <div class="logo3d" aria-hidden="true">
+      <model-viewer id="logo3d" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="ntitle">netart</h2>
+    <a class="nitem" href="https://lorenaorlando.hotglue.me" target="_blank" rel="noopener" style="--x:11.5;--y:29;--w:33;--r:0deg;--z:1;--lx:30.5;--ly:22;--lr:7deg;--mx:26;--my:43">
+      <img data-f="DIGITAL_IMAGE_WEB.png" alt=""><span>deardiary.png</span></a>
+    <a class="nitem" href="https://funscroll.life" target="_blank" rel="noopener" style="--x:85;--y:28;--w:39;--r:0deg;--z:4;--lx:69;--ly:42;--lr:-6deg;--mx:74;--my:43">
+      <img data-f="FUNSCROLL_WEB.png" alt=""><span>funscroll</span></a>
+    <a class="nitem" href="https://oncyber.io/lorenaorlando?coords=-1.27x2.80x-16.15x1.76" target="_blank" rel="noopener" style="--x:31;--y:83;--w:44;--r:0deg;--z:2;--lx:11;--ly:76;--lr:-10deg;--mx:26;--my:73">
+      <img data-f="INDIVIRTUAL_CUT.webp" alt=""><span data-es="indivirtual&#10;(expo 3D)" data-en="indivirtual&#10;(3D show)">indivirtual
+(expo 3D)</span></a>
+    <a class="nitem" href="https://newart.city/show/lorenalandia" target="_blank" rel="noopener" style="--x:71;--y:83;--w:46;--r:0deg;--z:3;--lx:90;--ly:68;--lr:6deg;--mx:74;--my:73">
+      <img data-f="LORENALANDIA_3D_WEB.png" alt=""><span data-es="lorenalandia&#10;(mundo 3D)" data-en="lorenalandia&#10;(3D world)">lorenalandia
+(mundo 3D)</span></a>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -832,9 +866,13 @@ fotográfica</button>
   var soloImg = document.getElementById('soloImg');
   soloImg.onerror = function(){ soloImg.onerror = null; soloImg.src = REMOTE + 'SOLO.png'; };
   soloImg.src = LOCAL + 'SOLO.png';
+  document.querySelectorAll('.nitem img').forEach(function(img){
+    img.onerror = function(){ img.onerror = null; img.src = REMOTE + img.dataset.f; };
+    img.src = LOCAL + img.dataset.f;
+  });
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura. Las subpantallas (ficha de un disco, "mi historia"
+     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart. Las subpantallas (ficha de un disco, "mi historia"
      en la música o en la fotografía) solo se abren con click: van una más abajo de la pantalla de donde
      salen (home) y, mientras tanto, lo que hay más abajo de home espera escondido. */
   var hero = document.getElementById('hero');
@@ -846,13 +884,15 @@ fotográfica</button>
   var photo = document.getElementById('photo');
   var photoStory = document.getElementById('photoStory');
   var write = document.getElementById('write');
+  var net = document.getElementById('net');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
   var model = document.getElementById('model');
   var organ = document.getElementById('organ');
   var zenit = document.getElementById('zenit');
   var lapi = document.getElementById('lapi');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [album, 's'], [story, 's'], [photoStory, 's']];
+  var logo3d = document.getElementById('logo3d');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [album, 's'], [story, 's'], [photoStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
@@ -898,9 +938,10 @@ fotográfica</button>
     if (v >= 1) loadGlb(organ, 'FUNMACHINE_EXP.glb');
     if (v >= 2) loadGlb(zenit, 'ZENIT.glb');
     if (v >= 3) loadGlb(lapi, 'LAPI_EXP.glb');
+    if (v >= 4) loadGlb(logo3d, 'LOGO_COMP.glb');
     if (v === 4) loadWrite();
   }
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(4, target + dir))); }
+  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(5, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -909,6 +950,7 @@ fotográfica</button>
   document.getElementById('toMusic').addEventListener('click', function(){ go(2); });
   document.getElementById('toPhoto').addEventListener('click', function(){ go(3); });
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
+  document.getElementById('toNet').addEventListener('click', function(){ go(5); });
   // escritura: el iframe y el feed de Supascribe se cargan al entrar, solo los del idioma activo
   var feedLoaded = false;
   var wfeed = write.querySelector('.wfeed'), wcard = write.querySelector('.wcard'), wfeedIn = write.querySelector('.wfeed-in');
@@ -1095,7 +1137,7 @@ fotográfica</button>
     if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
     if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
     if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
-    if (e.key === 'End') { go(4); e.preventDefault(); }
+    if (e.key === 'End') { go(5); e.preventDefault(); }
     if (e.key === 'Home') { go(0); e.preventDefault(); }
   });
 
