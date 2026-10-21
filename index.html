@@ -133,6 +133,17 @@
   .ph:focus-visible{outline:none}
   .ph:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .ph.noimg{aspect-ratio:3/2}
+
+  /* SECCIÓN 5: ESCRITURA (esp: feed a la izquierda, LAPI al centro, poema a la derecha; eng: solo lorenalandia.fun) */
+  .write{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
+  .lapi{position:absolute;z-index:10;left:50vw;top:46vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
+  .wtitle{position:absolute;z-index:20;left:50vw;top:66vh;transform:translate(-50%,-50%);rotate:-8deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+  .wfeed{position:absolute;left:4vw;top:10vh;width:30vw;height:80vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(1.6 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
+  .wframe{position:absolute;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  /* poema: retrato alargado, 80% del espacio a la derecha del 3D */
+  .wpoem{left:82vw;top:50vh;width:min(28vw,46vh);height:84vh;transform:translate(-50%,-50%)}
+  .wsite{left:10vw;top:10vh;width:80vw;height:80vh}
+  html[lang="en"] .write .es,html:not([lang="en"]) .write .en{display:none}
   /* indivirtual: el recorte de la imagen tal cual */
   .indi{position:absolute;left:63vw;top:50vh;width:min(46vw,90vh);translate:0 -50%;color:inherit;text-decoration:none;pointer-events:auto;transition:scale .4s,rotate .4s}
   .indi img{display:block;width:100%;height:auto;filter:drop-shadow(.3vw .5vw 1vw rgba(54,1,133,.45))}
@@ -265,6 +276,10 @@
     .photo .ptitle{left:50vw;top:64vh;font-size:13vw}
     .indi{left:auto;right:4vw;top:auto;bottom:1vh;translate:none;width:min(56vw,28vh)}
     .indi span{font-size:5vw;left:24%}
+    .lapi{top:13vh;width:50vw;height:17vh}
+    .wtitle{top:24vh;font-size:13vw}
+    .wfeed{left:4vw;top:33vh;width:47vw;height:62vh;padding:3vw;border-radius:2vw}
+    .wpoem{left:76vw;top:64vh;width:44vw;height:62vh;border-radius:2vw}
   }
 </style>
 </head>
@@ -320,7 +335,7 @@
     <div class="titles">
       <button type="button" class="word w1" id="toMusic"><span data-es="música" data-en="music">música</span></button>
       <button type="button" class="word w2" id="toPhoto"><span data-es="fotografía" data-en="photography">fotografía</span></button>
-      <div class="word w3"><span data-es="escritura" data-en="writing">escritura</span></div>
+      <button type="button" class="word w3" id="toWrite"><span data-es="escritura" data-en="writing">escritura</span></button>
       <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></div>
       <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span></div>
       <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
@@ -369,6 +384,19 @@ fotográfica</button>
       <span data-es="indivirtual&#10;(expo 3D)" data-en="indivirtual&#10;(3D show)">indivirtual
 (expo 3D)</span>
     </a>
+  </div>
+
+  <div class="layer write" id="write">
+    <!-- esp: feed de Supascribe (el script se carga al entrar), LAPI y el poema; eng: solo lorenalandia.fun -->
+    <div class="wfeed es"><div data-supascribe-embed-id="59190241344" data-supascribe-feed></div></div>
+    <div class="lapi es" aria-hidden="true">
+      <model-viewer id="lapi" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="wtitle es">escritura</h2>
+    <iframe class="wframe wpoem es" title="solo escribí ese poema para probar mi impresora" data-src="https://lorenaorlando.mmm.page/solo-escribi-ese-poema-para-probar-mi-impresora" loading="lazy"></iframe>
+    <iframe class="wframe wsite en" title="Lorenalandia" data-src="https://lorenalandia.fun" loading="lazy"></iframe>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -790,7 +818,7 @@ fotográfica</button>
   indiImg.src = LOCAL + 'INDIVIRTUAL_CUT.webp';
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía. Las subpantallas (ficha de un disco, "mi historia"
+     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura. Las subpantallas (ficha de un disco, "mi historia"
      en la música o en la fotografía) solo se abren con click: van una más abajo de la pantalla de donde
      salen (home) y, mientras tanto, lo que hay más abajo de home espera escondido. */
   var hero = document.getElementById('hero');
@@ -801,12 +829,14 @@ fotográfica</button>
   var story = document.getElementById('story');
   var photo = document.getElementById('photo');
   var photoStory = document.getElementById('photoStory');
+  var write = document.getElementById('write');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
   var model = document.getElementById('model');
   var organ = document.getElementById('organ');
   var zenit = document.getElementById('zenit');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [album, 's'], [story, 's'], [photoStory, 's']];
+  var lapi = document.getElementById('lapi');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [album, 's'], [story, 's'], [photoStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
@@ -851,8 +881,10 @@ fotográfica</button>
     // los 3D se cargan hasta que hacen falta, para no frenar la primera pantalla
     if (v >= 1) loadGlb(organ, 'FUNMACHINE_EXP.glb');
     if (v >= 2) loadGlb(zenit, 'ZENIT.glb');
+    if (v >= 3) loadGlb(lapi, 'LAPI_EXP.glb');
+    if (v === 4) loadWrite();
   }
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(3, target + dir))); }
+  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(4, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -860,6 +892,25 @@ fotográfica</button>
   stage.addEventListener('scroll', function(){ stage.scrollTop = stage.scrollLeft = 0; });
   document.getElementById('toMusic').addEventListener('click', function(){ go(2); });
   document.getElementById('toPhoto').addEventListener('click', function(){ go(3); });
+  document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
+  // escritura: los iframes y el feed de Supascribe se cargan al entrar, solo los del idioma activo
+  var feedLoaded = false;
+  function loadWrite(){
+    var l = document.documentElement.lang === 'en' ? 'en' : 'es';
+    write.querySelectorAll('iframe.' + l).forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
+    if (l === 'es' && !feedLoaded) {
+      feedLoaded = true;
+      var sc = document.createElement('script');
+      sc.src = 'https://js.supascribe.com/v1/loader/KqxuINKFv1ORBb8ZIZL9Ax1OB9k1.js'; sc.async = true;
+      document.body.appendChild(sc);
+    }
+  }
+  // el feed hace scroll propio: la rueda/táctil solo cambian de pantalla cuando ya llegó al borde
+  function scrollsInside(el, dir){
+    var box = el && el.closest && el.closest('.wfeed');
+    if (!box || box.scrollHeight <= box.clientHeight + 1) return false;
+    return dir > 0 ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
+  }
   function loadGlb(m, f){
     if (m.getAttribute('src')) return;
     m.addEventListener('error', function(){ if (m.getAttribute('src').indexOf(REMOTE) !== 0) m.setAttribute('src', REMOTE + f); });
@@ -988,17 +1039,24 @@ fotográfica</button>
     if (now - lastWheel > 180) gestureUsed = false;
     lastWheel = now;
     if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4 || busy()) return;
+    if (scrollsInside(e.target, e.deltaY)) { gestureUsed = true; return; }
     gestureUsed = true;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
-  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+  var touchTop = 0, touchBox = null;
+  window.addEventListener('touchstart', function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+    touchBox = e.target.closest && e.target.closest('.wfeed'); touchTop = touchBox ? touchBox.scrollTop : 0;
+  }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
-    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
+    // en el feed, si el gesto hizo scroll (o aún puede hacerlo) no cambia de pantalla
+    var inFeed = touchBox && (touchBox.scrollTop !== touchTop || scrollsInside(touchBox, dy));
+    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) { if (!inFeed) step(dy > 0 ? 1 : -1); }
     else if (subOpen && CAROUSELS.has(sub) && Math.abs(dx) > 40 && e.target.closest && e.target.closest('.carousel')) CAROUSELS.get(sub).move(dx > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
@@ -1012,7 +1070,7 @@ fotográfica</button>
     if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
     if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
     if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
-    if (e.key === 'End') { go(3); e.preventDefault(); }
+    if (e.key === 'End') { go(4); e.preventDefault(); }
     if (e.key === 'Home') { go(0); e.preventDefault(); }
   });
 
