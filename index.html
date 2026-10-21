@@ -162,7 +162,7 @@
   .indi:hover span{color:var(--mostaza)}
 
   /* SECCIÓN 6: NETART — imágenes recortadas (centro --x vw / --y vh, ancho --w, giro --r) con su etiqueta (--lx/--ly, giro --lr); LOGO_COMP al centro */
-  .net{z-index:3;transform-origin:50% 0;--u:min(1vw,1.78vh)}
+  .net{z-index:3;transform-origin:50% 0;--u:min(1vw,1.78vh);overflow:clip}   /* las imágenes de abajo no asoman en la pantalla siguiente */
   .logo3d{position:absolute;z-index:10;left:50vw;top:28vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
   .ntitle{position:absolute;z-index:20;left:50vw;top:44vh;transform:translate(-50%,-50%);rotate:-6deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
   .nitem{color:inherit;text-decoration:none;outline:none}
@@ -171,6 +171,12 @@
   .nitem:hover img,.nitem:focus-visible img{scale:1.02;rotate:calc(var(--r,0deg) - 1deg)}
   .nitem:hover span,.nitem:focus-visible span{color:var(--mostaza)}
   .nitem:focus-visible span{outline:2px solid var(--crema);outline-offset:6px}
+
+  /* SECCIÓN 7: DISEÑO WEB — lorenaorlando.click en un iframe (95% de la pantalla); COMPU_VIEJA y el título en la esquina superior izquierda */
+  .web{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
+  .wwsite{position:absolute;left:2.5vw;top:2.5vh;width:95vw;height:95vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .compu{position:absolute;z-index:10;left:0;top:0;width:16vw;height:22vh}
+  .dtitle{position:absolute;z-index:20;left:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
   /* FICHA DEL DISCO */
   .album{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}   /* en pantallas anchas y bajitas el texto se achica con la altura */
@@ -308,6 +314,9 @@
     .ntitle{top:23vh;font-size:13vw}
     .nitem img{width:min(46vw,23vh);left:calc(var(--mx) * 1vw - min(46vw,23vh) / 2);top:calc(var(--my) * 1vh)}
     .nitem span{left:calc(var(--mx) * 1vw);top:calc(var(--my) * 1vh + min(23vw,11.5vh) + 2.5vh);font-size:5vw}
+    .wwsite{border-radius:2vw}
+    .compu{width:30vw;height:12vh}
+    .dtitle{left:4vw;top:10.5vh;font-size:10vw}
   }
 </style>
 </head>
@@ -365,7 +374,7 @@
       <button type="button" class="word w2" id="toPhoto"><span data-es="fotografía" data-en="photography">fotografía</span></button>
       <button type="button" class="word w3" id="toWrite"><span data-es="escritura" data-en="writing">escritura</span></button>
       <button type="button" class="word w4" id="toNet"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></button>
-      <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span></div>
+      <button type="button" class="word w5" id="toWeb"><span data-es="diseño web" data-en="web design">diseño web</span></button>
       <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
     </div>
   </div>
@@ -444,6 +453,16 @@ fotográfica</button>
     <a class="nitem" href="https://newart.city/show/lorenalandia" target="_blank" rel="noopener" style="--x:71;--y:83;--w:46;--r:0deg;--z:3;--lx:90;--ly:68;--lr:6deg;--mx:74;--my:73">
       <img data-f="LORENALANDIA_3D_WEB.png" alt=""><span data-es="lorenalandia&#10;(mundo 3D)" data-en="lorenalandia&#10;(3D world)">lorenalandia
 (mundo 3D)</span></a>
+  </div>
+
+  <div class="layer web" id="web">
+    <iframe class="wwsite" title="Diseño web: lorenaorlando.click" data-src="https://lorenaorlando.click" loading="lazy"></iframe>
+    <div class="compu" aria-hidden="true">
+      <model-viewer id="compu" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="dtitle" data-es="diseño" data-en="design">diseño</h2>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -872,7 +891,7 @@ fotográfica</button>
   });
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart. Las subpantallas (ficha de un disco, "mi historia"
+     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart, 6 diseño web. Las subpantallas (ficha de un disco, "mi historia"
      en la música o en la fotografía) solo se abren con click: van una más abajo de la pantalla de donde
      salen (home) y, mientras tanto, lo que hay más abajo de home espera escondido. */
   var hero = document.getElementById('hero');
@@ -885,6 +904,7 @@ fotográfica</button>
   var photoStory = document.getElementById('photoStory');
   var write = document.getElementById('write');
   var net = document.getElementById('net');
+  var web = document.getElementById('web');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
   var model = document.getElementById('model');
@@ -892,7 +912,8 @@ fotográfica</button>
   var zenit = document.getElementById('zenit');
   var lapi = document.getElementById('lapi');
   var logo3d = document.getElementById('logo3d');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [album, 's'], [story, 's'], [photoStory, 's']];
+  var compu = document.getElementById('compu');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [album, 's'], [story, 's'], [photoStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
@@ -939,9 +960,12 @@ fotográfica</button>
     if (v >= 2) loadGlb(zenit, 'ZENIT.glb');
     if (v >= 3) loadGlb(lapi, 'LAPI_EXP.glb');
     if (v >= 4) loadGlb(logo3d, 'LOGO_COMP.glb');
+    if (v >= 5) loadGlb(compu, 'COMPU_VIEJA.glb');
     if (v === 4) loadWrite();
+    // diseño web: el iframe se carga al entrar
+    if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
   }
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(5, target + dir))); }
+  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(6, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -951,6 +975,7 @@ fotográfica</button>
   document.getElementById('toPhoto').addEventListener('click', function(){ go(3); });
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
   document.getElementById('toNet').addEventListener('click', function(){ go(5); });
+  document.getElementById('toWeb').addEventListener('click', function(){ go(6); });
   // escritura: el iframe y el feed de Supascribe se cargan al entrar, solo los del idioma activo
   var feedLoaded = false;
   var wfeed = write.querySelector('.wfeed'), wcard = write.querySelector('.wcard'), wfeedIn = write.querySelector('.wfeed-in');
@@ -1137,7 +1162,7 @@ fotográfica</button>
     if (e.key === ' ' && e.target.closest && e.target.closest('button,a')) return;  // espacio activa botones
     if (['ArrowDown','PageDown',' '].indexOf(e.key) > -1) { step(1); e.preventDefault(); }
     if (['ArrowUp','PageUp'].indexOf(e.key) > -1) { step(-1); e.preventDefault(); }
-    if (e.key === 'End') { go(5); e.preventDefault(); }
+    if (e.key === 'End') { go(6); e.preventDefault(); }
     if (e.key === 'Home') { go(0); e.preventDefault(); }
   });
 
