@@ -32,10 +32,24 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Cabeza 3D.** `assets/HEAD_EXP.glb` en `<model-viewer>` gira sola. En la pantalla 2 se reduce y se mueve a la izquierda (en móvil, hacia arriba).
 - **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición). "música" lleva a la pantalla 3.
 - **Pantalla 3 (música).** Collage de portadas en la posición del mockup (en móvil, cuadrícula 3×3), con el órgano 3D al centro (se carga al salir de la pantalla 1). Al hover sale un LP de la portada y aparece el nombre del disco. Los datos de cada disco están en el arreglo `ALBUMS` del JS.
-- **Ficha del disco.** Click/tap en una portada abre la ficha (pantalla 4, solo por click): portada con LP, título, tipo y fecha, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe.
+- **Ficha del disco.** Click/tap en una portada abre la ficha (pantalla 4, solo por click): portada con LP, título, `tipo | género | fecha`, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe. Si el disco tiene `video`, el embed de YouTube reemplaza a la portada. En los créditos, una línea que empieza con `## ` es un subtítulo. `links:'soon'` deja los botones de plataformas como pendientes.
+- **Otros proyectos & arte sonoro.** Click en ese texto de la pantalla 3: los discos salen volando y entran las portadas de `PROJECTS` (izquierda) y los videos de `ONIRIAS` (derecha, bajo "onirias: piezas radiofónicas"). El mismo texto pasa a "← mis discos" para volver. Los videos se cargan solo la primera vez que se entra.
+- **Mi historia.** "lee mi historia en la música" abre esta pantalla (comparte el lugar 4 con la ficha). Carrusel de instrumentos 3D del mismo tamaño que el órgano (Funmachine, guitarra, groovebox) que avanza solo hacia la izquierda y con flechas (también ← → del teclado y deslizar en móvil); se pausa mientras se lee un texto. Al hover (tap en móvil) cada 3D muestra su texto en un recuadro oscuro. A los lados, dos textos inclinados (por ahora lorem ipsum).
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
 - **Pantallas ocultas.** Llevan `inert` para que no se puedan enfocar.
+- **Hover = tap en móvil (por defecto).** Todo lo que en escritorio pasa al hover debe poder verse con un tap en pantallas táctiles, y llevar un aviso discreto "tócame!" (`data-en="tap me!"`) en Instrument Serif que solo aparece con `@media (hover:none)`. Si hay muchos elementos iguales (como las portadas), un solo aviso en una nubecita (`.tapcloud`), no uno por elemento.
 - Respetar `prefers-reduced-motion`.
+
+## Legibilidad
+
+Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
+
+- **Texto sobre las nubes:** siempre sobre un panel `rgba(54,1,133,.34)` con `backdrop-filter: blur(14px)` y esquinas apenas redondeadas, solo detrás del bloque de texto. Si va encima de un 3D o una imagen, más oscuro (`.62`).
+- **Párrafos:** letter-spacing `-0.015em` (no el -0.084 general, que los aprieta demasiado), line-height ~1.4, mínimo 15px.
+- **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad (`white-space:nowrap` en cada uno). Los créditos van del mismo tamaño que esa línea.
+- **Tamaños:** en pantallas de escritorio usar la unidad `--uv: min(1vw, 1.7vh)` para que el texto también se ajuste a la altura y no se corte en ventanas anchas y bajitas.
+- **Botones de plataformas:** fondo crema, los 4 siempre en un solo renglón; si no caben, icono arriba y nombre abajo.
+- **Etiquetas sobre imágenes** (nombre del disco al hover): pastilla morada con texto crema, nunca texto suelto encima de una foto.
 - **Móvil.** Debe verse bien; el corte está en `max-width: 700px`.
 
 ## Archivos del repo
@@ -55,7 +69,11 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | Archivo | Corresponde a | Dónde se usa |
 | --- | --- | --- |
 | `HEAD_EXP.glb` | Hero: cabeza de Lorena sobre la isla flotante | Pantallas 1 y 2 |
-| `FUNMACHINE_EXP.glb` | Música | Pantalla 3 |
+| `FUNMACHINE_EXP.glb` | Música | Pantalla 3 y carrusel de mi historia |
+| `GUITAR_EXP.glb` | Guitarra Fender Squier rosada | Carrusel de mi historia |
+| `GROOVEBOX.glb` | Groovebox | Carrusel de mi historia |
+| `BATERIA_TRIP.glb` | Batería | Sin usar todavía |
+| `VELA.glb` | Vela | Sin usar todavía |
 | `ZENIT.glb` | Fotografía | Sin usar todavía |
 | `LAPI_EXP.glb` | Escritura | Sin usar todavía |
 | `LOGO_COMP.glb` | Net art & 3d | Sin usar todavía |
@@ -75,6 +93,16 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 | `PRIMA_MATERIA.jpg` | *Prima Materia EP* |
 | `ROSLER.jpg` | *Rösler* |
 | `SIN_MIEDOS.jpg` | *Sin miedos y sin esperanzas* |
+
+### Portadas de otros proyectos (pantalla 3, modo "otros proyectos")
+
+Todavía no están en `assets/`; mientras tanto se ve un recuadro violeta con el nombre.
+
+| Archivo | Proyecto |
+| --- | --- |
+| `BRUNO_EP.jpg` | *Bruno EP* (Jóvenes y sexys) |
+| `RESISTANCE.jpg` | *La Resistance* |
+| `ENTUPIEL.jpg` | *En tu piel* (Aida Rojas) |
 
 ### Nubes
 
