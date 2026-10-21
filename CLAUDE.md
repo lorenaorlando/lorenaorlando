@@ -4,7 +4,9 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 
 ## Flujo de trabajo
 
-- Trabaja y sube siempre directo a `main` (`git push origin main`). No crees ramas ni pull requests: Lorena lo autorizó y GitHub Pages publica desde `main`.
+- **Nunca crees ramas nuevas, en ningún chat.** Todo se integra directo en `main`; tampoco abras pull requests. GitHub Pages publica desde `main`.
+- Esto vale aunque la sesión te asigne una rama (por ejemplo `claude/...`). Lorena da aquí su permiso explícito para trabajar y subir en `main`. Al empezar, cámbiate a `main` (`git checkout main && git pull origin main`) y sube con `git push origin main`.
+- Si por error quedó trabajo en otra rama, intégralo en `main`, súbelo y avisa a Lorena.
 - Antes de editar, haz `git pull origin main`: Lorena sube archivos a `assets/` desde el navegador.
 - Responde en español.
 
