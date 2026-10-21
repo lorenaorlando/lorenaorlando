@@ -99,18 +99,20 @@
   .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.1;text-shadow:var(--shadow-sm)}
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
-  .album-text p,.album-credits p{font-size:max(calc(1.45 * var(--uv)),14px);line-height:1.35;letter-spacing:-.045em;text-shadow:var(--shadow-sm)}
+  .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .album-text p+p{margin-top:1.2vh}
   .album-text a,.album-credits a{color:var(--mostaza);pointer-events:auto}
   .album-credits{margin-top:2.6vh}
-  .album-credits p{font-size:max(calc(1.25 * var(--uv)),13px);opacity:.92}
+  .album-credits p{opacity:.92}
   .album-credits p+p{margin-top:.4vh}
   .album-credits .lbl{font-size:calc(2.2 * var(--uv));line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
   .listen-lbl{margin-top:3.2vh;font-size:calc(2.8 * var(--uv));line-height:1;text-shadow:var(--shadow-sm)}
-  .platforms{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(1 * var(--uv));max-width:calc(31 * var(--uv));margin-top:1.6vh}
-  .pf{display:flex;align-items:center;gap:calc(.8 * var(--uv));padding:calc(.65 * var(--uv)) calc(1.2 * var(--uv)) calc(.65 * var(--uv)) calc(.7 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.55 * var(--uv)),15px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
-  .pf svg{flex:none;width:max(calc(2.3 * var(--uv)),22px);height:max(calc(2.3 * var(--uv)),22px)}
+  .platforms{list-style:none;display:flex;flex-wrap:nowrap;gap:calc(.6 * var(--uv));margin-top:1.6vh}   /* las 4 plataformas siempre en un renglón */
+  .pf{display:flex;align-items:center;gap:calc(.5 * var(--uv));white-space:nowrap;letter-spacing:-.02em;padding:calc(.45 * var(--uv)) calc(.9 * var(--uv)) calc(.45 * var(--uv)) calc(.5 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.25 * var(--uv)),14px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
+  .pf svg{flex:none;width:max(calc(1.8 * var(--uv)),18px);height:max(calc(1.8 * var(--uv)),18px)}
   .pf:hover,.pf:focus-visible{background:var(--mostaza);--i2:var(--mostaza);translate:0 -2px}
+  /* columna angosta: icono arriba y nombre abajo, para que las 4 quepan en un renglón */
+  @media (min-width:701px) and (max-width:950px){.platforms li{flex:1 1 0;min-width:0}.pf{flex-direction:column;gap:5px;padding:8px 2px 7px;border-radius:12px;font-size:12px}.pf svg{width:22px;height:22px}}
   @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
@@ -141,11 +143,12 @@
     .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
     .album-meta{font-size:5vw}
     .album-text p{font-size:4.4vw}
-    .album-credits p{font-size:4vw}
+    .album-credits p{font-size:4.2vw}
     .album-credits .lbl{font-size:5vw}
     .listen-lbl{margin-top:4vh;font-size:6.5vw}
-    .platforms{max-width:none;gap:2.5vw;margin-top:2vh}
-    .pf{gap:2vw;padding:2vw 3vw 2vw 2vw;font-size:4.4vw}
+    .platforms{gap:1.5vw;margin-top:2vh}
+    .platforms li{flex:1 1 0;min-width:0}
+    .pf{flex-direction:column;gap:1.2vw;padding:2.2vw .5vw 1.8vw;border-radius:3vw;font-size:2.9vw;letter-spacing:-.03em}
     .pf svg{width:6.5vw;height:6.5vw}
   }
 </style>
@@ -308,7 +311,7 @@ arte sonoro</p>
      z = quién va encima, dir = hacia dónde sale el LP (1 derecha, -1 izquierda). */
   var CR_LO = {es:'Portada por Lorena Orlando.', en:'Cover by Lorena Orlando.'};
   var ALBUMS = [
-    { f:'ASI_QUE_MIN.jpg', title:'Así que no era una pesadilla, sigo viviendo aquí', type:'ep', date:[5,5,2026],
+    { f:'ASI_QUE_MIN.jpg', title:'Así que no era una pesadilla, sigo viviendo aquí', genre:'freak-rock', type:'ep', date:[5,5,2026],
       pos:[12.5,18,21.4,'4deg',3,1],
       links:{spotify:'https://open.spotify.com/album/570ltXLQD0sWl6KDo4ZKvr',
         apple:'https://music.apple.com/us/album/as%C3%AD-que-no-era-una-pesadilla-sigo-viviendo-aqu%C3%AD-ep/1894703130',
@@ -321,7 +324,7 @@ arte sonoro</p>
       credits:{es:['Compuesto, grabado, producido, mezclado y masterizado por Lorena Orlando en Lorenalandia.', CR_LO.es],
                en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
 
-    { f:'HACER_MUSICA.jpg', title:'Hacer música es hacer magia', type:'ep', date:[3,6,2024],
+    { f:'HACER_MUSICA.jpg', title:'Hacer música es hacer magia', genre:'express music', type:'ep', date:[3,6,2024],
       pos:[10.7,51.4,21,'-1deg',2,1],
       links:{spotify:'https://open.spotify.com/album/2dOmD7xxDuoAWF5jkXrPY4',
         apple:'https://music.apple.com/us/album/hacer-m%C3%BAsica-es-hacer-magia-ep/1741092774',
@@ -330,7 +333,7 @@ arte sonoro</p>
       credits:{es:['Compuesto, grabado, producido, mezclado y masterizado por Lorena Orlando en Lorenalandia.', CR_LO.es],
                en:['Composed, recorded, produced, mixed and mastered by Lorena Orlando at Lorenalandia.', CR_LO.en]} },
 
-    { f:'MUNDOS_DE_VIDA.jpg', title:'Mundos de vida', type:'album', date:[24,12,2022],
+    { f:'MUNDOS_DE_VIDA.jpg', title:'Mundos de vida', genre:'alt-pop', type:'album', date:[24,12,2022],
       pos:[24.5,51.4,21,'16deg',1,1],
       links:{spotify:'https://open.spotify.com/album/1PLdVwubMQexWbIC6yXZD5',
         apple:'https://music.apple.com/us/album/mundos-de-vida-hilandera/1779136195',
@@ -349,7 +352,7 @@ arte sonoro</p>
                    'Se hace magia (mediador) and Sé lo que quiero (asteroide I) mastered by Lorena Orlando.',
                    'The rest mastered by an artificial intelligence, because we live in the future.', CR_LO.en]} },
 
-    { f:'MUSIQUIATRIA22.jpg', title:'Musiquiatría 22 EP', type:'ep', date:[17,7,2020],
+    { f:'MUSIQUIATRIA22.jpg', title:'Musiquiatría 22 EP', genre:'pandelirium', type:'ep', date:[17,7,2020],
       pos:[14.3,81.5,22,'-12deg',4,1],
       links:{spotify:'https://open.spotify.com/album/2SEQ4rdRtpYhpJ7xCowF0h',
         apple:'https://music.apple.com/us/album/musiquiatr%C3%ADa-22-hilandera-ep/1779986087',
@@ -360,7 +363,7 @@ arte sonoro</p>
       credits:{es:['Compuesto, grabado, producido, ¿mezclado y masterizado? por Lorena Orlando en Cariaquito Records, su casa.', CR_LO.es],
                en:['Composed, recorded, produced, mixed and mastered(?) by Lorena Orlando at Cariaquito Records, her home.', CR_LO.en]} },
 
-    { f:'PRIMA_MATERIA.jpg', title:'Prima Materia EP', type:'ep', date:[26,4,2018],
+    { f:'PRIMA_MATERIA.jpg', title:'Prima Materia EP', genre:'abletoncore', type:'ep', date:[26,4,2018],
       pos:[66.4,17.6,20.4,'-18deg',1,-1],
       links:{spotify:'https://open.spotify.com/album/7k6Owp5KEcOfM1jnKiZXEw',
         apple:'https://music.apple.com/us/album/prima-materia-hilandera-ep/1779986132',
@@ -369,7 +372,7 @@ arte sonoro</p>
       credits:{es:['Compuesto, producido y grabado por Lorena Orlando en Cariaquito Morao Records.', 'Mezclado y masterizado por Erly J. Ruiz.', 'Portada por José Ramirez Guaigua.'],
                en:['Composed, produced and recorded by Lorena Orlando at Cariaquito Morao Records.', 'Mixed and mastered by Erly J. Ruiz.', 'Cover by José Ramirez Guaigua.']} },
 
-    { f:'SIN_MIEDOS.jpg', title:'Sin miedos y sin esperanzas', type:'album', date:[20,5,2015],
+    { f:'SIN_MIEDOS.jpg', title:'Sin miedos y sin esperanzas', genre:'menstrual rock', type:'album', date:[20,5,2015],
       pos:[88.5,20.8,20.8,'7deg',2,-1],
       links:{spotify:'https://open.spotify.com/album/5rS5QelSQtNoYuV1BIE52J',
         apple:'https://music.apple.com/us/album/sin-miedos-y-sin-esperanzas-loocila/1779047421',
@@ -386,7 +389,7 @@ arte sonoro</p>
                    'Lyrics and music for every track by Lorena Orlando (except the guitar on “Momento”, by Raúl Sanabria, and “Naked Eye”, by Luscious Jackson).',
                    'Cover by Erick Achang.']} },
 
-    { f:'COCLEA.jpg', title:'Coclea', type:'album', date:[14,10,2013],
+    { f:'COCLEA.jpg', title:'Coclea', genre:'cuchifolk', type:'album', date:[14,10,2013],
       pos:[81,46.8,22.4,'0deg',1,-1],
       links:{spotify:'https://open.spotify.com/album/5jgsjSn3p1LmHOwaJddbeS',
         apple:'https://music.apple.com/us/album/coclea-loocila/1779028568',
@@ -399,7 +402,7 @@ arte sonoro</p>
                    'Recorded, mixed and mastered at Cholula by Raúl Sanabria.',
                    'Produced by Raúl Sanabria and Lorena Orlando.', CR_LO.en]} },
 
-    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', type:'ep', date:[4,6,2016],
+    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', genre:'naïve rock', type:'ep', date:[4,6,2016],
       pos:[69.8,81.5,21.9,'-2deg',2,-1],
       links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
         apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
@@ -408,7 +411,7 @@ arte sonoro</p>
       credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
                en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
 
-    { f:'ROSLER.jpg', title:'Rösler', type:'comp', date:[0,0,2003],
+    { f:'ROSLER.jpg', title:'Rösler', genre:'kid lo-fi', type:'comp', date:[0,0,2003],
       pos:[91.4,78.7,22,'11deg',3,-1],
       links:{spotify:'https://open.spotify.com/album/60jaD87uowfwdhvygoBc29',
         apple:'https://music.apple.com/us/album/r%C3%B6sler-loocila/1779081975',
@@ -521,7 +524,7 @@ arte sonoro</p>
     var t = document.getElementById('albumTitle');
     t.textContent = al.title;
     t.classList.toggle('long', al.title.length > 22);
-    var meta = '<b>' + TYPES[al.type][l] + '</b>';
+    var meta = '<b>' + TYPES[al.type][l] + ' · ' + al.genre + '</b>';
     if (al.date) {
       var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
       meta += ' · ' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]);
