@@ -172,6 +172,7 @@
   .arrow:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .arrow.prev{left:calc(-1 * max(calc(3.6 * var(--uv)),40px) - 1.5vw)}
   .arrow.next{right:calc(-1 * max(calc(3.6 * var(--uv)),40px) - 1.5vw)}
+  .instr{position:absolute;left:50vw;top:15vh;translate:-50% -50%;padding:.35em .9em .45em;border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font-size:max(calc(2.4 * var(--uv)),18px);line-height:1.1;letter-spacing:-.015em;white-space:nowrap;text-shadow:var(--shadow-sm)}
   .lore{position:absolute;top:52vh;width:24vw;translate:-50% -50%;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);pointer-events:auto}
   .lore.l{left:16vw;rotate:-3deg}
   .lore.r{left:84vw;rotate:3deg}
@@ -227,6 +228,7 @@
     .info3d h3{font-size:6.5vw}
     .info3d p,.lore p{font-size:4.2vw}
     .tapme{font-size:4vw;top:0}
+    .instr{position:relative;left:auto;top:auto;translate:none;display:table;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
   }
@@ -335,6 +337,7 @@ arte sonoro</button>
   <section class="layer story" id="story" aria-label="Mi historia en la música">
     <button type="button" class="back" id="storyBack" data-es="← volver" data-en="← back">← volver</button>
     <div class="story-in">
+      <h2 class="instr" data-es="estos son algunos de mis instrumentos:" data-en="these are some of my instruments:">estos son algunos de mis instrumentos:</h2>
       <div class="carousel" id="carousel">
         <p class="tapme" aria-hidden="true" data-es="tócame!" data-en="tap me!">tócame!</p>
         <button type="button" class="arrow prev" id="prev3d" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -563,7 +566,7 @@ arte sonoro</button>
     youtube:'https://music.youtube.com/channel/UC--d1kpsFQVJf-LsU5q86rw',
     bandcamp:'https://jovenesysexys.bandcamp.com'};
   var PROJECTS = [
-    { f:'BRUNO_EP.jpg', title:'Bruno EP', type:'ep', by:'Jóvenes y sexys', date:[3,5,2008],
+    { f:'BRUNO.jpg', title:'Bruno EP', type:'ep', by:'Jóvenes y sexys', date:[3,5,2008],
       pos:[14,21,20,'-6deg',2,1], mx:20, links:JYS,
       credits:{es:['Todas las canciones compuestas por Ezequiel Bertho y Lorena Orlando, excepto “Gold Day”, compuesta por Ezequiel Bertho, Lorena Orlando y Clément Mariones, y “Divine Hammer”, compuesta por Kim Deal.',
                    'Todas las canciones producidas, mezcladas y masterizadas por José Ignacio Benítez.', CR_LO.es,
@@ -575,11 +578,11 @@ arte sonoro</button>
                    '## Bruno Remixed | June 28, 2010',
                    'Track 1: remixed by María y José.', 'Track 3: remixed by Pepepe.', 'Track 4: reinterpreted by Nuuro.',
                    'The cover image is an intervention on Lorena Orlando’s original artwork, made by Juan José Quintanillo (San Francisco, Venezuela).']} },
-    { f:'RESISTANCE.jpg', title:'La Resistance', date:[0,0,2005],
+    { f:'RESISTANCE.webp', title:'La Resistance', date:[0,0,2005],
       pos:[25,50,19,'7deg',3,-1], mx:50, links:'soon',
       credits:{es:['Alejandra Ghersi (Nuuro-Arca): programación.', 'Lorena Orlando (Loo): acordeón.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programación y guitarra eléctrica.', 'Foto por Ana Sofía Espinoza.'],
                en:['Alejandra Ghersi (Nuuro-Arca): programming.', 'Lorena Orlando (Loo): accordion.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programming and electric guitar.', 'Photo by Ana Sofía Espinoza.']} },
-    { f:'ENTUPIEL.jpg', title:'En tu piel', type:'single', by:'Aida Rojas', video:'nzVvNyNLe2U',
+    { f:'ENTUPIEL.jpeg', title:'En tu piel', type:'single', by:'Aida Rojas', video:'nzVvNyNLe2U',
       pos:[14,79,20,'-3deg',1,1], mx:80,
       credits:{es:['Single de la artista de folk venezolana Aida Rojas.', 'Grabación, producción, mezcla y master por Lorena Orlando en Cariaquito Morao Estudios.'],
                en:['Single by Venezuelan folk artist Aida Rojas.', 'Recording, production, mixing and mastering by Lorena Orlando at Cariaquito Morao Estudios.']} }

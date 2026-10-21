@@ -96,13 +96,18 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 
 ### Portadas de otros proyectos (pantalla 3, modo "otros proyectos")
 
-Todavía no están en `assets/`; mientras tanto se ve un recuadro violeta con el nombre.
+Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 | Archivo | Proyecto |
 | --- | --- |
-| `BRUNO_EP.jpg` | *Bruno EP* (Jóvenes y sexys) |
-| `RESISTANCE.jpg` | *La Resistance* |
-| `ENTUPIEL.jpg` | *En tu piel* (Aida Rojas) |
+| `BRUNO.jpg` | *Bruno EP* (Jóvenes y sexys) |
+| `RESISTANCE.webp` | *La Resistance* |
+| `ENTUPIEL.jpeg` | *En tu piel* (Aida Rojas) |
+
+### Imágenes sin usar todavía
+
+- `INDIVIRTUAL.png`, `RADIO.png`, `REINO.png`.
+- `portfolio/`: fotos `A_DIARY_LORENA_ORLANDO_*.jpg`.
 
 ### Nubes
 
