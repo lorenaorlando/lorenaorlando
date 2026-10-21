@@ -45,9 +45,7 @@
   /* SECCIÓN 2 */
   .about{z-index:3;transform-origin:50% 0}
   .titles{position:absolute;top:0;bottom:0;left:46vw;right:3vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4vh}
-  .word{pointer-events:auto;cursor:default;display:flex;align-items:center;gap:1vw;font-family:var(--display);font-size:6.4vw;line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
-  /* 3D pequeño al lado de cada título */
-  .word .ico{width:1.15em;height:1.15em;flex:none;pointer-events:none;--poster-color:transparent;background:transparent}
+  .word{pointer-events:auto;cursor:default;font-family:var(--display);font-size:7vw;line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
   .word:hover{animation:pulse .9s ease-in-out infinite}
   @keyframes pulse{0%,100%{scale:1}50%{scale:1.09}}
   @media (prefers-reduced-motion:reduce){#clouds img,.word:hover{animation:none}}
@@ -63,7 +61,7 @@
     .cosas{font-size:7vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
-    .word{font-size:10vw}
+    .word{font-size:12vw}
   }
 </style>
 </head>
@@ -111,12 +109,12 @@
 
   <div class="layer about" id="about">
     <div class="titles">
-      <div class="word w1"><span data-es="música" data-en="music">música</span><model-viewer class="ico" data-model="FUNMACHINE_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
-      <div class="word w2"><span data-es="fotografía" data-en="photography">fotografía</span><model-viewer class="ico" data-model="ZENIT.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
-      <div class="word w3"><span data-es="escritura" data-en="writing">escritura</span><model-viewer class="ico" data-model="LAPI_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
-      <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span><model-viewer class="ico" data-model="LOGO_COMP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
-      <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span><model-viewer class="ico" data-model="COMPU_VIEJA.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
-      <div class="word w6"><span data-es="magick" data-en="magick">magick</span><model-viewer class="ico" data-model="TAROT_EXP.glb" alt="" aria-hidden="true" auto-rotate auto-rotate-delay="0" rotation-per-second="30deg" interaction-prompt="none" disable-zoom loading="eager" shadow-intensity="0"></model-viewer></div>
+      <div class="word w1"><span data-es="música" data-en="music">música</span></div>
+      <div class="word w2"><span data-es="fotografía" data-en="photography">fotografía</span></div>
+      <div class="word w3"><span data-es="escritura" data-en="writing">escritura</span></div>
+      <div class="word w4"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></div>
+      <div class="word w5"><span data-es="diseño web" data-en="web design">diseño web</span></div>
+      <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
     </div>
   </div>
 
@@ -146,14 +144,6 @@
   mv.addEventListener('load', function(){ status.hidden = true; console.log('GLB cargado:', mv.getAttribute('src')); });
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
 
-  // 3D pequeños de cada título (si falta el archivo, se oculta sin mover el título)
-  var icos = document.querySelectorAll('.ico'), pending = icos.length;
-  icos.forEach(function(ico){
-    ico.addEventListener('error', function(){ ico.style.visibility = 'hidden'; icoDone(); });
-    ico.addEventListener('load', icoDone);
-    ico.setAttribute('src', LOCAL + ico.dataset.model);
-  });
-  function icoDone(){ if (--pending <= 0) setTimeout(endWarm, 600); }
 
   // Nubes de fondo: cuadrícula con posiciones aleatorias (semilla fija = siempre igual)
   var seed = 7;
@@ -194,12 +184,6 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = 0;
   var DURATION = 1100;                               // ms por transición, sin importar los fps
-  /* Calentamiento: los 3D de la pantalla 2 se dibujan una vez, invisibles, mientras se ve la 1ª.
-     Así el navegador prepara sus gráficos antes y la entrada no se traba. */
-  var warming = true;
-  about.style.opacity = '0';
-  function endWarm(){ if (!warming) return; warming = false; about.style.opacity = ''; last = -1; }
-  setTimeout(endWarm, 8000);
   var SCALE_END = 0.65, SHIFT_X = -27, SHIFT_Y = 2;
 
   function ease(t){ return t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2; }
@@ -208,8 +192,7 @@
     var up = -e * 115, rot = -e * 5;                 // los textos suben y giran un poco, como en una rueda
     hero.style.transform  = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
     title.style.transform = 'translateY(' + up + 'vh) rotate(' + rot + 'deg)';
-    about.style.transform = warming && p === 0 ? 'none'
-      : 'translateY(' + ((1 - e) * 100) + 'vh) rotate(' + ((1 - e) * 5) + 'deg)';
+    about.style.transform = 'translateY(' + ((1 - e) * 100) + 'vh) rotate(' + ((1 - e) * 5) + 'deg)';
     var m = window.innerWidth <= 700;
     var sEnd = m ? 0.5 : SCALE_END, xEnd = m ? 0 : SHIFT_X, yEnd = m ? -24 : SHIFT_Y;
     var s = 1 - (1 - sEnd) * e;
@@ -223,7 +206,6 @@
     requestAnimationFrame(tick);
   }
   function go(v){
-    if (v === 1) endWarm();
     if (v !== target) { from = current; target = v; t0 = performance.now(); }
     // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en la 2ª)
     hero.inert = title.inert = v === 1;

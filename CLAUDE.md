@@ -28,7 +28,7 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Transiciones tipo ruleta.** Cada cambio de pantalla es una animación de rotación: lo actual sube y gira, y lo siguiente sube después.
 - **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca.
 - **Cabeza 3D.** `assets/HEAD_EXP.glb` en `<model-viewer>` gira sola. En la pantalla 2 se reduce y se mueve a la izquierda (en móvil, hacia arriba).
-- **Títulos.** Los de la pantalla 2 hacen pulse al hover y llevan su 3D pequeño al lado (`.ico`, girando).
+- **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición).
 - **Idioma.** eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
 - **Pantallas ocultas.** Llevan `inert` para que no se puedan enfocar.
 - Respetar `prefers-reduced-motion`.
