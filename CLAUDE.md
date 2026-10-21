@@ -35,6 +35,15 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca.
 - **Cabeza 3D.** `assets/HEAD_EXP.glb` en `<model-viewer>` gira sola. En la pantalla 2 se reduce y se mueve a la izquierda (en móvil, hacia arriba).
 - **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición). "música" lleva a la pantalla 3 y "fotografía" a la de fotografía.
+- **Redes (pantalla 2).** Debajo de la cabeza (en móvil, entre la cabeza y los títulos), fila de íconos `.social` que abren en otra pestaña:
+  - YouTube e Instagram: @lorenamariaorlando
+  - Substack: https://brutalmentehonesta.substack.com
+  - Letterboxd: https://letterboxd.com/lorenaorlando
+  - Goodreads: https://www.goodreads.com/user/show/160560777-lorena-orlando
+  - DFOS (`DFOS.png`): https://lorenalandia.dfos.com
+  - Sublime (`SUBLIME.png`): https://sublime.app/lorenaorlando
+
+  Los cinco primeros son SVG de Simple Icons en crema; DFOS y Sublime usan sus imágenes.
 - **Pantalla 3 (música).** Collage de portadas en la posición del mockup (en móvil, cuadrícula 3×3), con el órgano 3D al centro (se carga al salir de la pantalla 1). Al hover sale un LP de la portada y aparece el nombre del disco. Los datos de cada disco están en el arreglo `ALBUMS` del JS.
 - **Ficha del disco.** Click/tap en una portada abre la ficha (subpantalla de música, solo por click): portada con LP, título, `tipo | género | fecha`, texto, créditos y botones a Spotify, Apple Music, YouTube Music y Bandcamp. Se cierra con "← volver" o Escape. La rueda/táctil no cambian de pantalla ahí; el texto hace scroll propio si no cabe. Si el disco tiene `video`, el embed de YouTube reemplaza a la portada. En los créditos, una línea que empieza con `## ` es un subtítulo. `links:'soon'` deja los botones de plataformas como pendientes.
 - **Otros proyectos & arte sonoro.** Click en ese texto de la pantalla 3: los discos salen volando y entran las portadas de `PROJECTS` (izquierda) y los videos de `ONIRIAS` (derecha, bajo "onirias: piezas radiofónicas"). El mismo texto pasa a "← mis discos" para volver. Los videos se cargan solo la primera vez que se entra.
@@ -134,7 +143,11 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 ### Imágenes sin usar todavía
 
-- `RADIO.png`, `REINO.png`, `DFOS.png`, `SUBLIME.png`.
+- `RADIO.png`, `REINO.png`.
+
+### Íconos de redes
+
+- `DFOS.png` y `SUBLIME.png`: íconos de DFOS y Sublime en la fila de redes de la pantalla 2.
 
 ### Nubes
 
