@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lacquer&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Lacquer&display=swap" rel="stylesheet">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
   :root{
@@ -31,7 +31,7 @@
   /* durante y justo después de una transición los iframes no se tragan la rueda (evita saltar dos pantallas) */
   .noframes iframe{pointer-events:none}
   html,body{height:100%;overflow:hidden;background:var(--fondo);overscroll-behavior:none}
-  body{font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
+  body{font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.02em;color:var(--crema)}
   .stage{position:fixed;inset:0;overflow:hidden;overflow:clip;background:var(--fondo);touch-action:none}
   .layer{position:absolute;inset:0;will-change:transform;pointer-events:none}
 
@@ -46,10 +46,10 @@
 
   /* HERO */
   .hero{z-index:3;transform-origin:50% 100%}
-  .hola{position:absolute;left:10.5vw;top:13vh;font-size:15vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
-  .soy{position:absolute;left:16.5vw;top:30vh;font-size:10vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
+  .hola{position:absolute;left:10.5vw;top:13vh;font-family:var(--display);letter-spacing:.02em;font-size:13vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
+  .soy{position:absolute;left:16.5vw;top:30vh;font-family:var(--display);letter-spacing:.02em;font-size:9vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
   .lorena{position:absolute;left:0;right:0;top:calc(47vh - 2.6vw);text-align:center;font-family:var(--display);font-weight:400;font-size:23.2vw;line-height:1;letter-spacing:0;text-shadow:var(--shadow);white-space:nowrap}
-  .cosas{position:absolute;right:2vw;top:38vh;font-size:4vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .cosas{position:absolute;right:2vw;top:38vh;font-size:2.8vw;line-height:1;text-shadow:var(--shadow-sm)}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
   .lang button{all:unset;cursor:pointer;font-family:var(--display);letter-spacing:.02em;font-size:2.2vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
   .lang button:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
@@ -186,7 +186,7 @@
   .ntitle{position:absolute;z-index:20;left:50vw;top:44vh;transform:translate(-50%,-50%);rotate:-6deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
   .nitem{color:inherit;text-decoration:none;outline:none}
   .nitem img{position:absolute;z-index:var(--z);width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh);translate:0 -50%;rotate:var(--r,0deg);pointer-events:auto;filter:drop-shadow(.3vw .5vw 1vw rgba(54,1,133,.45));transition:scale .4s,rotate .4s}
-  .nitem span{position:absolute;z-index:20;left:calc(var(--lx) * 1vw);top:calc(var(--ly) * 1vh);translate:-50% -50%;rotate:var(--lr);font-size:2.6vw;line-height:.95;text-align:center;white-space:pre;text-shadow:var(--shadow-sm);pointer-events:auto;transition:color .2s}
+  .nitem span{position:absolute;z-index:20;left:calc(var(--lx) * 1vw);top:calc(var(--ly) * 1vh);translate:-50% -50%;rotate:var(--lr);font-size:1.8vw;line-height:1;text-align:center;white-space:pre;text-shadow:var(--shadow-sm);pointer-events:auto;transition:color .2s}
   .nitem:hover img,.nitem:focus-visible img{scale:1.02;rotate:calc(var(--r,0deg) - 1deg)}
   .nitem:hover span,.nitem:focus-visible span{color:var(--mostaza)}
   .nitem:focus-visible span{outline:2px solid var(--crema);outline-offset:6px}
@@ -228,9 +228,9 @@
   .album-info{flex:1 1 auto;min-width:0;max-height:90vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:4vh calc(2.6 * var(--uv)) 4.5vh;background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
   .album-title{font-family:var(--display);font-weight:400;font-size:calc(4.8 * var(--uv));line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:var(--shadow)}
   .album-title.long{font-size:calc(3.1 * var(--uv))}
-  .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
+  .album-meta{display:flex;flex-wrap:wrap;align-items:baseline;row-gap:.3em;margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
   .album-meta .sep,.lbl .sep{margin:0 .6em;opacity:.55}
-  .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte en los | */
+  .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte entre datos */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
   .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
@@ -242,7 +242,7 @@
   .album-credits .lbl{font-size:calc(2.2 * var(--uv));line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
   .listen-lbl{margin-top:3.2vh;font-size:calc(2.8 * var(--uv));line-height:1;text-shadow:var(--shadow-sm)}
   .platforms{list-style:none;display:flex;flex-wrap:nowrap;gap:calc(.6 * var(--uv));margin-top:1.6vh}   /* las 4 plataformas siempre en un renglón */
-  .pf{display:flex;align-items:center;gap:calc(.5 * var(--uv));white-space:nowrap;letter-spacing:-.02em;padding:calc(.45 * var(--uv)) calc(.9 * var(--uv)) calc(.45 * var(--uv)) calc(.5 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.25 * var(--uv)),14px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
+  .pf{display:flex;align-items:center;gap:calc(.5 * var(--uv));white-space:nowrap;letter-spacing:-.02em;padding:calc(.45 * var(--uv)) calc(.75 * var(--uv)) calc(.45 * var(--uv)) calc(.45 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.05 * var(--uv)),13px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
   .pf svg{flex:none;width:max(calc(1.8 * var(--uv)),18px);height:max(calc(1.8 * var(--uv)),18px)}
   .pf:hover,.pf:focus-visible{background:var(--mostaza);--i2:var(--mostaza);translate:0 -2px}
   /* columna angosta: icono arriba y nombre abajo, para que las 4 quepan en un renglón */
@@ -301,10 +301,10 @@
     .social{left:50%;top:39vh;gap:4.5vw}
     .social a{width:7vw;height:7vw}
     .model-wrap{width:110vw;height:62vh;top:47%}
-    .hola{font-size:28vw;left:6vw;top:7vh}
-    .soy{font-size:17vw;left:12vw;top:20vh}
+    .hola{font-size:20vw;left:6vw;top:7vh}
+    .soy{font-size:15vw;left:12vw;top:20vh}
     .lorena{font-size:29vw;top:calc(56vh - 3.2vw)}
-    .cosas{font-size:7vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
+    .cosas{font-size:5.6vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
     .lang button{font-size:4.2vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
@@ -566,8 +566,8 @@ fotográfica</button>
     <!-- esp: pragmagick.app y amigah; eng: solo pragmagick.app en inglés (PRAG_ENG) -->
     <a class="nitem es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:82.3;--y:29;--w:26;--r:8deg;--z:1;--lx:65;--ly:30;--lr:-6deg;--mx:26;--my:43">
       <img data-f="PRAGMAGICKAPP.png" alt=""><span>Pragmagick.app
-app de lecturas de
-tarot</span></a>
+app de lecturas
+de tarot</span></a>
     <a class="nitem es" href="https://pragmagick.app/amigah" target="_blank" rel="noopener" style="--x:85;--y:71;--w:28;--r:-6deg;--z:2;--lx:69;--ly:71;--lr:7deg;--mx:74;--my:43">
       <img data-f="AMIGAH.png" alt=""><span>AMIGAAAAAH
 oráculo de
@@ -1444,7 +1444,7 @@ tarot reading app</span></a>
     setTimeout(function(){ pickLang(byBrowser()); }, 2500);
     function progress(){ return parts.reduce(function(a, o){ return a + o.v; }, 0) / parts.length; }
     // fuentes
-    ['1em Lacquer', '1em "Instrument Serif"', 'italic 1em "Instrument Serif"'].forEach(function(f){
+    ['1em Lacquer', '1em "Funnel Display"', '700 1em "Funnel Display"'].forEach(function(f){
       var o = part();
       document.fonts.load(f).then(function(){ o.v = 1; }, function(){ o.v = 1; });
     });

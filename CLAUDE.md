@@ -23,8 +23,8 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
   - `#DE1A58` magenta
   - `#F4B342` mostaza
   - `#FFF0D6` crema (letras)
-- Textos: **Instrument Serif** (regla general para toda tipografía serif), letter-spacing -84 (`-0.084em`).
-- Títulos grandes: **Lacquer** (Google Fonts, variable `--display`; reemplazó a Modak). Es una fuente pintada a mano que siempre sale en mayúsculas.
+- Textos: **Funnel Display** (Google Fonts, en `body`; reemplazó a Instrument Serif), letter-spacing `-0.02em`. Es bastante más ancha que Instrument Serif: al pasar textos viejos, revisar que no se corten.
+- Títulos grandes y "hola! soy" / "hi! i'm" del hero: **Lacquer** (Google Fonts, variable `--display`; reemplazó a Modak). Es una fuente pintada a mano que siempre sale en mayúsculas.
 - Sombras de texto: drop shadow suave en `#360185` (variables `--shadow` y `--shadow-sm`), nunca sombras duras.
 - "Lorena" en Lacquer, letter-spacing `0`, del mismo ancho que tenía con Modak.
 
@@ -59,7 +59,7 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Mi historia.** "lee mi historia en la música" abre esta pantalla (subpantalla de música, como la ficha). Carrusel de instrumentos 3D del mismo tamaño que el órgano (Funmachine, guitarra, groovebox) que avanza solo hacia la izquierda y con flechas (también ← → del teclado y deslizar en móvil); se pausa mientras se lee un texto. Al hover (tap en móvil) cada 3D muestra su texto en un recuadro oscuro. En la de música, los 3D van a la izquierda y el texto largo a la derecha en una ventana con scroll (en móvil, debajo); está en dos bloques `data-only="es"`/`"en"` (con HTML, por eso no usa `data-es`). Sus links `a.go[data-open="ARCHIVO"]` abren la ficha del disco o banda con esa portada, y "← volver" de esa ficha regresa a la historia. `a.go[data-go="N"]` lleva directo a la pantalla principal N ("fotografía" → 3): la historia sube y la pantalla entra desde abajo. En inglés, los títulos de los discos quedan en español con la traducción entre paréntesis (menos Coclea). La historia fotográfica usa el mismo formato (cámaras a la izquierda, texto con scroll a la derecha, en `data-only` es/en, con links `a.ext` al portafolio, Lorenalandia —substack en esp, dfos en eng— e INDIVIRTUAL). La esotérica sigue con dos textos inclinados a los lados.
 - **Idioma.** Al entrar se elige por el país de la IP (`get.geojs.io`, si falla `api.country.is`): España, América Latina (incluido Brasil) y Guinea Ecuatorial en español; el resto del mundo en inglés. Si nadie responde en 2,5 s, se usa el idioma del navegador. El preloader espera ese dato y dice "cargando" o "loading". El botón eng/esp (en Lacquer) sigue cambiándolo a mano. eng/esp solo aparece en la primera pantalla. Los textos traducibles usan `data-es` / `data-en`.
 - **Pantallas ocultas.** Llevan `inert` para que no se puedan enfocar.
-- **Hover = tap en móvil (por defecto).** Todo lo que en escritorio pasa al hover debe poder verse con un tap en pantallas táctiles, y llevar un aviso discreto "tócame!" (`data-en="tap me!"`) en Instrument Serif que solo aparece con `@media (hover:none)`. Si hay muchos elementos iguales (como las portadas), un solo aviso en una nubecita (`.tapcloud`), no uno por elemento.
+- **Hover = tap en móvil (por defecto).** Todo lo que en escritorio pasa al hover debe poder verse con un tap en pantallas táctiles, y llevar un aviso discreto "tócame!" (`data-en="tap me!"`) en la fuente de texto que solo aparece con `@media (hover:none)`. Si hay muchos elementos iguales (como las portadas), un solo aviso en una nubecita (`.tapcloud`), no uno por elemento.
 - Respetar `prefers-reduced-motion`.
 
 ## Legibilidad
@@ -67,9 +67,9 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
 
 - **Texto sobre las nubes:** siempre sobre un panel `rgba(54,1,133,.34)` con `backdrop-filter: blur(14px)` y esquinas apenas redondeadas, solo detrás del bloque de texto. Si va encima de un 3D o una imagen, más oscuro (`.62`).
-- **Párrafos:** letter-spacing `-0.015em` (no el -0.084 general, que los aprieta demasiado), line-height ~1.4, **mínimo 20px** (también en móvil). Las etiquetas y textos cortos tampoco bajan de 20px; solo se permiten más chicos los botones de plataformas, los avisos "tócame!" y, en móvil, los nombres de disco y los pies de los videos (16px).
+- **Párrafos:** letter-spacing `-0.015em`, line-height ~1.4, **mínimo 20px** (también en móvil). Las etiquetas y textos cortos tampoco bajan de 20px; solo se permiten más chicos los botones de plataformas, los avisos "tócame!" y, en móvil, los nombres de disco y los pies de los videos (16px).
 - **Textos largos** (como la historia en la música): panel mucho más oscuro (`rgba(30,0,75,.78)`), letra de mínimo 20px (19px en móvil), letter-spacing `.012em` y line-height 1.5.
-- **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad (`white-space:nowrap` en cada uno). Los créditos van del mismo tamaño que esa línea.
+- **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad (`white-space:nowrap` en cada uno); la línea es flex con `flex-wrap`, así que si no cabe pasa al renglón siguiente entre datos. Los créditos van del mismo tamaño que esa línea.
 - **Tamaños:** en pantallas de escritorio usar la unidad `--uv: min(1vw, 1.7vh)` para que el texto también se ajuste a la altura y no se corte en ventanas anchas y bajitas.
 - **Botones de plataformas:** fondo crema, los 4 siempre en un solo renglón; si no caben, icono arriba y nombre abajo.
 - **Etiquetas sobre imágenes** (nombre del disco al hover): pastilla morada con texto crema, nunca texto suelto encima de una foto.
