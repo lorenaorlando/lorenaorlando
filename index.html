@@ -42,6 +42,14 @@
 
   /* 3D: solo escala */
   .model-wrap{position:absolute;left:50%;top:50%;width:70vw;height:120vh;transform:translate(-50%,-50%);will-change:transform;z-index:2}
+  /* aviso de que la cabeza 3D se puede girar: se va en cuanto alguien la toca */
+  .dragme{position:absolute;left:74%;top:22%;z-index:3;display:flex;align-items:center;gap:.45em;padding:.4em .9em .45em .75em;border-radius:999px;background:rgba(30,0,75,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--crema);font-family:var(--display);font-size:max(1.3vw,18px);line-height:1;letter-spacing:.04em;white-space:nowrap;rotate:-6deg;pointer-events:none;box-shadow:0 .3vh 1vh rgba(30,0,75,.35);transition:opacity .5s,scale .5s}
+  .dragme svg{width:1.7em;height:auto;fill:none;stroke:var(--mostaza);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:dragspin 2.2s ease-in-out infinite}
+  .dragme.gone{opacity:0;scale:.8}
+  @keyframes dragspin{0%,100%{translate:-3px 0}50%{translate:3px 0}}
+  /* "scroll" al pie del hero, solo en móvil */
+  .hscroll{display:none}
+  @media (prefers-reduced-motion:reduce){.dragme svg,.hscroll svg{animation:none}}
   model-viewer{width:100%;height:100%;--poster-color:transparent;background:transparent}
 
   /* HERO */
@@ -112,10 +120,7 @@
   .tapme,.tapcloud{display:none}
   @media (hover:none){
     .tapme{display:block;position:absolute;left:50%;top:-1vh;translate:-50% -100%;z-index:3;padding:.15em .7em .25em;border-radius:999px;background:rgba(54,1,133,.55);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;text-shadow:var(--shadow-sm);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
-    .tapcloud{display:block;position:absolute;left:57vw;top:31vh;z-index:40;padding:.5em 1.1em .6em;border-radius:999px;background:#fff;color:var(--morado);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;rotate:6deg;box-shadow:0 .4vh 1.4vh rgba(54,1,133,.35);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
-    .tapcloud::before,.tapcloud::after{content:"";position:absolute;z-index:-1;border-radius:50%;background:#fff}
-    .tapcloud::before{width:1.6em;height:1.6em;left:.5em;top:-.7em}
-    .tapcloud::after{width:2.2em;height:2.2em;right:.5em;top:-1em}
+    .tapcloud{display:block;position:absolute;left:57vw;top:31vh;z-index:40;padding:.15em .7em .25em;border-radius:999px;background:rgba(54,1,133,.55);color:var(--crema);font-size:max(1.6vw,15px);line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm);pointer-events:none}   /* igual que .tapme */
   }
   @keyframes nudge{0%,100%{scale:1}50%{scale:1.07}}
   .disc:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
@@ -358,16 +363,20 @@
   @media (max-width:700px){
     .social{left:50%;top:39vh;gap:4.5vw}
     .social a{width:7vw;height:7vw}
-    .model-wrap{width:110vw;height:62vh;top:47%}
-    .hola{font-size:20vw;left:6vw;top:7vh}
-    .soy{font-size:15vw;left:12vw;top:20vh}
-    .lorena{font-size:29vw;top:calc(56vh - 3.2vw)}
-    .cosas{font-size:5.6vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
+    .model-wrap{width:110vw;height:62vh;top:51%}
+    .dragme{left:auto;right:12%;top:9%;font-size:16px}
+    .hscroll{display:flex;flex-direction:column;align-items:center;gap:.3em;position:absolute;left:50%;top:86vh;translate:-50% 0;font-family:var(--display);font-size:18px;line-height:1;letter-spacing:.08em;color:var(--crema);text-shadow:var(--shadow-sm)}
+    .hscroll svg{width:16px;height:auto;fill:none;stroke:currentColor;stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;rotate:180deg;filter:drop-shadow(.4vw .5vw .6vw rgba(54,1,133,.85));animation:hsbob 1.4s ease-in-out infinite}
+    @keyframes hsbob{0%,100%{translate:0 0}50%{translate:0 6px}}
+    .hola{font-size:20vw;left:6vw;top:11vh}
+    .soy{font-size:15vw;left:12vw;top:24vh}
+    .lorena{font-size:29vw;top:calc(60vh - 3.2vw)}
+    .cosas{font-size:5.6vw;top:74vh;right:auto;left:0;width:100%;text-align:center}
     .lang button{font-size:4.2vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
-    .historia{left:50vw;top:8vh;font-size:max(4vw,16px);rotate:2deg}
-    button.rw.t span{max-width:13em}
+    .historia{left:50vw;top:11vh;font-size:max(3.6vw,14px);rotate:2deg}
+    button.rw.t span{max-width:19em}
     .organ{left:50vw;top:19.5vh;width:72vw;height:27vh}
     .music .mtitle{left:50vw;top:23vh;font-size:17vw}
     .otros{left:50vw;top:33vh;font-size:max(4.4vw,20px);rotate:-3deg}
@@ -383,7 +392,7 @@
     .listen{left:50vw;top:91vh;gap:4.5vw}
     .listen a{width:7vw;height:7vw}
     .back{left:5vw;top:2.5vh;font-size:5.5vw;padding:.2em .6em .3em;background:var(--morado);border-radius:999px}
-    .album-in{display:block;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:11vh 7vw 7vh}
+    .album-in{display:block;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:11vh 7vw 7vh}
     .album-art{width:min(62vw,40vh);margin:0 0 4vh 4vw}
     .album-info{max-height:none;overflow:visible;padding:6vw 5vw 7vw;border-radius:3vw}
     .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
@@ -397,15 +406,18 @@
     .pf{flex-direction:column;gap:1.2vw;padding:2.2vw .5vw 1.8vw;border-radius:3vw;font-size:2.9vw;letter-spacing:-.03em}
     .pf svg{width:6.5vw;height:6.5vw}
     .album-art.video{width:100%;margin-left:0}
-    .story-in{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:13vh 6vw 7vh}
+    .story-in{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:13vh 6vw 7vh}
+    .tale{max-width:100%;overflow-wrap:anywhere}
     .carousel{position:relative;left:auto;top:auto;transform:none;width:72vw;height:40vh;margin:0 auto}
+    .slide[data-p="1"],.slide[data-p="2"]{translate:0 0}   /* en móvil los 3D que esperan solo se desvanecen: si se corren, la historia se puede scrollear de lado */
+    .instr{max-width:100%}
     .arrow{width:10vw}
-    .arrow.prev{left:-11vw}.arrow.next{right:-11vw}
+    .arrow.prev{left:-8vw}.arrow.next{right:-8vw}
     .info3d{width:86vw;padding:5vw}
     .info3d h3{font-size:6.5vw}
     .info3d p,.lore p{font-size:max(4.2vw,20px)}
     .tapme{font-size:4vw;top:0}
-    .instr{position:relative;left:auto;top:auto;translate:none;display:table;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
+    .instr{position:relative;left:auto;top:auto;translate:none;display:block;width:fit-content;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
     #story .instr,#story .carousel,#photoStory .instr,#photoStory .carousel{left:auto}
@@ -471,6 +483,7 @@
       <button type="button" data-lang="en" aria-pressed="false"><span class="f">🇺🇸</span>eng</button>
       <button type="button" data-lang="es" aria-pressed="true"><span class="f">🇪🇸</span>esp</button>
     </nav>
+    <p class="hscroll" aria-hidden="true">scroll<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></p>
     <p class="cosas" data-es="y hago muuuchas cosas..." data-en="and I do sooo many things...">y hago muuuchas cosas...</p>
   </div>
 
@@ -494,6 +507,7 @@
       max-field-of-view="40deg"
       loading="eager"
       reveal="auto"></model-viewer>
+    <p class="dragme" aria-hidden="true"><svg viewBox="0 0 34 24"><path d="M9 17.5C4.6 16.2 2 14.2 2 12C2 7.6 8.7 4 17 4S32 7.6 32 12C32 15.6 27.6 18.6 21.4 19.6"/><path d="M17.2 15.8 21.8 19.6 17.6 23.2"/></svg><span data-es="arrástrame!" data-en="drag me!">arrástrame!</span></p>
   </div>
 
   <!-- "Lorena" va por delante del 3D -->
@@ -522,7 +536,7 @@
   </div>
 
   <div class="layer music" id="music">
-    <button type="button" class="t historia rw" id="toStory"><svg class="rwi" viewBox="0 0 34 20" aria-hidden="true"><path d="M16 2 3 10l13 8z"/><path d="M31 2 18 10l13 8z"/></svg><span data-es="sí, esa soy yo. seguro te preguntarás cómo llegué hasta aquí..." data-en="yep, that's me. you're probably wondering how i got here...">sí, esa soy yo. seguro te preguntarás cómo llegué hasta aquí...</span></button>
+    <button type="button" class="t historia rw" id="toStory"><svg class="rwi" viewBox="0 0 34 20" aria-hidden="true"><path d="M16 2 3 10l13 8z"/><path d="M31 2 18 10l13 8z"/></svg><span data-es="cómo llegué a tener 13 oyentes mensuales en spotify: un caso de éxito" data-en="how i got to 13 monthly listeners on spotify: a success story">cómo llegué a tener 13 oyentes mensuales en spotify: un caso de éxito</span></button>
     <div class="organ" aria-hidden="true">
       <model-viewer id="organ" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -851,6 +865,7 @@ tarot reading app</span></a>
   });
   mv.addEventListener('load', function(){ status.hidden = true; console.log('GLB cargado:', mv.getAttribute('src')); });
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
+  mv.addEventListener('pointerdown', function(){ document.querySelector('.dragme').classList.add('gone'); }, {once:true});
 
 
   // Nubes de fondo: cuadrícula con posiciones aleatorias (semilla fija = siempre igual)
@@ -967,6 +982,15 @@ tarot reading app</span></a>
                    'Lyrics and music for every track by Lorena Orlando (except the guitar on “Momento”, by Raúl Sanabria, and “Naked Eye”, by Luscious Jackson).',
                    'Cover by Erick Achang.']} },
 
+    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', genre:'naïve rock', type:'ep', date:[4,6,2016],
+      pos:[69.8,81.5,21.9,'-2deg',2,-1],
+      links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
+        apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mPTaR2OiwzD-gdWoT4pmPwKV0iZCsQ9iM',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/nuevas-tendencias-loocila'},
+      credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
+               en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
+
     { f:'COCLEA.jpg', title:'Coclea', genre:'cuchifolk', type:'album', date:[14,10,2013],
       pos:[81,46.8,22.4,'0deg',1,-1],
       links:{spotify:'https://open.spotify.com/album/5jgsjSn3p1LmHOwaJddbeS',
@@ -979,15 +1003,6 @@ tarot reading app</span></a>
                en:['All songs written and recorded by Lorena Orlando (“Hoy” in collaboration with Las Acevedo).',
                    'Recorded, mixed and mastered at Cholula by Raúl Sanabria.',
                    'Produced by Raúl Sanabria and Lorena Orlando.', CR_LO.en]} },
-
-    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', genre:'naïve rock', type:'ep', date:[4,6,2016],
-      pos:[69.8,81.5,21.9,'-2deg',2,-1],
-      links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
-        apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
-        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mPTaR2OiwzD-gdWoT4pmPwKV0iZCsQ9iM',
-        bandcamp:'https://lorenaorlando.bandcamp.com/album/nuevas-tendencias-loocila'},
-      credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
-               en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
 
     { f:'ROSLER.jpg', title:'Rösler', genre:'kid lo-fi', type:'comp', date:[0,0,2003],
       pos:[91.4,78.7,22,'11deg',3,-1],
@@ -1521,14 +1536,18 @@ tarot reading app</span></a>
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
-  var touchScroll = false;
-  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; touchScroll = scrolls(e.target, 0); }, {passive:true});
+  var touchScroll = false, touchCtl = false;
+  window.addEventListener('touchstart', function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; touchScroll = scrolls(e.target, 0);
+    // un toque que empieza en un botón o link y se corre un poco no debe cambiar de pantalla (pasaba con "mi historia")
+    touchCtl = !!(e.target.closest && e.target.closest('button,a,.disc,model-viewer'));
+  }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
     if (touchScroll) { x0 = y0 = null; return; }      // se deslizó dentro de un panel con scroll propio
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
-    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
+    if (Math.abs(dy) > (touchCtl ? 110 : 45) && Math.abs(dy) > Math.abs(dx) * 1.3) step(dy > 0 ? 1 : -1);
     else if (subOpen && CAROUSELS.has(sub) && Math.abs(dx) > 40 && e.target.closest && e.target.closest('.carousel')) CAROUSELS.get(sub).move(dx > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
