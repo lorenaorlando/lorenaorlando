@@ -92,7 +92,7 @@
   .onirias h3 b{font-weight:400;color:var(--mostaza)}
   .vid{position:absolute;width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh)}
   .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--morado);box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
-  .vid p{margin-top:.6vh;font-size:max(1.3vw,13px);line-height:1;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .vid p{margin-top:.6vh;font-size:max(1.3vw,20px);line-height:1;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .noimg{background:var(--violeta)}
   .noimg img{visibility:hidden}
   .disc.noimg .name{opacity:1;transform:none}
@@ -108,7 +108,7 @@
   @keyframes nudge{0%,100%{scale:1}50%{scale:1.07}}
   .disc:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .disc:hover .lp,.disc:focus-visible .lp{translate:calc(var(--dir) * 46%) 0;animation-play-state:running}
-  .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:1.5vw;line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
+  .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:max(1.5vw,20px);line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
   .disc:hover .name,.disc:focus-visible .name{opacity:1;transform:none}
 
   /* LP: surcos + etiqueta con la portada */
@@ -199,7 +199,7 @@
   .mhistoria:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
   .mhead{position:absolute;left:16vw;top:17vh;transform:translate(-50%,-50%);rotate:-5deg;font-weight:400;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
   .mpanel{position:absolute;left:4vw;top:25vh;width:27vw;rotate:-2deg;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-  .mpanel p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .mpanel p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .mpanel p+p{margin-top:1.2vh}
   html[lang="en"] .magick .es,html:not([lang="en"]) .magick .en{display:none}
 
@@ -221,7 +221,7 @@
   .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte en los | */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
-  .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .album-text p+p{margin-top:1.2vh}
   .album-text a,.album-credits a{color:var(--mostaza);pointer-events:auto}
   .album-credits{margin-top:2.6vh}
@@ -255,7 +255,7 @@
   .slide:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .info3d{position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(32vw,135%);padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .3s;pointer-events:none}
   .info3d h3{font-family:var(--display);font-weight:400;font-size:calc(2.6 * var(--uv));line-height:1;letter-spacing:.02em;text-shadow:var(--shadow-sm);margin-bottom:1.2vh}
-  .info3d p,.lore p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .info3d p,.lore p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .info3d p+p,.lore p+p{margin-top:1.2vh}
   .slide:hover .info3d,.slide:focus-visible .info3d,.slide.show .info3d{opacity:1}
   .arrow{all:unset;position:absolute;top:50%;translate:0 -50%;z-index:4;width:max(calc(3.6 * var(--uv)),40px);aspect-ratio:1;border-radius:50%;background:var(--crema);color:var(--morado);display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:var(--shadow-sm);transition:background .2s,scale .2s}
@@ -296,19 +296,19 @@
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
-    .historia{left:50vw;top:7vh;font-size:4.4vw;rotate:3deg}
+    .historia{left:50vw;top:7vh;font-size:max(4.4vw,20px);rotate:3deg}
     .organ{left:50vw;top:19.5vh;width:72vw;height:27vh}
     .music .mtitle{left:50vw;top:23vh;font-size:17vw}
-    .otros{left:50vw;top:33vh;font-size:4.4vw;rotate:-3deg}
+    .otros{left:50vw;top:33vh;font-size:max(4.4vw,20px);rotate:-3deg}
     .discs{inset:auto 0;top:39.5vh;display:grid;grid-template-columns:repeat(3,min(27vw,13.3vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
     .projs .disc{position:absolute;width:min(27vw,13.3vh);left:calc(var(--mx) * 1vw - min(27vw,13.3vh) / 2);top:40vh}
     .onirias h3{left:50vw;top:56vh;font-size:4.6vw}
     .vid{width:30vw;left:calc(var(--mx) * 1vw - 15vw);top:calc(var(--my) * 1vh)}
-    .vid p{font-size:3.2vw}
+    .vid p{font-size:16px}
     .tapcloud{left:64vw;top:35.5vh;font-size:4vw}
-    .name{font-size:3.4vw}
-    .escucha{left:50vw;top:84vh;font-size:4.2vw}
+    .name{font-size:max(3.4vw,16px)}
+    .escucha{left:50vw;top:84vh;font-size:max(4.2vw,20px)}
     .listen{left:50vw;top:91vh;width:62vw;height:7.5vh;border-radius:1.5vw}
     .listen a{width:8vw;height:8vw}
     .back{left:5vw;top:2.5vh;font-size:5.5vw;padding:.2em .6em .3em;background:var(--morado);border-radius:999px}
@@ -317,7 +317,7 @@
     .album-info{max-height:none;overflow:visible;padding:6vw 5vw 7vw;border-radius:3vw}
     .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
     .album-meta{font-size:5vw}
-    .album-text p{font-size:4.4vw}
+    .album-text p{font-size:max(4.4vw,20px)}
     .album-credits p{font-size:5vw}
     .album-credits .lbl{font-size:5vw}
     .listen-lbl{margin-top:4vh;font-size:6.5vw}
@@ -332,7 +332,7 @@
     .arrow.prev{left:-11vw}.arrow.next{right:-11vw}
     .info3d{width:86vw;padding:5vw}
     .info3d h3{font-size:6.5vw}
-    .info3d p,.lore p{font-size:4.2vw}
+    .info3d p,.lore p{font-size:max(4.2vw,20px)}
     .tapme{font-size:4vw;top:0}
     .instr{position:relative;left:auto;top:auto;translate:none;display:table;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
@@ -365,14 +365,14 @@
     .dtitle{right:4vw;top:10.5vh;font-size:10vw}
     .vela{top:10vh;width:44vw;height:14vh}
     .mgtitle{left:50vw;top:19vh;font-size:12vw;rotate:5deg}
-    .mhistoria{left:50vw;top:26vh;font-size:5vw;rotate:-3deg}
+    .mhistoria{left:50vw;top:26vh;font-size:max(5vw,20px);rotate:-3deg}
     .magick .nitem img{width:min(48vw,27vh);left:calc(var(--mx) * 1vw - min(48vw,27vh) / 2)}
-    .magick .nitem span{top:calc(var(--my) * 1vh + min(24vw,13.5vh) + 2.5vh);font-size:4.4vw}
+    .magick .nitem span{top:calc(var(--my) * 1vh + min(24vw,13.5vh) + 2.5vh);font-size:max(4.4vw,20px)}
     .magick .nitem.en img{width:min(40vw,22vh);left:calc(50vw - min(40vw,22vh) / 2)}   /* PRAG_ENG es más alta que ancha */
     .magick .nitem.en span{top:calc(var(--my) * 1vh + min(25.8vw,14.2vh) + 2.5vh)}
     .mhead{left:50vw;top:66.5vh;font-size:6vw;rotate:-2deg}
     .mpanel{left:4vw;top:70vh;width:92vw;rotate:-1deg;padding:4vw 5vw;border-radius:3vw}
-    .mpanel p{font-size:max(3.8vw,15px);line-height:1.35}
+    .mpanel p{font-size:max(3.8vw,20px);line-height:1.35}
     .mpanel p+p{margin-top:.8vh}
   }
 </style>
