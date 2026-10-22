@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lorena</title>
+<title>LORENA ORLANDO</title>
 <link rel="icon" type="image/png" href="assets/FAVICON.png">
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +18,18 @@
     --shadow-sm: .12vw .18vw .35vw rgba(54,1,133,.85);
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  /* PRELOADER: tapa todo hasta que fuentes, imágenes y 3D estén listos */
+  #preload{position:fixed;inset:0;z-index:1000;background:var(--fondo);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;color:var(--crema);transition:opacity .6s ease}
+  #preload.done{opacity:0;pointer-events:none}
+  #preload .pl-t{font-family:var(--display);font-size:clamp(34px,7vw,120px);line-height:.95;text-align:center;letter-spacing:-.02em;text-shadow:var(--shadow);opacity:0;transition:opacity .3s}
+  #preload .pl-t span{display:block}
+  #preload .pl-t .pl-s{font-size:.55em}
+  #preload.fonts .pl-t,#preload.fonts .pl-n{opacity:1}
+  #preload .pl-bar{width:min(60vw,520px);height:clamp(12px,1.4vw,20px);border-radius:999px;background:rgba(54,1,133,.45);overflow:hidden;box-shadow:var(--shadow-sm)}
+  #preload .pl-bar i{display:block;height:100%;width:0;background:var(--crema);border-radius:inherit}
+  #preload .pl-n{font-family:var(--display);font-size:clamp(22px,2.6vw,40px);text-shadow:var(--shadow-sm);opacity:0;transition:opacity .3s}
+  /* durante y justo después de una transición los iframes no se tragan la rueda (evita saltar dos pantallas) */
+  .noframes iframe{pointer-events:none}
   html,body{height:100%;overflow:hidden;background:var(--fondo);overscroll-behavior:none}
   body{font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
   .stage{position:fixed;inset:0;overflow:hidden;overflow:clip;background:var(--fondo);touch-action:none}
@@ -378,6 +390,11 @@
 </style>
 </head>
 <body>
+<div id="preload" role="progressbar" aria-label="Cargando" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <p class="pl-t"><span>lorenaorlando.com</span><span class="pl-s">cargando</span></p>
+  <div class="pl-bar"><i></i></div>
+  <p class="pl-n">0%</p>
+</div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M6.4 9.3c3.6-1.2 8-.9 11.4 1M7.1 12.7c3-.9 6.6-.6 9.3 1M7.9 15.9c2.4-.6 4.9-.4 7 .8" fill="none" stroke-width="1.9" stroke-linecap="round" style="stroke:var(--i2,#F4B342)"/></symbol>
   <symbol id="i-apple" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="currentColor"/><g style="fill:var(--i2,#F4B342)"><path d="M9.6 7.2 17.6 5.6V8L9.6 9.6z"/><rect x="9.6" y="7.4" width="1.6" height="9.4"/><rect x="16" y="5.8" width="1.6" height="9.4"/><ellipse cx="8.6" cy="16.9" rx="2.6" ry="2.1"/><ellipse cx="15" cy="15.3" rx="2.6" ry="2.1"/></g></symbol>
@@ -540,8 +557,6 @@ fotográfica</button>
       <p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.</p>
       <p>Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
     </div>
-    <button type="button" class="mhistoria" id="toMagickStory" data-es="lee mi historia&#10;esotérica" data-en="read my&#10;esoteric story">lee mi historia
-esotérica</button>
     <div class="vela" aria-hidden="true">
       <model-viewer id="vela" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -1094,6 +1109,7 @@ tarot reading app</span></a>
   var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [magick, 7], [album, 's'], [story, 's'], [photoStory, 's'], [magickStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
+  var ready = false, warmAll = false;           // ready: ya terminó el preloader
   var DURATION = 1100;                               // ms por transición, sin importar los fps
   var SCALE_END = 0.65, SHIFT_X = -27, SHIFT_Y = 2;
 
@@ -1107,6 +1123,7 @@ tarot reading app</span></a>
     return [-115, -5];
   }
   function render(p){
+    if (warmAll) { LAYERS.forEach(function(l){ l[0].style.transform = 'none'; }); return; }
     LAYERS.forEach(function(l){
       var sw = prevSub ? (reduce ? 1 : clamp01((performance.now() - swapT0) / DURATION)) : 0;
       var t = place(l[1] === 's' ? (prevSub && l[0] === prevSub ? sw : prevSub && l[0] === sub ? sw - 1 : subMode && l[0] === sub ? p - home - 1 : -1) : prevSub && !subOpen && l[1] === target ? sw - 1 : subMode && l[1] > home ? -1 : p - l[1]);
@@ -1127,6 +1144,7 @@ tarot reading app</span></a>
     requestAnimationFrame(tick);
   }
   function go(v, asSub){
+    document.documentElement.classList.add('noframes');
     var wasSub = subOpen;
     subOpen = !!asSub;
     if (v !== target || wasSub !== subOpen) { from = current; target = v; t0 = performance.now(); subMode = wasSub || subOpen; }
@@ -1147,7 +1165,7 @@ tarot reading app</span></a>
     if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
   }
   var LAST = 7;                                      // última pantalla
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
+  function step(dir){ if (ready && !subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -1344,11 +1362,14 @@ tarot reading app</span></a>
     });
   });
   document.getElementById('toPhotoStory').addEventListener('click', function(){ openStory(photoStory, this); });
-  document.getElementById('toMagickStory').addEventListener('click', function(){ openStory(magickStory, this); });
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
   // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)
   var lastWheel = 0, gestureUsed = false, overFrame = false;
+  // los iframes vuelven a recibir la rueda cuando la transición terminó, la rueda paró y se mueve el mouse
+  document.addEventListener('pointermove', function(){
+    if (!busy() && performance.now() - lastWheel > 400) document.documentElement.classList.remove('noframes');
+  });
   // sobre un iframe la rueda no llega aquí; al salir de él, la inercia que sigue no debe cambiar de pantalla
   document.addEventListener('pointerover', function(e){
     var f = e.target.tagName === 'IFRAME';
@@ -1360,7 +1381,8 @@ tarot reading app</span></a>
     var now = performance.now();
     if (now - lastWheel > 180) gestureUsed = false;
     lastWheel = now;
-    if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4 || busy()) return;
+    if (busy()) { gestureUsed = true; return; }        // la rueda durante una transición es parte de ella
+    if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4) return;
     gestureUsed = true;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
@@ -1377,6 +1399,7 @@ tarot reading app</span></a>
   }, {passive:true});
   // teclado
   window.addEventListener('keydown', function(e){
+    if (!ready) return;
     if (subOpen) {                                    // en la ficha las flechas hacen scroll del texto
       if (e.key === 'Escape') closeSub();
       if (CAROUSELS.has(sub) && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) CAROUSELS.get(sub).move(e.key === 'ArrowRight' ? 1 : -1);
@@ -1391,6 +1414,71 @@ tarot reading app</span></a>
 
   if (reduce) document.querySelectorAll('model-viewer').forEach(function(m){ m.removeAttribute('auto-rotate'); });
   go(0); tick();
+
+  /* ---------- PRELOADER ----------
+     Carga todo antes de mostrar el sitio: fuentes, imágenes y todos los 3D. Luego, todavía tapado,
+     pone todas las pantallas en su sitio un momento para que los 3D se dibujen una vez (así no se traban
+     al aparecer por primera vez), y después muestra la página. */
+  (function(){
+    var pre = document.getElementById('preload'), bar = pre.querySelector('.pl-bar i'), num = pre.querySelector('.pl-n');
+    var parts = [], shown = 0, finished = false;
+    function part(){ var o = {v: 0}; parts.push(o); return o; }
+    function progress(){ return parts.reduce(function(a, o){ return a + o.v; }, 0) / parts.length; }
+    // fuentes
+    ['1em Modak', '1em "Instrument Serif"', 'italic 1em "Instrument Serif"'].forEach(function(f){
+      var o = part();
+      document.fonts.load(f).then(function(){ o.v = 1; }, function(){ o.v = 1; });
+    });
+    document.fonts.load('1em Modak').then(function(){ pre.classList.add('fonts'); }, function(){ pre.classList.add('fonts'); });
+    // 3D: todos, también los de las pantallas que se cargaban al llegar a ellas
+    loadGlb(organ, 'FUNMACHINE_EXP.glb'); loadGlb(zenit, 'ZENIT.glb'); loadGlb(lapi, 'LAPI_EXP.glb');
+    loadGlb(logo3d, 'LOGO_COMP.glb'); loadGlb(compu, 'COMPU_VIEJA.glb'); loadGlb(vela, 'VELA.glb');
+    CAROUSELS.get(story).load(); CAROUSELS.get(photoStory).load();
+    customElements.whenDefined('model-viewer').then(function(){
+      document.querySelectorAll('model-viewer[src]').forEach(function(m){
+        var o = part(), errors = 0;
+        m.setAttribute('loading', 'eager');
+        if (m.loaded) { o.v = 1; return; }
+        m.addEventListener('progress', function(e){ o.v = Math.max(o.v, Math.min(.99, e.detail.totalProgress)); });
+        m.addEventListener('load', function(){ o.v = 1; });
+        m.addEventListener('error', function(){ if (++errors >= 2) o.v = 1; });   // el 2º error: también falló el hosting
+      });
+    });
+    var mvPart = part();                              // hasta que exista model-viewer, cuenta como pendiente
+    customElements.whenDefined('model-viewer').then(function(){ mvPart.v = 1; });
+    // imágenes (nubes, portadas, fotos…): sin carga diferida
+    document.querySelectorAll('img').forEach(function(img){
+      var o = part();
+      img.loading = 'eager';
+      if (!img.getAttribute('src') || img.complete) { o.v = 1; return; }
+      img.addEventListener('load', function(){ o.v = 1; });
+      img.addEventListener('error', function(){ setTimeout(function(){ if (img.complete) o.v = 1; }, 50); });
+      setTimeout(function(){ o.v = 1; }, 20000);      // una imagen rota no deja la página tapada
+    });
+    function finish(){
+      if (finished) return;
+      finished = true;
+      warmAll = true; last = -1;
+      setTimeout(function(){
+        warmAll = false; last = -1;
+        ready = true;
+        pre.classList.add('done');
+        setTimeout(function(){ pre.remove(); }, 700);
+        // los iframes externos cargan en segundo plano, ya con la página visible
+        web.querySelectorAll('iframe').forEach(function(f){ f.loading = 'eager'; if (!f.src) f.src = f.dataset.src; });
+        loadWrite();
+      }, 900);
+    }
+    setTimeout(finish, 40000);                        // red muy lenta: no dejar a nadie fuera
+    (function loop(){
+      var p = progress();
+      shown += (p - shown) * .12;
+      if (p >= 1 && shown > .995) shown = 1;
+      var pct = Math.round(shown * 100);
+      bar.style.width = pct + '%'; num.textContent = pct + '%'; pre.setAttribute('aria-valuenow', pct);
+      if (shown >= 1) finish(); else requestAnimationFrame(loop);
+    })();
+  })();
 
   /* ---------- IDIOMA ---------- */
   var buttons = document.querySelectorAll('[data-lang]');
