@@ -75,7 +75,7 @@ Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
 - **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad. Se arman con `joinSep()`: si un dato no cabe, pasa al renglón siguiente y `trimSeps()` oculta su `|` (nunca queda un `|` suelto). Los créditos van del mismo tamaño que esa línea.
 - **Tamaños:** en pantallas de escritorio usar la unidad `--uv: min(1vw, 1.7vh)` para que el texto también se ajuste a la altura y no se corte en ventanas anchas y bajitas.
 - **Íconos de plataformas en música** (`.listen`): iguales a la fila de redes, íconos crema sueltos con drop shadow, sin recuadro.
-- **Textos con scroll propio** (`.mpanel`, `.album-info`, `.tale`, y en móvil `.album-in`/`.story-in`): llevan al pie un aviso "desliza"/"scroll" con flecha doodle (`.shint`) que rebota y desaparece al llegar al final. Toda caja nueva con scroll debe sumarse a `SCROLLERS`.
+- **Textos con scroll propio** (`.mpanel`, `.album-info`, `.tale`, y en móvil `.album-in`/`.story-in`): llevan al pie un aviso "desliza"/"scroll" con flecha doodle (`.shint`: píldora con mucho padding, fondo `rgba(20,0,52,.84)` y blur de 28px, más fuerte que el de los recuadros) que rebota y desaparece al llegar al final. Toda caja nueva con scroll debe sumarse a `SCROLLERS`.
 - **Botones de plataformas:** fondo crema, los 4 siempre en un solo renglón; si no caben, icono arriba y nombre abajo.
 - **Etiquetas sobre imágenes** (nombre del disco al hover): pastilla morada con texto crema, nunca texto suelto encima de una foto.
 - **Móvil.** Debe verse bien; el corte está en `max-width: 700px`.
