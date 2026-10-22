@@ -239,6 +239,8 @@
   .album-art.video img,.album-art.video .lp{display:none}
   .album-art iframe{position:absolute;inset:0;width:100%;height:100%;border:0;box-shadow:.4vw .6vw 1.6vw rgba(54,1,133,.5)}
   .album.isvideo .album-in{gap:5vw}
+  .platforms .bc{flex:1 1 auto;max-width:520px}
+  .platforms .bc iframe{display:block;width:100%;height:120px;border:0}
   .pf.soon{opacity:.55;cursor:default;pointer-events:none}
 
   /* MI HISTORIA: carrusel de instrumentos 3D (mismo tamaño que el órgano de la pantalla de música) */
@@ -921,7 +923,7 @@ tarot reading app</span></a>
                    'The cover image is an intervention on Lorena Orlando’s original artwork, made by Juan José Quintanillo (San Francisco, Venezuela).']} },
     { f:'RESISTANCE.webp', title:'La Resistance', date:[0,0,2005],
       pos:[25,50,19,'7deg',3,-1], mx:50,
-      track:['https://lorenaorlando.bandcamp.com/track/deux-et-trois', 'Deux et trois by La Resistance'],
+      track:['https://lorenaorlando.bandcamp.com/track/deux-et-trois', 'Deux et trois by La Resistance', '1191283682'],
       info:{es:['La Resistance fue una banda fugaz que existió en Venezuela por ahí en los 2000. Solo se llegaron a grabar 3 canciones, todo hecho a distancia, compartiendo archivos a través del MSN Messenger. La banda estuvo integrada por Lorena Orlando, Erly J. Ruiz y Alejandra Ghersi (más conocida como Arca). No duró mucho, nunca tocamos en vivo, pero pude rescatar esta canción del fondo del baúl de mi disco duro.'],
             en:['La Resistance was a fleeting band that existed in Venezuela sometime in the 2000s. Only 3 songs were ever recorded, all made remotely, sharing files over MSN Messenger. The band was made up of Lorena Orlando, Erly J. Ruiz and Alejandra Ghersi (better known as Arca). It didn’t last long and we never played live, but I managed to rescue this song from the bottom of my hard drive’s trunk.']},
       credits:{es:['Alejandra Ghersi (Nuuro-Arca): programación.', 'Lorena Orlando (Loo): acordeón.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programación y guitarra eléctrica.', 'Foto por Ana Sofía Espinoza.'],
@@ -1231,12 +1233,14 @@ tarot reading app</span></a>
     });
     var ul = document.getElementById('albumLinks'); ul.textContent = '';
     ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links && !al.track;
-    if (al.track) {                                  // una canción suelta en Bandcamp (La Resistance)
-      var tli = document.createElement('li'), ta = document.createElement('a');
-      ta.className = 'pf'; ta.href = al.track[0]; ta.target = '_blank'; ta.rel = 'noopener';
-      ta.innerHTML = '<svg aria-hidden="true"><use href="#i-bandcamp"/></svg><span></span>';
-      ta.lastChild.textContent = al.track[1];
-      tli.appendChild(ta); ul.appendChild(tli);
+    if (al.track) {                                  // una canción suelta: reproductor de Bandcamp (La Resistance)
+      var tli = document.createElement('li'), bc = document.createElement('iframe');
+      tli.className = 'bc';
+      bc.title = al.track[1]; bc.loading = 'lazy'; bc.setAttribute('seamless', '');
+      // tema oscuro (letras claras sobre el panel morado) y links en mostaza
+      bc.src = 'https://bandcamp.com/EmbeddedPlayer/track=' + al.track[2] + '/size=large/bgcol=333333/linkcol=f4b342/tracklist=false/artwork=small/transparent=true/';
+      bc.innerHTML = '<a href="' + al.track[0] + '"></a>'; bc.firstChild.textContent = al.track[1];
+      tli.appendChild(bc); ul.appendChild(tli);
     }
     if (al.links) PLATFORMS.forEach(function(pf){
       var li = document.createElement('li'), a = document.createElement('a');
