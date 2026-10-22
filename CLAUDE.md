@@ -23,8 +23,8 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
   - `#DE1A58` magenta
   - `#F4B342` mostaza
   - `#FFF0D6` crema (letras)
-- Textos: **Funnel Display** (Google Fonts, en `body`; reemplazó a Instrument Serif), letter-spacing `-0.02em`. Es bastante más ancha que Instrument Serif: al pasar textos viejos, revisar que no se corten.
-- Títulos grandes y "hola! soy" / "hi! i'm" del hero: **Lacquer** (Google Fonts, variable `--display`; reemplazó a Modak). Es una fuente pintada a mano que siempre sale en mayúsculas.
+- Textos: **Funnel Display** (Google Fonts, en `body`; reemplazó a Instrument Serif), letter-spacing `-0.02em`. Solo para textos largos y de información (párrafos, `tipo | género | fecha`, créditos, botones de plataformas); la lista de etiquetas en Lacquer está en una regla CSS junto al menú flotante. Es bastante más ancha que Instrument Serif: al pasar textos viejos, revisar que no se corten.
+- Títulos grandes, "hola! soy" / "hi! i'm" y "y hago muuuchas cosas..." del hero, y todas las etiquetas y títulos cortos ("portafolio", "indivirtual", "lee mi historia...", "escúchame!", "← volver", nombres de disco, "créditos", "escucha en:", el menú, etc.): **Lacquer** (Google Fonts, variable `--display`; reemplazó a Modak). Es una fuente pintada a mano que siempre sale en mayúsculas.
 - Sombras de texto: drop shadow suave en `#360185` (variables `--shadow` y `--shadow-sm`), nunca sombras duras.
 - "Lorena" en Lacquer, letter-spacing `0`, del mismo ancho que tenía con Modak.
 
@@ -33,6 +33,8 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Título de la pestaña:** `LORENA ORLANDO`. En el hero sigue diciendo solo "Lorena".
 - **Preloader.** Al abrir, una pantalla lila con "lorenaorlando.com" y "cargando"/"loading" debajo (Lacquer), barra de % y número. No deja ver ni navegar el sitio hasta que cargan las fuentes, todas las imágenes y todos los 3D (también los de pantallas y subpantallas). Después, todavía tapado, pone todas las capas en su sitio un momento (`warmAll`) para que cada 3D se dibuje una vez y no se trabe al aparecer. Los iframes externos (diseño web, escritura) cargan justo al terminar, en segundo plano. Todo 3D o imagen nueva debe entrar en ese conteo (los `model-viewer` con `src` y los `<img>` se cuentan solos). Tope de seguridad: 40 s.
 - **Rueda e iframes.** Durante una transición y hasta que la rueda para y se mueve el mouse, los iframes llevan `pointer-events:none` (clase `noframes` en `<html>`); si no, el iframe se traga parte del gesto y la pantalla salta dos veces. La rueda que llega durante una transición cuenta como parte de ella.
+- **Menú flotante** (`.secnav`): aparece desde música hasta magick (no en el hero, ni en los títulos, ni en subpantallas). En escritorio, una píldora arriba al centro con las 6 secciones en Lacquer (la actual en mostaza). En móvil, un botón "menú" abajo a la derecha que despliega la lista.
+- **Flechas doodle** (`.doodle`, trazo a mano como Lacquer): en diseño web, a la izquierda del iframe (en móvil, arriba y abajo); en magick, una flecha con "inicio" arriba al centro (en móvil, arriba a la izquierda) que vuelve al hero.
 - **Sin scroll real.** La rueda, el táctil (solo gestos verticales) y el teclado cambian de pantalla.
 - **Transiciones tipo ruleta.** Cada cambio de pantalla es una animación de rotación: lo actual sube y gira, y lo siguiente sube después.
 - **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca.
@@ -69,7 +71,7 @@ Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
 - **Texto sobre las nubes:** siempre sobre un panel `rgba(54,1,133,.34)` con `backdrop-filter: blur(14px)` y esquinas apenas redondeadas, solo detrás del bloque de texto. Si va encima de un 3D o una imagen, más oscuro (`.62`).
 - **Párrafos:** letter-spacing `-0.015em`, line-height ~1.4, **mínimo 20px** (también en móvil). Las etiquetas y textos cortos tampoco bajan de 20px; solo se permiten más chicos los botones de plataformas, los avisos "tócame!" y, en móvil, los nombres de disco y los pies de los videos (16px).
 - **Textos largos** (como la historia en la música): panel mucho más oscuro (`rgba(30,0,75,.78)`), letra de mínimo 20px (19px en móvil), letter-spacing `.012em` y line-height 1.5.
-- **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad (`white-space:nowrap` en cada uno); la línea es flex con `flex-wrap`, así que si no cabe pasa al renglón siguiente entre datos. Los créditos van del mismo tamaño que esa línea.
+- **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad. Se arman con `joinSep()`: si un dato no cabe, pasa al renglón siguiente y `trimSeps()` oculta su `|` (nunca queda un `|` suelto). Los créditos van del mismo tamaño que esa línea.
 - **Tamaños:** en pantallas de escritorio usar la unidad `--uv: min(1vw, 1.7vh)` para que el texto también se ajuste a la altura y no se corte en ventanas anchas y bajitas.
 - **Botones de plataformas:** fondo crema, los 4 siempre en un solo renglón; si no caben, icono arriba y nombre abajo.
 - **Etiquetas sobre imágenes** (nombre del disco al hover): pastilla morada con texto crema, nunca texto suelto encima de una foto.

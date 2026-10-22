@@ -49,7 +49,7 @@
   .hola{position:absolute;left:10.5vw;top:13vh;font-family:var(--display);letter-spacing:.02em;font-size:13vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
   .soy{position:absolute;left:16.5vw;top:30vh;font-family:var(--display);letter-spacing:.02em;font-size:9vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
   .lorena{position:absolute;left:0;right:0;top:calc(47vh - 2.6vw);text-align:center;font-family:var(--display);font-weight:400;font-size:23.2vw;line-height:1;letter-spacing:0;text-shadow:var(--shadow);white-space:nowrap}
-  .cosas{position:absolute;right:2vw;top:38vh;font-size:2.8vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .cosas{position:absolute;right:2vw;top:38vh;font-family:var(--display);letter-spacing:.02em;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
   .lang button{all:unset;cursor:pointer;font-family:var(--display);letter-spacing:.02em;font-size:2.2vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
   .lang button:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
@@ -196,10 +196,18 @@
   .web{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
   .wwsite{position:absolute;left:10vw;top:10vh;width:80vw;height:80vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .compu{position:absolute;z-index:10;right:0;top:0;width:16vw;height:22vh}
-  .web .arrow{left:50vw;translate:-50% -50%}
-  .web .arrow.up{top:5vh}
-  .web .arrow.down{top:95vh}
-  .web .arrow:disabled{opacity:.35;cursor:default;scale:1;background:var(--crema)}
+  /* flechas doodle (trazo a mano, como Lacquer): diseño web y la de magick que vuelve al inicio */
+  .doodle{all:unset;position:absolute;z-index:30;display:flex;flex-direction:column;align-items:center;gap:.4vh;color:var(--crema);cursor:pointer;pointer-events:auto;filter:drop-shadow(.12vw .18vw .3vw rgba(54,1,133,.85));transition:color .2s,scale .2s;translate:-50% -50%}
+  .doodle svg{width:max(calc(3.6 * var(--uv)),36px);height:auto;fill:none;stroke:currentColor;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+  .doodle.down svg{rotate:180deg}
+  .doodle:hover,.doodle:focus-visible{color:var(--mostaza);scale:1.12}
+  .doodle:focus-visible{outline:2px solid var(--crema);outline-offset:6px;border-radius:8px}
+  .doodle:disabled{opacity:.35;cursor:default;scale:1;color:var(--crema)}
+  .doodle span{font-family:var(--display);font-size:max(1.4vw,20px);line-height:1;letter-spacing:.02em}
+  .web .doodle{left:5vw}
+  .web .doodle.up{top:42vh}
+  .web .doodle.down{top:58vh}
+  .tohome{left:50vw;top:15vh}
   .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
   /* SECCIÓN 8: MAGICK — texto de Pragmagicka a la izquierda, VELA al centro, pantallas de la app a la derecha (como en .net: --x/--y/--w/--r y etiqueta --lx/--ly/--lr) */
@@ -230,6 +238,11 @@
   .album-title.long{font-size:calc(3.1 * var(--uv))}
   .album-meta{display:flex;flex-wrap:wrap;align-items:baseline;row-gap:.3em;margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
   .album-meta .sep,.lbl .sep{margin:0 .6em;opacity:.55}
+  .mi{white-space:nowrap}
+  .mi.nl .sep{display:none}                          /* el | que quedaría al inicio de un renglón nuevo */
+  .album-meta .br,.album-credits .br{display:none;flex-basis:100%;height:0}
+  .album-meta .br.on,.album-credits .br.on{display:block}
+  .album-credits .lbl{display:flex;flex-wrap:wrap;align-items:baseline}
   .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte entre datos */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
@@ -297,6 +310,32 @@
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
+  /* títulos y etiquetas cortas en Lacquer (Funnel queda para párrafos, datos y botones de plataformas) */
+  .music .t,.photo .t,.onirias h3,.tapcloud,.tapme,.indi span,.nitem span,.mhead,.mhistoria,.back,.name,.vid p,.listen-lbl,.album-credits .lbl,.instr,.secnav{font-family:var(--display)!important;letter-spacing:.02em!important}
+
+  /* MENÚ FLOTANTE de secciones: aparece desde música en adelante (no en el hero ni en las subpantallas) */
+  .secnav{--uv:min(1vw,1.7vh);position:fixed;z-index:60;left:50%;top:1.6vh;translate:-50% -1.5vh;opacity:0;visibility:hidden;transition:opacity .4s,translate .4s,visibility 0s .4s}
+  .secnav.show{opacity:1;visibility:visible;translate:-50% 0;transition:opacity .4s,translate .4s,visibility 0s}
+  .secnav-list{display:flex;gap:calc(1.6 * var(--uv));padding:.45em 1.3em .5em;border-radius:999px;background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 .3vh 1.2vh rgba(54,1,133,.25)}
+  .secnav button{all:unset;cursor:pointer;color:var(--crema);font-size:max(calc(1.25 * var(--uv)),16px);line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm);transition:color .2s,scale .2s}
+  .secnav button:hover,.secnav button:focus-visible{color:var(--mostaza);scale:1.08}
+  .secnav button:focus-visible{outline:2px solid var(--crema);outline-offset:4px;border-radius:4px}
+  .secnav button[aria-current="true"]{color:var(--mostaza)}
+  .secnav .secnav-toggle{display:none}
+  @media (prefers-reduced-motion:reduce){.secnav,.secnav.show{transition:none}}
+  @media (max-width:700px){
+    .secnav{left:auto;right:3vw;top:auto;bottom:2.4vh;translate:0 1.5vh;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:1vh}
+    .secnav.show{translate:0 0}
+    .secnav .secnav-toggle{display:block;padding:.45em .95em .5em;border-radius:999px;background:var(--morado);font-size:20px;box-shadow:var(--shadow-sm)}
+    .secnav-list{display:none;flex-direction:column;align-items:flex-end;gap:1.6vh;padding:1em 1.2em;border-radius:3vw;background:rgba(30,0,75,.78)}
+    .secnav.open .secnav-list{display:flex}
+    .secnav button{font-size:22px}
+    .web .doodle{left:50vw}
+    .web .doodle.up{top:5vh}
+    .web .doodle.down{top:95vh}
+    .tohome{left:9vw;top:6vh}
+    .tohome span{display:none}
+  }
   @media (max-width:700px){
     .social{left:50%;top:39vh;gap:4.5vw}
     .social a{width:7vw;height:7vw}
@@ -546,8 +585,8 @@ fotográfica</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="dtitle" data-es="diseño" data-en="design">diseño</h2>
-    <button type="button" class="arrow up" id="webUp" aria-label="Pantalla anterior"><svg viewBox="0 0 24 24"><path d="M4 15l8-8 8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <button type="button" class="arrow down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24"><path d="M4 9l8 8 8-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="doodle up" id="webUp" aria-label="Pantalla anterior"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></button>
+    <button type="button" class="doodle down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></button>
   </div>
 
   <div class="layer magick" id="magick">
@@ -563,6 +602,7 @@ fotográfica</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="mgtitle">magick</h2>
+    <button type="button" class="doodle up tohome" id="toHome" aria-label="Volver al inicio"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg><span data-es="inicio" data-en="home">inicio</span></button>
     <!-- esp: pragmagick.app y amigah; eng: solo pragmagick.app en inglés (PRAG_ENG) -->
     <a class="nitem es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:82.3;--y:29;--w:26;--r:8deg;--z:1;--lx:65;--ly:30;--lr:-6deg;--mx:26;--my:43">
       <img data-f="PRAGMAGICKAPP.png" alt=""><span>Pragmagick.app
@@ -748,6 +788,18 @@ tarot reading app</span></a>
       </div>
     </div>
   </section>
+
+  <nav class="secnav" id="secnav" aria-label="Secciones">
+    <button type="button" class="secnav-toggle" aria-expanded="false" data-es="menú" data-en="menu">menú</button>
+    <div class="secnav-list">
+      <button type="button" data-go="2" data-es="música" data-en="music">música</button>
+      <button type="button" data-go="3" data-es="fotografía" data-en="photography">fotografía</button>
+      <button type="button" data-go="4" data-es="escritura" data-en="writing">escritura</button>
+      <button type="button" data-go="5" data-es="net art" data-en="net art">net art</button>
+      <button type="button" data-go="6" data-es="diseño web" data-en="web design">diseño web</button>
+      <button type="button" data-go="7" data-es="magick" data-en="magick">magick</button>
+    </div>
+  </nav>
 
   <p id="status" hidden></p>
 
@@ -1163,7 +1215,22 @@ tarot reading app</span></a>
     if (v === 4) loadWrite();
     // diseño web: el iframe se carga al entrar
     if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
+    navUpdate(v);
   }
+  // menú flotante: visible desde música (2) en adelante, fuera de las subpantallas
+  var secnav = document.getElementById('secnav'), navToggle = secnav.querySelector('.secnav-toggle');
+  function navUpdate(v){
+    secnav.classList.toggle('show', ready && !subOpen && v >= 2);
+    if (!secnav.classList.contains('show')) { secnav.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); }
+    secnav.querySelectorAll('[data-go]').forEach(function(b){ b.setAttribute('aria-current', +b.dataset.go === v ? 'true' : 'false'); });
+  }
+  secnav.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ secnav.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); go(+b.dataset.go); });
+  });
+  navToggle.addEventListener('click', function(){
+    var o = secnav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', o ? 'true' : 'false');
+  });
   var LAST = 7;                                      // última pantalla
   function step(dir){ if (ready && !subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
@@ -1179,6 +1246,7 @@ tarot reading app</span></a>
   document.getElementById('toMagick').addEventListener('click', function(){ go(7); });
   // flechas de diseño web: la de abajo queda apagada mientras sea la última pantalla
   document.getElementById('webUp').addEventListener('click', function(){ step(-1); });
+  document.getElementById('toHome').addEventListener('click', function(){ go(0); });
   var webDown = document.getElementById('webDown');
   webDown.disabled = LAST <= 6;
   webDown.addEventListener('click', function(){ step(1); });
@@ -1220,6 +1288,23 @@ tarot reading app</span></a>
   function para(html){ var p = document.createElement('p'); p.innerHTML = html; return p; }
   var art = album.querySelector('.album-art');
   function swapTo(sec){ prevSub = sub; sub = sec; swapT0 = performance.now(); }
+  // datos separados por |: cada dato (menos el primero) va junto a su | para que, si pasa al renglón
+  // siguiente, el | quede al inicio de ese renglón y se pueda ocultar (trimSeps), en vez de quedar suelto al final
+  function joinSep(parts){
+    return parts.map(function(x, i){ return i ? '<i class="br"></i><span class="mi"><span class="sep" aria-hidden="true">|</span>' + x + '</span>' : x; }).join('');
+  }
+  function trimSeps(){
+    album.querySelectorAll('.album-meta, .album-credits .lbl').forEach(function(box){
+      var items = box.querySelectorAll('.mi');
+      items.forEach(function(it){ it.classList.remove('nl'); it.previousElementSibling.classList.remove('on'); });
+      // de a uno: si un dato bajó de renglón, se oculta su | y se fija el salto (si no, al quitar el | volvería a subir)
+      items.forEach(function(it){
+        var br = it.previousElementSibling, prev = br.previousElementSibling;
+        if (prev && it.offsetTop > prev.offsetTop + 2) { it.classList.add('nl'); br.classList.add('on'); }
+      });
+    });
+  }
+  window.addEventListener('resize', function(){ trimSeps(); });
   function openAlbum(al, btn){
     var l = document.documentElement.lang === 'en' ? 'en' : 'es';
     if (subOpen && sub !== album) { returnTo = {sec: sub, home: home, opener: opener}; swapTo(album); }
@@ -1237,7 +1322,6 @@ tarot reading app</span></a>
     var t = document.getElementById('albumTitle');
     t.textContent = al.title;
     t.classList.toggle('long', al.title.length > 22);
-    var SEP = '<span class="sep" aria-hidden="true">|</span>';
     var parts = [];
     if (al.type) parts.push('<b>' + TYPES[al.type][l] + '</b>');
     if (al.genre) parts.push('<b>' + al.genre + '</b>');
@@ -1246,7 +1330,7 @@ tarot reading app</span></a>
       var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
       parts.push('<span>' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]) + '</span>');
     }
-    document.getElementById('albumMeta').innerHTML = parts.join(SEP);
+    document.getElementById('albumMeta').innerHTML = joinSep(parts);
     var text = document.getElementById('albumText'); text.textContent = '';
     (al.info ? al.info[l] : []).forEach(function(h){ text.appendChild(para(h)); });
     text.hidden = !al.info;
@@ -1256,11 +1340,13 @@ tarot reading app</span></a>
     al.credits[l].forEach(function(h){
       if (h.indexOf('## ') !== 0) return cr.appendChild(para(h));
       var sl = document.createElement('p'); sl.className = 'lbl'; sl.style.marginTop = '2.4vh';
-      sl.innerHTML = h.slice(3).split(' | ').map(function(x){ var b = document.createElement('b'); b.textContent = x; return b.outerHTML; }).join(SEP);
+      sl.innerHTML = joinSep(h.slice(3).split(' | ').map(function(x){ var b = document.createElement('b'); b.textContent = x; return b.outerHTML; }));
       cr.appendChild(sl);
     });
     var ul = document.getElementById('albumLinks'); ul.textContent = '';
     ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links && !al.track;
+    requestAnimationFrame(trimSeps);
+    setTimeout(trimSeps, DURATION + 100);           // otra vez cuando la ficha ya terminó de entrar
     if (al.track) {                                  // una canción suelta: reproductor de Bandcamp (La Resistance)
       var tli = document.createElement('li'), bc = document.createElement('iframe');
       tli.className = 'bc';
@@ -1481,6 +1567,7 @@ tarot reading app</span></a>
       setTimeout(function(){
         warmAll = false; last = -1;
         ready = true;
+        navUpdate(target);
         pre.classList.add('done');
         setTimeout(function(){ pre.remove(); }, 700);
         // los iframes externos cargan en segundo plano, ya con la página visible
