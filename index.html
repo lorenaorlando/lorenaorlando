@@ -77,7 +77,7 @@
   /* SECCIÓN 3: MÚSICA */
   .music{z-index:3;transform-origin:50% 0}
   .music .t{position:absolute;text-align:center;line-height:.95;white-space:pre-line;text-shadow:var(--shadow-sm);transform:translate(-50%,-50%)}
-  .historia{left:43vw;top:23vh;font-size:2.4vw;rotate:6deg}
+  .historia{left:41vw;top:21vh;font-size:max(1.25vw,20px);rotate:4deg}
   .otros{left:49.5vw;top:66vh;font-size:2.4vw;rotate:-7deg}
   .escucha{left:47.7vw;top:81.5vh;font-size:2vw}
   .music button.t{background:none;border:0;padding:0;color:inherit;font-family:inherit;font-weight:400;letter-spacing:inherit;cursor:pointer;pointer-events:auto;transition:color .2s}
@@ -141,7 +141,7 @@
   .photo a.t:hover,.photo button.t:hover{color:var(--mostaza)}
   .photo a.t:focus-visible,.photo button.t:focus-visible,.indi:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
   .portafolio{left:41vw;top:22vh;font-size:2.6vw;rotate:-4deg}
-  .phistoria{left:58vw;top:24vh;font-size:2.6vw;rotate:4deg}
+  .phistoria{left:59vw;top:23vh;font-size:max(1.4vw,20px);rotate:4deg}
   .zenit{position:absolute;z-index:10;left:50vw;top:50vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
   .photo .ptitle{left:50vw;top:66vh;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;rotate:-8deg;text-shadow:var(--shadow);pointer-events:none}
   /* collage: centro (--x vw, --y vh), ancho (--w), giro (--r); llegan volando desde la izquierda */
@@ -207,7 +207,7 @@
   .web .doodle{left:5vw}
   .web .doodle.up{top:42vh}
   .web .doodle.down{top:58vh}
-  .tohome{left:50vw;top:15vh}
+  .tohome{left:50vw;top:87vh}
   .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
   /* SECCIÓN 8: MAGICK — texto de Pragmagicka a la izquierda, VELA al centro, pantallas de la app a la derecha (como en .net: --x/--y/--w/--r y etiqueta --lx/--ly/--lr) */
@@ -218,9 +218,10 @@
   .mhistoria:hover{color:var(--mostaza)}
   .mhistoria:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
   .mhead{position:absolute;left:16vw;top:17vh;transform:translate(-50%,-50%);rotate:-5deg;font-weight:400;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
-  .mpanel{position:absolute;left:4vw;top:25vh;width:27vw;rotate:-2deg;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .mpanel{position:absolute;left:4vw;top:25vh;width:27vw;max-height:66vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
   .mpanel p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .mpanel p+p{margin-top:1.2vh}
+  .mpanel a{color:var(--mostaza)}
   html[lang="en"] .magick .es,html:not([lang="en"]) .magick .en{display:none}
 
   /* FICHA DEL DISCO */
@@ -311,6 +312,19 @@
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
   /* títulos y etiquetas cortas en Lacquer (Funnel queda para párrafos, datos y botones de plataformas) */
+  /* "mi historia": una nube-botón con ícono de rebobinar, que late para invitar al click */
+  button.rw.t{display:flex;align-items:center;gap:.55em;padding:.75em 1.3em .8em 1.05em;background:#fff;color:var(--morado);border-radius:999px;white-space:normal;text-align:left;line-height:1.05;text-shadow:none;box-shadow:0 .5vh 1.6vh rgba(54,1,133,.4);animation:rwpulse 1.5s ease-in-out infinite;z-index:25}
+  button.rw.t span{max-width:16em}
+  .rw::before,.rw::after{content:'';position:absolute;z-index:-1;background:inherit;border-radius:50%;transition:background .2s}
+  .rw::before{width:2.4em;height:2.4em;left:16%;top:-1em}
+  .rw::after{width:3.2em;height:3.2em;right:14%;top:-1.45em}
+  button.rw.t:hover,button.rw.t:focus-visible{background:var(--mostaza);color:var(--morado)}
+  .rwi{flex:none;width:1.7em;height:auto;fill:var(--magenta);overflow:visible}
+  .rwi path{animation:rwind 1.1s linear infinite}
+  .rwi path:last-child{animation-delay:.18s}
+  @keyframes rwpulse{0%,100%{scale:1}50%{scale:1.07}}
+  @keyframes rwind{0%{translate:0 0;opacity:1}70%{translate:-6px 0;opacity:.25}71%{translate:4px 0;opacity:0}100%{translate:0 0;opacity:1}}
+  @media (prefers-reduced-motion:reduce){button.rw.t,.rwi path{animation:none}}
   .music .t,.photo .t,.onirias h3,.tapcloud,.tapme,.indi span,.nitem span,.mhead,.mhistoria,.back,.name,.vid p,.listen-lbl,.album-credits .lbl,.instr,.secnav{font-family:var(--display)!important;letter-spacing:.02em!important}
 
   /* MENÚ FLOTANTE de secciones: aparece desde música en adelante (no en el hero ni en las subpantallas) */
@@ -333,7 +347,7 @@
     .web .doodle{left:50vw}
     .web .doodle.up{top:5vh}
     .web .doodle.down{top:95vh}
-    .tohome{left:9vw;top:6vh}
+    .tohome{left:50vw;top:27vh}
     .tohome span{display:none}
   }
   @media (max-width:700px){
@@ -347,7 +361,8 @@
     .lang button{font-size:4.2vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
-    .historia{left:50vw;top:7vh;font-size:max(4.4vw,20px);rotate:3deg}
+    .historia{left:50vw;top:8vh;font-size:max(4vw,16px);rotate:2deg}
+    button.rw.t span{max-width:13em}
     .organ{left:50vw;top:19.5vh;width:72vw;height:27vh}
     .music .mtitle{left:50vw;top:23vh;font-size:17vw}
     .otros{left:50vw;top:33vh;font-size:max(4.4vw,20px);rotate:-3deg}
@@ -395,7 +410,7 @@
     .tale .coda{font-size:max(5.8vw,21px)}
     .ph{width:calc(var(--mw) * 1vw);left:calc(var(--mx) * 1vw - var(--mw) * .5vw);top:calc(var(--my) * 1vh)}
     .portafolio{left:25vw;top:41.5vh;font-size:6.4vw;rotate:-3deg}
-    .phistoria{left:73vw;top:42.5vh;font-size:5.6vw;rotate:3deg}
+    .phistoria{left:72vw;top:42.5vh;font-size:max(4vw,16px);rotate:3deg}
     .zenit{left:50vw;top:55vh;width:58vw;height:20vh}
     .photo .ptitle{left:50vw;top:64vh;font-size:13vw}
     .indi{left:auto;right:4vw;top:auto;bottom:1vh;translate:none;width:min(56vw,28vh)}
@@ -422,7 +437,7 @@
     .magick .nitem.en img{width:min(40vw,22vh);left:calc(50vw - min(40vw,22vh) / 2)}   /* PRAG_ENG es más alta que ancha */
     .magick .nitem.en span{top:calc(var(--my) * 1vh + min(25.8vw,14.2vh) + 2.5vh)}
     .mhead{left:50vw;top:66.5vh;font-size:6vw;rotate:-2deg}
-    .mpanel{left:4vw;top:70vh;width:92vw;rotate:-1deg;padding:4vw 5vw;border-radius:3vw}
+    .mpanel{left:4vw;top:70vh;width:92vw;max-height:27vh;padding:4vw 5vw;border-radius:3vw}
     .mpanel p{font-size:max(3.8vw,20px);line-height:1.35}
     .mpanel p+p{margin-top:.8vh}
   }
@@ -502,8 +517,7 @@
   </div>
 
   <div class="layer music" id="music">
-    <button type="button" class="t historia" id="toStory" data-es="lee mi historia en&#10;la música" data-en="read my story&#10;in music">lee mi historia en
-la música</button>
+    <button type="button" class="t historia rw" id="toStory"><svg class="rwi" viewBox="0 0 34 20" aria-hidden="true"><path d="M16 2 3 10l13 8z"/><path d="M31 2 18 10l13 8z"/></svg><span data-es="sí, esa soy yo. seguro te preguntarás cómo llegué hasta aquí..." data-en="yep, that's me. you're probably wondering how i got here...">sí, esa soy yo. seguro te preguntarás cómo llegué hasta aquí...</span></button>
     <div class="organ" aria-hidden="true">
       <model-viewer id="organ" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -530,8 +544,7 @@ arte sonoro</button>
   <div class="layer photo" id="photo">
     <div id="photos"></div>
     <a class="t portafolio" href="https://lorlando.framer.website/art" target="_blank" rel="noopener" data-es="portafolio" data-en="portfolio">portafolio</a>
-    <button type="button" class="t phistoria" id="toPhotoStory" data-es="lee mi historia&#10;fotográfica" data-en="read my story&#10;in photography">lee mi historia
-fotográfica</button>
+    <button type="button" class="t phistoria rw" id="toPhotoStory"><svg class="rwi" viewBox="0 0 34 20" aria-hidden="true"><path d="M16 2 3 10l13 8z"/><path d="M31 2 18 10l13 8z"/></svg><span data-es="detrás del encuadre" data-en="behind the frame">detrás del encuadre</span></button>
     <div class="zenit" aria-hidden="true">
       <model-viewer id="zenit" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -592,9 +605,16 @@ fotográfica</button>
   <div class="layer magick" id="magick">
     <h3 class="mhead">Pragmagicka</h3>
     <div class="mpanel">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet.</p>
-      <p>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.</p>
-      <p>Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+      <div data-only="es">
+        <p>Leo el Tarot desde los 17 años y siempre me ha llamado la atención el mundo esotérico. Soy tarotista profesional desde el 2019 y he pasado por varias etapas y proyectos con esta labor. En este camino creé el término "Esoterismo Pragmático". Es una forma de práctica espiritual que sirve para ayudarnos a tomar decisiones que generen cambios reales en nuestras vidas. Más que predecir el futuro, impulsa a la acción concreta y a desentrañar los enredos mentales que tenemos en momentos claves de nuestras vidas para entendernos mejor a nosotr@s mism@s, a la forma en la que actuamos y cómo nos relacionamos en función de construir ese futuro que tanto deseamos que nos predigan.</p>
+        <p>En base a esa filosofía creé Pragmagicka, usando el término Magick, que abarca todas las prácticas esotéricas y las diferencia de la magia como espectáculo. Bajo este proyecto ofrezco mis servicios como <a href="https://ko-fi.com/pragmagicka/commissions" target="_blank" rel="noopener">tarotista</a> junto a <a href="https://ko-fi.com/s/8436f90a86" target="_blank" rel="noopener">cursos online</a> y presenciales.</p>
+        <p>También, combinando mi lado brujo y mi lado de diseñadora web, estoy desarrollando apps en el ámbito esotérico, como <a href="https://pragmagick.app" target="_blank" rel="noopener">Pragmagick.app</a> para lecturas de tarot, <a href="https://monedaire.pragmagick.app" target="_blank" rel="noopener">Monedaire</a> para lanzar una moneda y registrar las decisiones que tomamos, y Amigaaah, un oráculo de stickers de WhatsApp. En este momento también estoy aprendiendo astrología y el arte de hacer sigilos, con lo cual también quiero desarrollar apps en el ámbito digital en el futuro.</p>
+      </div>
+      <div data-only="en" hidden>
+        <p>I've been reading Tarot since I was 17, and the esoteric world has always drawn me in. I've been a professional tarot reader since 2019 and have gone through several stages and projects in this work. Along the way I coined the term "Pragmatic Esotericism": a spiritual practice that helps us make decisions that bring real change to our lives. Rather than predicting the future, it pushes us toward concrete action and helps us untangle the mental knots we get caught in at key moments of our lives, so we can better understand ourselves, the way we act and how we relate to others, in order to build that future we so badly want someone to predict for us.</p>
+        <p>Based on that philosophy I created Pragmagicka, using the term Magick, which covers all esoteric practices and sets them apart from magic as a show. Through this project I offer my services as a <a href="https://ko-fi.com/pragmagicka/commissions" target="_blank" rel="noopener">tarot reader</a>, along with online and in-person courses.</p>
+        <p>Combining my witchy side with my web designer side, I'm also developing esoteric apps, like <a href="https://pragmagick.app" target="_blank" rel="noopener">Pragmagick.app</a> for tarot readings and <a href="https://monedaire.pragmagick.app" target="_blank" rel="noopener">Monedaire</a>, to flip a coin and keep track of the decisions we make. Right now I'm also learning astrology and the art of making sigils, and I'd like to build digital apps around them in the future.</p>
+      </div>
     </div>
     <div class="vela" aria-hidden="true">
       <model-viewer id="vela" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
@@ -1092,13 +1112,13 @@ tarot reading app</span></a>
      m = [centro x, centro y, ancho] en móvil (vw, vh, vw). Todas llevan al portafolio. */
   var PORTFOLIO = 'https://lorlando.framer.website/art';
   var PHOTOS = [
-    { f:'FUGLY_LORENA_ORLANDO__1.jpg',                x:9.5,  y:13, w:19, r:'-4deg', z:2, m:[24, 7, 42] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',           x:28,   y:11, w:18, r:'5deg',  z:1, m:[72, 7, 40] },
-    { f:'BODY_LORENA_ORLANDO_3.jpg',                  x:27.5, y:37, w:14, r:'-6deg', z:3, m:[85, 20, 24] },
-    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__2.jpg', x:9.5,  y:46, w:13, r:'3deg',  z:1, m:[13, 20, 21] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',           x:28,   y:63, w:18, r:'4deg',  z:2, m:[49, 20, 40] },
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg',      x:10,   y:82, w:19, r:'-3deg', z:3, m:[27, 32, 42] },
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg',      x:28,   y:88, w:17, r:'-5deg', z:4, m:[73, 32, 40] }
+    { f:'FUGLY_LORENA_ORLANDO__1.jpg',                x:10,   y:15, w:23, r:'-8deg',  z:2, m:[24, 7, 44] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',           x:31,   y:12, w:14, r:'9deg',   z:1, m:[74, 8, 34] },
+    { f:'BODY_LORENA_ORLANDO_3.jpg',                  x:27,   y:40, w:11, r:'-13deg', z:3, m:[86, 21, 22] },
+    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__2.jpg', x:8.5,  y:47, w:16, r:'6deg',   z:1, m:[14, 21, 25] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',           x:29,   y:67, w:21, r:'4deg',   z:2, m:[50, 21, 38] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg',      x:9.5,  y:81, w:17, r:'-6deg',  z:3, m:[27, 33, 46] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg',      x:25,   y:91, w:12, r:'12deg',  z:4, m:[75, 33, 34] }
   ];
   var photoWrap = document.getElementById('photos');
   PHOTOS.forEach(function(ph, i){
@@ -1463,20 +1483,33 @@ tarot reading app</span></a>
     overFrame = f;
   });
   document.addEventListener('pointerout', function(e){ if (e.relatedTarget && e.relatedTarget.tagName === 'IFRAME') overFrame = true; });
+  // un panel con scroll propio (como el texto de magick) se desplaza primero; la pantalla no cambia mientras pueda
+  function scrolls(el, dy){
+    for (; el && el !== document.body; el = el.parentElement) {
+      if (el.scrollHeight > el.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(el).overflowY))
+        return dy === 0 || (dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 1 : el.scrollTop > 0);
+    }
+    return false;
+  }
+  var lastAbs = 0, stepAt = -1e9;
   window.addEventListener('wheel', function(e){
-    var now = performance.now();
-    if (now - lastWheel > 180) gestureUsed = false;
-    lastWheel = now;
-    if (busy()) { gestureUsed = true; return; }        // la rueda durante una transición es parte de ella
-    if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4) return;
-    gestureUsed = true;
+    var now = performance.now(), a = Math.abs(e.deltaY), gap = now - lastWheel;
+    // gesto nuevo: una pausa clara, o un empujón más fuerte que la inercia que venía apagándose
+    if (gap > 260 || (gap > 90 && a > 24 && a > lastAbs * 2.5)) gestureUsed = false;
+    lastWheel = now; lastAbs = a;
+    if (scrolls(e.target, e.deltaY)) { gestureUsed = true; return; }
+    if (busy() || now - stepAt < DURATION + 250) { gestureUsed = true; return; }   // la rueda durante (y justo después de) una transición es parte de ella
+    if (subOpen || gestureUsed || a < 4) return;
+    gestureUsed = true; stepAt = now;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
-  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+  var touchScroll = false;
+  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; touchScroll = scrolls(e.target, 0); }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
+    if (touchScroll) { x0 = y0 = null; return; }      // se deslizó dentro de un panel con scroll propio
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
     if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
