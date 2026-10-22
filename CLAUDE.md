@@ -24,14 +24,14 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
   - `#F4B342` mostaza
   - `#FFF0D6` crema (letras)
 - Textos: **Instrument Serif** (regla general para toda tipografía serif), letter-spacing -84 (`-0.084em`).
-- Títulos grandes: Modak.
+- Títulos grandes: **Lacquer** (Google Fonts, variable `--display`; reemplazó a Modak). Es una fuente pintada a mano que siempre sale en mayúsculas.
 - Sombras de texto: drop shadow suave en `#360185` (variables `--shadow` y `--shadow-sm`), nunca sombras duras.
-- "Lorena" en Modak con letter-spacing `-0.02em`, como en el mockup.
+- "Lorena" en Lacquer, letter-spacing `0`, del mismo ancho que tenía con Modak.
 
 ## Comportamiento que hay que mantener
 
 - **Título de la pestaña:** `LORENA ORLANDO`. En el hero sigue diciendo solo "Lorena".
-- **Preloader.** Al abrir, una pantalla lila con "lorenaorlando.com" y "cargando" debajo (Modak), barra de % y número. No deja ver ni navegar el sitio hasta que cargan las fuentes, todas las imágenes y todos los 3D (también los de pantallas y subpantallas). Después, todavía tapado, pone todas las capas en su sitio un momento (`warmAll`) para que cada 3D se dibuje una vez y no se trabe al aparecer. Los iframes externos (diseño web, escritura) cargan justo al terminar, en segundo plano. Todo 3D o imagen nueva debe entrar en ese conteo (los `model-viewer` con `src` y los `<img>` se cuentan solos). Tope de seguridad: 40 s.
+- **Preloader.** Al abrir, una pantalla lila con "lorenaorlando.com" y "cargando" debajo (Lacquer), barra de % y número. No deja ver ni navegar el sitio hasta que cargan las fuentes, todas las imágenes y todos los 3D (también los de pantallas y subpantallas). Después, todavía tapado, pone todas las capas en su sitio un momento (`warmAll`) para que cada 3D se dibuje una vez y no se trabe al aparecer. Los iframes externos (diseño web, escritura) cargan justo al terminar, en segundo plano. Todo 3D o imagen nueva debe entrar en ese conteo (los `model-viewer` con `src` y los `<img>` se cuentan solos). Tope de seguridad: 40 s.
 - **Rueda e iframes.** Durante una transición y hasta que la rueda para y se mueve el mouse, los iframes llevan `pointer-events:none` (clase `noframes` en `<html>`); si no, el iframe se traga parte del gesto y la pantalla salta dos veces. La rueda que llega durante una transición cuenta como parte de ella.
 - **Sin scroll real.** La rueda, el táctil (solo gestos verticales) y el teclado cambian de pantalla.
 - **Transiciones tipo ruleta.** Cada cambio de pantalla es una animación de rotación: lo actual sube y gira, y lo siguiente sube después.

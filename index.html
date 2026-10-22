@@ -8,12 +8,12 @@
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Modak&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lacquer&display=swap" rel="stylesheet">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
   :root{
     --morado:#360185; --violeta:#8F0177; --magenta:#DE1A58; --mostaza:#F4B342; --crema:#FFF0D6; --fondo:#8441b7;
-    --display:"Modak",cursive;
+    --display:"Lacquer",cursive;
     --shadow: .25vw .35vw .7vw rgba(54,1,133,.85);          /* drop shadow morado, para todos los textos */
     --shadow-sm: .12vw .18vw .35vw rgba(54,1,133,.85);
   }
@@ -48,7 +48,7 @@
   .hero{z-index:3;transform-origin:50% 100%}
   .hola{position:absolute;left:10.5vw;top:13vh;font-size:15vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
   .soy{position:absolute;left:16.5vw;top:30vh;font-size:10vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
-  .lorena{position:absolute;left:0;right:0;top:47vh;text-align:center;font-family:var(--display);font-weight:400;font-size:24vw;line-height:1;letter-spacing:-.02em;text-shadow:var(--shadow);white-space:nowrap}
+  .lorena{position:absolute;left:0;right:0;top:calc(47vh - 2.6vw);text-align:center;font-family:var(--display);font-weight:400;font-size:23.2vw;line-height:1;letter-spacing:0;text-shadow:var(--shadow);white-space:nowrap}
   .cosas{position:absolute;right:2vw;top:38vh;font-size:4vw;line-height:1;text-shadow:var(--shadow-sm)}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
   .lang button{all:unset;cursor:pointer;font-size:2.8vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
@@ -303,7 +303,7 @@
     .model-wrap{width:110vw;height:62vh;top:47%}
     .hola{font-size:28vw;left:6vw;top:7vh}
     .soy{font-size:17vw;left:12vw;top:20vh}
-    .lorena{font-size:30vw;top:56vh}
+    .lorena{font-size:29vw;top:calc(56vh - 3.2vw)}
     .cosas{font-size:7vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
     .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
@@ -1425,11 +1425,11 @@ tarot reading app</span></a>
     function part(){ var o = {v: 0}; parts.push(o); return o; }
     function progress(){ return parts.reduce(function(a, o){ return a + o.v; }, 0) / parts.length; }
     // fuentes
-    ['1em Modak', '1em "Instrument Serif"', 'italic 1em "Instrument Serif"'].forEach(function(f){
+    ['1em Lacquer', '1em "Instrument Serif"', 'italic 1em "Instrument Serif"'].forEach(function(f){
       var o = part();
       document.fonts.load(f).then(function(){ o.v = 1; }, function(){ o.v = 1; });
     });
-    document.fonts.load('1em Modak').then(function(){ pre.classList.add('fonts'); }, function(){ pre.classList.add('fonts'); });
+    document.fonts.load('1em Lacquer').then(function(){ pre.classList.add('fonts'); }, function(){ pre.classList.add('fonts'); });
     // 3D: todos, también los de las pantallas que se cargaban al llegar a ellas
     loadGlb(organ, 'FUNMACHINE_EXP.glb'); loadGlb(zenit, 'ZENIT.glb'); loadGlb(lapi, 'LAPI_EXP.glb');
     loadGlb(logo3d, 'LOGO_COMP.glb'); loadGlb(compu, 'COMPU_VIEJA.glb'); loadGlb(vela, 'VELA.glb');
