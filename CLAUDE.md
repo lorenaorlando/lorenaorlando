@@ -65,6 +65,7 @@ Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
 
 - **Texto sobre las nubes:** siempre sobre un panel `rgba(54,1,133,.34)` con `backdrop-filter: blur(14px)` y esquinas apenas redondeadas, solo detrás del bloque de texto. Si va encima de un 3D o una imagen, más oscuro (`.62`).
 - **Párrafos:** letter-spacing `-0.015em` (no el -0.084 general, que los aprieta demasiado), line-height ~1.4, mínimo 15px.
+- **Textos largos** (como la historia en la música): panel mucho más oscuro (`rgba(30,0,75,.78)`), letra de mínimo 20px (19px en móvil), letter-spacing `.012em` y line-height 1.5.
 - **Líneas de datos y créditos** (`tipo | género | fecha`): letter-spacing normal (`0`), los datos en mostaza, separados con `|` tenue (`.sep`, margen `.6em`) y sin partir un dato a la mitad (`white-space:nowrap` en cada uno). Los créditos van del mismo tamaño que esa línea.
 - **Tamaños:** en pantallas de escritorio usar la unidad `--uv: min(1vw, 1.7vh)` para que el texto también se ajuste a la altura y no se corte en ventanas anchas y bajitas.
 - **Botones de plataformas:** fondo crema, los 4 siempre en un solo renglón; si no caben, icono arriba y nombre abajo.

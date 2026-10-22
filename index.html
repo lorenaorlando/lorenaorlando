@@ -270,16 +270,16 @@
   .lore.r{left:84vw;rotate:3deg}
   /* mi historia en la música: 3D a la izquierda y el texto largo a la derecha, en una ventana con scroll */
   #story .instr,#story .carousel{left:27vw}
-  .tale{position:absolute;left:52vw;right:4vw;top:8vh;bottom:6vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(3 * var(--uv)) calc(3 * var(--uv)) calc(3.5 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);scrollbar-width:thin;scrollbar-color:var(--crema) rgba(255,240,214,.15)}
+  .tale{position:absolute;left:52vw;right:4vw;top:8vh;bottom:6vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(3 * var(--uv)) calc(3 * var(--uv)) calc(3.5 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(30,0,75,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);scrollbar-width:thin;scrollbar-color:var(--crema) rgba(255,240,214,.15)}
   .tale::-webkit-scrollbar{width:8px}
   .tale::-webkit-scrollbar-thumb{background:var(--crema);border-radius:8px}
   .tale::-webkit-scrollbar-track{background:rgba(255,240,214,.15);border-radius:8px}
-  .tale p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.45;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .tale p{font-size:max(calc(1.75 * var(--uv)),20px);line-height:1.5;letter-spacing:.012em;text-shadow:var(--shadow-sm)}
   .tale p+p{margin-top:1.6vh}
   .tale h2{margin:4vh 0 1.2vh;font-family:var(--display);font-weight:400;font-size:calc(3 * var(--uv));line-height:1;letter-spacing:.02em;color:var(--mostaza);text-shadow:var(--shadow-sm)}
   .tale a.go,.tale a.ext{color:var(--mostaza);text-decoration:underline;text-underline-offset:.15em;cursor:pointer}
   .tale a.go:hover,.tale a.go:focus-visible,.tale a.ext:hover,.tale a.ext:focus-visible{color:var(--crema);outline:none}
-  .tale .coda{margin-top:4vh;font-size:max(calc(2 * var(--uv)),17px);letter-spacing:0}
+  .tale .coda{margin-top:4vh;font-size:max(calc(2.2 * var(--uv)),23px);letter-spacing:.012em}
 
   @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
 
@@ -339,9 +339,9 @@
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
     #story .instr,#story .carousel{left:auto}
     .tale{position:relative;inset:auto;overflow:visible;margin-top:5vh;padding:6vw 5vw 7vw;border-radius:3vw}
-    .tale p{font-size:4.2vw}
+    .tale p{font-size:max(5.1vw,19px)}
     .tale h2{font-size:7vw;margin-top:5vh}
-    .tale .coda{font-size:5vw}
+    .tale .coda{font-size:max(5.8vw,21px)}
     .ph{width:calc(var(--mw) * 1vw);left:calc(var(--mx) * 1vw - var(--mw) * .5vw);top:calc(var(--my) * 1vh)}
     .portafolio{left:25vw;top:41.5vh;font-size:6.4vw;rotate:-3deg}
     .phistoria{left:73vw;top:42.5vh;font-size:5.6vw;rotate:3deg}
