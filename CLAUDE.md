@@ -89,7 +89,7 @@ Reglas que salieron de ajustar las fichas; aplicarlas a todo texto nuevo:
 | `index.html` | Todo el sitio (HTML, CSS y JS). |
 | `CLAUDE.md` | Estas instrucciones. |
 | `README.md` | Texto del perfil de GitHub; no es parte del sitio. |
-| `marca-722e46dd/` | Manual de marca (página + PDF) en https://lorenaorlando.com/marca-722e46dd/. Es oculto a propósito: no se enlaza desde el sitio y lleva `noindex`. No enlazarlo ni cambiarle el nombre a la carpeta sin que Lorena lo pida. |
+| `marca-722e46dd/` | Manual de marca apaisado (9 páginas A4 horizontal, página web + PDF) en https://lorenaorlando.com/marca-722e46dd/ (español) y `/marca-722e46dd/en/` (inglés). Se genera con un script fuera del repo; si se edita a mano, editar las dos versiones y volver a sacar los PDF. Es oculto a propósito: no se enlaza desde el sitio y lleva `noindex`. No enlazarlo ni cambiarle el nombre a la carpeta sin que Lorena lo pida. |
 
 ## Assets (`assets/`)
 
