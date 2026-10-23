@@ -339,6 +339,8 @@
   /* aviso "desliza" al pie de los textos con scroll propio; se va al llegar al final */
   .shint{position:sticky;bottom:0;height:0;display:flex;justify-content:center;align-items:flex-start;pointer-events:none;opacity:0;transition:opacity .3s}
   .more>.shint{opacity:1}
+  .album-in>.shint,.story-in>.shint{display:none}   /* estas cajas solo hacen scroll en móvil; en escritorio el aviso le quitaba ancho a la ficha */
+  @media (max-width:700px){.album-in>.shint,.story-in>.shint{display:flex}}
   .shint>span{flex:none;translate:0 -110%;display:flex;align-items:center;gap:.55em;padding:.7em 1.4em .75em 1.2em;border-radius:999px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px) saturate(1.3);backdrop-filter:blur(28px) saturate(1.3);border:1px solid rgba(255,240,214,.14);color:var(--mostaza);font-family:var(--display);font-size:20px;line-height:1;letter-spacing:.06em;box-shadow:0 .3vh 1vh rgba(30,0,75,.4);animation:shbob 1.4s ease-in-out infinite}
   .shint svg{width:16px;height:auto;fill:none;stroke:currentColor;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;rotate:180deg}
   @keyframes shbob{0%,100%{translate:0 -110%}50%{translate:0 -80%}}
