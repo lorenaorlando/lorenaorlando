@@ -337,6 +337,7 @@
   <p class="gaok-p" data-es="Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad." data-en="I use Google Analytics to see which parts of the site get seen the most. It uses cookies, but no ads.">Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad.</p>
   <div class="gaok-b"><button type="button" id="gaokYes" data-es="dale!" data-en="sure!">dale!</button><button type="button" id="gaokNo" data-es="no, gracias" data-en="no, thanks">no, gracias</button></div>
 </div>
+<button type="button" class="gaok-link" id="gaokLink" hidden data-es="cookies" data-en="cookies">cookies</button>
 <style>
   .gaok{position:fixed;z-index:900;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:12px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid rgba(255,240,214,.14);color:#FFF0D6;box-shadow:0 .4rem 1.4rem rgba(20,0,52,.45);font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.01em;transition:opacity .4s,translate .4s}
   .gaok[hidden]{display:none}
@@ -348,30 +349,45 @@
   .gaok-b button+button{background:transparent;color:#FFF0D6;box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.5)}
   .gaok-b button:hover,.gaok-b button:focus-visible{background:#F4B342;color:#360185;scale:1.05}
   .gaok-b button:focus-visible{outline:2px solid #FFF0D6;outline-offset:3px}
+  .gaok-link{all:unset;position:fixed;z-index:899;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));cursor:pointer;font-family:"Lacquer",cursive;font-size:13px;letter-spacing:.06em;color:#FFF0D6;opacity:.55;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85);padding:4px 6px}
+  .gaok-link[hidden]{display:none}
+  .gaok-link:hover,.gaok-link:focus-visible{opacity:1;color:#F4B342}
+  .gaok-link:focus-visible{outline:2px solid #FFF0D6;outline-offset:2px;border-radius:4px}
   @media (prefers-reduced-motion:reduce){.gaok{transition:none}}
 </style>
 <script>
   (function(){
-    var KEY = 'ga-consent', box = document.getElementById('gaok');
+    var KEY = 'ga-consent', box = document.getElementById('gaok'), link = document.getElementById('gaokLink');
     var EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ');
-    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
-    if (saved === 'yes') return loadGA();
-    if (saved === 'no') return;
+    var saved = null, asked = false; try { saved = localStorage.getItem(KEY); asked = localStorage.getItem('ga-asked') === '1'; } catch (e) {}
+    // quien vio el aviso tiene siempre a mano el link "cookies" para cambiar de opinión
+    function showLink(){ if (document.getElementById('preload')) return setTimeout(showLink, 400); link.hidden = false; }
+    link.addEventListener('click', function(){ box.classList.remove('out'); ask(); });
     function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
     function ask(){
       // en el sitio, espera a que se vaya el preloader
       if (document.getElementById('preload')) return setTimeout(ask, 400);
       var l = lang();
       box.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
-      box.hidden = false;
+      box.hidden = false; link.hidden = true;
+      try { localStorage.setItem('ga-asked', '1'); } catch (e) {}
     }
     function choose(v){
       try { localStorage.setItem(KEY, v); } catch (e) {}
       if (v === 'yes') loadGA();
-      box.classList.add('out'); setTimeout(function(){ box.hidden = true; }, 400);
+      if (v === 'no' && window.__ga) {               // retira el permiso: borra las cookies de GA y recarga sin él
+        gtag('consent', 'update', {analytics_storage: 'denied'});
+        document.cookie.split(';').forEach(function(c){
+          var n = c.split('=')[0].trim();
+          if (/^_ga/.test(n)) [location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach(function(d){ document.cookie = n + '=; Max-Age=0; path=/; domain=' + d; document.cookie = n + '=; Max-Age=0; path=/'; });
+        });
+        return location.reload();
+      }
+      box.classList.add('out'); setTimeout(function(){ box.hidden = true; link.hidden = false; }, 400);
     }
     document.getElementById('gaokYes').addEventListener('click', function(){ choose('yes'); });
     document.getElementById('gaokNo').addEventListener('click', function(){ choose('no'); });
+    if (saved) { if (saved === 'yes') loadGA(); if (asked) showLink(); return; }
     // fuera de Europa se mide sin preguntar; si no se sabe el país, se pregunta
     fetch('https://get.geojs.io/v1/ip/country.json', {cache: 'no-store'}).then(function(r){ return r.json(); })
       .then(function(j){ var c = String(j.country || '').toUpperCase(); if (c && EU.indexOf(c) === -1) loadGA(); else ask(); }, ask);
