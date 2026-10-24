@@ -90,6 +90,8 @@
   .embed b{display:block;font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:.03em;margin:0 0 4px;text-shadow:var(--sombra-sm)}
   .embed p{margin:0 0 10px;font-size:15px;line-height:1.35;opacity:.88}
   .embed iframe{display:block;width:100%;border:0;border-radius:10px}
+  .embed .feed{min-height:120px;letter-spacing:normal;line-height:normal;text-shadow:none;color:#222;font-family:system-ui,sans-serif}
+  .embed .feed *{letter-spacing:normal}
   .embed .alt{display:inline-block;margin-top:10px;font-family:var(--display);font-size:15px;letter-spacing:.04em;color:var(--mostaza)}
   .embed.top{background:var(--crema);color:var(--morado);padding:16px}
   .embed.top b{font-size:25px;text-shadow:none}
@@ -146,7 +148,8 @@
   <div class="embed">
     <b data-es="mi substack" data-en="my substack">mi substack</b>
     <p data-es="brutalmente honesta: lo que escribo" data-en="brutalmente honesta: what I write">brutalmente honesta: lo que escribo</p>
-    <iframe title="Substack brutalmente honesta" loading="lazy" src="https://brutalmentehonesta.substack.com/embed" style="height:320px;background:#fff"></iframe>
+    <div class="feed"><div data-supascribe-embed-id="59190241344" data-supascribe-feed></div>
+      <script src="https://js.supascribe.com/v1/loader/KqxuINKFv1ORBb8ZIZL9Ax1OB9k1.js" async></script></div>
     <a class="alt" href="https://brutalmentehonesta.substack.com" target="_blank" rel="noopener" data-track="substack" data-es="abrir substack ↗" data-en="open substack ↗">abrir substack ↗</a>
   </div>
 
