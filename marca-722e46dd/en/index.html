@@ -5,6 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Lorena Orlando Brand Manual</title>
+<style>html.geo body{visibility:hidden}</style>
+<script>
+  /* idioma según el país de la IP (España y Latinoamérica: español; el resto: inglés).
+     Si la persona eligió idioma con los botones, se respeta esa elección. */
+  (function(){
+    var here = 'en', other = '../', H = document.documentElement;
+    var HISPANO = 'ES MX GT HN SV NI CR PA CU DO PR CO VE EC PE BO CL AR UY PY GQ BR'.split(' ');
+    var pref = null; try { pref = localStorage.getItem('manual-lang'); } catch (e) {}
+    function go(l){ if (l !== here) { location.replace(other); } else { H.classList.remove('geo'); } }
+    if (pref) { if (pref !== here) { H.classList.add('geo'); location.replace(other); } return; }
+    H.classList.add('geo');
+    var done = false;
+    function pick(l){ if (done) return; done = true; go(l); }
+    function byBrowser(){ return (navigator.languages || [navigator.language || '']).some(function(x){ return /^es\b/i.test(x); }) ? 'es' : 'en'; }
+    function country(u){ return fetch(u, {cache: 'no-store'}).then(function(r){ if (!r.ok) throw 0; return r.json(); }).then(function(j){ if (!j.country) throw 0; return String(j.country).toUpperCase(); }); }
+    country('https://get.geojs.io/v1/ip/country.json').catch(function(){ return country('https://api.country.is/'); })
+      .then(function(c){ pick(HISPANO.indexOf(c) > -1 ? 'es' : 'en'); }, function(){ pick(byBrowser()); });
+    setTimeout(function(){ pick(byBrowser()); }, 2500);
+  })();
+</script>
 <link rel="icon" type="image/png" href="../../assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -164,7 +184,7 @@
 <body>
 <div class="barra-sup">
   <span>brand manual · lorena orlando</span>
-  <div><a href="../" class="">español</a><a href="./" class="on">english</a><a href="lorena-orlando-brand-manual.pdf" target="_blank" rel="noopener">download pdf</a></div>
+  <div><a href="../" class="" data-l="es">español</a><a href="./" class="on" data-l="en">english</a><a href="lorena-orlando-brand-manual.pdf" target="_blank" rel="noopener">download pdf</a></div>
 </div>
 
 <!-- 1 PORTADA -->
@@ -295,6 +315,7 @@
     document.querySelectorAll('.hoja').forEach(function(h){ h.style.transform = k < 1 ? 'scale(' + k + ')' : ''; h.style.height = k < 1 ? (794 * k) + 'px' : ''; h.style.marginLeft = k < 1 ? '0' : ''; });
   }
   addEventListener('resize', fit); fit();
+  document.querySelectorAll('[data-l]').forEach(function(a){ a.addEventListener('click', function(){ try { localStorage.setItem('manual-lang', a.dataset.l); } catch (e) {} }); });
 </script>
 </body>
 </html>
