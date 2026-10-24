@@ -4,13 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LORENA ORLANDO</title>
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q"></script>
+<!-- Google Analytics (GA4) con consentimiento: no se carga nada hasta que hay permiso.
+     En la UE/EEE, Reino Unido y Suiza se pregunta con un aviso; en el resto del mundo se activa solo. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-D5MZNYQB7Q');
+  gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
+  window.loadGA = function(){
+    if (window.__ga) return; window.__ga = true;
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+    var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-D5MZNYQB7Q');
+  };
 </script>
 <link rel="icon" type="image/png" href="assets/FAVICON.png">
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
@@ -1678,6 +1685,51 @@ tarot reading app</span></a>
   }
   buttons.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
 })();
+</script>
+<div class="gaok" id="gaok" role="dialog" aria-labelledby="gaokT" hidden>
+  <p class="gaok-t" id="gaokT" data-es="¿me dejas contar las visitas?" data-en="can I count your visit?">¿me dejas contar las visitas?</p>
+  <p class="gaok-p" data-es="Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad." data-en="I use Google Analytics to see which parts of the site get seen the most. It uses cookies, but no ads.">Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad.</p>
+  <div class="gaok-b"><button type="button" id="gaokYes" data-es="dale!" data-en="sure!">dale!</button><button type="button" id="gaokNo" data-es="no, gracias" data-en="no, thanks">no, gracias</button></div>
+</div>
+<style>
+  .gaok{position:fixed;z-index:900;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:12px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid rgba(255,240,214,.14);color:#FFF0D6;box-shadow:0 .4rem 1.4rem rgba(20,0,52,.45);font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.01em;transition:opacity .4s,translate .4s}
+  .gaok[hidden]{display:none}
+  .gaok.out{opacity:0;translate:0 12px}
+  .gaok-t{margin:0 0 6px;font-family:"Lacquer",cursive;font-size:20px;line-height:1.1;letter-spacing:.03em;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85)}
+  .gaok-p{margin:0 0 14px;font-size:15px;line-height:1.4}
+  .gaok-b{display:flex;gap:10px;flex-wrap:wrap}
+  .gaok-b button{all:unset;cursor:pointer;font-family:"Lacquer",cursive;font-size:16px;letter-spacing:.04em;line-height:1;padding:.6em 1.1em .65em;border-radius:999px;background:#FFF0D6;color:#360185;transition:background .2s,scale .2s}
+  .gaok-b button+button{background:transparent;color:#FFF0D6;box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.5)}
+  .gaok-b button:hover,.gaok-b button:focus-visible{background:#F4B342;color:#360185;scale:1.05}
+  .gaok-b button:focus-visible{outline:2px solid #FFF0D6;outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){.gaok{transition:none}}
+</style>
+<script>
+  (function(){
+    var KEY = 'ga-consent', box = document.getElementById('gaok');
+    var EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ');
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved === 'yes') return loadGA();
+    if (saved === 'no') return;
+    function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
+    function ask(){
+      // en el sitio, espera a que se vaya el preloader
+      if (document.getElementById('preload')) return setTimeout(ask, 400);
+      var l = lang();
+      box.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
+      box.hidden = false;
+    }
+    function choose(v){
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      if (v === 'yes') loadGA();
+      box.classList.add('out'); setTimeout(function(){ box.hidden = true; }, 400);
+    }
+    document.getElementById('gaokYes').addEventListener('click', function(){ choose('yes'); });
+    document.getElementById('gaokNo').addEventListener('click', function(){ choose('no'); });
+    // fuera de Europa se mide sin preguntar; si no se sabe el país, se pregunta
+    fetch('https://get.geojs.io/v1/ip/country.json', {cache: 'no-store'}).then(function(r){ return r.json(); })
+      .then(function(j){ var c = String(j.country || '').toUpperCase(); if (c && EU.indexOf(c) === -1) loadGA(); else ask(); }, ask);
+  })();
 </script>
 </body>
 </html>
