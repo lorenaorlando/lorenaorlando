@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LORENA ORLANDO</title>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-D5MZNYQB7Q');
+</script>
 <link rel="icon" type="image/png" href="assets/FAVICON.png">
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1234,10 +1242,14 @@ tarot reading app</span></a>
     if (prevSub && (reduce || performance.now() - swapT0 >= DURATION)) { prevSub = null; last = -1; }
     requestAnimationFrame(tick);
   }
+  // analytics: qué pantallas se ven (el sitio no cambia de URL, así que se manda un evento por pantalla)
+  var SECTION_NAMES = ['hero', 'titulos', 'musica', 'fotografia', 'escritura', 'netart', 'diseno_web', 'magick'];
+  function track(name, params){ try { if (window.gtag) gtag('event', name, params || {}); } catch (e) {} }
   function go(v, asSub){
     document.documentElement.classList.add('noframes');
     var wasSub = subOpen;
     subOpen = !!asSub;
+    if (ready && !asSub && (v !== target || wasSub)) track('section_view', {section_name: SECTION_NAMES[v] || String(v)});
     if (v !== target || wasSub !== subOpen) { from = current; target = v; t0 = performance.now(); subMode = wasSub || subOpen; }
     // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en las demás)
     LAYERS.forEach(function(l){ l[0].inert = subOpen ? l[0] !== sub : l[1] !== v; });
@@ -1356,6 +1368,7 @@ tarot reading app</span></a>
   }
   window.addEventListener('resize', function(){ trimSeps(); });
   function openAlbum(al, btn){
+    track('album_open', {album_title: al.title});
     var l = document.documentElement.lang === 'en' ? 'en' : 'es';
     if (subOpen && sub !== album) { returnTo = {sec: sub, home: home, opener: opener}; swapTo(album); }
     else returnTo = null;
@@ -1476,6 +1489,7 @@ tarot reading app</span></a>
     car.move(1);
   }, 6500);
   function openStory(sec, btn){
+    track('story_open', {story: sec === photoStory ? 'fotografia' : sec === magickStory ? 'magick' : 'musica'});
     opener = btn; sub = sec; home = sec === photoStory ? 3 : sec === magickStory ? 7 : 2; last = -1;
     CAROUSELS.get(sec).load();
     go(home + 1, true);
@@ -1583,7 +1597,7 @@ tarot reading app</span></a>
     function pickLang(l){
       if (langDone) return;
       langDone = true; langPart.v = 1;
-      setLang(l);
+      setLang(l, true);
       pre.classList.add('lang');
     }
     function byBrowser(){ return (navigator.languages || [navigator.language || '']).some(function(x){ return /^es\b/i.test(x); }) ? 'es' : 'en'; }
@@ -1655,8 +1669,9 @@ tarot reading app</span></a>
 
   /* ---------- IDIOMA ---------- */
   var buttons = document.querySelectorAll('[data-lang]');
-  function setLang(l){
+  function setLang(l, auto){
     document.documentElement.lang = l;
+    if (window.gtag) { gtag('set', 'user_properties', {site_language: l}); if (!auto) track('language_change', {language: l}); }
     document.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
     document.querySelectorAll('[data-only]').forEach(function(el){ el.hidden = el.dataset.only !== l; });
     buttons.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'); });
