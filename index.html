@@ -1656,6 +1656,10 @@ tarot reading app</span></a>
         warmAll = false; last = -1;
         ready = true;
         navUpdate(target);
+        // links directos a una sección: lorenaorlando.com/#musica (lo usa la página de links)
+        var HASH = {titulos:1, musica:2, discografia:2, music:2, fotografia:3, photography:3, escritura:4, writing:4, netart:5, diseno:6, design:6, magick:7};
+        var hv = HASH[(location.hash || '').slice(1).toLowerCase()];
+        if (hv) setTimeout(function(){ go(hv); }, 300);
         pre.classList.add('done');
         setTimeout(function(){ pre.remove(); }, 700);
         // los iframes externos cargan en segundo plano, ya con la página visible
