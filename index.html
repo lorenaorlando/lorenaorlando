@@ -3,23 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lorena</title>
+<title>LORENA ORLANDO</title>
+<!-- Google Analytics (GA4) con consentimiento: no se carga nada hasta que hay permiso.
+     En la UE/EEE, Reino Unido y Suiza se pregunta con un aviso; en el resto del mundo se activa solo. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
+  window.loadGA = function(){
+    if (window.__ga) return; window.__ga = true;
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+    var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-D5MZNYQB7Q');
+  };
+</script>
 <link rel="icon" type="image/png" href="assets/FAVICON.png">
 <link rel="apple-touch-icon" href="assets/FAVICON.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Modak&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Lacquer&display=swap" rel="stylesheet">
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
   :root{
     --morado:#360185; --violeta:#8F0177; --magenta:#DE1A58; --mostaza:#F4B342; --crema:#FFF0D6; --fondo:#8441b7;
-    --display:"Modak",cursive;
+    --display:"Lacquer",cursive;
     --shadow: .25vw .35vw .7vw rgba(54,1,133,.85);          /* drop shadow morado, para todos los textos */
     --shadow-sm: .12vw .18vw .35vw rgba(54,1,133,.85);
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  /* PRELOADER: tapa todo hasta que fuentes, imágenes y 3D estén listos */
+  #preload{position:fixed;inset:0;z-index:1000;background:var(--fondo);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;color:var(--crema);transition:opacity .6s ease}
+  #preload.done{opacity:0;pointer-events:none}
+  #preload .pl-t{font-family:var(--display);font-size:clamp(34px,7vw,120px);line-height:.95;text-align:center;letter-spacing:-.02em;text-shadow:var(--shadow);opacity:0;transition:opacity .3s}
+  #preload .pl-t span{display:block}
+  #preload .pl-t .pl-s{font-size:.55em}
+  #preload.fonts.lang .pl-t,#preload.fonts.lang .pl-n{opacity:1}
+  #preload .pl-bar{width:min(60vw,520px);height:clamp(12px,1.4vw,20px);border-radius:999px;background:rgba(54,1,133,.45);overflow:hidden;box-shadow:var(--shadow-sm)}
+  #preload .pl-bar i{display:block;height:100%;width:0;background:var(--crema);border-radius:inherit}
+  #preload .pl-n{font-family:var(--display);font-size:clamp(22px,2.6vw,40px);text-shadow:var(--shadow-sm);opacity:0;transition:opacity .3s}
+  /* durante y justo después de una transición los iframes no se tragan la rueda (evita saltar dos pantallas) */
+  .noframes iframe{pointer-events:none}
   html,body{height:100%;overflow:hidden;background:var(--fondo);overscroll-behavior:none}
-  body{font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.084em;color:var(--crema)}
+  body{font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.02em;color:var(--crema)}
   .stage{position:fixed;inset:0;overflow:hidden;overflow:clip;background:var(--fondo);touch-action:none}
   .layer{position:absolute;inset:0;will-change:transform;pointer-events:none}
 
@@ -30,16 +57,24 @@
 
   /* 3D: solo escala */
   .model-wrap{position:absolute;left:50%;top:50%;width:70vw;height:120vh;transform:translate(-50%,-50%);will-change:transform;z-index:2}
+  /* aviso de que la cabeza 3D se puede girar: se va en cuanto alguien la toca */
+  .dragme{position:absolute;left:74%;top:22%;z-index:3;display:flex;align-items:center;gap:.45em;padding:.4em .9em .45em .75em;border-radius:999px;background:rgba(30,0,75,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--crema);font-family:var(--display);font-size:max(1.3vw,18px);line-height:1;letter-spacing:.04em;white-space:nowrap;rotate:-6deg;pointer-events:none;box-shadow:0 .3vh 1vh rgba(30,0,75,.35);transition:opacity .5s,scale .5s}
+  .dragme svg{width:1.7em;height:auto;fill:none;stroke:var(--mostaza);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:dragspin 2.2s ease-in-out infinite}
+  .dragme.gone{opacity:0;scale:.8}
+  @keyframes dragspin{0%,100%{translate:-3px 0}50%{translate:3px 0}}
+  /* "scroll" al pie del hero, solo en móvil */
+  .hscroll{display:none}
+  @media (prefers-reduced-motion:reduce){.dragme svg,.hscroll svg{animation:none}}
   model-viewer{width:100%;height:100%;--poster-color:transparent;background:transparent}
 
   /* HERO */
   .hero{z-index:3;transform-origin:50% 100%}
-  .hola{position:absolute;left:10.5vw;top:13vh;font-size:15vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
-  .soy{position:absolute;left:16.5vw;top:30vh;font-size:10vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
-  .lorena{position:absolute;left:0;right:0;top:47vh;text-align:center;font-family:var(--display);font-weight:400;font-size:24vw;line-height:1;letter-spacing:-.02em;text-shadow:var(--shadow);white-space:nowrap}
-  .cosas{position:absolute;right:2vw;top:38vh;font-size:4vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .hola{position:absolute;left:10.5vw;top:13vh;font-family:var(--display);letter-spacing:.02em;font-size:13vw;line-height:1;font-weight:400;transform:rotate(-13deg);transform-origin:left bottom;text-shadow:var(--shadow)}
+  .soy{position:absolute;left:16.5vw;top:30vh;font-family:var(--display);letter-spacing:.02em;font-size:9vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
+  .lorena{position:absolute;left:0;right:0;top:calc(47vh - 2.6vw);text-align:center;font-family:var(--display);font-weight:400;font-size:23.2vw;line-height:1;letter-spacing:0;text-shadow:var(--shadow);white-space:nowrap}
+  .cosas{position:absolute;right:2vw;top:38vh;font-family:var(--display);letter-spacing:.02em;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
-  .lang button{all:unset;cursor:pointer;font-size:2.8vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
+  .lang button{all:unset;cursor:pointer;font-family:var(--display);letter-spacing:.02em;font-size:2.2vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
   .lang button:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .lang button[aria-pressed="false"]{opacity:.6}
   .lang .f{font-size:2.4vw;letter-spacing:0;text-shadow:none}
@@ -53,12 +88,19 @@
   button.word:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   @keyframes pulse{0%,100%{scale:1}50%{scale:1.09}}
   @media (prefers-reduced-motion:reduce){#clouds img,.word:hover{animation:none}}
+  /* redes, debajo de la cabeza */
+  .social{position:absolute;left:23vw;top:87vh;transform:translateX(-50%);display:flex;align-items:center;gap:1.3vw;pointer-events:auto}
+  .social a{display:block;width:2.5vw;height:2.5vw;min-width:26px;min-height:26px;color:var(--crema);filter:drop-shadow(.12vw .18vw .3vw rgba(54,1,133,.85));transition:scale .2s}
+  .social a:hover{scale:1.18}
+  .social a:focus-visible{outline:2px solid var(--crema);outline-offset:4px;border-radius:4px}
+  .social svg{width:100%;height:100%;fill:currentColor}
+  .social img{width:100%;height:100%;object-fit:contain;scale:1.2}   /* estas imágenes traen margen propio */
   .w1{rotate:-3deg}.w2{rotate:1.5deg}.w3{rotate:-2deg}.w4{rotate:2.5deg}.w5{rotate:-1.5deg}.w6{rotate:2deg}
 
   /* SECCIÓN 3: MÚSICA */
   .music{z-index:3;transform-origin:50% 0}
   .music .t{position:absolute;text-align:center;line-height:.95;white-space:pre-line;text-shadow:var(--shadow-sm);transform:translate(-50%,-50%)}
-  .historia{left:43vw;top:23vh;font-size:2.4vw;rotate:6deg}
+  .historia{left:39vw;top:20vh;font-size:max(1.7vw,20px);rotate:4deg}
   .otros{left:49.5vw;top:66vh;font-size:2.4vw;rotate:-7deg}
   .escucha{left:47.7vw;top:81.5vh;font-size:2vw}
   .music button.t{background:none;border:0;padding:0;color:inherit;font-family:inherit;font-weight:400;letter-spacing:inherit;cursor:pointer;pointer-events:auto;transition:color .2s}
@@ -85,7 +127,7 @@
   .onirias h3 b{font-weight:400;color:var(--mostaza)}
   .vid{position:absolute;width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh)}
   .vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--morado);box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
-  .vid p{margin-top:.6vh;font-size:max(1.3vw,13px);line-height:1;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .vid p{margin-top:.6vh;font-size:max(1.3vw,20px);line-height:1;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .noimg{background:var(--violeta)}
   .noimg img{visibility:hidden}
   .disc.noimg .name{opacity:1;transform:none}
@@ -93,15 +135,12 @@
   .tapme,.tapcloud{display:none}
   @media (hover:none){
     .tapme{display:block;position:absolute;left:50%;top:-1vh;translate:-50% -100%;z-index:3;padding:.15em .7em .25em;border-radius:999px;background:rgba(54,1,133,.55);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;text-shadow:var(--shadow-sm);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
-    .tapcloud{display:block;position:absolute;left:57vw;top:31vh;z-index:40;padding:.5em 1.1em .6em;border-radius:999px;background:#fff;color:var(--morado);font-size:max(1.6vw,15px);line-height:1;letter-spacing:-.015em;white-space:nowrap;rotate:6deg;box-shadow:0 .4vh 1.4vh rgba(54,1,133,.35);pointer-events:none;animation:nudge 2.4s ease-in-out infinite}
-    .tapcloud::before,.tapcloud::after{content:"";position:absolute;z-index:-1;border-radius:50%;background:#fff}
-    .tapcloud::before{width:1.6em;height:1.6em;left:.5em;top:-.7em}
-    .tapcloud::after{width:2.2em;height:2.2em;right:.5em;top:-1em}
+    .tapcloud{display:block;position:absolute;left:57vw;top:31vh;z-index:40;padding:.15em .7em .25em;border-radius:999px;background:rgba(54,1,133,.55);color:var(--crema);font-size:max(1.6vw,15px);line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm);pointer-events:none}   /* igual que .tapme */
   }
   @keyframes nudge{0%,100%{scale:1}50%{scale:1.07}}
   .disc:focus-visible img{outline:3px solid var(--crema);outline-offset:3px}
   .disc:hover .lp,.disc:focus-visible .lp{translate:calc(var(--dir) * 46%) 0;animation-play-state:running}
-  .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:1.5vw;line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
+  .name{position:absolute;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:.2em .55em .3em;background:var(--morado);color:var(--crema);font-size:max(1.5vw,20px);line-height:1.05;text-align:center;border-radius:.3em;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(.4vw);transition:opacity .25s,transform .25s}
   .disc:hover .name,.disc:focus-visible .name{opacity:1;transform:none}
 
   /* LP: surcos + etiqueta con la portada */
@@ -110,9 +149,10 @@
   .lp i::after{content:"";position:absolute;inset:44%;border-radius:50%;background:var(--fondo)}
   @keyframes spin{to{rotate:360deg}}
 
-  .listen{position:absolute;left:47.7vw;top:88.8vh;transform:translate(-50%,-50%);width:17vw;height:8.7vh;display:flex;align-items:center;justify-content:space-evenly;background:var(--crema);border-radius:.5vw;box-shadow:.25vw .35vw .7vw rgba(54,1,133,.5);pointer-events:auto}
-  .listen a{display:block;width:2.6vw;height:2.6vw;color:var(--morado);--i2:var(--crema);transition:scale .2s,color .2s}
-  .listen a:hover,.listen a:focus-visible{color:var(--magenta);scale:1.15;outline:none}
+  .listen{position:absolute;left:47.7vw;top:88.8vh;transform:translate(-50%,-50%);display:flex;align-items:center;gap:1.3vw;pointer-events:auto}   /* como la fila de redes */
+  .listen a{display:block;width:2.5vw;height:2.5vw;min-width:26px;min-height:26px;color:var(--crema);--i2:var(--fondo);filter:drop-shadow(.12vw .18vw .3vw rgba(54,1,133,.85));transition:scale .2s}
+  .listen a:hover{scale:1.18}
+  .listen a:focus-visible{scale:1.18;outline:2px solid var(--crema);outline-offset:4px;border-radius:4px}
   .listen svg,.pf svg{display:block;width:100%;height:100%}
 
   /* SECCIÓN 4: FOTOGRAFÍA */
@@ -122,7 +162,7 @@
   .photo a.t:hover,.photo button.t:hover{color:var(--mostaza)}
   .photo a.t:focus-visible,.photo button.t:focus-visible,.indi:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
   .portafolio{left:41vw;top:22vh;font-size:2.6vw;rotate:-4deg}
-  .phistoria{left:58vw;top:24vh;font-size:2.6vw;rotate:4deg}
+  .phistoria{left:87vw;top:90vh;font-size:max(1.9vw,20px);rotate:-5deg}   /* al lado de "indivirtual" */
   .zenit{position:absolute;z-index:10;left:50vw;top:50vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
   .photo .ptitle{left:50vw;top:66vh;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;rotate:-8deg;text-shadow:var(--shadow);pointer-events:none}
   /* collage: centro (--x vw, --y vh), ancho (--w), giro (--r); llegan volando desde la izquierda */
@@ -167,7 +207,7 @@
   .ntitle{position:absolute;z-index:20;left:50vw;top:44vh;transform:translate(-50%,-50%);rotate:-6deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
   .nitem{color:inherit;text-decoration:none;outline:none}
   .nitem img{position:absolute;z-index:var(--z);width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh);translate:0 -50%;rotate:var(--r,0deg);pointer-events:auto;filter:drop-shadow(.3vw .5vw 1vw rgba(54,1,133,.45));transition:scale .4s,rotate .4s}
-  .nitem span{position:absolute;z-index:20;left:calc(var(--lx) * 1vw);top:calc(var(--ly) * 1vh);translate:-50% -50%;rotate:var(--lr);font-size:2.6vw;line-height:.95;text-align:center;white-space:pre;text-shadow:var(--shadow-sm);pointer-events:auto;transition:color .2s}
+  .nitem span{position:absolute;z-index:20;left:calc(var(--lx) * 1vw);top:calc(var(--ly) * 1vh);translate:-50% -50%;rotate:var(--lr);font-size:1.8vw;line-height:1;text-align:center;white-space:pre;text-shadow:var(--shadow-sm);pointer-events:auto;transition:color .2s}
   .nitem:hover img,.nitem:focus-visible img{scale:1.02;rotate:calc(var(--r,0deg) - 1deg)}
   .nitem:hover span,.nitem:focus-visible span{color:var(--mostaza)}
   .nitem:focus-visible span{outline:2px solid var(--crema);outline-offset:6px}
@@ -177,11 +217,33 @@
   .web{z-index:3;transform-origin:50% 0;--uv:min(1vw,1.7vh)}
   .wwsite{position:absolute;left:10vw;top:10vh;width:80vw;height:80vh;border:0;background:#fff;pointer-events:auto;border-radius:calc(.8 * var(--uv));box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .compu{position:absolute;z-index:10;right:0;top:0;width:16vw;height:22vh}
-  .web .arrow{left:50vw;translate:-50% -50%}
-  .web .arrow.up{top:5vh}
-  .web .arrow.down{top:95vh}
-  .web .arrow:disabled{opacity:.35;cursor:default;scale:1;background:var(--crema)}
+  /* flechas doodle (trazo a mano, como Lacquer): diseño web y la de magick que vuelve al inicio */
+  .doodle{all:unset;position:absolute;z-index:30;display:flex;flex-direction:column;align-items:center;gap:.4vh;color:var(--crema);cursor:pointer;pointer-events:auto;filter:drop-shadow(.12vw .18vw .3vw rgba(54,1,133,.85));transition:color .2s,scale .2s;translate:-50% -50%}
+  .doodle svg{width:max(calc(3.6 * var(--uv)),36px);height:auto;fill:none;stroke:currentColor;stroke-width:4.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+  .doodle.down svg{rotate:180deg}
+  .doodle:hover,.doodle:focus-visible{color:var(--mostaza);scale:1.12}
+  .doodle:focus-visible{outline:2px solid var(--crema);outline-offset:6px;border-radius:8px}
+  .doodle:disabled{opacity:.35;cursor:default;scale:1;color:var(--crema)}
+  .doodle span{font-family:var(--display);font-size:max(1.4vw,20px);line-height:1;letter-spacing:.02em}
+  .web .doodle{left:5vw}
+  .web .doodle.up{top:42vh}
+  .web .doodle.down{top:58vh}
+  .tohome{left:50vw;top:87vh}
   .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+
+  /* SECCIÓN 8: MAGICK — texto de Pragmagicka a la izquierda, VELA al centro, pantallas de la app a la derecha (como en .net: --x/--y/--w/--r y etiqueta --lx/--ly/--lr) */
+  .magick{z-index:3;transform-origin:50% 0;--u:min(1vw,1.78vh);--uv:min(1vw,1.7vh)}
+  .vela{position:absolute;z-index:10;left:50vw;top:47vh;width:24vw;height:40vh;transform:translate(-50%,-50%)}
+  .mgtitle{position:absolute;z-index:20;left:48vw;top:66vh;transform:translate(-50%,-50%);rotate:8deg;font-family:var(--display);font-weight:400;font-size:5.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
+  .mhistoria{position:absolute;z-index:20;left:43vw;top:24vh;transform:translate(-50%,-50%);rotate:-5deg;background:none;border:0;padding:0;color:inherit;font-family:inherit;font-weight:400;font-size:2.6vw;line-height:.95;letter-spacing:inherit;text-align:center;white-space:pre-line;text-shadow:var(--shadow-sm);cursor:pointer;pointer-events:auto;transition:color .2s}
+  .mhistoria:hover{color:var(--mostaza)}
+  .mhistoria:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
+  .mhead{position:absolute;left:16vw;top:17vh;transform:translate(-50%,-50%);rotate:-5deg;font-weight:400;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
+  .mpanel{position:absolute;left:4vw;top:25vh;width:27vw;max-height:66vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .mpanel p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .mpanel p+p{margin-top:1.2vh}
+  .mpanel a{color:var(--mostaza)}
+  html[lang="en"] .magick .es,html:not([lang="en"]) .magick .en{display:none}
 
   /* FICHA DEL DISCO */
   .album{z-index:5;transform-origin:50% 0;--uv:min(1vw,1.7vh)}   /* en pantallas anchas y bajitas el texto se achica con la altura */
@@ -196,12 +258,17 @@
   .album-info{flex:1 1 auto;min-width:0;max-height:90vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:4vh calc(2.6 * var(--uv)) 4.5vh;background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:calc(.8 * var(--uv));scrollbar-width:thin;scrollbar-color:rgba(255,240,214,.5) transparent}
   .album-title{font-family:var(--display);font-weight:400;font-size:calc(4.8 * var(--uv));line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:var(--shadow)}
   .album-title.long{font-size:calc(3.1 * var(--uv))}
-  .album-meta{margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
+  .album-meta{display:flex;flex-wrap:wrap;align-items:baseline;row-gap:.3em;margin-top:1.4vh;font-size:calc(2.2 * var(--uv));line-height:1.2;letter-spacing:0;text-shadow:var(--shadow-sm)}
   .album-meta .sep,.lbl .sep{margin:0 .6em;opacity:.55}
-  .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte en los | */
+  .mi{white-space:nowrap}
+  .mi.nl .sep{display:none}                          /* el | que quedaría al inicio de un renglón nuevo */
+  .album-meta .br,.album-credits .br{display:none;flex-basis:100%;height:0}
+  .album-meta .br.on,.album-credits .br.on{display:block}
+  .album-credits .lbl{display:flex;flex-wrap:wrap;align-items:baseline}
+  .album-meta b,.album-meta span{white-space:nowrap}   /* solo se parte entre datos */
   .album-meta b{font-weight:400;color:var(--mostaza)}
   .album-text{margin-top:2.4vh}
-  .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .album-text p,.album-credits p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .album-text p+p{margin-top:1.2vh}
   .album-text a,.album-credits a{color:var(--mostaza);pointer-events:auto}
   .album-credits{margin-top:2.6vh}
@@ -210,7 +277,7 @@
   .album-credits .lbl{font-size:calc(2.2 * var(--uv));line-height:1.1;color:var(--mostaza);text-shadow:var(--shadow-sm);margin-bottom:.6vh}
   .listen-lbl{margin-top:3.2vh;font-size:calc(2.8 * var(--uv));line-height:1;text-shadow:var(--shadow-sm)}
   .platforms{list-style:none;display:flex;flex-wrap:nowrap;gap:calc(.6 * var(--uv));margin-top:1.6vh}   /* las 4 plataformas siempre en un renglón */
-  .pf{display:flex;align-items:center;gap:calc(.5 * var(--uv));white-space:nowrap;letter-spacing:-.02em;padding:calc(.45 * var(--uv)) calc(.9 * var(--uv)) calc(.45 * var(--uv)) calc(.5 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.25 * var(--uv)),14px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
+  .pf{display:flex;align-items:center;gap:calc(.5 * var(--uv));white-space:nowrap;letter-spacing:-.02em;padding:calc(.45 * var(--uv)) calc(.75 * var(--uv)) calc(.45 * var(--uv)) calc(.45 * var(--uv));background:var(--crema);color:var(--morado);--i2:var(--crema);border-radius:999px;text-decoration:none;font-size:max(calc(1.05 * var(--uv)),13px);line-height:1;box-shadow:var(--shadow-sm);transition:background .2s,translate .2s}
   .pf svg{flex:none;width:max(calc(1.8 * var(--uv)),18px);height:max(calc(1.8 * var(--uv)),18px)}
   .pf:hover,.pf:focus-visible{background:var(--mostaza);--i2:var(--mostaza);translate:0 -2px}
   /* columna angosta: icono arriba y nombre abajo, para que las 4 quepan en un renglón */
@@ -219,6 +286,8 @@
   .album-art.video img,.album-art.video .lp{display:none}
   .album-art iframe{position:absolute;inset:0;width:100%;height:100%;border:0;box-shadow:.4vw .6vw 1.6vw rgba(54,1,133,.5)}
   .album.isvideo .album-in{gap:5vw}
+  .platforms .bc{flex:1 1 auto;max-width:520px}
+  .platforms .bc iframe{display:block;width:100%;height:120px;border:0}
   .pf.soon{opacity:.55;cursor:default;pointer-events:none}
 
   /* MI HISTORIA: carrusel de instrumentos 3D (mismo tamaño que el órgano de la pantalla de música) */
@@ -233,7 +302,7 @@
   .slide:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .info3d{position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(32vw,135%);padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .3s;pointer-events:none}
   .info3d h3{font-family:var(--display);font-weight:400;font-size:calc(2.6 * var(--uv));line-height:1;letter-spacing:.02em;text-shadow:var(--shadow-sm);margin-bottom:1.2vh}
-  .info3d p,.lore p{font-size:max(calc(1.5 * var(--uv)),15px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
+  .info3d p,.lore p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .info3d p+p,.lore p+p{margin-top:1.2vh}
   .slide:hover .info3d,.slide:focus-visible .info3d,.slide.show .info3d{opacity:1}
   .arrow{all:unset;position:absolute;top:50%;translate:0 -50%;z-index:4;width:max(calc(3.6 * var(--uv)),40px);aspect-ratio:1;border-radius:50%;background:var(--crema);color:var(--morado);display:grid;place-items:center;cursor:pointer;pointer-events:auto;box-shadow:var(--shadow-sm);transition:background .2s,scale .2s}
@@ -246,42 +315,102 @@
   .lore{position:absolute;top:52vh;width:24vw;translate:-50% -50%;padding:calc(2.4 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);pointer-events:auto}
   .lore.l{left:16vw;rotate:-3deg}
   .lore.r{left:84vw;rotate:3deg}
+  /* mi historia en la música: 3D a la izquierda y el texto largo a la derecha, en una ventana con scroll */
+  #story .instr,#story .carousel,#photoStory .instr,#photoStory .carousel{left:27vw}
+  .tale{position:absolute;left:52vw;right:4vw;top:8vh;bottom:6vh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:calc(3 * var(--uv)) calc(3 * var(--uv)) calc(3.5 * var(--uv));border-radius:calc(.8 * var(--uv));background:rgba(30,0,75,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);scrollbar-width:thin;scrollbar-color:var(--crema) rgba(255,240,214,.15)}
+  .tale::-webkit-scrollbar{width:8px}
+  .tale::-webkit-scrollbar-thumb{background:var(--crema);border-radius:8px}
+  .tale::-webkit-scrollbar-track{background:rgba(255,240,214,.15);border-radius:8px}
+  .tale p{font-size:max(calc(1.75 * var(--uv)),20px);line-height:1.5;letter-spacing:.012em;text-shadow:var(--shadow-sm)}
+  .tale p+p{margin-top:1.6vh}
+  .tale h2{margin:4vh 0 1.2vh;font-family:var(--display);font-weight:400;font-size:calc(3 * var(--uv));line-height:1;letter-spacing:.02em;color:var(--mostaza);text-shadow:var(--shadow-sm)}
+  .tale a.go,.tale a.ext{color:var(--mostaza);text-decoration:underline;text-underline-offset:.15em;cursor:pointer}
+  .tale a.go:hover,.tale a.go:focus-visible,.tale a.ext:hover,.tale a.ext:focus-visible{color:var(--crema);outline:none}
+  .tale .coda{margin-top:4vh;font-size:max(calc(2.2 * var(--uv)),23px);letter-spacing:.012em}
 
   @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
+  /* títulos y etiquetas cortas en Lacquer (Funnel queda para párrafos, datos y botones de plataformas) */
+  /* "mi historia": texto suelto como "otros proyectos", con un latido y un meneo cada tanto que invitan a tocarlo */
+  button.rw.t{white-space:normal;line-height:1.05;animation:rwpulse 2.6s ease-in-out infinite}
+  button.rw.t span{display:block;max-width:15em}
+  button.rw.t:hover,button.rw.t:focus-visible{color:var(--mostaza)}
+  @keyframes rwpulse{0%,100%{scale:1;translate:0 0}12%{scale:1.08}20%{translate:-.12em 0}26%{translate:.12em 0}32%{translate:-.08em 0}38%{scale:1;translate:0 0}}
+  @media (prefers-reduced-motion:reduce){button.rw.t{animation:none}}
+  .music .t,.photo .t,.onirias h3,.tapcloud,.tapme,.indi span,.nitem span,.mhead,.mhistoria,.back,.name,.vid p,.listen-lbl,.album-credits .lbl,.instr,.secnav{font-family:var(--display)!important;letter-spacing:.02em!important}
+
+  /* MENÚ FLOTANTE de secciones: aparece desde música en adelante (no en el hero ni en las subpantallas) */
+  .secnav{--uv:min(1vw,1.7vh);position:fixed;z-index:60;left:50%;top:1.6vh;translate:-50% -1.5vh;opacity:0;visibility:hidden;transition:opacity .4s,translate .4s,visibility 0s .4s}
+  .secnav.show{opacity:1;visibility:visible;translate:-50% 0;transition:opacity .4s,translate .4s,visibility 0s}
+  .secnav-list{display:flex;gap:calc(1.6 * var(--uv));padding:.45em 1.3em .5em;border-radius:999px;background:rgba(54,1,133,.34);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 .3vh 1.2vh rgba(54,1,133,.25)}
+  .secnav button{all:unset;cursor:pointer;color:var(--crema);font-size:max(calc(1.25 * var(--uv)),16px);line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm);transition:color .2s,scale .2s}
+  .secnav button:hover,.secnav button:focus-visible{color:var(--mostaza);scale:1.08}
+  .secnav button:focus-visible{outline:2px solid var(--crema);outline-offset:4px;border-radius:4px}
+  .secnav button[aria-current="true"]{color:var(--mostaza)}
+  .secnav .secnav-toggle{display:none}
+  @media (prefers-reduced-motion:reduce){.secnav,.secnav.show{transition:none}}
+  /* aviso "desliza" al pie de los textos con scroll propio; se va al llegar al final */
+  .shint{position:sticky;bottom:0;height:0;display:flex;justify-content:center;align-items:flex-start;pointer-events:none;opacity:0;transition:opacity .3s}
+  .more>.shint{opacity:1}
+  .album-in>.shint,.story-in>.shint{display:none}   /* estas cajas solo hacen scroll en móvil; en escritorio el aviso le quitaba ancho a la ficha */
+  @media (max-width:700px){.album-in>.shint,.story-in>.shint{display:flex}}
+  .shint>span{flex:none;translate:0 -110%;display:flex;align-items:center;gap:.55em;padding:.7em 1.4em .75em 1.2em;border-radius:999px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px) saturate(1.3);backdrop-filter:blur(28px) saturate(1.3);border:1px solid rgba(255,240,214,.14);color:var(--mostaza);font-family:var(--display);font-size:20px;line-height:1;letter-spacing:.06em;box-shadow:0 .3vh 1vh rgba(30,0,75,.4);animation:shbob 1.4s ease-in-out infinite}
+  .shint svg{width:16px;height:auto;fill:none;stroke:currentColor;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;rotate:180deg}
+  @keyframes shbob{0%,100%{translate:0 -110%}50%{translate:0 -80%}}
+  @media (prefers-reduced-motion:reduce){.shint>span{animation:none}}
   @media (max-width:700px){
-    .model-wrap{width:110vw;height:62vh;top:47%}
-    .hola{font-size:28vw;left:6vw;top:7vh}
-    .soy{font-size:17vw;left:12vw;top:20vh}
-    .lorena{font-size:30vw;top:56vh}
-    .cosas{font-size:7vw;top:70vh;right:auto;left:0;width:100%;text-align:center}
-    .lang button{font-size:5vw}.lang .f{font-size:4.5vw}
+    .secnav{left:auto;right:3vw;top:auto;bottom:2.4vh;translate:0 1.5vh;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:1vh}
+    .secnav.show{translate:0 0}
+    .secnav .secnav-toggle{display:block;padding:.45em .95em .5em;border-radius:999px;background:var(--morado);font-size:20px;box-shadow:var(--shadow-sm)}
+    .secnav-list{display:none;flex-direction:column;align-items:flex-end;gap:1.6vh;padding:1em 1.2em;border-radius:3vw;background:rgba(30,0,75,.78)}
+    .secnav.open .secnav-list{display:flex}
+    .secnav button{font-size:22px}
+    .web .doodle{left:50vw}
+    .web .doodle.up{top:5vh}
+    .web .doodle.down{top:95vh}
+    .tohome{left:50vw;top:27vh}
+    .tohome span{display:none}
+  }
+  @media (max-width:700px){
+    .social{left:50%;top:39vh;gap:4.5vw}
+    .social a{width:7vw;height:7vw}
+    .model-wrap{width:110vw;height:62vh;top:51%}
+    .dragme{left:auto;right:12%;top:9%;font-size:16px}
+    .hscroll{display:flex;flex-direction:column;align-items:center;gap:.3em;position:absolute;left:50%;top:86vh;translate:-50% 0;font-family:var(--display);font-size:18px;line-height:1;letter-spacing:.08em;color:var(--crema);text-shadow:var(--shadow-sm)}
+    .hscroll svg{width:16px;height:auto;fill:none;stroke:currentColor;stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;rotate:180deg;filter:drop-shadow(.4vw .5vw .6vw rgba(54,1,133,.85));animation:hsbob 1.4s ease-in-out infinite}
+    @keyframes hsbob{0%,100%{translate:0 0}50%{translate:0 6px}}
+    .hola{font-size:20vw;left:6vw;top:11vh}
+    .soy{font-size:15vw;left:12vw;top:24vh}
+    .lorena{font-size:29vw;top:calc(60vh - 3.2vw)}
+    .cosas{font-size:5.6vw;top:74vh;right:auto;left:0;width:100%;text-align:center}
+    .lang button{font-size:4.2vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
-    .historia{left:50vw;top:7vh;font-size:4.4vw;rotate:3deg}
+    .historia{left:50vw;top:10vh;font-size:max(3.9vw,15px);rotate:2deg}
+    button.rw.t span{max-width:17em}
     .organ{left:50vw;top:19.5vh;width:72vw;height:27vh}
     .music .mtitle{left:50vw;top:23vh;font-size:17vw}
-    .otros{left:50vw;top:33vh;font-size:4.4vw;rotate:-3deg}
+    .otros{left:50vw;top:33vh;font-size:max(4.4vw,20px);rotate:-3deg}
     .discs{inset:auto 0;top:39.5vh;display:grid;grid-template-columns:repeat(3,min(27vw,13.3vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
     .projs .disc{position:absolute;width:min(27vw,13.3vh);left:calc(var(--mx) * 1vw - min(27vw,13.3vh) / 2);top:40vh}
     .onirias h3{left:50vw;top:56vh;font-size:4.6vw}
     .vid{width:30vw;left:calc(var(--mx) * 1vw - 15vw);top:calc(var(--my) * 1vh)}
-    .vid p{font-size:3.2vw}
+    .vid p{font-size:16px}
     .tapcloud{left:64vw;top:35.5vh;font-size:4vw}
-    .name{font-size:3.4vw}
-    .escucha{left:50vw;top:84vh;font-size:4.2vw}
-    .listen{left:50vw;top:91vh;width:62vw;height:7.5vh;border-radius:1.5vw}
-    .listen a{width:8vw;height:8vw}
+    .name{font-size:max(3.4vw,16px)}
+    .escucha{left:50vw;top:84vh;font-size:max(4.2vw,20px)}
+    .listen{left:50vw;top:91vh;gap:4.5vw}
+    .listen a{width:7vw;height:7vw}
     .back{left:5vw;top:2.5vh;font-size:5.5vw;padding:.2em .6em .3em;background:var(--morado);border-radius:999px}
-    .album-in{display:block;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:11vh 7vw 7vh}
+    .album-in{display:block;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:11vh 7vw 7vh}
     .album-art{width:min(62vw,40vh);margin:0 0 4vh 4vw}
     .album-info{max-height:none;overflow:visible;padding:6vw 5vw 7vw;border-radius:3vw}
     .album-title{font-size:11vw}.album-title.long{font-size:7.5vw}
     .album-meta{font-size:5vw}
-    .album-text p{font-size:4.4vw}
+    .album-text p{font-size:max(4.4vw,20px)}
     .album-credits p{font-size:5vw}
     .album-credits .lbl{font-size:5vw}
     .listen-lbl{margin-top:4vh;font-size:6.5vw}
@@ -290,20 +419,29 @@
     .pf{flex-direction:column;gap:1.2vw;padding:2.2vw .5vw 1.8vw;border-radius:3vw;font-size:2.9vw;letter-spacing:-.03em}
     .pf svg{width:6.5vw;height:6.5vw}
     .album-art.video{width:100%;margin-left:0}
-    .story-in{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:13vh 6vw 7vh}
+    .story-in{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;pointer-events:auto;padding:13vh 6vw 7vh}
+    .tale{max-width:100%;overflow-wrap:anywhere}
     .carousel{position:relative;left:auto;top:auto;transform:none;width:72vw;height:40vh;margin:0 auto}
+    .slide[data-p="1"],.slide[data-p="2"]{translate:0 0}   /* en móvil los 3D que esperan solo se desvanecen: si se corren, la historia se puede scrollear de lado */
+    .instr{max-width:100%}
     .arrow{width:10vw}
-    .arrow.prev{left:-11vw}.arrow.next{right:-11vw}
+    .arrow.prev{left:-8vw}.arrow.next{right:-8vw}
     .info3d{width:86vw;padding:5vw}
     .info3d h3{font-size:6.5vw}
-    .info3d p,.lore p{font-size:4.2vw}
+    .info3d p,.lore p{font-size:max(4.2vw,20px)}
     .tapme{font-size:4vw;top:0}
-    .instr{position:relative;left:auto;top:auto;translate:none;display:table;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
+    .instr{position:relative;left:auto;top:auto;translate:none;display:block;width:fit-content;margin:0 auto 6vh;font-size:5vw;white-space:normal;text-align:center;border-radius:3vw}
     .lore{position:relative;top:auto;left:auto!important;translate:none;width:auto;margin-top:5vh;padding:6vw 5vw;border-radius:3vw}
     .lore.l{rotate:-1.5deg}.lore.r{rotate:1.5deg}
+    #story .instr,#story .carousel,#photoStory .instr,#photoStory .carousel{left:auto}
+    .tale{position:relative;inset:auto;overflow:visible;margin-top:5vh;padding:6vw 5vw 7vw;border-radius:3vw}
+    .tale p{font-size:max(5.1vw,19px)}
+    .tale h2{font-size:7vw;margin-top:5vh}
+    .tale .coda{font-size:max(5.8vw,21px)}
     .ph{width:calc(var(--mw) * 1vw);left:calc(var(--mx) * 1vw - var(--mw) * .5vw);top:calc(var(--my) * 1vh)}
     .portafolio{left:25vw;top:41.5vh;font-size:6.4vw;rotate:-3deg}
-    .phistoria{left:73vw;top:42.5vh;font-size:5.6vw;rotate:3deg}
+    .phistoria{left:27vw;top:86vh;font-size:max(4.6vw,18px);rotate:-4deg}
+    .phistoria span{max-width:7em!important}
     .zenit{left:50vw;top:55vh;width:58vw;height:20vh}
     .photo .ptitle{left:50vw;top:64vh;font-size:13vw}
     .indi{left:auto;right:4vw;top:auto;bottom:1vh;translate:none;width:min(56vw,28vh)}
@@ -322,10 +460,26 @@
     .wwsite{left:5vw;width:90vw;border-radius:2vw}
     .compu{width:30vw;height:12vh}
     .dtitle{right:4vw;top:10.5vh;font-size:10vw}
+    .vela{top:10vh;width:44vw;height:14vh}
+    .mgtitle{left:50vw;top:19vh;font-size:12vw;rotate:5deg}
+    .mhistoria{left:50vw;top:26vh;font-size:max(5vw,20px);rotate:-3deg}
+    .magick .nitem img{width:min(48vw,27vh);left:calc(var(--mx) * 1vw - min(48vw,27vh) / 2)}
+    .magick .nitem span{top:calc(var(--my) * 1vh + min(24vw,13.5vh) + 2.5vh);font-size:max(4.4vw,20px)}
+    .magick .nitem.en img{width:min(40vw,22vh);left:calc(50vw - min(40vw,22vh) / 2)}   /* PRAG_ENG es más alta que ancha */
+    .magick .nitem.en span{top:calc(var(--my) * 1vh + min(25.8vw,14.2vh) + 2.5vh)}
+    .mhead{left:50vw;top:66.5vh;font-size:6vw;rotate:-2deg}
+    .mpanel{left:4vw;top:70vh;width:92vw;max-height:27vh;padding:4vw 5vw;border-radius:3vw}
+    .mpanel p{font-size:max(3.8vw,20px);line-height:1.35}
+    .mpanel p+p{margin-top:.8vh}
   }
 </style>
 </head>
 <body>
+<div id="preload" role="progressbar" aria-label="Cargando" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <p class="pl-t"><span>lorenaorlando.com</span><span class="pl-s" data-es="cargando" data-en="loading">cargando</span></p>
+  <div class="pl-bar"><i></i></div>
+  <p class="pl-n">0%</p>
+</div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-spotify" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="currentColor"/><path d="M6.4 9.3c3.6-1.2 8-.9 11.4 1M7.1 12.7c3-.9 6.6-.6 9.3 1M7.9 15.9c2.4-.6 4.9-.4 7 .8" fill="none" stroke-width="1.9" stroke-linecap="round" style="stroke:var(--i2,#F4B342)"/></symbol>
   <symbol id="i-apple" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="currentColor"/><g style="fill:var(--i2,#F4B342)"><path d="M9.6 7.2 17.6 5.6V8L9.6 9.6z"/><rect x="9.6" y="7.4" width="1.6" height="9.4"/><rect x="16" y="5.8" width="1.6" height="9.4"/><ellipse cx="8.6" cy="16.9" rx="2.6" ry="2.1"/><ellipse cx="15" cy="15.3" rx="2.6" ry="2.1"/></g></symbol>
@@ -343,6 +497,7 @@
       <button type="button" data-lang="en" aria-pressed="false"><span class="f">🇺🇸</span>eng</button>
       <button type="button" data-lang="es" aria-pressed="true"><span class="f">🇪🇸</span>esp</button>
     </nav>
+    <p class="hscroll" aria-hidden="true">scroll<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></p>
     <p class="cosas" data-es="y hago muuuchas cosas..." data-en="and I do sooo many things...">y hago muuuchas cosas...</p>
   </div>
 
@@ -366,6 +521,7 @@
       max-field-of-view="40deg"
       loading="eager"
       reveal="auto"></model-viewer>
+    <p class="dragme" aria-hidden="true"><svg viewBox="0 0 34 24"><path d="M9 17.5C4.6 16.2 2 14.2 2 12C2 7.6 8.7 4 17 4S32 7.6 32 12C32 15.6 27.6 18.6 21.4 19.6"/><path d="M17.2 15.8 21.8 19.6 17.6 23.2"/></svg><span data-es="arrástrame!" data-en="drag me!">arrástrame!</span></p>
   </div>
 
   <!-- "Lorena" va por delante del 3D -->
@@ -380,13 +536,21 @@
       <button type="button" class="word w3" id="toWrite"><span data-es="escritura" data-en="writing">escritura</span></button>
       <button type="button" class="word w4" id="toNet"><span data-es="net art & 3d" data-en="net art & 3d">net art &amp; 3d</span></button>
       <button type="button" class="word w5" id="toWeb"><span data-es="diseño web" data-en="web design">diseño web</span></button>
-      <div class="word w6"><span data-es="magick" data-en="magick">magick</span></div>
+      <button type="button" class="word w6" id="toMagick"><span data-es="magick" data-en="magick">magick</span></button>
     </div>
+    <nav class="social" aria-label="Redes">
+      <a href="https://www.youtube.com/@lorenamariaorlando" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://www.instagram.com/lorenamariaorlando" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+      <a href="https://brutalmentehonesta.substack.com" target="_blank" rel="noopener" aria-label="Substack" title="Substack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+      <a href="https://letterboxd.com/lorenaorlando" target="_blank" rel="noopener" aria-label="Letterboxd" title="Letterboxd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.224 14.352a4.447 4.447 0 0 1-3.775 2.092C1.992 16.444 0 14.454 0 12s1.992-4.444 4.45-4.444c1.592 0 2.988.836 3.774 2.092-.427.682-.673 1.488-.673 2.352s.246 1.67.673 2.352zM15.101 12c0-.864.247-1.67.674-2.352-.786-1.256-2.183-2.092-3.775-2.092s-2.989.836-3.775 2.092c.427.682.674 1.488.674 2.352s-.247 1.67-.674 2.352c.786 1.256 2.183 2.092 3.775 2.092s2.989-.836 3.775-2.092A4.42 4.42 0 0 1 15.1 12zm4.45-4.444a4.447 4.447 0 0 0-3.775 2.092c.427.682.673 1.488.673 2.352s-.246 1.67-.673 2.352a4.447 4.447 0 0 0 3.775 2.092C22.008 16.444 24 14.454 24 12s-1.992-4.444-4.45-4.444z"/></svg></a>
+      <a href="https://www.goodreads.com/user/show/160560777-lorena-orlando" target="_blank" rel="noopener" aria-label="Goodreads" title="Goodreads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.346.026c.422-.083.859.037 1.179.325.346.284.55.705.557 1.153-.023.457-.247.88-.612 1.156l-2.182 1.748a.601.601 0 0 0-.255.43.52.52 0 0 0 .11.424 5.886 5.886 0 0 1 .832 6.58c-1.394 2.79-4.503 3.99-7.501 2.927a.792.792 0 0 0-.499-.01c-.224.07-.303.18-.453.383l-.014.02-.941 1.254s-.792.985.457.935c3.027-.119 3.817-.119 5.439-.01 2.641.18 3.806 1.903 3.806 3.275 0 1.623-1.036 3.383-3.809 3.383a117.46 117.46 0 0 0-5.517-.03c-.31.005-.597.013-.835.02-.228.006-.41.011-.52.011-.712 0-1.648-.186-1.66-1.068-.008-.729.624-1.12 1.11-1.172.43-.045.815.007 1.24.064.252.034.518.07.815.088.185.011.366.025.552.038.53.038 1.102.08 1.926.087.427.005.759.01 1.025.015.695.012.941.016 1.28-.015 1.248-.112 1.832-.61 1.832-1.376 0-.805-.584-1.264-1.698-1.414-1.564-.213-2.33-.163-3.72-.074a87.66 87.66 0 0 1-1.669.095c-.608.029-2.449.026-2.682-1.492-.053-.416-.073-1.116.807-2.325l.75-1.003c.36-.49.582-.898.053-1.559 0 0-.39-.468-.52-.638-1.215-1.587-1.512-4.08-.448-6.114 1.577-3.011 5.4-4.26 8.37-2.581.253.143.438.203.655.163.201-.032.27-.167.363-.344.02-.04.042-.082.067-.126.004-.01.241-.465.535-1.028l.734-1.41a1.493 1.493 0 0 1 1.041-.785ZM9.193 13.243c1.854.903 3.912.208 5.254-2.47 1.352-2.699.827-5.11-1.041-6.023C10.918 3.537 8.81 5.831 8.017 7.41c-1.355 2.698-.717 4.886 1.147 5.818Z"/></svg></a>
+      <a href="https://lorenalandia.dfos.com" target="_blank" rel="noopener" aria-label="DFOS" title="DFOS"><img src="assets/DFOS.png" alt=""></a>
+      <a href="https://sublime.app/lorenaorlando" target="_blank" rel="noopener" aria-label="Sublime" title="Sublime"><img src="assets/SUBLIME.png" alt=""></a>
+    </nav>
   </div>
 
   <div class="layer music" id="music">
-    <button type="button" class="t historia" id="toStory" data-es="lee mi historia en&#10;la música" data-en="read my story&#10;in music">lee mi historia en
-la música</button>
+    <button type="button" class="t historia rw" id="toStory"><span data-es="cómo llegué a tener 13 oyentes mensuales en spotify: un caso de éxito" data-en="how i got to 13 monthly listeners on spotify: a success story">cómo llegué a tener 13 oyentes mensuales en spotify: un caso de éxito</span></button>
     <div class="organ" aria-hidden="true">
       <model-viewer id="organ" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-30deg 72deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -412,9 +576,8 @@ arte sonoro</button>
 
   <div class="layer photo" id="photo">
     <div id="photos"></div>
-    <a class="t portafolio" href="https://lorlando.framer.website/art" target="_blank" rel="noopener" data-es="portafolio" data-en="portfolio">portafolio</a>
-    <button type="button" class="t phistoria" id="toPhotoStory" data-es="lee mi historia&#10;fotográfica" data-en="read my story&#10;in photography">lee mi historia
-fotográfica</button>
+    <a class="t portafolio" href="https://lorenaorlando.art" target="_blank" rel="noopener" data-es="portafolio" data-en="portfolio">portafolio</a>
+    <button type="button" class="t phistoria rw" id="toPhotoStory"><span data-es="detrás del encuadre" data-en="behind the frame">detrás del encuadre</span></button>
     <div class="zenit" aria-hidden="true">
       <model-viewer id="zenit" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
         camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
@@ -468,8 +631,43 @@ fotográfica</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="dtitle" data-es="diseño" data-en="design">diseño</h2>
-    <button type="button" class="arrow up" id="webUp" aria-label="Pantalla anterior"><svg viewBox="0 0 24 24"><path d="M4 15l8-8 8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <button type="button" class="arrow down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 24 24"><path d="M4 9l8 8 8-8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="doodle up" id="webUp" aria-label="Pantalla anterior"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></button>
+    <button type="button" class="doodle down" id="webDown" aria-label="Pantalla siguiente"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></button>
+  </div>
+
+  <div class="layer magick" id="magick">
+    <h3 class="mhead">Pragmagicka</h3>
+    <div class="mpanel">
+      <div data-only="es">
+        <p>Leo el Tarot desde los 17 años y siempre me ha llamado la atención el mundo esotérico. Soy tarotista profesional desde el 2019 y he pasado por varias etapas y proyectos con esta labor. En este camino creé el término "Esoterismo Pragmático". Es una forma de práctica espiritual que sirve para ayudarnos a tomar decisiones que generen cambios reales en nuestras vidas. Más que predecir el futuro, impulsa a la acción concreta y a desentrañar los enredos mentales que tenemos en momentos claves de nuestras vidas para entendernos mejor a nosotr@s mism@s, a la forma en la que actuamos y cómo nos relacionamos en función de construir ese futuro que tanto deseamos que nos predigan.</p>
+        <p>En base a esa filosofía creé Pragmagicka, usando el término Magick, que abarca todas las prácticas esotéricas y las diferencia de la magia como espectáculo. Bajo este proyecto ofrezco mis servicios como <a href="https://ko-fi.com/pragmagicka/commissions" target="_blank" rel="noopener">tarotista</a> junto a <a href="https://ko-fi.com/s/8436f90a86" target="_blank" rel="noopener">cursos online</a> y presenciales.</p>
+        <p>También, combinando mi lado brujo y mi lado de diseñadora web, estoy desarrollando apps en el ámbito esotérico, como <a href="https://pragmagick.app" target="_blank" rel="noopener">Pragmagick.app</a> para lecturas de tarot, <a href="https://monedaire.pragmagick.app" target="_blank" rel="noopener">Monedaire</a> para lanzar una moneda y registrar las decisiones que tomamos, y Amigaaah, un oráculo de stickers de WhatsApp. En este momento también estoy aprendiendo astrología y el arte de hacer sigilos, con lo cual también quiero desarrollar apps en el ámbito digital en el futuro.</p>
+      </div>
+      <div data-only="en" hidden>
+        <p>I've been reading Tarot since I was 17, and the esoteric world has always drawn me in. I've been a professional tarot reader since 2019 and have gone through several stages and projects in this work. Along the way I coined the term "Pragmatic Esotericism": a spiritual practice that helps us make decisions that bring real change to our lives. Rather than predicting the future, it pushes us toward concrete action and helps us untangle the mental knots we get caught in at key moments of our lives, so we can better understand ourselves, the way we act and how we relate to others, in order to build that future we so badly want someone to predict for us.</p>
+        <p>Based on that philosophy I created Pragmagicka, using the term Magick, which covers all esoteric practices and sets them apart from magic as a show. Through this project I offer my services as a <a href="https://ko-fi.com/pragmagicka/commissions" target="_blank" rel="noopener">tarot reader</a>, along with online and in-person courses.</p>
+        <p>Combining my witchy side with my web designer side, I'm also developing esoteric apps, like <a href="https://pragmagick.app" target="_blank" rel="noopener">Pragmagick.app</a> for tarot readings and <a href="https://monedaire.pragmagick.app" target="_blank" rel="noopener">Monedaire</a>, to flip a coin and keep track of the decisions we make. Right now I'm also learning astrology and the art of making sigils, and I'd like to build digital apps around them in the future.</p>
+      </div>
+    </div>
+    <div class="vela" aria-hidden="true">
+      <model-viewer id="vela" alt="" interaction-prompt="none" shadow-intensity="0" exposure="1.05"
+        camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg"
+        loading="lazy" reveal="auto"></model-viewer>
+    </div>
+    <h2 class="mgtitle">magick</h2>
+    <button type="button" class="doodle up tohome" id="toHome" aria-label="Volver al inicio"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg><span data-es="inicio" data-en="home">inicio</span></button>
+    <!-- esp: pragmagick.app y amigah; eng: solo pragmagick.app en inglés (PRAG_ENG) -->
+    <a class="nitem es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:82.3;--y:29;--w:26;--r:8deg;--z:1;--lx:65;--ly:30;--lr:-6deg;--mx:26;--my:43">
+      <img data-f="PRAGMAGICKAPP.png" alt=""><span>Pragmagick.app
+app de lecturas
+de tarot</span></a>
+    <a class="nitem es" href="https://pragmagick.app/amigah" target="_blank" rel="noopener" style="--x:85;--y:71;--w:28;--r:-6deg;--z:2;--lx:69;--ly:71;--lr:7deg;--mx:74;--my:43">
+      <img data-f="AMIGAH.png" alt=""><span>AMIGAAAAAH
+oráculo de
+stickers</span></a>
+    <a class="nitem en" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:83.8;--y:52;--w:26.4;--r:0deg;--z:1;--lx:68.5;--ly:15;--lr:-6deg;--mx:50;--my:44">
+      <img data-f="PRAG_ENG.png" alt=""><span>Pragmagick.app
+tarot reading app</span></a>
   </div>
 
   <section class="layer album" id="album" aria-labelledby="albumTitle">
@@ -523,14 +721,42 @@ fotográfica</button>
         </div>
         <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="lore l">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
-        <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare.</p>
+    <div class="tale">
+      <div class="tale-txt" data-only="es">
+        <p>Soy hija de un músico. Mi papá fue, estoy segura, uno de los mejores acordeonistas en Venezuela. En mis memorias de la infancia está impregnado el sonido del acordeón y de la voz de mi papá dando clases de música. Eventualmente yo me convertí en una de sus alumnas. A los seis años me enseñó a tocar piano junto a algo de teoría y solfeo (conocimiento que con el tiempo se borraría de mi memoria). La primera canción que aprendí a tocar, como tod@s, fue el Himno a la Alegría. Mi película predilecta de la infancia fue La novicia rebelde; veía la grabación en Beta que teníamos una y otra vez, y al día de hoy recuerdo todas y cada una de esas canciones con un cariño inmenso. Luego lo dejé, pero seguía enamorada y fascinada por la música: hacía coreografías de Britney Spears y los Backstreet Boys con mis amiguitas, me encerraba en mi cuarto, ponía música e imaginaba que era Avril Lavigne. Me gustaba mucho el R&amp;B, y FanMail de TLC es hasta el día de hoy uno de mis discos favoritos; mi primer CD fue el debut de All Saints, a falta de presupuesto para uno de las Spice Girls. Pasaba tardes enteras viendo MTV y me identificaba mucho con la energía del nu metal; el primer CD pirata que compré fue Issues de Korn. Mientras pasaba el tiempo me inclinaba más hacia el rock, hasta que eventualmente conocí el punk. Mi banda favorita de Venezuela en ese género fue y sigue siendo Reciclaje; solía ir a los toques, acercarme a las ollas sin atreverme a entrar e imprimir artículos sobre el concepto del anarquismo. Allí también conocí a Bikini Kill y el movimiento Riot Grrrl, que fue mi primer encuentro con el feminismo.</p>
+        <p>A los trece años decidí retomar mi aprendizaje musical y le pedí a mi papá que me enseñara a tocar acordeón. Es uno de los instrumentos más difíciles que he aprendido a tocar. Al mismo tiempo, mi primo me prestó su bajo y me enseñó a tocarlo. Poco tiempo después también me regalarían una guitarra acústica comprada en los chinos, que tenía un sonido muy particular. Paralelo a ello, en una tarde de ocio viendo MTV en el cuarto de mis padres, descubrí a la banda que me cambiaría la vida para siempre: The Mars Volta. De ahí en adelante mi gusto musical se amplió muchísimo y empecé a escuchar a artistas como Björk, PJ Harvey, los Pixies y Daniel Johnston (que con su crudeza lo-fi inspiraría mi primer EP), y me empecé a adentrar en el mundo del indie. En esa misma época empecé a encerrarme en el estudio de mi papá a tocar el piano libremente, ya no interpretando canciones ni haciendo prácticas de digitación, sino tocando lo que me salía en el momento; de esa forma empecé a componer. Con un mp3 que grababa sonido iba registrando esas composiciones; algunas se pueden escuchar en <a href="#" class="go" data-open="ROSLER.jpg">Rösler</a>. Luego descubrí que, si pasaba ese archivo a mi computadora y lo abría en Adobe Audition, con mi micrófono de cibercafé podía grabar voces encima, y empecé a experimentar con eso, al tiempo que también aprendía a usar FL (en ese momento conocido como Fruity Loops). Me divertía mucho haciendo todas esas cosas, y allí empezó a crecer mi persona musical. Por cuestiones de timidez o alienación escribía las letras de mis canciones en inglés; no escribiría en español hasta formar la banda <a href="#" class="go" data-open="BRUNO.jpg">Jóvenes y Sexys</a>.</p>
+        <h2>La Resistance</h2>
+        <p>A mitad de mi adolescencia entré a Oídos Sucios, una proto red social venezolana centrada en los gustos musicales de sus usuarios. Allí conocí a muchísima gente, para bien o para mal. Much@s de ell@s siguen siendo mis amig@s hasta el día de hoy. En el MSN Messenger pasaba todo el día chateando con gente que también hacía música, y entre compartir correos y chats terminé en mi primera banda, basada en el principio de The Postal Service de hacer música a distancia: <a href="#" class="go" data-open="RESISTANCE.webp">La Resistance</a>. En La Resistance yo grababa acordeones con mi mp3 y luego Erly Ruiz y Alejandra Ghersi (mejor conocida como Arca, en ese momento Nuuro) manipulaban digitalmente esas grabaciones y les hacían pistas.</p>
+        <h2>Jóvenes y Sexys</h2>
+        <p>Entre tanta gente que conocí en Oídos Sucios estaba Cheky. Compartíamos un gusto muy particular por la música y eventualmente terminamos haciendo una primera banda, La Maestra Ximena, donde tocábamos math rock y post-rock. Después hicimos Jóvenes y Sexys, una banda de pop folk que fue mi entrada al mundo real de la música. Grabamos un EP llamado <a href="#" class="go" data-open="BRUNO.jpg">Bruno</a>, que fue publicado en la disquera indie online Poni Republic. Ese EP nos llevó a tocar a México y Brasil. Ah, porque no les conté: recién cumplidos mis dieciocho años me fui a vivir a México a estudiar <a href="#" class="go" data-go="3">fotografía</a>; justo coincidió con el éxito de la banda en dicho país, y fue una época definitoria en mi vida. Gracias a esa banda pude conocer a ídolas de mi infancia como Julieta Venegas y Natalia Lafourcade, quienes disfrutaban de lo que hacíamos y nos vieron tocar. Nuestra banda se hizo popular mayormente por los covers: <a class="ext" href="https://www.youtube.com/watch?v=c8T_Qf06ddM" target="_blank" rel="noopener">The Breeders</a>, <a class="ext" href="https://www.youtube.com/watch?v=STBW4pn4PNg" target="_blank" rel="noopener">Javiera Mena</a> e incluso Mystikal o <a class="ext" href="https://www.youtube.com/watch?v=leHae3jW1iI" target="_blank" rel="noopener">Los Tucanes de Tijuana</a> estaban en nuestro repertorio. En 2011 nos separamos sin haber podido alcanzar todo nuestro potencial.</p>
+        <h2>Loocila</h2>
+        <p>Tras la separación de Jóvenes y Sexys y mi vuelta a Venezuela, volví a componer durante dos años hasta grabar <a href="#" class="go" data-open="COCLEA.jpg">Coclea</a> (lanzado en el 2013), mi primer LP. Ese fue mi comienzo con mi persona artística de 'Loocila'. Venía de la onda folk y ese es el género que predomina en el disco, aunque en un par de temas di mis primeros pasos hacia el rock; también hice canciones con el acordeón, el teclado y el cuatro venezolano en ese disco. Luego lancé Sin miedos y sin esperanzas (lanzado en el 2015), más enfocado en el rock con un par de piezas folk: lo contrario a Coclea. Allí exploré tonos más crudos y salvajes; fue muy influenciado por las artistas y bandas femeninas del alt-rock de los 90, pero también me atreví a hacer música más experimental, como el tema Holy Mountain, inspirado en la película del mismo nombre de Alejandro Jodorowsky, el cual empieza con una bella frase: «You are excrement». En el 2016 me aventuré a la autoproducción (cosa que sigo haciendo hasta el día de hoy), grabando y produciendo por mi cuenta Nuevas Tendencias EP, un trabajo bisagra entre Loocila y mi próximo proyecto: Hilandera. Ahí le subí por completo la intensidad a lo oscuro y también jugué con los loops de voces.</p>
+        <h2>Hilandera</h2>
+        <p>En el 2017, después de casarme e independizarme, me sentía tan poco identificada con lo que fue Loocila y los procesos por los que pasé que decidí cambiar mi nombre artístico a Hilandera. En ese momento solía ir a tatuarme a La ONG (Organización Nelson Garrido), en el estudio de Jimmy Flamante, productor de música electrónica venezolano, y allí, entre el dolor de la máquina y largas conversaciones, conocí más sobre música electrónica. Esto coincidió con que Jimmy estaba vendiendo sus instrumentos para emigrar, y le compré un controlador Arturia (que ya no tengo), un micrófono condensador (el primero que tuve y el que aún tengo) y el MC Groovebox 303, un secuenciador de los años 90. En ese tiempo también aprendí a usar Ableton Live, y de esa experimentación nació <a href="#" class="go" data-open="PRIMA_MATERIA.jpg">Prima Materia EP</a>, más enfocado en la electrónica y tocando temas mucho más introspectivos, cuestionando la naturaleza de la vida humana, como en Máquina, donde comparo al humano y sus actividades con las de un autómata. Más adelante, en la pandemia, hice Musiquiatría 22 EP con una pequeña arpa que consiguieron mis padres y las pistas hechas en el Groovebox; es uno de mis EP más experimentales a la fecha. Lo que hice fue samplear sonidos de composiciones con el arpa y manipularlos en Ableton, dándoles sentido rítmico con las pistas. Las letras de ese EP hablan del delirio en el que entramos en sociedad con la pandemia, entre fregar platos, tener insomnio, pelearnos por internet y hundirnos en la nostalgia. El último trabajo como Hilandera fue Mundos de vida (lanzado en el 2022), un LP. Fue un disco compuesto y grabado enteramente desde el Groovebox, sin usar ningún instrumento externo a él. Conceptualmente está basado en la tirada de tarot de 'El Yo Realizado', creada por Alejandro Jodorowsky en La vía del tarot. Cada canción representa un arcano mayor del tarot y habla de un aspecto de mí misma (cualidades de protagonista o antagonista, la sombra, quienes me acompañan).</p>
+        <h2>Ls Lvndrs</h2>
+        <p>En pandemia también fundé el colectivo artístico 'Ls Lvndrs' (se lee Les Lavanderes). Fue un proyecto para apoyar a artistas mujeres y personas no binarias de Venezuela. Empezó como un grupo de WhatsApp, pero rápidamente se convirtió en una plataforma de difusión y activismo en torno a la actividad en la escena musical venezolana, batallando contra el machismo y creando nuevos espacios para que nuestras voces tuvieran importancia. Difundíamos a través de nuestra plataforma la música de artistas de Venezuela, haciendo playlists y reseñas musicales de los últimos lanzamientos, y redactando y enviando notas de prensa a medios internacionales de forma gratuita. El espacio también sirvió para hacer redes entre artistas que luego hicieron un gran número de colaboraciones entre sí. El proyecto acabó en el año 2023.</p>
+        <h2>Lorena Orlando</h2>
+        <p>En el 2021 decidí usar mi nombre propio para lanzar mi música, y reagrupé y republiqué toda mi discografía bajo el perfil de 'Lorena Orlando'. En esta etapa, mi primer trabajo fue <a href="#" class="go" data-open="HACER_MUSICA.jpg">Hacer música es hacer magia</a> (lanzado en el 2024). Este EP lo catalogué como "música express", ya que fue producido y grabado en la app de música BandLab en el transcurso de una semana. Dos años después, en el 2026, lancé <a href="#" class="go" data-open="ASI_QUE_MIN.jpg">ASÍ QUE NO ERA UNA PESADILLA, SIGO VIVIENDO AQUÍ</a>, un EP mucho más inclinado al rock y al math rock; en él hice el intento de escribir sobre la situación actual de Venezuela de forma críptica, aunque por el nombre del disco se darán cuenta de que muy críptica no pude ser.</p>
+        <p class="coda">Después de todo esto que les acabo de contar, tengo 13 monthly listeners en Spotify 🤷‍♀️</p>
       </div>
-      <div class="lore r">
-        <p>Curabitur blandit tempus porttitor. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur.</p>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+      <div class="tale-txt" data-only="en" hidden>
+        <p>I'm the daughter of a musician. My dad was, I'm sure, one of the best accordion players in Venezuela. My childhood memories are steeped in the sound of the accordion and my dad's voice giving music lessons. Eventually I became one of his students. When I was six he taught me to play the piano, along with some theory and solfège (knowledge that would fade from my memory over time). The first song I learned to play, like everyone, was the Ode to Joy. My favorite movie as a kid was The Sound of Music; I watched the Betamax tape we had over and over, and to this day I remember each and every one of those songs with immense affection. Then I quit, but I was still in love with and fascinated by music: I made up Britney Spears and Backstreet Boys choreographies with my friends, locked myself in my room, put on music and imagined I was Avril Lavigne. I really liked R&amp;B, and TLC's FanMail is still one of my favorite albums; my first CD was All Saints' debut, since I couldn't afford one by the Spice Girls. I spent entire afternoons watching MTV and really identified with the energy of nu metal; the first bootleg CD I bought was Korn's Issues. As time went by I leaned more toward rock, until I eventually discovered punk. My favorite Venezuelan band in that genre was, and still is, Reciclaje; I used to go to their gigs, get close to the mosh pits without daring to go in, and print out articles about the concept of anarchism. That's also where I discovered Bikini Kill and the Riot Grrrl movement, my first encounter with feminism.</p>
+        <p>When I was thirteen I decided to pick up my music studies again and asked my dad to teach me to play the accordion. It's one of the hardest instruments I've ever learned to play. At the same time, my cousin lent me his bass and taught me to play it. Shortly after, I was also given an acoustic guitar bought at a Chinese-owned shop, which had a very particular sound. Meanwhile, on a lazy afternoon watching MTV in my parents' room, I discovered the band that would change my life forever: The Mars Volta. From then on my musical taste broadened enormously and I started listening to artists like Björk, PJ Harvey, the Pixies and Daniel Johnston (whose lo-fi rawness would inspire my first EP), and I began to dive into the world of indie. Around that same time I started locking myself in my dad's studio to play the piano freely, no longer performing songs or doing fingering exercises, but playing whatever came out in the moment; that's how I started composing. I recorded those compositions with an mp3 player that could record sound; some of them can be heard on <a href="#" class="go" data-open="ROSLER.jpg">Rösler</a>. Then I discovered that, if I moved that file to my computer and opened it in Adobe Audition, I could record vocals over it with my cybercafé microphone, and I started experimenting with that, while also learning to use FL (back then known as Fruity Loops). I had a lot of fun doing all those things, and that's where my musical persona began to grow. Out of shyness or alienation I wrote my lyrics in English; I wouldn't write in Spanish until I formed the band <a href="#" class="go" data-open="BRUNO.jpg">Jóvenes y Sexys</a>.</p>
+        <h2>La Resistance</h2>
+        <p>In my mid-teens I joined Oídos Sucios, a Venezuelan proto social network centered on its users' musical tastes. There I met tons of people, for better or for worse. Many of them are still my friends to this day. I spent all day on MSN Messenger chatting with people who also made music, and between swapping emails and chats I ended up in my first band, based on The Postal Service's principle of making music remotely: <a href="#" class="go" data-open="RESISTANCE.webp">La Resistance</a>. In La Resistance I recorded accordions with my mp3 player, and then Erly Ruiz and Alejandra Ghersi (better known as Arca, back then Nuuro) digitally manipulated those recordings and built tracks around them.</p>
+        <h2>Jóvenes y Sexys</h2>
+        <p>Among the many people I met on Oídos Sucios was Cheky. We shared a very particular taste in music and eventually ended up starting a first band, La Maestra Ximena, where we played math rock and post-rock. Then we made Jóvenes y Sexys, a pop folk band that was my entry into the real world of music. We recorded an EP called <a href="#" class="go" data-open="BRUNO.jpg">Bruno</a>, which was released on the online indie label Poni Republic. That EP took us to play in Mexico and Brazil. Oh, because I didn't tell you: right after turning eighteen I moved to Mexico to study <a href="#" class="go" data-go="3">photography</a>; it happened to coincide with the band's success in that country, and it was a defining time in my life. Thanks to that band I got to meet childhood idols like Julieta Venegas and Natalia Lafourcade, who enjoyed what we did and came to see us play. Our band became popular mostly for its covers: <a class="ext" href="https://www.youtube.com/watch?v=c8T_Qf06ddM" target="_blank" rel="noopener">The Breeders</a>, <a class="ext" href="https://www.youtube.com/watch?v=STBW4pn4PNg" target="_blank" rel="noopener">Javiera Mena</a> and even Mystikal or <a class="ext" href="https://www.youtube.com/watch?v=leHae3jW1iI" target="_blank" rel="noopener">Los Tucanes de Tijuana</a> were in our repertoire. In 2011 we split up without having been able to reach our full potential.</p>
+        <h2>Loocila</h2>
+        <p>After Jóvenes y Sexys split up and I moved back to Venezuela, I went back to composing for two years until I recorded <a href="#" class="go" data-open="COCLEA.jpg">Coclea</a> (released in 2013), my first LP. That was the beginning of my artistic persona 'Loocila'. I was coming from folk, and that's the genre that dominates the album, although on a couple of songs I took my first steps toward rock; I also made songs with the accordion, the keyboard and the Venezuelan cuatro on that album. Then I released Sin miedos y sin esperanzas (Without Fears and Without Hopes, released in 2015), more focused on rock with a couple of folk pieces: the opposite of Coclea. There I explored rawer, wilder tones; it was heavily influenced by the female artists and bands of '90s alt-rock, but I also dared to make more experimental music, like the song Holy Mountain, inspired by Alejandro Jodorowsky's film of the same name, which opens with a beautiful line: "You are excrement." In 2016 I ventured into self-production (something I still do to this day), recording and producing Nuevas Tendencias EP (New Trends EP) on my own, a hinge work between Loocila and my next project: Hilandera. There I turned the intensity of the darkness all the way up and also played with vocal loops.</p>
+        <h2>Hilandera</h2>
+        <p>In 2017, after getting married and becoming independent, I felt so little identified with what Loocila had been and the processes I'd gone through that I decided to change my artist name to Hilandera. Back then I used to get tattooed at La ONG (Organización Nelson Garrido), in the studio of Jimmy Flamante, a Venezuelan electronic music producer, and there, between the pain of the machine and long conversations, I learned more about electronic music. This coincided with Jimmy selling his instruments to emigrate, and I bought an Arturia controller from him (which I no longer have), a condenser microphone (the first one I ever had, and the one I still have) and the MC Groovebox 303, a sequencer from the '90s. At that time I also learned to use Ableton Live, and from that experimentation came <a href="#" class="go" data-open="PRIMA_MATERIA.jpg">Prima Materia EP</a> (Prime Matter EP), more focused on electronics and dealing with much more introspective themes, questioning the nature of human life, as in Máquina (Machine), where I compare humans and their activities to those of an automaton. Later, during the pandemic, I made Musiquiatría 22 EP (Music-iatry 22 EP) with a small harp my parents got and tracks made on the Groovebox; it's one of my most experimental EPs to date. What I did was sample sounds from compositions on the harp and manipulate them in Ableton, giving them a rhythmic sense with the tracks. The lyrics of that EP talk about the delirium we entered as a society with the pandemic, between washing dishes, having insomnia, fighting online and sinking into nostalgia. My last work as Hilandera was Mundos de vida (Worlds of Life, released in 2022), an LP. It was an album composed and recorded entirely on the Groovebox, without using any instrument outside of it. Conceptually it's based on the tarot spread 'El Yo Realizado' (The Realized Self), created by Alejandro Jodorowsky in The Way of Tarot. Each song represents a major arcana of the tarot and speaks of an aspect of myself (protagonist or antagonist qualities, the shadow, those who accompany me).</p>
+        <h2>Ls Lvndrs</h2>
+        <p>During the pandemic I also founded the art collective 'Ls Lvndrs' (read Les Lavanderes). It was a project to support women and non-binary artists from Venezuela. It started as a WhatsApp group, but it quickly became a platform for promotion and activism around the Venezuelan music scene, fighting machismo and creating new spaces where our voices mattered. Through our platform we promoted the music of Venezuelan artists, making playlists and reviews of the latest releases, and writing and sending press releases to international media for free. The space also helped build networks among artists who later did a great number of collaborations with each other. The project ended in 2023.</p>
+        <h2>Lorena Orlando</h2>
+        <p>In 2021 I decided to use my own name to release my music, and I regrouped and re-released my entire discography under the 'Lorena Orlando' profile. In this stage, my first work was <a href="#" class="go" data-open="HACER_MUSICA.jpg">Hacer música es hacer magia</a> (Making Music Is Making Magic, released in 2024). I labeled this EP "express music" because it was produced and recorded in the BandLab music app over the course of a week. Two years later, in 2026, I released <a href="#" class="go" data-open="ASI_QUE_MIN.jpg">ASÍ QUE NO ERA UNA PESADILLA, SIGO VIVIENDO AQUÍ</a> (SO IT WASN'T A NIGHTMARE, I STILL LIVE HERE), an EP leaning much more toward rock and math rock; on it I tried to write about Venezuela's current situation in a cryptic way, although judging by the album's title you'll notice I couldn't be very cryptic.</p>
+        <p class="coda">After everything I've just told you, I have 13 monthly listeners on Spotify 🤷‍♀️</p>
       </div>
+    </div>
     </div>
   </section>
 
@@ -559,6 +785,52 @@ fotográfica</button>
         </div>
         <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
+    <div class="tale">
+      <div class="tale-txt" data-only="es">
+        <p>Mi primera cámara fotográfica fue una Zenit analógica heredada de mi padre, que disfrutaba de registrar todos los momentos de la familia junto a mi tío, y tiene unas fotos maravillosas de nuestros viajes y momentos especiales. Cuando empecé a tomar fotos con ella, a aprender a cargarle el rollo, y luego vi impresas mis primeras fotografías de unas flores del bosque que quedaba atrás de mi casa, quedé prendada. Me enamoré del poder de capturar y manipular, a través del encuadre, todo lo que estaba a mi alrededor. Poco tiempo después de esas primeras prácticas entré a estudiar el curso de Básico 1 en La ONG (Organización Nelson Garrido), siendo Nelson Garrido, fotógrafo transgresor y rebelde venezolano, mi primer profesor de fotografía. Allí aprendí a revelar mis propias fotografías en el cuarto oscuro, mientras descubría a fotógrafos clásicos como Cartier-Bresson a la par de otros contemporáneos, más innovadores, como David LaChapelle. Desde esa vez nunca dejé de visitar esa escuela hasta el día que cerró; se volvió un segundo hogar. Hice prácticamente todos los cursos que ofrecían, desde Historia de la Fotografía, a Iluminación, al Autorretrato desnudo como tema fotográfico o Cotidianidad y Erotismo, dictado por Gala, la hija de Nelson.</p>
+        <p>A pesar de que al salir del liceo tuve la suerte de entrar en la Universidad Central de Venezuela en Idiomas Modernos, muy pronto deserté de la carrera para irme a México a estudiar fotografía. Allí pasé por dos institutos: el Ansel Adams y la Escuela Activa de Fotografía en Coyoacán. Debido a mi naturaleza errática e irresponsable durante mis dos años en México, no pude terminar mis estudios allí. Sin embargo, conservo fotos de esa temporada, donde solía retratar a mis amig@s, a las calles de la ciudad cuando me perdía en ellas y los vestigios de vegetación que encontraba.</p>
+        <p>Desde que empecé a fotografiar me encontraba repitiendo temas, como el retrato, el autorretrato, el hogar, la relación entre lo construido por el ser humano y la naturaleza reaccionando a ello, los detalles que pasan desapercibidos dentro y fuera de la casa. Para ser fotógrafa hay que saber observar. Me di cuenta de que hacía, sin querer, series: grupos de fotos que eran similares temáticamente o tenían algo que las unía estéticamente. Así fui construyendo un cuerpo de trabajo del que solo conservo la parte que hice con cámara analógica, pues la historia de mi vida ha sido la de discos duros externos dañados, una y otra y otra vez. Algunas otras las he podido recuperar de internet y de viejos blogs que solía tener; el resto queda solo en mi memoria.</p>
+        <p>A mis 16 años empecé 'Un diario', que, como su nombre lo indica, fue un registro de cada día de mi vida constituido por un autorretrato junto a una foto de algo que me rodeaba, el paisaje que tenía en frente o alguien que me acompañaba en ese momento. Estas imágenes resultaron ser reveladoras sobre mis estados de ánimo, incluso mostrando mis síntomas de bipolaridad muchos años antes de que fuera diagnosticada. Mantuve ese diario por un poco más de un año, lo retomé en el 2016 por un corto tiempo y luego en el 2025 de nuevo, por menos tiempo aún. Es el cuerpo de trabajo más constante al que me he dedicado a lo largo de mi vida.</p>
+        <p>Al volver a Venezuela estudié el diplomado de Técnicas y Artes Fotográficas en AVECOFA, que sí pude terminar y que hasta el día de hoy es mi máximo logro académico. Después seguí haciendo cursos en La ONG hasta que cerró, y en todo ese proceso seguí desarrollando mi trabajo fotográfico, que también formaba parte de todo el material visual de mi carrera musical paralela. Pero no fue hasta la pandemia que hice mis trabajos más concretos hasta el momento, las series que forman parte de mi <a class="ext" href="https://lorenaorlando.art" target="_blank" rel="noopener">portafolio actual</a>. Y esto sucedió gracias a los NFTs, donde por un tiempo viví la fantasía de ganarme la vida a través de mi obra fotográfica. A pesar de la mala publicidad que tuvo este mundillo, habíamos artistas reales con propuestas mucho más serias que un mono con una gorra. En esa época hicimos red con personas de todas partes del mundo y muchos pudimos no solo mantenernos económicamente, sino incluso comprar equipos nuevos. Allí nació mi primer estudio fotográfico, que a su vez es un estudio musical, y a su vez un almacén de todo lo que no cabe en otras partes de mi casa, al que llamo <a class="ext" href="https://brutalmentehonesta.substack.com/p/lorenalandia-en-3d" target="_blank" rel="noopener">Lorenalandia</a>. Con los recursos y el tiempo necesarios pude dedicarme a la fotografía 24/7, pero no como en aquellos momentos de mi joven adultez, cuando trabajaba en un fotoestudio o como asistente de un fotógrafo de bodas, sino explorando al 100% esta práctica como un arte.</p>
+        <p>Después de todo lo que acabo de contar, mis fotografías nunca han sido tomadas en cuenta para ninguna exposición ni convocatoria artística en Venezuela (a pesar de mis constantes postulaciones). Por lo tanto, hice mi propia exposición… en el metaverso: visita <a class="ext" href="https://oncyber.io/lorenaorlando?coords=-1.27x2.80x-16.15x1.76" target="_blank" rel="noopener">INDIVIRTUAL</a>.</p>
+      </div>
+      <div class="tale-txt" data-only="en" hidden>
+        <p>My first camera was an analog Zenit I inherited from my father, who loved documenting every family moment together with my uncle, and who has some wonderful photos of our trips and special moments. When I started taking pictures with it, learning how to load the film, and then saw my first photographs printed, some flowers from the forest behind my house, I was hooked. I fell in love with the power to capture and manipulate, through framing, everything around me. Shortly after those first attempts I enrolled in the Basic 1 course at La ONG (Organización Nelson Garrido), and Nelson Garrido, a transgressive and rebellious Venezuelan photographer, became my first photography teacher. There I learned to develop my own photographs in the darkroom, while discovering classic photographers like Cartier-Bresson alongside more innovative contemporary ones like David LaChapelle. From then on I never stopped going to that school until the day it closed; it became a second home. I took practically every course they offered, from History of Photography to Lighting, to The Nude Self-Portrait as a Photographic Subject, or Everyday Life and Eroticism, taught by Gala, Nelson's daughter.</p>
+        <p>Although after high school I was lucky enough to get into the Universidad Central de Venezuela to study Modern Languages, I soon dropped out to go to Mexico and study photography. There I went through two schools: the Ansel Adams and the Escuela Activa de Fotografía in Coyoacán. Because of my erratic and irresponsible nature during my two years in Mexico, I couldn't finish my studies there. Still, I keep photos from that time, when I used to portray my friends, the city streets when I got lost in them, and the traces of vegetation I came across.</p>
+        <p>Ever since I started photographing I found myself repeating themes: the portrait, the self-portrait, the home, the relationship between what humans build and nature reacting to it, the details that go unnoticed inside and outside the house. To be a photographer you have to know how to observe. I realized I was making series without meaning to: groups of photos that were thematically similar or had something that tied them together aesthetically. That's how I built a body of work of which I only keep the part I shot on analog, because the story of my life has been one of broken external hard drives, again and again and again. Some others I've been able to recover from the internet and old blogs I used to have; the rest lives only in my memory.</p>
+        <p>At 16 I started 'Un diario' (A Diary), which, as the name says, was a record of every day of my life made up of a self-portrait next to a photo of something around me, the landscape in front of me, or someone who was with me at that moment. These images turned out to be revealing about my moods, even showing my bipolar symptoms many years before I was diagnosed. I kept that diary for a little over a year, picked it up again in 2016 for a short time, and then again in 2025, for even less. It's the most consistent body of work I've devoted myself to in my life.</p>
+        <p>When I came back to Venezuela I took the diploma in Photographic Techniques and Arts at AVECOFA, which I did manage to finish, and to this day it's my highest academic achievement. Afterwards I kept taking courses at La ONG until it closed, and throughout that process I kept developing my photographic work, which was also part of all the visual material for my parallel music career. But it wasn't until the pandemic that I made my most concrete work so far, the series that make up my <a class="ext" href="https://lorenaorlando.art" target="_blank" rel="noopener">current portfolio</a>. And that happened thanks to NFTs, where for a while I lived the fantasy of making a living from my photographic work. Despite the bad press this little world got, there were real artists among us with proposals far more serious than a monkey wearing a cap. Back then we built a network with people from all over the world, and many of us were not only able to support ourselves but even buy new equipment. That's where my first photo studio was born, which is also a music studio, and also a storage room for everything that doesn't fit anywhere else in my house: I call it <a class="ext" href="https://app.dfos.com/spaces/space_a4krd8cn32h6dvakaath7k/posts/post_448c72zhdrdh69tea32t36" target="_blank" rel="noopener">Lorenalandia</a>. With the resources and time I needed, I was able to devote myself to photography 24/7, not like back in my young adulthood, when I worked at a photo studio or as a wedding photographer's assistant, but exploring this practice 100% as an art.</p>
+        <p>After everything I've just told you, my photographs have never been considered for any exhibition or open call in Venezuela (despite my constant applications). So I made my own exhibition… in the metaverse: visit <a class="ext" href="https://oncyber.io/lorenaorlando?coords=-1.27x2.80x-16.15x1.76" target="_blank" rel="noopener">INDIVIRTUAL</a>.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="layer story" id="magickStory" aria-label="Mi historia esotérica">
+    <button type="button" class="back" data-es="← volver" data-en="← back">← volver</button>
+    <div class="story-in">
+      <h2 class="instr" data-es="estas son algunas de mis herramientas mágicas:" data-en="these are some of my magick tools:">estas son algunas de mis herramientas mágicas:</h2>
+      <div class="carousel">
+        <p class="tapme" aria-hidden="true" data-es="tócame!" data-en="tap me!">tócame!</p>
+        <button type="button" class="arrow prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="slide" data-p="0" data-glb="TAROT_EXP.glb" tabindex="0">
+          <model-viewer alt="Tarot" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3>tarot</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+          <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum.</p>
+          </div>
+        </div>
+        <div class="slide" data-p="1" data-glb="VELA.glb" tabindex="-1">
+          <model-viewer alt="Vela" interaction-prompt="none" shadow-intensity="0" exposure="1.05" camera-orbit="-25deg 78deg auto" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" loading="lazy" reveal="auto"></model-viewer>
+          <div class="info3d">
+            <h3 data-es="vela" data-en="candle">vela</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
+          <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum.</p>
+          </div>
+        </div>
+        <button type="button" class="arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       <div class="lore l">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus, posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla.</p>
         <p>Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum, nullam quis risus eget urna mollis ornare.</p>
@@ -569,6 +841,18 @@ fotográfica</button>
       </div>
     </div>
   </section>
+
+  <nav class="secnav" id="secnav" aria-label="Secciones">
+    <button type="button" class="secnav-toggle" aria-expanded="false" data-es="menú" data-en="menu">menú</button>
+    <div class="secnav-list">
+      <button type="button" data-go="2" data-es="música" data-en="music">música</button>
+      <button type="button" data-go="3" data-es="fotografía" data-en="photography">fotografía</button>
+      <button type="button" data-go="4" data-es="escritura" data-en="writing">escritura</button>
+      <button type="button" data-go="5" data-es="net art" data-en="net art">net art</button>
+      <button type="button" data-go="6" data-es="diseño web" data-en="web design">diseño web</button>
+      <button type="button" data-go="7" data-es="magick" data-en="magick">magick</button>
+    </div>
+  </nav>
 
   <p id="status" hidden></p>
 
@@ -595,6 +879,7 @@ fotográfica</button>
   });
   mv.addEventListener('load', function(){ status.hidden = true; console.log('GLB cargado:', mv.getAttribute('src')); });
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
+  mv.addEventListener('pointerdown', function(){ document.querySelector('.dragme').classList.add('gone'); }, {once:true});
 
 
   // Nubes de fondo: cuadrícula con posiciones aleatorias (semilla fija = siempre igual)
@@ -694,6 +979,15 @@ fotográfica</button>
       credits:{es:['Compuesto, producido y grabado por Lorena Orlando en Cariaquito Morao Records.', 'Mezclado y masterizado por Erly J. Ruiz.', 'Portada por José Ramirez Guaigua.'],
                en:['Composed, produced and recorded by Lorena Orlando at Cariaquito Morao Records.', 'Mixed and mastered by Erly J. Ruiz.', 'Cover by José Ramirez Guaigua.']} },
 
+    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', genre:'naïve rock', type:'ep', date:[4,6,2016],
+      pos:[69.8,81.5,21.9,'-2deg',2,-1],
+      links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
+        apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
+        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mPTaR2OiwzD-gdWoT4pmPwKV0iZCsQ9iM',
+        bandcamp:'https://lorenaorlando.bandcamp.com/album/nuevas-tendencias-loocila'},
+      credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
+               en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
+
     { f:'SIN_MIEDOS.jpg', title:'Sin miedos y sin esperanzas', genre:'menstrual rock', type:'album', date:[20,5,2015],
       pos:[88.5,20.8,20.8,'7deg',2,-1],
       links:{spotify:'https://open.spotify.com/album/5rS5QelSQtNoYuV1BIE52J',
@@ -723,15 +1017,6 @@ fotográfica</button>
                en:['All songs written and recorded by Lorena Orlando (“Hoy” in collaboration with Las Acevedo).',
                    'Recorded, mixed and mastered at Cholula by Raúl Sanabria.',
                    'Produced by Raúl Sanabria and Lorena Orlando.', CR_LO.en]} },
-
-    { f:'NUEVAS_TENDENCIAS.jpg', title:'Nuevas Tendencias EP', genre:'naïve rock', type:'ep', date:[4,6,2016],
-      pos:[69.8,81.5,21.9,'-2deg',2,-1],
-      links:{spotify:'https://open.spotify.com/album/3XkwBDGEs4clfeHWE9UKm4',
-        apple:'https://music.apple.com/us/album/nuevas-tendencias-loocila-ep/1779438259',
-        youtube:'https://music.youtube.com/playlist?list=OLAK5uy_mPTaR2OiwzD-gdWoT4pmPwKV0iZCsQ9iM',
-        bandcamp:'https://lorenaorlando.bandcamp.com/album/nuevas-tendencias-loocila'},
-      credits:{es:['Grabado y producido por Lorena Orlando en Cariaquito Morao records.', 'Mezclado y masterizado por Erly J. Ruiz en Pin y Punk estudios.', CR_LO.es],
-               en:['Recorded and produced by Lorena Orlando at Cariaquito Morao records.', 'Mixed and mastered by Erly J. Ruiz at Pin y Punk estudios.', CR_LO.en]} },
 
     { f:'ROSLER.jpg', title:'Rösler', genre:'kid lo-fi', type:'comp', date:[0,0,2003],
       pos:[91.4,78.7,22,'11deg',3,-1],
@@ -768,7 +1053,10 @@ fotográfica</button>
                    'Track 1: remixed by María y José.', 'Track 3: remixed by Pepepe.', 'Track 4: reinterpreted by Nuuro.',
                    'The cover image is an intervention on Lorena Orlando’s original artwork, made by Juan José Quintanillo (San Francisco, Venezuela).']} },
     { f:'RESISTANCE.webp', title:'La Resistance', date:[0,0,2005],
-      pos:[25,50,19,'7deg',3,-1], mx:50, links:'soon',
+      pos:[25,50,19,'7deg',3,-1], mx:50,
+      track:['https://lorenaorlando.bandcamp.com/track/deux-et-trois', 'Deux et trois by La Resistance', '1191283682'],
+      info:{es:['La Resistance fue una banda fugaz que existió en Venezuela por ahí en los 2000. Solo se llegaron a grabar 3 canciones, todo hecho a distancia, compartiendo archivos a través del MSN Messenger. La banda estuvo integrada por Lorena Orlando, Erly J. Ruiz y Alejandra Ghersi (más conocida como Arca). No duró mucho, nunca tocamos en vivo, pero pude rescatar esta canción del fondo del baúl de mi disco duro.'],
+            en:['La Resistance was a fleeting band that existed in Venezuela sometime in the 2000s. Only 3 songs were ever recorded, all made remotely, sharing files over MSN Messenger. The band was made up of Lorena Orlando, Erly J. Ruiz and Alejandra Ghersi (better known as Arca). It didn’t last long and we never played live, but I managed to rescue this song from the bottom of my hard drive’s trunk.']},
       credits:{es:['Alejandra Ghersi (Nuuro-Arca): programación.', 'Lorena Orlando (Loo): acordeón.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programación y guitarra eléctrica.', 'Foto por Ana Sofía Espinoza.'],
                en:['Alejandra Ghersi (Nuuro-Arca): programming.', 'Lorena Orlando (Loo): accordion.', 'Joanna Karamazov: ambient.', 'Erly J. Ruiz: programming and electric guitar.', 'Photo by Ana Sofía Espinoza.']} },
     { f:'ENTUPIEL.jpeg', title:'En tu piel', type:'single', by:'Aida Rojas', video:'nzVvNyNLe2U',
@@ -856,15 +1144,15 @@ fotográfica</button>
   /* ---------- FOTOGRAFÍA ----------
      Collage a la izquierda: x/y = centro (vw/vh), w = ancho, r = giro, z = quién va encima;
      m = [centro x, centro y, ancho] en móvil (vw, vh, vw). Todas llevan al portafolio. */
-  var PORTFOLIO = 'https://lorlando.framer.website/art';
+  var PORTFOLIO = 'https://lorenaorlando.art';
   var PHOTOS = [
-    { f:'FUGLY_LORENA_ORLANDO__1.jpg',                x:9.5,  y:13, w:19, r:'-4deg', z:2, m:[24, 7, 42] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',           x:28,   y:11, w:18, r:'5deg',  z:1, m:[72, 7, 40] },
-    { f:'BODY_LORENA_ORLANDO_3.jpg',                  x:27.5, y:37, w:14, r:'-6deg', z:3, m:[85, 20, 24] },
-    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__2.jpg', x:9.5,  y:46, w:13, r:'3deg',  z:1, m:[13, 20, 21] },
-    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',           x:28,   y:63, w:18, r:'4deg',  z:2, m:[49, 20, 40] },
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg',      x:10,   y:82, w:19, r:'-3deg', z:3, m:[27, 32, 42] },
-    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg',      x:28,   y:88, w:17, r:'-5deg', z:4, m:[73, 32, 40] }
+    { f:'FUGLY_LORENA_ORLANDO__1.jpg',                x:10,   y:15, w:23, r:'-8deg',  z:2, m:[24, 7, 44] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_2.jpg',           x:31,   y:12, w:14, r:'9deg',   z:1, m:[74, 8, 34] },
+    { f:'BODY_LORENA_ORLANDO_3.jpg',                  x:27,   y:40, w:11, r:'-13deg', z:3, m:[86, 21, 22] },
+    { f:'LETTERS_YOUNGER_SELF_LORENA_ORLANDO__2.jpg', x:8.5,  y:47, w:16, r:'6deg',   z:1, m:[14, 21, 25] },
+    { f:'EMBODIMENTS_LORENA_ORLANDO_3.jpg',           x:29,   y:67, w:21, r:'4deg',   z:2, m:[50, 21, 38] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_2.jpg',      x:9.5,  y:81, w:17, r:'-6deg',  z:3, m:[27, 33, 46] },
+    { f:'MANIC_DEPRESSIVE_LORENA_ORLANDO_1.jpg',      x:25,   y:91, w:12, r:'12deg',  z:4, m:[75, 33, 34] }
   ];
   var photoWrap = document.getElementById('photos');
   PHOTOS.forEach(function(ph, i){
@@ -898,8 +1186,8 @@ fotográfica</button>
   });
 
   /* ---------- ANIMACIÓN ----------
-     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart, 6 diseño web. Las subpantallas (ficha de un disco, "mi historia"
-     en la música o en la fotografía) solo se abren con click: van una más abajo de la pantalla de donde
+     Pantallas: 0 hola, 1 lista, 2 música, 3 fotografía, 4 escritura, 5 netart, 6 diseño web, 7 magick. Las subpantallas (ficha de un disco, "mi historia"
+     en la música, en la fotografía o esotérica) solo se abren con click: van una más abajo de la pantalla de donde
      salen (home) y, mientras tanto, lo que hay más abajo de home espera escondido. */
   var hero = document.getElementById('hero');
   var title = document.getElementById('heroTitle');
@@ -912,17 +1200,22 @@ fotográfica</button>
   var write = document.getElementById('write');
   var net = document.getElementById('net');
   var web = document.getElementById('web');
+  var magick = document.getElementById('magick');
+  var magickStory = document.getElementById('magickStory');
   var sub = album, home = 2;                         // subpantalla activa y pantalla a la que vuelve
   var subOpen = false, subMode = false;              // subMode: la transición entra o sale de una subpantalla
+  var prevSub = null, swapT0 = 0, returnTo = null;   // de una subpantalla a otra (mi historia → ficha → mi historia)
   var model = document.getElementById('model');
   var organ = document.getElementById('organ');
   var zenit = document.getElementById('zenit');
   var lapi = document.getElementById('lapi');
   var logo3d = document.getElementById('logo3d');
   var compu = document.getElementById('compu');
-  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [album, 's'], [story, 's'], [photoStory, 's']];
+  var vela = document.getElementById('vela');
+  var LAYERS = [[hero, 0], [title, 0], [about, 1], [music, 2], [photo, 3], [write, 4], [net, 5], [web, 6], [magick, 7], [album, 's'], [story, 's'], [photoStory, 's'], [magickStory, 's']];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var target = 0, current = 0, from = 0, t0 = -1e9;
+  var ready = false, warmAll = false;           // ready: ya terminó el preloader
   var DURATION = 1100;                               // ms por transición, sin importar los fps
   var SCALE_END = 0.65, SHIFT_X = -27, SHIFT_Y = 2;
 
@@ -936,8 +1229,10 @@ fotográfica</button>
     return [-115, -5];
   }
   function render(p){
+    if (warmAll) { LAYERS.forEach(function(l){ l[0].style.transform = 'none'; }); return; }
     LAYERS.forEach(function(l){
-      var t = place(l[1] === 's' ? (subMode && l[0] === sub ? p - home - 1 : -1) : subMode && l[1] > home ? -1 : p - l[1]);
+      var sw = prevSub ? (reduce ? 1 : clamp01((performance.now() - swapT0) / DURATION)) : 0;
+      var t = place(l[1] === 's' ? (prevSub && l[0] === prevSub ? sw : prevSub && l[0] === sub ? sw - 1 : subMode && l[0] === sub ? p - home - 1 : -1) : prevSub && !subOpen && l[1] === target ? sw - 1 : subMode && l[1] > home ? -1 : p - l[1]);
       l[0].style.transform = 'translateY(' + t[0] + 'vh) rotate(' + t[1] + 'deg)';
     });
     var e = ease(clamp01(p)), e2 = ease(clamp01(p - 1));   // 0→1: la cabeza se reduce; 1→2: sube con la lista
@@ -950,12 +1245,18 @@ fotográfica</button>
   function tick(){
     var k = reduce ? 1 : Math.min(1, (performance.now() - t0) / DURATION);
     current = from + (target - from) * k;
-    if (current !== last) { render(current); last = current; }
+    if (current !== last || prevSub) { render(current); last = current; }
+    if (prevSub && (reduce || performance.now() - swapT0 >= DURATION)) { prevSub = null; last = -1; }
     requestAnimationFrame(tick);
   }
+  // analytics: qué pantallas se ven (el sitio no cambia de URL, así que se manda un evento por pantalla)
+  var SECTION_NAMES = ['hero', 'titulos', 'musica', 'fotografia', 'escritura', 'netart', 'diseno_web', 'magick'];
+  function track(name, params){ try { if (window.gtag) gtag('event', name, params || {}); } catch (e) {} }
   function go(v, asSub){
+    document.documentElement.classList.add('noframes');
     var wasSub = subOpen;
     subOpen = !!asSub;
+    if (ready && !asSub && (v !== target || wasSub)) track('section_view', {section_name: SECTION_NAMES[v] || String(v)});
     if (v !== target || wasSub !== subOpen) { from = current; target = v; t0 = performance.now(); subMode = wasSub || subOpen; }
     // solo la pantalla visible es enfocable/clicable (eng/esp no se alcanza con Tab en las demás)
     LAYERS.forEach(function(l){ l[0].inert = subOpen ? l[0] !== sub : l[1] !== v; });
@@ -968,12 +1269,39 @@ fotográfica</button>
     if (v >= 3) loadGlb(lapi, 'LAPI_EXP.glb');
     if (v >= 4) loadGlb(logo3d, 'LOGO_COMP.glb');
     if (v >= 5) loadGlb(compu, 'COMPU_VIEJA.glb');
+    if (v >= 6) loadGlb(vela, 'VELA.glb');
     if (v === 4) loadWrite();
     // diseño web: el iframe se carga al entrar
     if (v === 6) web.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
+    navUpdate(v);
   }
-  var LAST = 6;                                      // última pantalla
-  function step(dir){ if (!subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
+  // aviso de scroll: cada caja con scroll propio lleva al pie un "desliza" que se va al llegar al final
+  var SCROLLERS = document.querySelectorAll('.mpanel, .album-info, .tale, .album-in, .story-in');
+  SCROLLERS.forEach(function(el){
+    var h = document.createElement('div'); h.className = 'shint'; h.setAttribute('aria-hidden', 'true');
+    h.innerHTML = '<span><svg viewBox="0 0 40 52"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg><b data-es="desliza" data-en="scroll">desliza</b></span>';
+    h.querySelector('b').style.fontWeight = '400';
+    el.appendChild(h);
+    el.addEventListener('scroll', function(){ moreCheck(el); }, {passive:true});
+  });
+  function moreCheck(el){ el.classList.toggle('more', el.scrollHeight - el.clientHeight - el.scrollTop > 8 && getComputedStyle(el).overflowY !== 'visible'); }
+  setInterval(function(){ SCROLLERS.forEach(moreCheck); }, 600);   // el contenido cambia al abrir fichas o cambiar de idioma
+  // menú flotante: visible desde música (2) en adelante, fuera de las subpantallas
+  var secnav = document.getElementById('secnav'), navToggle = secnav.querySelector('.secnav-toggle');
+  function navUpdate(v){
+    secnav.classList.toggle('show', ready && !subOpen && v >= 2);
+    if (!secnav.classList.contains('show')) { secnav.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); }
+    secnav.querySelectorAll('[data-go]').forEach(function(b){ b.setAttribute('aria-current', +b.dataset.go === v ? 'true' : 'false'); });
+  }
+  secnav.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ secnav.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); go(+b.dataset.go); });
+  });
+  navToggle.addEventListener('click', function(){
+    var o = secnav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', o ? 'true' : 'false');
+  });
+  var LAST = 7;                                      // última pantalla
+  function step(dir){ if (ready && !subOpen) go(Math.max(0, Math.min(LAST, target + dir))); }
   function busy(){ return performance.now() - t0 < DURATION; }
   window.addEventListener('resize', function(){ last = -1; });
   // al enfocar con Tab una portada que se sale de la pantalla, el navegador desplazaría el escenario
@@ -984,8 +1312,10 @@ fotográfica</button>
   document.getElementById('toWrite').addEventListener('click', function(){ go(4); });
   document.getElementById('toNet').addEventListener('click', function(){ go(5); });
   document.getElementById('toWeb').addEventListener('click', function(){ go(6); });
+  document.getElementById('toMagick').addEventListener('click', function(){ go(7); });
   // flechas de diseño web: la de abajo queda apagada mientras sea la última pantalla
   document.getElementById('webUp').addEventListener('click', function(){ step(-1); });
+  document.getElementById('toHome').addEventListener('click', function(){ go(0); });
   var webDown = document.getElementById('webDown');
   webDown.disabled = LAST <= 6;
   webDown.addEventListener('click', function(){ step(1); });
@@ -1026,8 +1356,29 @@ fotográfica</button>
   var opener = null;
   function para(html){ var p = document.createElement('p'); p.innerHTML = html; return p; }
   var art = album.querySelector('.album-art');
+  function swapTo(sec){ prevSub = sub; sub = sec; swapT0 = performance.now(); }
+  // datos separados por |: cada dato (menos el primero) va junto a su | para que, si pasa al renglón
+  // siguiente, el | quede al inicio de ese renglón y se pueda ocultar (trimSeps), en vez de quedar suelto al final
+  function joinSep(parts){
+    return parts.map(function(x, i){ return i ? '<i class="br"></i><span class="mi"><span class="sep" aria-hidden="true">|</span>' + x + '</span>' : x; }).join('');
+  }
+  function trimSeps(){
+    album.querySelectorAll('.album-meta, .album-credits .lbl').forEach(function(box){
+      var items = box.querySelectorAll('.mi');
+      items.forEach(function(it){ it.classList.remove('nl'); it.previousElementSibling.classList.remove('on'); });
+      // de a uno: si un dato bajó de renglón, se oculta su | y se fija el salto (si no, al quitar el | volvería a subir)
+      items.forEach(function(it){
+        var br = it.previousElementSibling, prev = br.previousElementSibling;
+        if (prev && it.offsetTop > prev.offsetTop + 2) { it.classList.add('nl'); br.classList.add('on'); }
+      });
+    });
+  }
+  window.addEventListener('resize', function(){ trimSeps(); });
   function openAlbum(al, btn){
+    track('album_open', {album_title: al.title});
     var l = document.documentElement.lang === 'en' ? 'en' : 'es';
+    if (subOpen && sub !== album) { returnTo = {sec: sub, home: home, opener: opener}; swapTo(album); }
+    else returnTo = null;
     opener = btn; sub = album; home = 2; last = -1;
     var img = document.getElementById('albumImg'), label = document.getElementById('albumLabel');
     // con video (En tu piel) el embed reemplaza a la portada
@@ -1041,7 +1392,6 @@ fotográfica</button>
     var t = document.getElementById('albumTitle');
     t.textContent = al.title;
     t.classList.toggle('long', al.title.length > 22);
-    var SEP = '<span class="sep" aria-hidden="true">|</span>';
     var parts = [];
     if (al.type) parts.push('<b>' + TYPES[al.type][l] + '</b>');
     if (al.genre) parts.push('<b>' + al.genre + '</b>');
@@ -1050,7 +1400,7 @@ fotográfica</button>
       var d = al.date, mo = d[1] ? MONTHS[l][d[1] - 1] : '';
       parts.push('<span>' + (!d[0] ? d[2] : l === 'en' ? mo + ' ' + d[0] + ', ' + d[2] : d[0] + ' de ' + mo + ' de ' + d[2]) + '</span>');
     }
-    document.getElementById('albumMeta').innerHTML = parts.join(SEP);
+    document.getElementById('albumMeta').innerHTML = joinSep(parts);
     var text = document.getElementById('albumText'); text.textContent = '';
     (al.info ? al.info[l] : []).forEach(function(h){ text.appendChild(para(h)); });
     text.hidden = !al.info;
@@ -1060,11 +1410,22 @@ fotográfica</button>
     al.credits[l].forEach(function(h){
       if (h.indexOf('## ') !== 0) return cr.appendChild(para(h));
       var sl = document.createElement('p'); sl.className = 'lbl'; sl.style.marginTop = '2.4vh';
-      sl.innerHTML = h.slice(3).split(' | ').map(function(x){ var b = document.createElement('b'); b.textContent = x; return b.outerHTML; }).join(SEP);
+      sl.innerHTML = joinSep(h.slice(3).split(' | ').map(function(x){ var b = document.createElement('b'); b.textContent = x; return b.outerHTML; }));
       cr.appendChild(sl);
     });
     var ul = document.getElementById('albumLinks'); ul.textContent = '';
-    ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links;
+    ul.hidden = album.querySelector('.listen-lbl').hidden = !al.links && !al.track;
+    requestAnimationFrame(trimSeps);
+    setTimeout(trimSeps, DURATION + 100);           // otra vez cuando la ficha ya terminó de entrar
+    if (al.track) {                                  // una canción suelta: reproductor de Bandcamp (La Resistance)
+      var tli = document.createElement('li'), bc = document.createElement('iframe');
+      tli.className = 'bc';
+      bc.title = al.track[1]; bc.loading = 'lazy'; bc.setAttribute('seamless', '');
+      // tema oscuro (letras claras sobre el panel morado) y links en mostaza
+      bc.src = 'https://bandcamp.com/EmbeddedPlayer/track=' + al.track[2] + '/size=large/bgcol=333333/linkcol=f4b342/tracklist=false/artwork=small/transparent=true/';
+      bc.innerHTML = '<a href="' + al.track[0] + '"></a>'; bc.firstChild.textContent = al.track[1];
+      tli.appendChild(bc); ul.appendChild(tli);
+    }
     if (al.links) PLATFORMS.forEach(function(pf){
       var li = document.createElement('li'), a = document.createElement('a');
       a.className = 'pf';
@@ -1080,6 +1441,13 @@ fotográfica</button>
     document.getElementById('back').focus({preventScroll:true});
   }
   function closeSub(){
+    if (sub === album && returnTo) {                 // la ficha se abrió desde mi historia: vuelve ahí
+      var r = returnTo, link = opener; returnTo = null;
+      swapTo(r.sec); home = r.home; opener = r.opener;
+      go(home + 1, true);
+      if (link) link.focus({preventScroll:true});
+      return;
+    }
     go(home);
     if (opener) opener.focus({preventScroll:true});
     // el video de la ficha se quita al terminar de salir, para que deje de sonar
@@ -1120,7 +1488,7 @@ fotográfica</button>
       }
     };
   }
-  var CAROUSELS = new Map([[story, makeCarousel(story)], [photoStory, makeCarousel(photoStory)]]);
+  var CAROUSELS = new Map([[story, makeCarousel(story)], [photoStory, makeCarousel(photoStory)], [magickStory, makeCarousel(magickStory)]]);
   // avanza solo hacia la izquierda, salvo mientras se lee un texto
   setInterval(function(){
     var car = subOpen && CAROUSELS.get(sub);
@@ -1128,17 +1496,37 @@ fotográfica</button>
     car.move(1);
   }, 6500);
   function openStory(sec, btn){
-    opener = btn; sub = sec; home = sec === photoStory ? 3 : 2; last = -1;
+    track('story_open', {story: sec === photoStory ? 'fotografia' : sec === magickStory ? 'magick' : 'musica'});
+    opener = btn; sub = sec; home = sec === photoStory ? 3 : sec === magickStory ? 7 : 2; last = -1;
     CAROUSELS.get(sec).load();
     go(home + 1, true);
     sec.querySelector('.back').focus({preventScroll:true});
   }
   document.getElementById('toStory').addEventListener('click', function(){ openStory(story, this); });
+  // links del texto de mi historia → ficha del disco o banda
+  // de una subpantalla directo a otra pantalla principal: la subpantalla sube y la pantalla entra desde abajo
+  function leaveSubTo(v){
+    prevSub = sub; swapT0 = performance.now(); returnTo = null;
+    subOpen = false; subMode = false; from = current = target = v; last = -1;
+    go(v);
+  }
+  story.querySelectorAll('a.go').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      if (a.dataset.go) return leaveSubTo(+a.dataset.go);
+      var al = ALBUMS.concat(PROJECTS).filter(function(x){ return x.f === a.dataset.open; })[0];
+      if (al) openAlbum(al, a);
+    });
+  });
   document.getElementById('toPhotoStory').addEventListener('click', function(){ openStory(photoStory, this); });
 
   // rueda / trackpad: un paso por gesto (la inercia del trackpad no encadena pantallas)
   // (un gesto = eventos seguidos con menos de 180 ms entre sí; los primeros del trackpad son diminutos)
   var lastWheel = 0, gestureUsed = false, overFrame = false;
+  // los iframes vuelven a recibir la rueda cuando la transición terminó, la rueda paró y se mueve el mouse
+  document.addEventListener('pointermove', function(){
+    if (!busy() && performance.now() - lastWheel > 400) document.documentElement.classList.remove('noframes');
+  });
   // sobre un iframe la rueda no llega aquí; al salir de él, la inercia que sigue no debe cambiar de pantalla
   document.addEventListener('pointerover', function(e){
     var f = e.target.tagName === 'IFRAME';
@@ -1146,27 +1534,46 @@ fotográfica</button>
     overFrame = f;
   });
   document.addEventListener('pointerout', function(e){ if (e.relatedTarget && e.relatedTarget.tagName === 'IFRAME') overFrame = true; });
+  // un panel con scroll propio (como el texto de magick) se desplaza primero; la pantalla no cambia mientras pueda
+  function scrolls(el, dy){
+    for (; el && el !== document.body; el = el.parentElement) {
+      if (el.scrollHeight > el.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(el).overflowY))
+        return dy === 0 || (dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 1 : el.scrollTop > 0);
+    }
+    return false;
+  }
+  var lastAbs = 0, stepAt = -1e9;
   window.addEventListener('wheel', function(e){
-    var now = performance.now();
-    if (now - lastWheel > 180) gestureUsed = false;
-    lastWheel = now;
-    if (subOpen || gestureUsed || Math.abs(e.deltaY) < 4 || busy()) return;
-    gestureUsed = true;
+    var now = performance.now(), a = Math.abs(e.deltaY), gap = now - lastWheel;
+    // gesto nuevo: una pausa clara, o un empujón más fuerte que la inercia que venía apagándose
+    if (gap > 260 || (gap > 90 && a > 24 && a > lastAbs * 2.5)) gestureUsed = false;
+    lastWheel = now; lastAbs = a;
+    if (scrolls(e.target, e.deltaY)) { gestureUsed = true; return; }
+    if (busy() || now - stepAt < DURATION + 250) { gestureUsed = true; return; }   // la rueda durante (y justo después de) una transición es parte de ella
+    if (subOpen || gestureUsed || a < 4) return;
+    gestureUsed = true; stepAt = now;
     step(e.deltaY > 0 ? 1 : -1);
   }, {passive:true});
   // táctil (deslizar)
   var x0 = null, y0 = null;
-  window.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+  var touchScroll = false, touchCtl = false;
+  window.addEventListener('touchstart', function(e){
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; touchScroll = scrolls(e.target, 0);
+    // un toque que empieza en un botón o link y se corre un poco no debe cambiar de pantalla (pasaba con "mi historia")
+    touchCtl = !!(e.target.closest && e.target.closest('button,a,.disc,model-viewer'));
+  }, {passive:true});
   window.addEventListener('touchend', function(e){
     if (y0 === null) return;
+    if (touchScroll) { x0 = y0 = null; return; }      // se deslizó dentro de un panel con scroll propio
     var dx = x0 - e.changedTouches[0].clientX, dy = y0 - e.changedTouches[0].clientY;
     // solo gestos verticales: arrastrar en horizontal para girar la cabeza no cambia de pantalla
-    if (Math.abs(dy) > 30 && Math.abs(dy) > Math.abs(dx)) step(dy > 0 ? 1 : -1);
+    if (Math.abs(dy) > (touchCtl ? 110 : 45) && Math.abs(dy) > Math.abs(dx) * 1.3) step(dy > 0 ? 1 : -1);
     else if (subOpen && CAROUSELS.has(sub) && Math.abs(dx) > 40 && e.target.closest && e.target.closest('.carousel')) CAROUSELS.get(sub).move(dx > 0 ? 1 : -1);
     x0 = y0 = null;
   }, {passive:true});
   // teclado
   window.addEventListener('keydown', function(e){
+    if (!ready) return;
     if (subOpen) {                                    // en la ficha las flechas hacen scroll del texto
       if (e.key === 'Escape') closeSub();
       if (CAROUSELS.has(sub) && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) CAROUSELS.get(sub).move(e.key === 'ArrowRight' ? 1 : -1);
@@ -1182,15 +1589,167 @@ fotográfica</button>
   if (reduce) document.querySelectorAll('model-viewer').forEach(function(m){ m.removeAttribute('auto-rotate'); });
   go(0); tick();
 
+  /* ---------- PRELOADER ----------
+     Carga todo antes de mostrar el sitio: fuentes, imágenes y todos los 3D. Luego, todavía tapado,
+     pone todas las pantallas en su sitio un momento para que los 3D se dibujen una vez (así no se traban
+     al aparecer por primera vez), y después muestra la página. */
+  (function(){
+    var pre = document.getElementById('preload'), bar = pre.querySelector('.pl-bar i'), num = pre.querySelector('.pl-n');
+    var parts = [], shown = 0, finished = false;
+    function part(){ var o = {v: 0}; parts.push(o); return o; }
+    /* idioma según el país de la IP: España y América Latina en español, el resto del mundo en inglés.
+       Si el servicio no responde en 2,5 s, se usa el idioma del navegador. */
+    var HISPANO = 'ES MX GT HN SV NI CR PA CU DO PR CO VE EC PE BO CL AR UY PY GQ BR'.split(' ');
+    var langPart = part(), langDone = false;
+    function pickLang(l){
+      if (langDone) return;
+      langDone = true; langPart.v = 1;
+      setLang(l, true);
+      pre.classList.add('lang');
+    }
+    function byBrowser(){ return (navigator.languages || [navigator.language || '']).some(function(x){ return /^es\b/i.test(x); }) ? 'es' : 'en'; }
+    function country(url){
+      return fetch(url, {cache: 'no-store'}).then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function(j){ if (!j.country) throw 0; return String(j.country).toUpperCase(); });
+    }
+    country('https://get.geojs.io/v1/ip/country.json')
+      .catch(function(){ return country('https://api.country.is/'); })
+      .then(function(c){ pickLang(HISPANO.indexOf(c) > -1 ? 'es' : 'en'); }, function(){ pickLang(byBrowser()); });
+    setTimeout(function(){ pickLang(byBrowser()); }, 2500);
+    function progress(){ return parts.reduce(function(a, o){ return a + o.v; }, 0) / parts.length; }
+    // fuentes
+    ['1em Lacquer', '1em "Funnel Display"', '700 1em "Funnel Display"'].forEach(function(f){
+      var o = part();
+      document.fonts.load(f).then(function(){ o.v = 1; }, function(){ o.v = 1; });
+    });
+    document.fonts.load('1em Lacquer').then(function(){ pre.classList.add('fonts'); }, function(){ pre.classList.add('fonts'); });
+    // 3D: todos, también los de las pantallas que se cargaban al llegar a ellas
+    loadGlb(organ, 'FUNMACHINE_EXP.glb'); loadGlb(zenit, 'ZENIT.glb'); loadGlb(lapi, 'LAPI_EXP.glb');
+    loadGlb(logo3d, 'LOGO_COMP.glb'); loadGlb(compu, 'COMPU_VIEJA.glb'); loadGlb(vela, 'VELA.glb');
+    CAROUSELS.get(story).load(); CAROUSELS.get(photoStory).load();
+    customElements.whenDefined('model-viewer').then(function(){
+      document.querySelectorAll('model-viewer[src]').forEach(function(m){
+        var o = part(), errors = 0;
+        m.setAttribute('loading', 'eager');
+        if (m.loaded) { o.v = 1; return; }
+        m.addEventListener('progress', function(e){ o.v = Math.max(o.v, Math.min(.99, e.detail.totalProgress)); });
+        m.addEventListener('load', function(){ o.v = 1; });
+        m.addEventListener('error', function(){ if (++errors >= 2) o.v = 1; });   // el 2º error: también falló el hosting
+      });
+    });
+    var mvPart = part();                              // hasta que exista model-viewer, cuenta como pendiente
+    customElements.whenDefined('model-viewer').then(function(){ mvPart.v = 1; });
+    // imágenes (nubes, portadas, fotos…): sin carga diferida
+    document.querySelectorAll('img').forEach(function(img){
+      var o = part();
+      img.loading = 'eager';
+      if (!img.getAttribute('src') || img.complete) { o.v = 1; return; }
+      img.addEventListener('load', function(){ o.v = 1; });
+      img.addEventListener('error', function(){ setTimeout(function(){ if (img.complete) o.v = 1; }, 50); });
+      setTimeout(function(){ o.v = 1; }, 20000);      // una imagen rota no deja la página tapada
+    });
+    function finish(){
+      if (finished) return;
+      finished = true;
+      warmAll = true; last = -1;
+      setTimeout(function(){
+        warmAll = false; last = -1;
+        ready = true;
+        navUpdate(target);
+        // links directos a una sección: lorenaorlando.com/#musica (lo usa la página de links)
+        var HASH = {titulos:1, musica:2, discografia:2, music:2, fotografia:3, photography:3, escritura:4, writing:4, netart:5, diseno:6, design:6, magick:7};
+        var hv = HASH[(location.hash || '').slice(1).toLowerCase()];
+        if (hv) setTimeout(function(){ go(hv); }, 300);
+        pre.classList.add('done');
+        setTimeout(function(){ pre.remove(); }, 700);
+        // los iframes externos cargan en segundo plano, ya con la página visible
+        web.querySelectorAll('iframe').forEach(function(f){ f.loading = 'eager'; if (!f.src) f.src = f.dataset.src; });
+        loadWrite();
+      }, 900);
+    }
+    setTimeout(finish, 40000);                        // red muy lenta: no dejar a nadie fuera
+    (function loop(){
+      var p = progress();
+      shown += (p - shown) * .12;
+      if (p >= 1 && shown > .995) shown = 1;
+      var pct = Math.round(shown * 100);
+      bar.style.width = pct + '%'; num.textContent = pct + '%'; pre.setAttribute('aria-valuenow', pct);
+      if (shown >= 1) finish(); else requestAnimationFrame(loop);
+    })();
+  })();
+
   /* ---------- IDIOMA ---------- */
   var buttons = document.querySelectorAll('[data-lang]');
-  function setLang(l){
+  function setLang(l, auto){
     document.documentElement.lang = l;
+    if (window.gtag) { gtag('set', 'user_properties', {site_language: l}); if (!auto) track('language_change', {language: l}); }
     document.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
+    document.querySelectorAll('[data-only]').forEach(function(el){ el.hidden = el.dataset.only !== l; });
     buttons.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false'); });
   }
   buttons.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
 })();
+</script>
+<div class="gaok" id="gaok" role="dialog" aria-labelledby="gaokT" hidden>
+  <p class="gaok-t" id="gaokT" data-es="¿me dejas contar las visitas?" data-en="can I count your visit?">¿me dejas contar las visitas?</p>
+  <p class="gaok-p" data-es="Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad." data-en="I use Google Analytics to see which parts of the site get seen the most. It uses cookies, but no ads.">Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad.</p>
+  <div class="gaok-b"><button type="button" id="gaokYes" data-es="dale!" data-en="sure!">dale!</button><button type="button" id="gaokNo" data-es="no, gracias" data-en="no, thanks">no, gracias</button></div>
+</div>
+<button type="button" class="gaok-link" id="gaokLink" hidden data-es="cookies" data-en="cookies">cookies</button>
+<style>
+  .gaok{position:fixed;z-index:900;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:12px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid rgba(255,240,214,.14);color:#FFF0D6;box-shadow:0 .4rem 1.4rem rgba(20,0,52,.45);font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.01em;transition:opacity .4s,translate .4s}
+  .gaok[hidden]{display:none}
+  .gaok.out{opacity:0;translate:0 12px}
+  .gaok-t{margin:0 0 6px;font-family:"Lacquer",cursive;font-size:20px;line-height:1.1;letter-spacing:.03em;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85)}
+  .gaok-p{margin:0 0 14px;font-size:15px;line-height:1.4}
+  .gaok-b{display:flex;gap:10px;flex-wrap:wrap}
+  .gaok-b button{all:unset;cursor:pointer;font-family:"Lacquer",cursive;font-size:16px;letter-spacing:.04em;line-height:1;padding:.6em 1.1em .65em;border-radius:999px;background:#FFF0D6;color:#360185;transition:background .2s,scale .2s}
+  .gaok-b button+button{background:transparent;color:#FFF0D6;box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.5)}
+  .gaok-b button:hover,.gaok-b button:focus-visible{background:#F4B342;color:#360185;scale:1.05}
+  .gaok-b button:focus-visible{outline:2px solid #FFF0D6;outline-offset:3px}
+  .gaok-link{all:unset;position:fixed;z-index:899;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));cursor:pointer;font-family:"Lacquer",cursive;font-size:13px;letter-spacing:.06em;color:#FFF0D6;opacity:.55;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85);padding:4px 6px}
+  .gaok-link[hidden]{display:none}
+  .gaok-link:hover,.gaok-link:focus-visible{opacity:1;color:#F4B342}
+  .gaok-link:focus-visible{outline:2px solid #FFF0D6;outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){.gaok{transition:none}}
+</style>
+<script>
+  (function(){
+    var KEY = 'ga-consent', box = document.getElementById('gaok'), link = document.getElementById('gaokLink');
+    var EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ');
+    var saved = null, asked = false; try { saved = localStorage.getItem(KEY); asked = localStorage.getItem('ga-asked') === '1'; } catch (e) {}
+    // quien vio el aviso tiene siempre a mano el link "cookies" para cambiar de opinión
+    function showLink(){ if (document.getElementById('preload')) return setTimeout(showLink, 400); link.hidden = false; }
+    link.addEventListener('click', function(){ box.classList.remove('out'); ask(); });
+    function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
+    function ask(){
+      // en el sitio, espera a que se vaya el preloader
+      if (document.getElementById('preload')) return setTimeout(ask, 400);
+      var l = lang();
+      box.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
+      box.hidden = false; link.hidden = true;
+      try { localStorage.setItem('ga-asked', '1'); } catch (e) {}
+    }
+    function choose(v){
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      if (v === 'yes') loadGA();
+      if (v === 'no' && window.__ga) {               // retira el permiso: borra las cookies de GA y recarga sin él
+        gtag('consent', 'update', {analytics_storage: 'denied'});
+        document.cookie.split(';').forEach(function(c){
+          var n = c.split('=')[0].trim();
+          if (/^_ga/.test(n)) [location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach(function(d){ document.cookie = n + '=; Max-Age=0; path=/; domain=' + d; document.cookie = n + '=; Max-Age=0; path=/'; });
+        });
+        return location.reload();
+      }
+      box.classList.add('out'); setTimeout(function(){ box.hidden = true; link.hidden = false; }, 400);
+    }
+    document.getElementById('gaokYes').addEventListener('click', function(){ choose('yes'); });
+    document.getElementById('gaokNo').addEventListener('click', function(){ choose('no'); });
+    if (saved) { if (saved === 'yes') loadGA(); if (asked) showLink(); return; }
+    // fuera de Europa se mide sin preguntar; si no se sabe el país, se pregunta
+    fetch('https://get.geojs.io/v1/ip/country.json', {cache: 'no-store'}).then(function(r){ return r.json(); })
+      .then(function(j){ var c = String(j.country || '').toUpperCase(); if (c && EU.indexOf(c) === -1) loadGA(); else ask(); }, ask);
+  })();
 </script>
 </body>
 </html>
