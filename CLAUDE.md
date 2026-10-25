@@ -35,6 +35,7 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Rueda e iframes.** Durante una transición y hasta que la rueda para y se mueve el mouse, los iframes llevan `pointer-events:none` (clase `noframes` en `<html>`); si no, el iframe se traga parte del gesto y la pantalla salta dos veces. La rueda que llega durante una transición cuenta como parte de ella.
 - **Menú flotante** (`.secnav`): aparece desde música hasta magick (no en el hero, ni en los títulos, ni en subpantallas). En escritorio, una píldora arriba al centro con las 6 secciones en Lacquer (la actual en mostaza). En móvil, un botón "menú" abajo a la derecha que despliega la lista.
 - **Flechas doodle** (`.doodle`, trazo a mano como Lacquer): en diseño web, a la izquierda del iframe (en móvil, arriba y abajo); en magick, una flecha con "inicio" debajo de la vela (en móvil, entre el título y las imágenes) que vuelve al hero.
+- **Sello funscroll (hero):** en la esquina inferior derecha de la primera pantalla, la imagen redonda "este es un sitio funscroll" (`FUNSCROLL_ES.png`) o "this is a funscroll site" (`FUNSCROLL_EN.png`) según el idioma (`data-only`), inclinada, que crece al hover y abre https://funscroll.life (`.fsbadge`).
 - **Hero en móvil:** todo un poco más abajo y, al pie, "scroll" con una flecha doodle que rebota (`.hscroll`, solo móvil).
 - **Táctil:** un deslizamiento cambia de pantalla si pasa de 45 px en vertical; si empieza sobre un botón, link, portada o 3D, hacen falta 110 px (si no, un toque algo corrido en "mi historia" mandaba a la pantalla anterior).
 - **Sin scroll real.** La rueda, el táctil (solo gestos verticales) y el teclado cambian de pantalla. Un gesto = una pantalla: la rueda cuenta como gesto nuevo solo tras una pausa de 260 ms o un empujón claramente más fuerte que la inercia, y se ignora durante la transición y 250 ms después. Si el cursor/dedo está sobre un panel con scroll propio que todavía puede desplazarse (función `scrolls()`), se desplaza el panel y no cambia la pantalla.
@@ -146,7 +147,7 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 
 ### Netart
 
-- `DIGITAL_IMAGE_WEB.png`: deardiary.png. `logo-redondo-amarillo.png`: logo redondo de funscroll (el que usa el sitio; `FUNSCROLL_WEB.png`, la imagen verde vieja, ya no se usa). `perfil-redes-amarillo.png`: perfil cuadrado de funscroll, en la página de links. `LORENALANDIA_3D_WEB.png`: lorenalandia (mundo 3D). Para indivirtual se reusa `INDIVIRTUAL_CUT.webp`.
+- `DIGITAL_IMAGE_WEB.png`: deardiary.png. `logo-redondo-amarillo.png`: logo redondo de funscroll (el que usa el sitio; `FUNSCROLL_WEB.png`, la imagen verde vieja, ya no se usa). `perfil-redes-amarillo.png`: perfil cuadrado de funscroll, en la página de links. `FUNSCROLL_ES.png` / `FUNSCROLL_EN.png`: sello "este es un sitio funscroll" / "this is a funscroll site" del hero. Los dos `...-redondo-amarillo (1).png` son copias de esos sellos y no se usan. `LORENALANDIA_3D_WEB.png`: lorenalandia (mundo 3D). Para indivirtual se reusa `INDIVIRTUAL_CUT.webp`.
 
 ### Escritura
 

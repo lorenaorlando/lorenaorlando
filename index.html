@@ -73,6 +73,12 @@
   .soy{position:absolute;left:16.5vw;top:30vh;font-family:var(--display);letter-spacing:.02em;font-size:9vw;line-height:1;font-weight:400;transform:rotate(10deg);text-shadow:var(--shadow)}
   .lorena{position:absolute;left:0;right:0;top:calc(47vh - 2.6vw);text-align:center;font-family:var(--display);font-weight:400;font-size:23.2vw;line-height:1;letter-spacing:0;text-shadow:var(--shadow);white-space:nowrap}
   .cosas{position:absolute;right:2vw;top:38vh;font-family:var(--display);letter-spacing:.02em;font-size:2.6vw;line-height:1;text-shadow:var(--shadow-sm)}
+  /* sello "este es un sitio funscroll", esquina inferior derecha del hero (imagen según idioma) */
+  .fsbadge{position:absolute;right:2.4vw;bottom:3vh;width:min(11vw,18.7vh);pointer-events:auto;rotate:8deg;filter:drop-shadow(.3vw .4vw .6vw rgba(54,1,133,.6));transition:scale .25s,rotate .25s}
+  .fsbadge img{display:block;width:100%;height:auto}
+  .fsbadge img[hidden]{display:none}
+  .fsbadge:hover,.fsbadge:focus-visible{scale:1.08;rotate:-4deg}
+  .fsbadge:focus-visible{outline:2px solid var(--crema);outline-offset:4px;border-radius:50%}
   .lang{position:absolute;right:4vw;top:7vh;display:flex;flex-direction:column;gap:1.6vh;pointer-events:auto;z-index:6}
   .lang button{all:unset;cursor:pointer;font-family:var(--display);letter-spacing:.02em;font-size:2.2vw;line-height:1;display:flex;align-items:center;gap:.3vw;color:var(--crema);text-shadow:var(--shadow-sm)}
   .lang button:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
@@ -385,6 +391,7 @@
     .soy{font-size:15vw;left:12vw;top:24vh}
     .lorena{font-size:29vw;top:calc(60vh - 3.2vw)}
     .cosas{font-size:5.6vw;top:74vh;right:auto;left:0;width:100%;text-align:center}
+    .fsbadge{width:20vw;right:4vw;bottom:3vh}
     .lang button{font-size:4.2vw}.lang .f{font-size:4.5vw}
     .titles{left:0;right:0;top:38vh}
     .word{font-size:12vw}
@@ -499,6 +506,7 @@
     </nav>
     <p class="hscroll" aria-hidden="true">scroll<svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg></p>
     <p class="cosas" data-es="y hago muuuchas cosas..." data-en="and I do sooo many things...">y hago muuuchas cosas...</p>
+    <a class="fsbadge" href="https://funscroll.life" target="_blank" rel="noopener" aria-label="funscroll"><img src="assets/FUNSCROLL_ES.png" alt="este es un sitio funscroll" data-only="es"><img src="assets/FUNSCROLL_EN.png" alt="this is a funscroll site" data-only="en" hidden></a>
   </div>
 
   <div class="model-wrap" id="model">
