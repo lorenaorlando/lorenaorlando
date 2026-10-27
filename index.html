@@ -444,7 +444,7 @@
     .cols .name{max-width:44vw;bottom:auto;top:92%}
     .cols .disc.noimg:not(.tapped) .name{top:50%;translate:-50% -50%;max-width:96%;padding:.1em .2em;font-size:16px;background:none;box-shadow:none}
     .cols .disc.noimg:not(.tapped) .name small{display:none}
-    .lvid{width:min(42vw,21vh);left:calc(var(--mx) * 1vw - min(21vw,10.5vh));top:calc(var(--my) * 1vh)}
+    .lvid{width:min(29vw,14.5vh);left:calc(var(--mx) * 1vw - min(14.5vw,7.25vh));top:calc(var(--my) * 1vh)}
     .live h3{display:none}
     .discs{inset:auto 0;top:43.6vh;display:grid;grid-template-columns:repeat(3,min(24vw,11.6vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
@@ -767,10 +767,6 @@ tarot reading app</span></a>
         <div>
           <h4>videos sobre mis procesos creativos</h4>
           <iframe data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PL60MOdz6hKw9bOQ5vBWMZ_QbCpI9uYQVq" title="Videos sobre mis procesos creativos" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-        </div>
-        <div>
-          <h4>selección de mantras contemporáneos</h4>
-          <iframe data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PL60MOdz6hKw9Q4vBK6C0TOsArrCfqvpoW" title="Selección de mantras contemporáneos" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
         </div>
         <div>
           <h4>streams de improvisación vocal con loops</h4>
@@ -1201,7 +1197,7 @@ tarot reading app</span></a>
     { f:'REINO.jpeg',      title:'Reino Fungi vol. 1', by:'Hilandera, Maricuir y Morirás Lejos', url:'https://open.spotify.com/album/3d4Bk104gwp03QELpXZ6MU' },
     { f:'BAUZA.jpg',       title:'Las flores', by:'Hilandera x Sebastián Bauza-Bueno', url:'https://sebastianbauza.bandcamp.com/track/las-flores' },
     { f:'LIENZOS.jpeg',    title:'Día a día', by:'Lienzos', url:'https://open.spotify.com/track/3WBLxi7Cu3B1OHCWUyw342' },
-    { f:'PUERTO_AZUL.jpeg', title:'Curarire', by:'', url:'https://open.spotify.com/album/1AyjQmNVdv7HcFAP282See' },
+    { f:'PUERTO_AZUL.jpeg', title:'Curarire', by:'Puerto Azul', url:'https://open.spotify.com/album/1AyjQmNVdv7HcFAP282See' },
     { f:'BAUZA_2.jpg',     title:'Apeirofobia', by:'Hilandera x Morßlumber x Sebastián Bauza-Bueno', url:'https://sebastianbauza.bandcamp.com/track/apeirofobia' },
     { f:'LAS_LUCES.jpg',   title:'Las luces', by:'Aida Rojas', url:'https://aidarojas.bandcamp.com/album/las-luces' },
     { f:'BRIGITTE.jpeg',   title:'Chronicle of an Original Doll', by:'Brigitte Olivares', url:'https://open.spotify.com/album/2mz3ehz76UjxdbXaPdi0Hb' }
@@ -1308,14 +1304,55 @@ tarot reading app</span></a>
      x/y = centro horizontal y borde de arriba (vw/vh), w = ancho; mx/my lo mismo en móvil */
   var LIVE_LIST = 'PL60MOdz6hKw_3WDkOLHahZmgNXRn-j8TP';
   var LIVE = [
-    {x:15, y:24, w:24, r:'-4deg', mx:27, my:43.5},
-    {x:21, y:47, w:22, r:'3deg',  mx:73, my:45},
-    {x:13, y:72, w:23, r:'-2deg', mx:27, my:56},
-    {x:80, y:10, w:24, r:'4deg',  mx:73, my:57.5},
-    {x:85, y:38, w:22, r:'-3deg', mx:27, my:68.5},
-    {x:78, y:65, w:25, r:'2deg',  mx:73, my:70}
+    {x:10, y:18, w:16, r:'-4deg', mx:18, my:44},
+    {x:23, y:25, w:15, r:'3deg',  mx:50, my:45},
+    {x:9,  y:43, w:15, r:'2deg',  mx:82, my:44},
+    {x:22, y:50, w:16, r:'-3deg', mx:18, my:54},
+    {x:11, y:68, w:16, r:'-2deg', mx:50, my:55},
+    {x:24, y:75, w:15, r:'4deg',  mx:82, my:54},
+    {x:75, y:13, w:16, r:'4deg',  mx:18, my:64},
+    {x:89.5, y:27, w:15, r:'-3deg', mx:50, my:65},
+    {x:75, y:43, w:15, r:'-2deg', mx:82, my:64},
+    {x:89, y:57, w:16, r:'3deg',  mx:34, my:74},
+    {x:77, y:73, w:16, r:'-4deg', mx:66, my:74.5}
   ];
   var liveWrap = document.getElementById('live');
+  // los videos de la playlist se piden a YouTube (API del iframe: getPlaylist) y van uno por iframe;
+  // si la API no responde, cada iframe arranca la playlist en otro video
+  var liveAsked = false;
+  function fillLive(ids){
+    liveWrap.querySelectorAll('.lvid').forEach(function(d, i){
+      if (d.firstChild) return;
+      if (ids && !ids[i]) { d.remove(); return; }
+      d.appendChild(ids ? ytFrame(ids[i], 'En vivo & covers ' + (i + 1)) : ytFrame('videoseries?list=' + LIVE_LIST + '&index=' + (i + 1), 'En vivo & covers ' + (i + 1)));
+    });
+  }
+  function loadLive(){
+    if (liveAsked) return;
+    liveAsked = true;
+    var done = false, probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;left:-9999px;top:0;width:320px;height:180px';
+    document.body.appendChild(probe);
+    function finish(ids){ if (done) return; done = true; fillLive(ids && ids.length ? ids : null); setTimeout(function(){ probe.remove(); }, 0); }
+    setTimeout(function(){ finish(null); }, 7000);
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function(){
+      if (prev) prev();
+      var tries = 0;
+      var pl = new YT.Player(probe, {host: 'https://www.youtube-nocookie.com', playerVars: {listType: 'playlist', list: LIVE_LIST},
+        events: {onReady: function(){
+          (function check(){
+            var ids = pl.getPlaylist && pl.getPlaylist();
+            if (ids && ids.length) { finish(ids); try { pl.destroy(); } catch (e) {} }
+            else if (++tries < 25) setTimeout(check, 200);
+          })();
+        }}});
+    };
+    var sc = document.createElement('script');
+    sc.src = 'https://www.youtube.com/iframe_api';
+    sc.onerror = function(){ finish(null); };
+    document.head.appendChild(sc);
+  }
   LIVE.forEach(function(v, i){
     var d = document.createElement('div');
     d.className = 'lvid';
@@ -1339,9 +1376,7 @@ tarot reading app</span></a>
     if (m === 'projects') oniriasWrap.querySelectorAll('.vid .frame:empty').forEach(function(fr){
       fr.appendChild(ytFrame(fr.parentNode.dataset.id, fr.parentNode.dataset.title));
     });
-    if (m === 'live') liveWrap.querySelectorAll('.lvid:empty').forEach(function(d){
-      d.appendChild(ytFrame('videoseries?list=' + LIVE_LIST + '&index=' + d.dataset.index, 'En vivo & covers ' + d.dataset.index));
-    });
+    if (m === 'live') loadLive();
   }
   Object.keys(MODES).forEach(function(k){
     MODES[k].btn.addEventListener('click', function(){ setMode(music.classList.contains(k) ? '' : k); });
