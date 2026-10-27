@@ -90,6 +90,7 @@
   .titles{position:absolute;top:0;bottom:0;left:46vw;right:3vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4vh}
   .word{pointer-events:auto;cursor:default;font-family:var(--display);font-size:min(6.4vw,11.6vh);line-height:1;letter-spacing:.02em;white-space:nowrap;text-shadow:var(--shadow)}
   .word:hover{animation:pulse .9s ease-in-out infinite}
+  .word small[hidden],.motitle small[hidden]{display:none!important}
   .word small{display:block;font-size:.34em;line-height:1;letter-spacing:.02em;margin-top:-.15em}
   .w7{rotate:1deg}
   button.word{background:none;border:0;padding:0;color:inherit;font-weight:400;cursor:pointer}
@@ -252,7 +253,7 @@
   .web .doodle{left:5vw}
   .web .doodle.up{top:42vh}
   .web .doodle.down{top:58vh}
-  .tohome{left:50vw;top:87vh}
+  .tohome{left:calc((100vw - min(76vw,1180px)) / 4);top:50vh}
   .dtitle{position:absolute;z-index:20;right:2.5vw;top:16vh;rotate:-8deg;font-family:var(--display);font-weight:400;font-size:4.2vw;line-height:1;letter-spacing:.02em;text-shadow:var(--shadow);pointer-events:none}
 
   /* SECCIÓN 8: MAGICK — texto de Pragmagicka a la izquierda, VELA al centro, pantallas de la app a la derecha (como en .net: --x/--y/--w/--r y etiqueta --lx/--ly/--lr) */
@@ -267,6 +268,11 @@
   .mpanel p{font-size:max(calc(1.5 * var(--uv)),20px);line-height:1.4;letter-spacing:-.015em;text-shadow:var(--shadow-sm)}
   .mpanel p+p{margin-top:1.2vh}
   .mpanel a{color:var(--mostaza)}
+  .phone img{border-radius:5.6%/2.75%}     /* las capturas traen el marco redondeado del teléfono */
+  .mstory{position:absolute;z-index:20;left:79vw;top:12.5vh;transform:translate(-50%,-50%);rotate:-3deg;max-width:24vw;font-family:var(--display);font-size:max(calc(1.9 * var(--uv)),20px);line-height:1.05;letter-spacing:.02em;text-align:center;color:inherit;text-decoration:none;text-shadow:var(--shadow-sm);pointer-events:auto;animation:rwpulse 2.6s ease-in-out infinite;transition:color .2s}
+  .mstory:hover,.mstory:focus-visible{color:var(--mostaza)}
+  .mstory:focus-visible{outline:2px solid var(--crema);outline-offset:6px}
+  @media (prefers-reduced-motion:reduce){.mstory{animation:none}}
   html[lang="en"] .magick .es,html:not([lang="en"]) .magick .en{display:none}
 
   /* SECCIÓN 9: OTROS PROYECTOS — título arriba y un panel largo con scroll propio (podcasts, streams y videos; en español) */
@@ -412,8 +418,9 @@
     .web .doodle{left:50vw}
     .web .doodle.up{top:5vh}
     .web .doodle.down{top:95vh}
-    .tohome{left:50vw;top:27vh}
-    .tohome span{display:none}
+    .tohome{left:11vw;top:94.5vh}
+    .tohome svg{width:26px}
+    .tohome span{font-size:16px}
   }
   @media (max-width:700px){
     .social{left:50%;top:39vh;gap:4.5vw}
@@ -516,12 +523,11 @@
     .vela{top:10vh;width:44vw;height:14vh}
     .mgtitle{left:50vw;top:19vh;font-size:12vw;rotate:5deg}
     .mhistoria{left:50vw;top:26vh;font-size:max(5vw,20px);rotate:-3deg}
-    .magick .nitem img{width:min(48vw,27vh);left:calc(var(--mx) * 1vw - min(48vw,27vh) / 2)}
-    .magick .nitem span{top:calc(var(--my) * 1vh + min(24vw,13.5vh) + 2.5vh);font-size:max(4.4vw,20px)}
-    .magick .nitem.en img{width:min(40vw,22vh);left:calc(50vw - min(40vw,22vh) / 2)}   /* PRAG_ENG es más alta que ancha */
-    .magick .nitem.en span{top:calc(var(--my) * 1vh + min(25.8vw,14.2vh) + 2.5vh)}
-    .mhead{left:50vw;top:66.5vh;font-size:6vw;rotate:-2deg}
-    .mpanel{left:4vw;top:70vh;width:92vw;max-height:27vh;padding:4vw 5vw;border-radius:3vw}
+    .magick .nitem img{width:min(30vw,11vh);left:calc(var(--mx) * 1vw - min(15vw,5.5vh))}
+    .magick .nitem span{top:calc(var(--my) * 1vh + min(30.3vw,11.1vh) + 6vh);font-size:max(4.4vw,20px)}
+    .mstory{left:50vw;top:26.5vh;max-width:92vw;font-size:max(4.6vw,20px);rotate:-2deg}
+    .mhead{left:50vw;top:69vh;font-size:6vw;rotate:-2deg}
+    .mpanel{left:4vw;top:72.3vh;width:92vw;max-height:25vh;padding:4vw 5vw;border-radius:3vw}
     .mpanel p{font-size:max(3.8vw,20px);line-height:1.35}
     .mpanel p+p{margin-top:.8vh}
     .motitle{top:7.5vh;font-size:9vw}
@@ -722,23 +728,24 @@ arte sonoro</button>
         loading="lazy" reveal="auto"></model-viewer>
     </div>
     <h2 class="mgtitle">magick</h2>
-    <button type="button" class="doodle up tohome" id="toHome" aria-label="Volver al inicio"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg><span data-es="inicio" data-en="home">inicio</span></button>
-    <!-- esp: pragmagick.app y amigah; eng: solo pragmagick.app en inglés (PRAG_ENG) -->
-    <a class="nitem es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:82.3;--y:29;--w:26;--r:8deg;--z:1;--lx:65;--ly:30;--lr:-6deg;--mx:26;--my:43">
-      <img data-f="PRAGMAGICKAPP.png" alt=""><span>Pragmagick.app
+    <!-- capturas de la app en vertical: esp inicio + amigah; eng solo inicio (la portada de la app es bilingüe) -->
+    <a class="mstory rw" href="https://pragmagick.app/story" target="_blank" rel="noopener"><span data-es="mira mi historia interactiva con el tarot" data-en="see my interactive story with the tarot">mira mi historia interactiva con el tarot</span></a>
+    <a class="nitem phone es" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:71;--y:50;--w:17.5;--r:-4deg;--z:1;--lx:70;--ly:87;--lr:-4deg;--mx:28;--my:43">
+      <img data-f="01-inicio_prag.png" alt=""><span>Pragmagick.app
 app de lecturas
 de tarot</span></a>
-    <a class="nitem es" href="https://pragmagick.app/amigah" target="_blank" rel="noopener" style="--x:85;--y:71;--w:28;--r:-6deg;--z:2;--lx:69;--ly:71;--lr:7deg;--mx:74;--my:43">
-      <img data-f="AMIGAH.png" alt=""><span>AMIGAAAAAH
+    <a class="nitem phone es" href="https://pragmagick.app/amigah" target="_blank" rel="noopener" style="--x:87.5;--y:53;--w:17.5;--r:5deg;--z:2;--lx:88;--ly:89;--lr:4deg;--mx:72;--my:44">
+      <img data-f="17-amigah-saludo.png" alt=""><span>AMIGAAAAAH
 oráculo de
 stickers</span></a>
-    <a class="nitem en" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:83.8;--y:52;--w:26.4;--r:0deg;--z:1;--lx:68.5;--ly:15;--lr:-6deg;--mx:50;--my:44">
-      <img data-f="PRAG_ENG.png" alt=""><span>Pragmagick.app
+    <a class="nitem phone en" href="https://pragmagick.app/" target="_blank" rel="noopener" style="--x:80;--y:51;--w:18;--r:3deg;--z:1;--lx:80;--ly:88;--lr:-3deg;--mx:50;--my:43">
+      <img data-f="01-inicio_prag.png" alt=""><span>Pragmagick.app
 tarot reading app</span></a>
   </div>
 
   <div class="layer more" id="more">
     <h2 class="motitle"><span data-es="otros proyectos" data-en="other projects">otros proyectos</span><small data-only="en" hidden>(spanish)</small></h2>
+    <button type="button" class="doodle up tohome" id="toHome" aria-label="Volver al inicio"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20.5 48C19.2 40 21.6 31 19.8 22C19.2 17 20.6 12 20.2 7M7.5 19.5C11.5 16.5 15.8 11.5 20.2 5.5C24 10.8 28.4 15.4 33 18.2"/></svg><span data-es="inicio" data-en="home">inicio</span></button>
     <div class="mobox">
       <section>
         <h3>podcasts</h3>
