@@ -123,8 +123,8 @@
   .disc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
   .disc:hover,.disc:focus-visible{z-index:30}
   /* OTROS PROYECTOS: los discos salen volando (--fx/--fy/--fr/--d desde el JS) y entran las portadas de proyectos y los videos */
-  .discs .disc,.music.projects .projs .disc,.music.projects .vid,.music.projects .onirias h3,.music.collabs .cols .disc,.music.live .livebox{transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s var(--d,0s),visibility 0s 0s}
-  .music.mode .discs .disc,.projs .disc,.vid,.onirias h3,.cols .disc,.livebox{opacity:0;visibility:hidden;pointer-events:none;transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s calc(var(--d,0s) + .3s),visibility 0s calc(var(--d,0s) + .9s)}
+  .discs .disc,.music.projects .projs .disc,.music.projects .vid,.music.projects .onirias h3,.music.collabs .cols .disc,.music.live .lvid,.music.live .live h3{transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s var(--d,0s),visibility 0s 0s}
+  .music.mode .discs .disc,.projs .disc,.vid,.onirias h3,.cols .disc,.lvid,.live h3{opacity:0;visibility:hidden;pointer-events:none;transition:translate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),rotate .9s cubic-bezier(.55,0,.25,1) var(--d,0s),opacity .6s calc(var(--d,0s) + .3s),visibility 0s calc(var(--d,0s) + .9s)}
   .music.mode .discs .disc{translate:var(--fx) var(--fy);rotate:calc(var(--r) + var(--fr))}
   .projs{position:absolute;inset:0;pointer-events:none}
   .projs .disc{translate:-70vw 0;rotate:calc(var(--r) - 50deg)}
@@ -142,10 +142,11 @@
   .cols .disc.tapped{z-index:30}
   .cols .disc.tapped .lp{translate:calc(var(--dir) * 46%) 0;animation-play-state:running}
   .cols .disc.tapped .name{opacity:1;transform:none}
-  .livebox{position:absolute;left:61vw;top:24vh;width:35vw;--r:2deg;translate:70vw 0;rotate:calc(var(--r) + 25deg)}
-  .music.live .livebox{translate:0 0;rotate:var(--r);opacity:1;visibility:visible;pointer-events:auto;--d:.35s}
-  .livebox h3{margin-bottom:1.4vh;font-weight:400;font-size:2.4vw;line-height:1;text-shadow:var(--shadow-sm)}
-  .livebox .frame iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--morado);box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .live{position:absolute;inset:0;pointer-events:none;--u:min(1vw,1.78vh)}
+  .lvid{position:absolute;width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh);translate:calc(var(--side) * 70vw) 0;rotate:calc(var(--r) + var(--side) * 30deg)}
+  .lvid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:var(--morado);box-shadow:.3vw .5vw 1.2vw rgba(54,1,133,.45)}
+  .live h3{position:absolute;left:14vw;top:13vh;transform:translate(-50%,-50%);--r:-4deg;--side:-1;translate:-70vw 0;rotate:calc(var(--r) - 30deg);font-weight:400;font-size:2.4vw;line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm)}
+  .music.live .lvid,.music.live .live h3{translate:0 0;rotate:var(--r);opacity:1;visibility:visible;pointer-events:auto;--d:calc(var(--i) * .08s + .35s)}
   .onirias h3{position:absolute;left:79vw;top:6vh;transform:translateX(-50%);--r:-3deg;font-weight:400;font-size:2.4vw;line-height:1;white-space:nowrap;text-shadow:var(--shadow-sm)}
   .onirias h3 b{font-weight:400;color:var(--mostaza)}
   .vid{position:absolute;width:calc(var(--w) * var(--u));left:calc(var(--x) * 1vw - var(--w) * var(--u) / 2);top:calc(var(--y) * 1vh)}
@@ -369,7 +370,7 @@
   .tale a.go:hover,.tale a.go:focus-visible,.tale a.ext:hover,.tale a.ext:focus-visible{color:var(--crema);outline:none}
   .tale .coda{margin-top:4vh;font-size:max(calc(2.2 * var(--uv)),23px);letter-spacing:.012em}
 
-  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.livebox,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
+  @media (prefers-reduced-motion:reduce){.lp{animation:none!important;transition:none!important}.disc,.vid,.onirias h3,.lvid,.live h3,.slide,.tapme,.tapcloud,.ph,.ph img,.indi,.nitem img{transition:none!important;animation:none!important}}
 
   #status{position:absolute;left:2vw;bottom:2vh;z-index:9;font:14px/1.3 system-ui,sans-serif;letter-spacing:0;color:var(--crema);background:var(--morado);padding:8px 12px;border-radius:8px;max-width:80vw}
 
@@ -380,7 +381,7 @@
   button.rw.t:hover,button.rw.t:focus-visible{color:var(--mostaza)}
   @keyframes rwpulse{0%,100%{scale:1;translate:0 0}12%{scale:1.08}20%{translate:-.12em 0}26%{translate:.12em 0}32%{translate:-.08em 0}38%{scale:1;translate:0 0}}
   @media (prefers-reduced-motion:reduce){button.rw.t{animation:none}}
-  .music .t,.photo .t,.onirias h3,.livebox h3,.motitle,.mobox h3,.mobox h4,.tapcloud,.tapme,.indi span,.nitem span,.mhead,.mhistoria,.back,.name,.vid p,.listen-lbl,.album-credits .lbl,.instr,.secnav{font-family:var(--display)!important;letter-spacing:.02em!important}
+  .music .t,.photo .t,.onirias h3,.live h3,.motitle,.mobox h3,.mobox h4,.tapcloud,.tapme,.indi span,.nitem span,.mhead,.mhistoria,.back,.name,.vid p,.listen-lbl,.album-credits .lbl,.instr,.secnav{font-family:var(--display)!important;letter-spacing:.02em!important}
 
   /* MENÚ FLOTANTE de secciones: aparece desde música en adelante (no en el hero ni en las subpantallas) */
   .secnav{--uv:min(1vw,1.7vh);position:fixed;z-index:60;left:50%;top:1.6vh;translate:-50% -1.5vh;opacity:0;visibility:hidden;transition:opacity .4s,translate .4s,visibility 0s .4s}
@@ -443,8 +444,8 @@
     .cols .name{max-width:44vw;bottom:auto;top:92%}
     .cols .disc.noimg:not(.tapped) .name{top:50%;translate:-50% -50%;max-width:96%;padding:.1em .2em;font-size:16px;background:none;box-shadow:none}
     .cols .disc.noimg:not(.tapped) .name small{display:none}
-    .livebox{left:5vw;top:45vh;width:90vw}
-    .livebox h3{font-size:max(4.6vw,20px)}
+    .lvid{width:min(42vw,21vh);left:calc(var(--mx) * 1vw - min(21vw,10.5vh));top:calc(var(--my) * 1vh)}
+    .live h3{display:none}
     .discs{inset:auto 0;top:43.6vh;display:grid;grid-template-columns:repeat(3,min(24vw,11.6vh));gap:min(3vw,1.6vh);justify-content:center}
     .disc{position:relative;left:auto;top:auto;width:auto;rotate:calc(var(--r) * .4)}
     .projs .disc{position:absolute;width:min(24vw,11.6vh);left:calc(var(--mx) * 1vw - min(24vw,11.6vh) / 2);top:44vh}
@@ -623,9 +624,8 @@ arte sonoro</button>
     <button type="button" class="t mbtn tolive" id="toLive" aria-pressed="false" data-es="en vivo &amp; covers" data-en="live &amp; covers">en vivo &amp; covers</button>
     <div class="discs" id="discs"></div>
     <div class="cols" id="cols"></div>
-    <div class="livebox" id="livebox">
-      <h3 data-es="en vivo &amp; covers" data-en="live &amp; covers">en vivo &amp; covers</h3>
-      <div class="frame" data-list="PL60MOdz6hKw_3WDkOLHahZmgNXRn-j8TP"></div>
+    <div class="live" id="live">
+      <h3 style="--i:0" data-es="en vivo &amp; covers" data-en="live &amp; covers">en vivo &amp; covers</h3>
     </div>
     <div class="projs" id="projs"></div>
     <div class="onirias" id="onirias">
@@ -1192,20 +1192,19 @@ tarot reading app</span></a>
   ];
   /* Collabs: portadas que llevan directo al link (no abren ficha). f = archivo en assets/collabs/ (sin f: recuadro violeta
      con el nombre); el lugar en el collage sale de COL_POS por orden (x, y, lado, giro, z, hacia dónde sale el LP). */
-  var SP = 'https://open.spotify.com/search/', BC = 'https://bandcamp.com/search?q=';
   var COLLABS = [
-    { f:'MENOLES.jpg',     title:'Es insostenible estar contigo', by:'Menoles feat. Hilandera', url:BC + 'Es%20Insostenible%20Estar%20Contigo%20Menoles' },
-    { f:'GIMNASTA.jpeg',   title:'Alimentado', by:'Gimnasta', url:SP + 'Alimentado%20Gimnasta' },
-    { f:'GIMNASTA2.jpeg',  title:'Las olas', by:'Gimnasta', url:SP + 'Las%20Olas%20Gimnasta' },
-    { f:'SR_AMABLE.jpeg',  title:'Paredón (Hilandera remix)', by:'Sr. Amable', url:SP + 'Pared%C3%B3n%20Hilandera%20Remix%20Sr.%20Amable' },
-    { f:'MARTINEZ.jpg',    title:'I.S.M.', by:'Martínez', url:'https://soundcloud.com/search?q=I.S.M.%20Mart%C3%ADnez' },
-    { f:'REINO.jpeg',      title:'Reino Fungi vol. 1', by:'Hilandera, Maricuir y Morirás Lejos', url:SP + 'Reino%20Fungi%20Vol.%201' },
-    { f:'BAUZA.jpg',       title:'Las flores', by:'Hilandera x Sebastián Bauza-Bueno', url:BC + 'Las%20Flores%20Hilandera%20Bauza-Bueno' },
-    { f:'LIENZOS.jpeg',    title:'Día a día', by:'Lienzos', url:SP + 'Dia%20A%20Dia%20Lienzos' },
-    { f:'PUERTO_AZUL.jpeg', title:'Curarire', by:'', url:SP + 'Curarire' },
-    { f:'BAUZA_2.jpg',     title:'Apeirofobia', by:'Hilandera x Morßlumber x Sebastián Bauza-Bueno', url:BC + 'Apeirofobia%20Bauza-Bueno' },
-    { f:'LAS_LUCES.jpg',   title:'Las luces', by:'Aida Rojas', url:BC + 'Las%20Luces%20Aida%20Rojas' },
-    { f:'BRIGITTE.jpeg',   title:'Chronicle of an Original Doll', by:'Brigitte Olivares', url:SP + 'Chronicle%20of%20an%20Original%20Doll%20Brigitte%20Olivares' }
+    { f:'MENOLES.jpg',     title:'Es insostenible estar contigo', by:'Menoles feat. Hilandera', url:'https://menoles.bandcamp.com/track/es-insostenible-estar-contigo-feat-hilandera' },
+    { f:'GIMNASTA.jpeg',   title:'Alimentado', by:'Gimnasta', url:'https://open.spotify.com/track/0CSrXHRUhhzm6ex1jXrnDm' },
+    { f:'GIMNASTA2.jpeg',  title:'Las olas', by:'Gimnasta', url:'https://open.spotify.com/track/3sJVW8kFLvJdmZQ6sUg036' },
+    { f:'SR_AMABLE.jpeg',  title:'Paredón (Hilandera remix)', by:'Sr. Amable', url:'https://open.spotify.com/track/3RL0VJUpEWC3L35MoYTA7E' },
+    { f:'MARTINEZ.jpg',    title:'I.S.M.', by:'Martínez', url:'https://soundcloud.com/mart-nez/i-s-m' },
+    { f:'REINO.jpeg',      title:'Reino Fungi vol. 1', by:'Hilandera, Maricuir y Morirás Lejos', url:'https://open.spotify.com/album/3d4Bk104gwp03QELpXZ6MU' },
+    { f:'BAUZA.jpg',       title:'Las flores', by:'Hilandera x Sebastián Bauza-Bueno', url:'https://sebastianbauza.bandcamp.com/track/las-flores' },
+    { f:'LIENZOS.jpeg',    title:'Día a día', by:'Lienzos', url:'https://open.spotify.com/track/3WBLxi7Cu3B1OHCWUyw342' },
+    { f:'PUERTO_AZUL.jpeg', title:'Curarire', by:'', url:'https://open.spotify.com/album/1AyjQmNVdv7HcFAP282See' },
+    { f:'BAUZA_2.jpg',     title:'Apeirofobia', by:'Hilandera x Morßlumber x Sebastián Bauza-Bueno', url:'https://sebastianbauza.bandcamp.com/track/apeirofobia' },
+    { f:'LAS_LUCES.jpg',   title:'Las luces', by:'Aida Rojas', url:'https://aidarojas.bandcamp.com/album/las-luces' },
+    { f:'BRIGITTE.jpeg',   title:'Chronicle of an Original Doll', by:'Brigitte Olivares', url:'https://open.spotify.com/album/2mz3ehz76UjxdbXaPdi0Hb' }
   ];
   // dos columnas a cada lado del órgano, medio desordenadas (el centro queda para los títulos)
   var COL_POS = [
@@ -1305,7 +1304,25 @@ tarot reading app</span></a>
     collabs:  {btn: document.getElementById('toCollabs'), es:'collabs', en:'collabs'},
     live:     {btn: document.getElementById('toLive'), es:'en vivo & covers', en:'live & covers'}
   };
-  var liveBox = document.getElementById('livebox');
+  /* En vivo & covers: videos de la playlist desperdigados a los dos lados (cada iframe arranca la playlist en otro video).
+     x/y = centro horizontal y borde de arriba (vw/vh), w = ancho; mx/my lo mismo en móvil */
+  var LIVE_LIST = 'PL60MOdz6hKw_3WDkOLHahZmgNXRn-j8TP';
+  var LIVE = [
+    {x:15, y:24, w:24, r:'-4deg', mx:27, my:43.5},
+    {x:21, y:47, w:22, r:'3deg',  mx:73, my:45},
+    {x:13, y:72, w:23, r:'-2deg', mx:27, my:56},
+    {x:80, y:10, w:24, r:'4deg',  mx:73, my:57.5},
+    {x:85, y:38, w:22, r:'-3deg', mx:27, my:68.5},
+    {x:78, y:65, w:25, r:'2deg',  mx:73, my:70}
+  ];
+  var liveWrap = document.getElementById('live');
+  LIVE.forEach(function(v, i){
+    var d = document.createElement('div');
+    d.className = 'lvid';
+    d.style.cssText = '--x:' + v.x + ';--y:' + v.y + ';--w:' + v.w + ';--r:' + v.r + ';--mx:' + v.mx + ';--my:' + v.my + ';--i:' + (i + 1) + ';--side:' + (v.x < 50 ? -1 : 1);
+    d.dataset.index = i + 1;
+    liveWrap.appendChild(d);
+  });
   function setMode(m){
     Object.keys(MODES).forEach(function(k){
       var on = k === m, b = MODES[k].btn;
@@ -1322,8 +1339,9 @@ tarot reading app</span></a>
     if (m === 'projects') oniriasWrap.querySelectorAll('.vid .frame:empty').forEach(function(fr){
       fr.appendChild(ytFrame(fr.parentNode.dataset.id, fr.parentNode.dataset.title));
     });
-    var lf = liveBox.querySelector('.frame');
-    if (m === 'live' && !lf.firstChild) lf.appendChild(ytFrame('videoseries?list=' + lf.dataset.list, 'En vivo & covers'));
+    if (m === 'live') liveWrap.querySelectorAll('.lvid:empty').forEach(function(d){
+      d.appendChild(ytFrame('videoseries?list=' + LIVE_LIST + '&index=' + d.dataset.index, 'En vivo & covers ' + d.dataset.index));
+    });
   }
   Object.keys(MODES).forEach(function(k){
     MODES[k].btn.addEventListener('click', function(){ setMode(music.classList.contains(k) ? '' : k); });
