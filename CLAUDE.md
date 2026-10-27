@@ -134,7 +134,7 @@ Los nombres distinguen mayúsculas y minúsculas (GitHub Pages): usarlos exactos
 
 ### Collabs (`collabs/`, pantalla 3, modo "collabs")
 
-`MENOLES.jpg` (Es insostenible estar contigo), `GIMNASTA.jpeg` (Alimentado), `GIMNASTA2.jpeg` (Las olas), `SR_AMABLE.jpeg` (Paredón, Hilandera remix), `MARTINEZ.jpg` (I.S.M.), `REINO.jpeg` (Reino Fungi vol. 1), `BAUZA.jpg` (Las flores), `LIENZOS.jpeg` (Día a día), `PUERTO_AZUL.jpeg` (Curarire), `BAUZA_2.jpg` (Apeirofobia), `LAS_LUCES.jpg` (Las luces, Aida Rojas), `BRIGITTE.jpeg` (Chronicle of an Original Doll). Sin portada todavía: Sentir > pensar (Morirás Lejos) y Memorabilia y amor (Corales). Algunos links de `COLLABS` son búsquedas en la plataforma hasta tener el link exacto.
+`MENOLES.jpg` (Es insostenible estar contigo), `GIMNASTA.jpeg` (Alimentado), `GIMNASTA2.jpeg` (Las olas), `SR_AMABLE.jpeg` (Paredón, Hilandera remix), `MARTINEZ.jpg` (I.S.M.), `REINO.jpeg` (Reino Fungi vol. 1), `BAUZA.jpg` (Las flores), `LIENZOS.jpeg` (Día a día), `PUERTO_AZUL.jpeg` (Curarire), `BAUZA_2.jpg` (Apeirofobia), `LAS_LUCES.jpg` (Las luces, Aida Rojas), `BRIGITTE.jpeg` (Chronicle of an Original Doll). Algunos links de `COLLABS` son búsquedas en la plataforma hasta tener el link exacto.
 
 ### Portadas de otros proyectos (pantalla 3, modo "otros proyectos")
 
