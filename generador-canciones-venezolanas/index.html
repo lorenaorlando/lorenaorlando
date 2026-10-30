@@ -189,7 +189,7 @@
     // frases construidas: cada una da una o dos líneas; la última palabra es la que rima
     var CONSTRUIDAS = [
       {id: 'quiero', banks: [ACCIONES, LUGARES], make: function(a, l){ return [a + ' en ' + l]; }},
-      {id: 'besos', banks: [CHUCHERIAS], make: function(c){ return ['porque tus besos saben a ' + c]; }},
+      {id: 'besos', noAbre: true, banks: [CHUCHERIAS], make: function(c){ return ['porque tus besos saben a ' + c]; }},
       {id: 'culo', banks: [OBJETOS], make: function(o){ return ['qué rico tu culo parece un ' + o]; }},
       {id: 'aliento', banks: [CHUCHERIAS], make: function(c){ return ['qué rico besarte con ese aliento a ' + c]; }},
       {id: 'comida', banks: [COMIDAS], pre: ['mami'], make: function(c){ return ['tas más rica que comerse ' + c + ' con las manos,', 'te lo digo de corazón, tú sabes que siempre hablo claro']; }},
@@ -199,7 +199,7 @@
       {id: 'sonrisa', banks: [PLAYAS], make: function(p){ return ['tu sonrisa es el sol de ' + p]; }},
       {id: 'fresas', banks: [MONTANAS], make: function(m){ return ['comiendo fresas con crema contigo en ' + m]; }},
       {id: 'bebiendo', banks: [BEBIDAS], make: function(b){ return ['bebiendo contigo ' + b]; }},
-      {id: 'espero', banks: [BEBIDAS], pre: ['baby', 'mami'], make: function(b){ return ['y te dije, mi amor a ti yo sí te espero,', 'bebiendo ' + b + ' que me pone sincero']; }},
+      {id: 'espero', noAbre: true, banks: [BEBIDAS], pre: ['baby', 'mami'], make: function(b){ return ['y te dije, mi amor a ti yo sí te espero,', 'bebiendo ' + b + ' que me pone sincero']; }},
       {id: 'hueles', banks: [FRUTAS], pre: ['baby', 'mami'], make: function(f){ return ['hueles a ' + f + ', qué rico mi amor']; }}
     ];
 
@@ -258,16 +258,16 @@
       }
       var ti = main(nuc[t]);
       var cons = plain(w.slice(ti)).replace(/h/g, '').replace(/z/g, 's').replace(/c(?=[ei])/g, 's').replace(/v/g, 'b').replace(/ll/g, 'y');
-      var ason = plain(w[ti]) + (t < nuc.length - 1 ? plain(w[main(nuc[nuc.length - 1])]) : '');
+      var ason = plain(w[ti]) + (t < nuc.length - 1 ? plain(w[main(nuc[nuc.length - 1])]) : '') + (t < nuc.length - 2 ? '*' : '');
       return {word: plain(word), cons: cons, ason: ason};
     }
     // 2 = consonante, 1 = asonante, 0 = no rima (una palabra nunca rima consigo misma)
     function rima(a, b){ return a.word === b.word ? 0 : a.cons === b.cons ? 2 : a.ason === b.ason ? 1 : 0; }
-    // palabras con contenido, para no repetir bancos ni imágenes dentro de la estrofa
+    // palabras con contenido (sin plural: grande = grandes), para no repetir bancos ni imágenes en la canción
     var VACIAS = 'como para pero mami baby amor contigo cuando porque siempre digo'.split(' ');
     function contenido(lines){
       var set = {};
-      lines.forEach(function(l){ wordsOf(l).forEach(function(x){ x = plain(x); if (x.length > 3 && VACIAS.indexOf(x) < 0) set[x] = 1; }); });
+      lines.forEach(function(l){ wordsOf(l).forEach(function(x){ x = plain(x); if (x.length > 3 && VACIAS.indexOf(x) < 0) set[x.replace(/s$/, '')] = 1; }); });
       return set;
     }
     function choca(a, b){ for (var k in a) if (b[k]) return true; return false; }
@@ -308,7 +308,7 @@
         var libres = VARIANTES.filter(function(v){ return !choca(v.words, b.words); });
         for (var i = 0; i < libres.length; i++) for (var j = 0; j < libres.length; j++) {
           var v1 = libres[i], v4 = libres[j];
-          if (v1.t === v4.t || v1.end.word === v4.end.word) continue;
+          if (v1.t.noAbre || v1.t === v4.t || v1.end.word === v4.end.word) continue;
           var s = puntaje(b, v1, v4);
           if (s < 3 || s < top - 1) continue;
           if (choca(v1.words, v4.words)) continue;
@@ -316,10 +316,10 @@
           cands.push({v1: v1, v4: v4, s: s});
         }
         if (!cands.length) continue;
-        var piso = top >= 6 ? Math.max(6, top - 1) : top;
+        var piso = top >= 8 ? 7 : top;
         cands = cands.filter(function(c){ return c.s >= piso; });
         if (!mejor || top > mejor.top) mejor = {b: b, cands: cands, top: top};
-        if (top >= 6) break;
+        if (top >= 7) break;
       }
       // variedad: primero un par de plantillas al azar, después una frase de ese par
       var grupos = {};
@@ -334,38 +334,52 @@
       l1[0] = pre1 + ', ' + l1[0];
       l4[0] = pre4 + ', ' + l4[0];
       var estrofa = l1.concat(mejor.b.lines, l4);
-      return {estrofa: estrofa, coro: coro(estrofa)};
+      var c = coro(estrofa);
+      return c ? {estrofa: estrofa, coro: c} : null;
+    }
+    // si para una estrofa no sale un coro que rime bien y distinto, se arma otra
+    function cancion(){
+      for (var k = 0; k < 30; k++) { var g = generar(); if (g) return g; }
     }
 
-    // coro: una frase hecha de dos versos que no salió en la estrofa, una construida que rime con ella
-    // y de remate otra construida que rime o la repetición del segundo verso (el gancho)
+    // coro: una frase hecha de dos versos que no salió en la estrofa y rima distinto,
+    // y dos construidas distintas que rimen con su segundo verso (sin repetir versos ni palabras finales)
     function prefijo(v, txt){
       var ops = v.t.pre || ['mi amor', 'baby', 'mami'];
       return (pick(ops.filter(function(p){ return txt.indexOf(p) < 0; })) || ops[0]) + ', ';
     }
     function coro(estrofa){
       var usadas = contenido(estrofa), finales = estrofa.map(rhymeOf);
-      var dobles = HECHAS_INFO.filter(function(h){ return h.lines.length === 2 && !choca(h.words, usadas); });
-      var propias = dobles.filter(function(h){ return !finales.some(function(f){ return rima(f, h.last) || f.word === h.last.word; }); });
-      if (propias.length) dobles = propias;
-      var mejor = null;
-      dobles.slice().sort(function(){ return Math.random() - .5; }).some(function(h){
-        var libres = VARIANTES.filter(function(v){ return !choca(v.words, usadas) && !choca(v.words, h.words) && rima(v.end, h.last); });
-        var cortas = libres.filter(function(v){ return v.lines.length === 1; });   // frases cortas, para cantar en grupo
-        if (cortas.length) libres = cortas;
-        if (!libres.length) return false;
-        var top = Math.max.apply(null, libres.map(function(v){ return rima(v.end, h.last); }));
-        if (!mejor || top > mejor.top) mejor = {h: h, libres: libres.filter(function(v){ return rima(v.end, h.last) === top; }), top: top};
-        return top === 2;
-      });
-      var h = mejor.h, txt = h.lines.join(' ').toLowerCase();
-      var c3 = pick(mejor.libres), l3 = c3.lines.slice(), c4;
-      l3[0] = prefijo(c3, txt) + l3[0];
-      var remates = mejor.libres.filter(function(v){ return v.t !== c3.t && v.end.word !== c3.end.word && !choca(v.words, c3.words); });
-      if (remates.length && Math.random() < .5) {
-        var v4 = pick(remates); c4 = v4.lines.slice(); c4[0] = prefijo(v4, txt + ' ' + l3[0]) + c4[0];
-      } else c4 = [h.lines[1]];
-      return h.lines.concat(l3, c4);
+      function nueva(e){ return !finales.some(function(f){ return rima(f, e) || f.word === e.word; }); }
+      function buscar(estricto){
+        var dobles = HECHAS_INFO.filter(function(h){ return h.lines.length === 2 && !choca(h.words, usadas) && nueva(h.last) && (!estricto || nueva(h.first)); });
+        var mejor = null;
+        dobles.slice().sort(function(){ return Math.random() - .5; }).some(function(h){
+          var libres = VARIANTES.filter(function(v){
+            return !choca(v.words, usadas) && !choca(v.words, h.words) && rima(v.end, h.last) && v.end.word !== h.first.word && (!estricto || nueva(v.end));
+          });
+          var cortas = libres.filter(function(v){ return v.lines.length === 1; });   // frases cortas, para cantar en grupo
+          if (cortas.length >= 2) libres = cortas;
+          var pares = [], top = 0;
+          libres.forEach(function(a){ libres.forEach(function(b){
+            if (a.t === b.t || a.end.word === b.end.word || choca(a.words, b.words)) return;
+            var s = rima(a.end, h.last) + rima(b.end, h.last) + (rima(a.end, b.end) === 2 ? 1 : 0);
+            if (s > top) { top = s; pares = []; }
+            if (s === top) pares.push([a, b]);
+          }); });
+          if (!pares.length) return false;
+          if (!mejor || top > mejor.top) mejor = {h: h, pares: pares, top: top};
+          return top >= 5;
+        });
+        return mejor;
+      }
+      var m = buscar(true) || buscar(false);
+      if (!m) return null;
+      var h = m.h, txt = m.h.lines.join(' ').toLowerCase();
+      var par = pick(m.pares), l3 = par[0].lines.slice(), l4 = par[1].lines.slice();
+      l3[0] = prefijo(par[0], txt) + l3[0];
+      l4[0] = prefijo(par[1], txt + ' ' + l3[0]) + l4[0];
+      return h.lines.concat(l3, l4);
     }
 
     // ===== interfaz =====
@@ -396,7 +410,7 @@
     // la letra no está al abrir: aparece al darle generar
     document.getElementById('gen').addEventListener('click', function(){
       var primera = letra.hidden;
-      pintar(generar()); letra.hidden = false;
+      pintar(cancion()); letra.hidden = false;
       if (primera) letra.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block: 'start'});
     });
 
