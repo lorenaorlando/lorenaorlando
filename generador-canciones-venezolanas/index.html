@@ -12,21 +12,6 @@
 <meta name="theme-color" content="#8441B7">
 <link rel="icon" type="image/png" href="../assets/FAVICON.png">
 <link rel="apple-touch-icon" href="../assets/FAVICON.png">
-<!-- Google Analytics (GA4) con consentimiento: no se carga nada hasta que hay permiso.
-     En la UE/EEE, Reino Unido y Suiza se pregunta con un aviso; en el resto del mundo se activa solo. -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
-  window.loadGA = function(){
-    if (window.__ga) return; window.__ga = true;
-    gtag('consent', 'update', {analytics_storage: 'granted'});
-    var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q';
-    document.head.appendChild(s);
-    gtag('js', new Date());
-    gtag('config', 'G-D5MZNYQB7Q');
-  };
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
@@ -86,12 +71,46 @@
   .acts button:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
   .acts svg{width:1em;height:auto;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
+  .by{display:flex;align-items:center;gap:10px}
+  .by img{width:64px;height:64px;rotate:-6deg;filter:drop-shadow(.12rem .18rem .35rem rgba(54,1,133,.6))}
+
+  /* la fórmula */
+  .formula{align-self:stretch;margin:clamp(30px,6vh,52px) 0 0;padding:clamp(22px,3.4vw,34px) clamp(20px,4vw,44px);border-radius:12px;background:var(--panel);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);rotate:.8deg}
+  .pasos{margin:0;padding:0;list-style:none;font-size:clamp(20px,2.4vw,24px);line-height:1.4;letter-spacing:-.015em}
+  .pasos b{font-weight:600;color:var(--mostaza)}
+  .formula .no{margin:1.3em 0 .4em;color:var(--crema)}
+  .prohibido{margin:0;font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.9}
+
+  /* ¿qué más se te ocurre? */
+  .mas{align-self:stretch;margin:clamp(48px,9vh,90px) 0 0}
+  .mas h2{margin:0 0 .5em;font-family:var(--display);font-weight:400;font-size:clamp(36px,6vw,58px);line-height:.95;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2deg}
+  .form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;padding:clamp(22px,3.4vw,34px);border-radius:12px;background:var(--panel);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  .form label{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .form label span{font-family:var(--display);font-size:20px;letter-spacing:.05em;color:var(--mostaza);text-shadow:var(--sombra-sm)}
+  .form .ancho{grid-column:1/-1}
+  .form input,.form select{font:500 20px/1.2 var(--texto);letter-spacing:-.015em;color:var(--crema);background:rgba(30,0,75,.62);border:1.5px solid rgba(255,240,214,.3);border-radius:10px;padding:.6em .75em;width:100%;min-width:0}
+  .form select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--crema) 50%),linear-gradient(135deg,var(--crema) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:2.2em}
+  .form option{background:var(--morado);color:var(--crema)}
+  .form input::placeholder{color:rgba(255,240,214,.5)}
+  .form input:focus,.form select:focus{outline:none;border-color:var(--mostaza)}
+  .honey{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .enviar{all:unset;cursor:pointer;justify-self:start;padding:.6em 1.3em .65em;border-radius:999px;background:var(--crema);color:var(--morado);font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;transition:background .2s,scale .2s}
+  .enviar:hover,.enviar:focus-visible{background:var(--mostaza);scale:1.05}
+  .enviar:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
+  .enviar[disabled]{opacity:.6;cursor:wait}
+  .estado{grid-column:1/-1;margin:0;font-size:20px;line-height:1.4;min-height:1.4em}
+  .estado.ok{color:var(--mostaza)}
+
   .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:50;translate:-50% 20px;opacity:0;pointer-events:none;font-family:var(--display);font-size:20px;letter-spacing:.04em;
     padding:.5em 1.1em;border-radius:999px;background:var(--crema);color:var(--morado);transition:opacity .25s,translate .25s}
   .toast.on{opacity:1;translate:-50% 0}
 
   @media (max-width:700px){
     h1{rotate:-2deg}
+    .formula{rotate:0deg}
+    .form{grid-template-columns:1fr}
+    .by img{width:52px;height:52px}
     .letra{rotate:0deg}
     .lyric span{padding-left:.8em;text-indent:-.8em}
   }
@@ -100,10 +119,22 @@
 </head>
 <body>
 <div id="clouds" aria-hidden="true"></div>
-<p class="by">creado por <a href="https://lorenaorlando.com">Lorena Orlando</a></p>
+<p class="by"><img src="../assets/LORENA_ISLA.webp" alt="" width="240" height="240"><span>creado por <a href="https://lorenaorlando.com">Lorena Orlando</a></span></p>
 
 <main>
   <h1><span>generador de</span> <span>canciones</span> <span class="mo">mainstream</span> <span>venezolanas</span></h1>
+
+  <section class="formula" aria-labelledby="tagF">
+    <p class="tag" id="tagF">la fórmula es sencilla</p>
+    <ol class="pasos">
+      <li><b>mami / mamita</b> + frase construida</li>
+      <li>+ frase hecha</li>
+      <li>+ frase hecha</li>
+      <li>+ <b>mi amor / baby / mami</b> + frase construida</li>
+    </ol>
+    <p class="tag no">prohibido mencionar</p>
+    <p class="prohibido">la crisis económica y política en Venezuela, los cortes de luz y agua, la precariedad del día a día, los costos de vida elevados, la poca calidad de vida, que Venezuela ya no es lo que recuerdan, la peladera de bolas, las tragedias naturales</p>
+  </section>
 
   <button type="button" class="gen" id="gen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.8C9.4 3.2 14.6 3.4 19.6 4.1C20.3 9.2 20.5 14.4 19.9 19.6C14.8 20.4 9.4 20.3 4.3 19.8C3.6 14.5 3.7 9.1 4.5 3.8Z"/><path d="M8.4 8.2h.1M15.6 8.3h.1M12 12h.1M8.3 15.8h.1M15.7 15.7h.1" stroke-width="3.2"/></svg><span>generar</span></button>
 
@@ -115,6 +146,22 @@
       <button type="button" id="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4C12.4 8 16.3 8.1 20 8.6C20.4 12.4 20.4 16.3 19.9 20.1C16.2 20.6 12.4 20.5 8.7 20.1C8.2 16.2 8.2 12.3 8.6 8.4Z"/><path d="M15.4 4.3C11.7 3.8 7.9 3.8 4.2 4.3C3.8 8 3.8 11.8 4.2 15.6"/></svg>copiar letra</button>
       <button type="button" id="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.1 15.2C11.9 11.2 12.2 7.3 12 3.6M7.4 8C9 6.6 10.6 5.1 12 3.4C13.5 5 15 6.6 16.8 7.9"/><path d="M4.4 12.6C4 15.1 4.1 17.6 4.5 20.1C9.5 20.6 14.6 20.6 19.6 20C20 17.5 20 15 19.6 12.5"/></svg>compartir</button>
     </div>
+  </section>
+
+  <section class="mas" aria-labelledby="tagM">
+    <h2 id="tagM">¿qué más se te ocurre?</h2>
+    <form id="form" class="form" action="https://formsubmit.co/soylorenaorlando@gmail.com" method="POST">
+      <label><span>categoría</span>
+        <select name="categoría" required>
+          <option value="" disabled selected>elige una</option>
+          <option>lugar</option><option>objeto</option><option>marca</option><option>chuchería</option><option>fruta</option><option>comida</option><option>animal</option>
+        </select></label>
+      <label><span>palabra</span><input name="palabra" type="text" required maxlength="80" placeholder="ej. una camionetica" autocomplete="off"></label>
+      <label class="ancho"><span>email</span><input name="email" type="email" required maxlength="120" placeholder="tu@email.com" autocomplete="email"></label>
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="enviar">sumar palabra</button>
+      <p class="estado" id="estado" role="status"></p>
+    </form>
   </section>
 </main>
 <p class="toast" id="toast" role="status"></p>
@@ -301,7 +348,6 @@
       wrap.appendChild(im);
     }
 
-    function track(name, params){ try { if (window.gtag) gtag('event', name, params || {}); } catch (e) {} }
     var lyricEl = document.getElementById('lyric'), actual = [];
     function esc(s){ return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
     function pintar(lines){
@@ -313,7 +359,7 @@
       }).join('');
       lyricEl.classList.remove('in'); void lyricEl.offsetWidth; lyricEl.classList.add('in');
     }
-    document.getElementById('gen').addEventListener('click', function(){ pintar(generar().lines); track('song_generate'); });
+    document.getElementById('gen').addEventListener('click', function(){ pintar(generar().lines); });
     pintar(generar().lines);
 
     var toast = document.getElementById('toast'), tt;
@@ -326,7 +372,6 @@
         document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove();
       }
       (navigator.clipboard ? navigator.clipboard.writeText(txt).catch(viejo) : Promise.resolve(viejo())).then(function(){ aviso('letra copiada!'); });
-      track('lyrics_copy');
     });
 
     // ===== compartir: una imagen 1080 × 1440 con la estrofa =====
@@ -408,71 +453,28 @@
           }
         }, 'image/png');
       });
-      track('song_share');
+    });
+
+    // ===== ¿qué más se te ocurre?: llega por correo vía FormSubmit =====
+    var form = document.getElementById('form'), estado = document.getElementById('estado'), boton = form.querySelector('.enviar');
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if (!form.reportValidity()) return;
+      var d = new FormData(form);
+      if (d.get('_honey')) return;
+      boton.disabled = true; estado.className = 'estado'; estado.textContent = 'mandando...';
+      fetch('https://formsubmit.co/ajax/soylorenaorlando@gmail.com', {
+        method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({
+          'categoría': d.get('categoría'), palabra: d.get('palabra'), email: d.get('email'),
+          _subject: 'generador de canciones: ' + d.get('palabra') + ' (' + d.get('categoría') + ')', _template: 'table', _captcha: 'false'
+        })
+      }).then(function(r){ return r.json().then(function(j){ if (!r.ok || String(j.success) !== 'true') throw j; }); })
+        .then(function(){ estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; form.reset(); },
+              function(){ estado.textContent = 'uy, no se pudo mandar. inténtalo de nuevo en un ratico'; })
+        .then(function(){ boton.disabled = false; });
     });
   })();
 </script>
-<div class="gaok" id="gaok" role="dialog" aria-labelledby="gaokT" hidden>
-  <p class="gaok-t" id="gaokT" data-es="¿me dejas contar las visitas?" data-en="can I count your visit?">¿me dejas contar las visitas?</p>
-  <p class="gaok-p" data-es="Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad." data-en="I use Google Analytics to see which parts of the site get seen the most. It uses cookies, but no ads.">Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad.</p>
-  <div class="gaok-b"><button type="button" id="gaokYes" data-es="dale!" data-en="sure!">dale!</button><button type="button" id="gaokNo" data-es="no, gracias" data-en="no, thanks">no, gracias</button></div>
-</div>
-<button type="button" class="gaok-link" id="gaokLink" hidden data-es="cookies" data-en="cookies">cookies</button>
-<style>
-  .gaok{position:fixed;z-index:900;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:12px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid rgba(255,240,214,.14);color:#FFF0D6;box-shadow:0 .4rem 1.4rem rgba(20,0,52,.45);font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.01em;transition:opacity .4s,translate .4s}
-  .gaok[hidden]{display:none}
-  .gaok.out{opacity:0;translate:0 12px}
-  .gaok-t{margin:0 0 6px;font-family:"Lacquer",cursive;font-size:20px;line-height:1.1;letter-spacing:.03em;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85)}
-  .gaok-p{margin:0 0 14px;font-size:15px;line-height:1.4}
-  .gaok-b{display:flex;gap:10px;flex-wrap:wrap}
-  .gaok-b button{all:unset;cursor:pointer;font-family:"Lacquer",cursive;font-size:16px;letter-spacing:.04em;line-height:1;padding:.6em 1.1em .65em;border-radius:999px;background:#FFF0D6;color:#360185;transition:background .2s,scale .2s}
-  .gaok-b button+button{background:transparent;color:#FFF0D6;box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.5)}
-  .gaok-b button:hover,.gaok-b button:focus-visible{background:#F4B342;color:#360185;scale:1.05}
-  .gaok-b button:focus-visible{outline:2px solid #FFF0D6;outline-offset:3px}
-  .gaok-link{all:unset;position:fixed;z-index:899;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));cursor:pointer;font-family:"Lacquer",cursive;font-size:13px;letter-spacing:.06em;color:#FFF0D6;opacity:.55;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85);padding:4px 6px}
-  .gaok-link[hidden]{display:none}
-  .gaok-link:hover,.gaok-link:focus-visible{opacity:1;color:#F4B342}
-  .gaok-link:focus-visible{outline:2px solid #FFF0D6;outline-offset:2px;border-radius:4px}
-  @media (prefers-reduced-motion:reduce){.gaok{transition:none}}
-</style>
-<script>
-  (function(){
-    var KEY = 'ga-consent', box = document.getElementById('gaok'), link = document.getElementById('gaokLink');
-    var EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ');
-    var saved = null, asked = false; try { saved = localStorage.getItem(KEY); asked = localStorage.getItem('ga-asked') === '1'; } catch (e) {}
-    // quien vio el aviso tiene siempre a mano el link "cookies" para cambiar de opinión
-    function showLink(){ if (document.getElementById('preload')) return setTimeout(showLink, 400); link.hidden = false; }
-    link.addEventListener('click', function(){ box.classList.remove('out'); ask(); });
-    function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
-    function ask(){
-      // en el sitio, espera a que se vaya el preloader
-      if (document.getElementById('preload')) return setTimeout(ask, 400);
-      var l = lang();
-      box.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
-      box.hidden = false; link.hidden = true;
-      try { localStorage.setItem('ga-asked', '1'); } catch (e) {}
-    }
-    function choose(v){
-      try { localStorage.setItem(KEY, v); } catch (e) {}
-      if (v === 'yes') loadGA();
-      if (v === 'no' && window.__ga) {               // retira el permiso: borra las cookies de GA y recarga sin él
-        gtag('consent', 'update', {analytics_storage: 'denied'});
-        document.cookie.split(';').forEach(function(c){
-          var n = c.split('=')[0].trim();
-          if (/^_ga/.test(n)) [location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach(function(d){ document.cookie = n + '=; Max-Age=0; path=/; domain=' + d; document.cookie = n + '=; Max-Age=0; path=/'; });
-        });
-        return location.reload();
-      }
-      box.classList.add('out'); setTimeout(function(){ box.hidden = true; link.hidden = false; }, 400);
-    }
-    document.getElementById('gaokYes').addEventListener('click', function(){ choose('yes'); });
-    document.getElementById('gaokNo').addEventListener('click', function(){ choose('no'); });
-    if (saved) { if (saved === 'yes') loadGA(); if (asked) showLink(); return; }
-    // fuera de Europa se mide sin preguntar; si no se sabe el país, se pregunta
-    fetch('https://get.geojs.io/v1/ip/country.json', {cache: 'no-store'}).then(function(r){ return r.json(); })
-      .then(function(j){ var c = String(j.country || '').toUpperCase(); if (c && EU.indexOf(c) === -1) loadGA(); else ask(); }, ask);
-  })();
-</script>
-
 </body>
 </html>
