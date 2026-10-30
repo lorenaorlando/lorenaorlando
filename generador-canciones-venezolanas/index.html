@@ -325,8 +325,7 @@
       var hechaTxt = mejor.b.lines.join(' ').toLowerCase();
       // L1 abre con mami/mamita; L4 con mi amor, baby o mami (sin repetir lo que ya dice la estrofa)
       var usados = mencionados(hechaTxt), l1 = el.v1.lines.slice(), l4 = el.v4.lines.slice();
-      l1[0] = prefijo(el.v1, hechaTxt, usados) + l1[0];
-      l4[0] = prefijo(el.v4, hechaTxt, usados) + l4[0];
+      if (!vocativo(mejor.b.lines[0])) l1[0] = prefijo(el.v1, hechaTxt, usados) + l1[0];
       var estrofa = l1.concat(mejor.b.lines, l4);
       var c = coro(estrofa, usados);
       return c ? {estrofa: estrofa, coro: c} : null;
@@ -338,9 +337,11 @@
 
     // coro: una frase hecha de dos versos que no salió en la estrofa y rima distinto,
     // y dos construidas distintas que rimen con su segundo verso (sin repetir versos ni palabras finales)
-    // cómo empieza cada frase construida: mami, mamita, mi amor o baby, variando a lo largo de la canción
+    // solo el primer verso de la estrofa y la primera frase construida del coro empiezan con mami, mamita, mi amor o baby
     // (mami y mamita cuentan como lo mismo; no se repite uno que ya dice la frase hecha)
     var PREFIJOS = ['mami', 'mamita', 'mi amor', 'baby'];
+    // si el verso de al lado ya empieza con mami/mi amor/baby, no se pone otro (nunca dos seguidos)
+    function vocativo(l){ return /^(mami|mamita|mi amor|baby)\b/i.test(l); }
     function familia(p){ return p.indexOf('mami') === 0 ? 'mami' : p; }
     // los que ya dice una frase hecha cuentan como usados (para no repetir "baby" justo después)
     function mencionados(txt){ return ['mami', 'mi amor', 'baby'].filter(function(p){ return txt.indexOf(p) > -1; }); }
@@ -385,8 +386,7 @@
       usados.push.apply(usados, mencionados(h.lines.join(' ').toLowerCase()));
       var txt = m.h.lines.join(' ').toLowerCase();
       var par = pick(m.pares), l3 = par[0].lines.slice(), l4 = par[1].lines.slice();
-      l3[0] = prefijo(par[0], txt, usados) + l3[0];
-      l4[0] = prefijo(par[1], txt, usados) + l4[0];
+      if (!vocativo(h.lines[1])) l3[0] = prefijo(par[0], txt, usados) + l3[0];
       return h.lines.concat(l3, l4);
     }
 
