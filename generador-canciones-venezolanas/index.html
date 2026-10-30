@@ -190,15 +190,15 @@
       {id: 'besos', noAbre: true, banks: [CHUCHERIAS], make: function(c){ return ['porque tus besos saben a ' + c]; }},
       {id: 'culo', banks: [OBJETOS], make: function(o){ return ['qué rico tu culo parece un ' + o]; }},
       {id: 'aliento', banks: [CHUCHERIAS], make: function(c){ return ['qué rico besarte con ese aliento a ' + c]; }},
-      {id: 'comida', banks: [COMIDAS], pre: ['mami'], make: function(c){ return ['tas más rica que comerse ' + c + ' con las manos,', 'te lo digo de corazón, tú sabes que siempre hablo claro']; }},
+      {id: 'comida', banks: [COMIDAS], pre: ['mami', 'mamita'], make: function(c){ return ['tas más rica que comerse ' + c + ' con las manos,', 'te lo digo de corazón, tú sabes que siempre hablo claro']; }},
       {id: 'quesuo', banks: [LUGARES], make: function(l){ return ['cuando bailamos en ' + l + ' me puse quesúo', 'sé que tú y yo hacemos buen dúo']; }},
       {id: 'corazon', banks: [OBJETOS], make: function(o){ return ['mi corazón es un ' + o + ' cuando te ve llegar']; }},
       {id: 'zapatos', banks: [LUGARES], make: function(l){ return ['con mis zapatos bambino a ' + l + ' me fui contigo']; }},
       {id: 'sonrisa', banks: [PLAYAS], make: function(p){ return ['tu sonrisa es el sol de ' + p]; }},
       {id: 'fresas', banks: [MONTANAS], make: function(m){ return ['comiendo fresas con crema contigo en ' + m]; }},
       {id: 'bebiendo', banks: [BEBIDAS], make: function(b){ return ['bebiendo contigo ' + b]; }},
-      {id: 'espero', noAbre: true, banks: [BEBIDAS], pre: ['baby', 'mami'], make: function(b){ return ['y te dije, mi amor a ti yo sí te espero,', 'bebiendo ' + b + ' que me pone sincero']; }},
-      {id: 'hueles', banks: [FRUTAS], pre: ['baby', 'mami'], make: function(f){ return ['hueles a ' + f + ', qué rico mi amor']; }}
+      {id: 'espero', noAbre: true, banks: [BEBIDAS], pre: ['baby', 'mami', 'mamita'], make: function(b){ return ['y te dije, mi amor a ti yo sí te espero,', 'bebiendo ' + b + ' que me pone sincero']; }},
+      {id: 'hueles', banks: [FRUTAS], pre: ['baby', 'mami', 'mamita'], make: function(f){ return ['hueles a ' + f + ', qué rico mi amor']; }}
     ];
 
     // frases hechas completas, una línea por verso
@@ -325,14 +325,11 @@
       var el = pick(pick(Object.keys(grupos).map(function(k){ return grupos[k]; })));
       var hechaTxt = mejor.b.lines.join(' ').toLowerCase();
       // L1 abre con mami/mamita; L4 con mi amor, baby o mami (sin repetir lo que ya dice la estrofa)
-      var ops4 = el.v4.t.pre || ['mi amor', 'baby', 'mami'];
-      var pre1 = pick(['mami', 'mamita'].filter(function(p){ return hechaTxt.indexOf(p) < 0 && !(ops4.length === 1 && ops4[0] === p); })) || 'mamita';
-      var pre4 = pick(ops4.filter(function(p){ return p !== pre1 && hechaTxt.indexOf(p) < 0; })) || ops4[0];
-      var l1 = el.v1.lines.slice(), l4 = el.v4.lines.slice();
-      l1[0] = pre1 + ', ' + l1[0];
-      l4[0] = pre4 + ', ' + l4[0];
+      var usados = mencionados(hechaTxt), l1 = el.v1.lines.slice(), l4 = el.v4.lines.slice();
+      l1[0] = prefijo(el.v1, hechaTxt, usados) + l1[0];
+      l4[0] = prefijo(el.v4, hechaTxt, usados) + l4[0];
       var estrofa = l1.concat(mejor.b.lines, l4);
-      var c = coro(estrofa);
+      var c = coro(estrofa, usados);
       return c ? {estrofa: estrofa, coro: c} : null;
     }
     // si para una estrofa no sale un coro que rime bien y distinto, se arma otra
@@ -342,11 +339,23 @@
 
     // coro: una frase hecha de dos versos que no salió en la estrofa y rima distinto,
     // y dos construidas distintas que rimen con su segundo verso (sin repetir versos ni palabras finales)
-    function prefijo(v, txt){
-      var ops = v.t.pre || ['mi amor', 'baby', 'mami'];
-      return (pick(ops.filter(function(p){ return txt.indexOf(p) < 0; })) || ops[0]) + ', ';
+    // cómo empieza cada frase construida: mami, mamita, mi amor o baby, variando a lo largo de la canción
+    // (mami y mamita cuentan como lo mismo; no se repite uno que ya dice la frase hecha)
+    var PREFIJOS = ['mami', 'mamita', 'mi amor', 'baby'];
+    function familia(p){ return p.indexOf('mami') === 0 ? 'mami' : p; }
+    // los que ya dice una frase hecha cuentan como usados (para no repetir "baby" justo después)
+    function mencionados(txt){ return ['mami', 'mi amor', 'baby'].filter(function(p){ return txt.indexOf(p) > -1; }); }
+    function prefijo(v, txt, usados){
+      var ops = (v.t.pre || PREFIJOS).filter(function(p){ return txt.indexOf(familia(p)) < 0; });
+      if (!ops.length) ops = v.t.pre || PREFIJOS;
+      var ult = usados[usados.length - 1];
+      var libres = ops.filter(function(p){ return usados.map(familia).indexOf(familia(p)) < 0; });
+      if (!libres.length) libres = ops.filter(function(p){ return !ult || familia(p) !== familia(ult); });
+      if (!libres.length) libres = ops;
+      var p = pick(libres); usados.push(p);
+      return p + ', ';
     }
-    function coro(estrofa){
+    function coro(estrofa, usados){
       var usadas = contenido(estrofa), finales = estrofa.map(rhymeOf);
       function nueva(e){ return !finales.some(function(f){ return rima(f, e) || f.word === e.word; }); }
       function buscar(estricto){
@@ -373,10 +382,12 @@
       }
       var m = buscar(true) || buscar(false);
       if (!m) return null;
-      var h = m.h, txt = m.h.lines.join(' ').toLowerCase();
+      var h = m.h;
+      usados.push.apply(usados, mencionados(h.lines.join(' ').toLowerCase()));
+      var txt = m.h.lines.join(' ').toLowerCase();
       var par = pick(m.pares), l3 = par[0].lines.slice(), l4 = par[1].lines.slice();
-      l3[0] = prefijo(par[0], txt) + l3[0];
-      l4[0] = prefijo(par[1], txt + ' ' + l3[0]) + l4[0];
+      l3[0] = prefijo(par[0], txt, usados) + l3[0];
+      l4[0] = prefijo(par[1], txt, usados) + l4[0];
       return h.lines.concat(l3, l4);
     }
 
