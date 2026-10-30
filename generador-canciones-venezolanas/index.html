@@ -434,7 +434,7 @@
       (navigator.clipboard ? navigator.clipboard.writeText(txt).catch(viejo) : Promise.resolve(viejo())).then(function(){ aviso('letra copiada!'); });
     });
 
-    // ===== compartir: una imagen 1080 × 1440 con la estrofa y el coro =====
+    // ===== compartir: una imagen 1080 × 1920 (story de instagram) con la estrofa y el coro =====
     var CREDITO = ['generador de canciones mainstream venezolanas - un proyecto de Lorena Orlando', '@lorenamariaorlando   lorenaorlando.com'];
     var nubes = null;
     function cargarNubes(){
@@ -449,49 +449,53 @@
       return out;
     }
     function dibujar(c, imgs){
-      var W = 1080, H = 1440, M = 80, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      // vertical para stories de instagram; arriba y abajo quedan márgenes porque ahí van los botones de instagram
+      var W = 1080, H = 1920, M = 80, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
       ctx.fillStyle = '#8441B7'; ctx.fillRect(0, 0, W, H);
-      [[0, -120, 40, 560], [1, 640, 120, 520], [2, -60, 760, 480], [3, 700, 980, 520], [4, 300, 1240, 460], [0, 520, -40, 380]].forEach(function(n){
+      // nubes solo arriba y a los lados del panel: nunca encima del crédito
+      [[0, -140, 120, 600], [1, 620, 60, 560], [2, -200, 760, 460], [3, 840, 980, 420], [4, 380, 330, 420]].forEach(function(n){
         var im = imgs[n[0]]; if (!im) return;
         ctx.globalAlpha = .92; ctx.drawImage(im, n[1], n[2], n[3], n[3] * im.height / im.width); ctx.globalAlpha = 1;
       });
       function sombra(on, s){ ctx.shadowColor = on ? 'rgba(54,1,133,.85)' : 'transparent'; ctx.shadowBlur = on ? s * 2 : 0; ctx.shadowOffsetX = on ? s * .7 : 0; ctx.shadowOffsetY = on ? s : 0; }
       // título
-      ctx.save(); ctx.translate(M, 150); ctx.rotate(-2.5 * Math.PI / 180);
-      ctx.font = '74px Lacquer'; ctx.textBaseline = 'alphabetic'; sombra(true, 7);
+      ctx.save(); ctx.translate(M, 300); ctx.rotate(-2.5 * Math.PI / 180);
+      var ts = 86;   // el título se achica si no cabe a lo ancho
+      do { ctx.font = ts + 'px Lacquer'; ts -= 2; } while (ts > 50 && Math.max(ctx.measureText('generador de canciones').width, 20 + ctx.measureText('mainstream venezolanas').width) > W - M - 60);
+      ctx.textBaseline = 'alphabetic'; sombra(true, 8);
       ctx.fillStyle = '#FFF0D6'; ctx.fillText('generador de canciones', 0, 0);
-      ctx.fillStyle = '#F4B342'; ctx.fillText('mainstream', 30, 78);
-      ctx.fillStyle = '#FFF0D6'; ctx.fillText('venezolanas', 30 + ctx.measureText('mainstream ').width, 78);
+      ctx.fillStyle = '#F4B342'; ctx.fillText('mainstream', 20, 92);
+      ctx.fillStyle = '#FFF0D6'; ctx.fillText('venezolanas', 20 + ctx.measureText('mainstream ').width, 92);
       ctx.restore();
-      // panel con la estrofa y el coro: la letra más grande que quepa, idealmente sin partir versos
-      var pw = W - 2 * (M - 20), pad = 60, ancho = pw - 2 * pad, size = 48, filas, alto, total = c.estrofa.length + c.coro.length;
+      // panel con la estrofa y el coro: la letra lo más grande que quepa
+      var pw = W - 2 * (M - 30), pad = 56, ancho = pw - 2 * pad, size = 64, filas, alto, top = 470, maxAlto = 1060;
       try { ctx.letterSpacing = '0px'; } catch (e) {}
       function armar(){
         ctx.font = '500 ' + size + 'px "Funnel Display"';
         filas = []; alto = 0;
         ['estrofa', 'coro'].forEach(function(id, n){
-          filas.push({tag: id, y: alto + (n ? 40 : 0)}); alto += (n ? 40 : 0) + 56;
+          filas.push({tag: id, y: alto + (n ? 44 : 0)}); alto += (n ? 44 : 0) + 64;
           c[id].forEach(function(l){
-            partir(ctx, l, ancho - size * .9).forEach(function(f, k){ filas.push({t: f, sang: k > 0, y: alto}); alto += size * 1.42; });
+            partir(ctx, l, ancho - size * .8).forEach(function(f, k){ filas.push({t: f, sang: k > 0, y: alto}); alto += size * 1.36; });
           });
         });
       }
-      do { armar(); size -= 2; } while (size >= 26 && (filas.length - 2 > total || alto > 900));
+      do { armar(); size -= 2; } while (size >= 36 && alto > maxAlto - 2 * pad);
       size += 2; armar();
-      var ph = pad * 2 + alto, px = M - 20, py = 290 + Math.max(0, (920 - ph) / 2);
-      ctx.save(); sombra(true, 10); ctx.fillStyle = 'rgba(30,0,75,.86)';
-      ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(px, py, pw, ph, 14); else ctx.rect(px, py, pw, ph); ctx.fill(); ctx.restore();
+      var ph = pad * 2 + alto, px = M - 30, py = top + Math.max(0, (maxAlto - ph) / 2);
+      ctx.save(); sombra(true, 10); ctx.fillStyle = 'rgba(30,0,75,.88)';
+      ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(px, py, pw, ph, 16); else ctx.rect(px, py, pw, ph); ctx.fill(); ctx.restore();
       filas.forEach(function(f){
-        if (f.tag) { ctx.font = '34px Lacquer'; ctx.fillStyle = '#F4B342'; ctx.fillText(f.tag, px + pad, py + pad + f.y + 30); return; }
+        if (f.tag) { ctx.font = '40px Lacquer'; ctx.fillStyle = '#F4B342'; ctx.fillText(f.tag, px + pad, py + pad + f.y + 36); return; }
         ctx.font = '500 ' + size + 'px "Funnel Display"'; ctx.fillStyle = '#FFF0D6';
-        ctx.fillText(f.t, px + pad + (f.sang ? size * .9 : 0), py + pad + f.y + size * 1.05);
+        ctx.fillText(f.t, px + pad + (f.sang ? size * .8 : 0), py + pad + f.y + size * 1.02);
       });
-      // crédito al pie
-      ctx.font = '500 34px "Funnel Display"'; sombra(true, 3); ctx.textAlign = 'center';
-      var pie = partir(ctx, CREDITO[0], W - 2 * M), yp = H - 90 - pie.length * 46;
-      ctx.fillStyle = '#FFF0D6'; pie.forEach(function(f, k){ ctx.fillText(f, W / 2, yp + k * 46); });
-      ctx.fillStyle = '#F4B342'; ctx.fillText(CREDITO[1], W / 2, H - 80);
+      // crédito al pie, en zona sin nubes (por encima de los botones de instagram)
+      ctx.font = '500 38px "Funnel Display"'; sombra(true, 3); ctx.textAlign = 'center';
+      var pie = CREDITO[0].replace(' - ', ' -|').split('|'), yp = 1610;
+      ctx.fillStyle = '#FFF0D6'; pie.forEach(function(f, k){ ctx.fillText(f, W / 2, yp + k * 50); });
+      ctx.font = '600 40px "Funnel Display"'; ctx.fillStyle = '#F4B342'; ctx.fillText(CREDITO[1], W / 2, yp + pie.length * 50 + 14);
       return cv;
     }
     document.getElementById('share').addEventListener('click', function(){
