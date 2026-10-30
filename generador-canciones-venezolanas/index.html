@@ -103,6 +103,7 @@
   .enviar[disabled]{opacity:.6;cursor:wait}
   .estado{grid-column:1/-1;margin:0;font-size:20px;line-height:1.4;min-height:1.4em}
   .estado.ok{color:var(--mostaza)}
+  .aviso{grid-column:1/-1;margin:0;font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.75}
 
   .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:50;translate:-50% 20px;opacity:0;pointer-events:none;font-family:var(--display);font-size:20px;letter-spacing:.04em;
     padding:.5em 1.1em;border-radius:999px;background:var(--crema);color:var(--morado);transition:opacity .25s,translate .25s}
@@ -148,21 +149,18 @@
 
   <section class="mas" aria-labelledby="tagM">
     <h2 id="tagM">¿qué más se te ocurre?</h2>
-    <form id="form" class="form" action="https://formsubmit.co/soylorenaorlando@gmail.com" method="POST">
+    <form id="form" class="form">
       <label><span>categoría</span>
-        <select name="categoría" required>
+        <select name="categoria" required>
           <option value="" disabled selected>elige una</option>
           <option>lugar</option><option>objeto</option><option>marca</option><option>chuchería</option><option>fruta</option><option>comida</option><option>animal</option>
         </select></label>
       <label><span>palabra</span><input name="palabra" type="text" required maxlength="80" placeholder="ej. una camionetica" autocomplete="off"></label>
       <label class="ancho"><span>email</span><input name="email" type="email" required maxlength="120" placeholder="tu@email.com" autocomplete="email"></label>
       <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="_subject" value="generador de canciones: palabra nueva">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://lorenaorlando.com/generador-canciones-venezolanas/?gracias=1#form">
       <button type="submit" class="enviar">sumar palabra</button>
       <p class="estado" id="estado" role="status"></p>
+      <p class="aviso">al mandar tu palabra, aceptas que Lorena guarde tu email para contarte de sus proyectos</p>
     </form>
   </section>
 </main>
@@ -179,7 +177,7 @@
     var MARCAS = ['Digitel', 'Telcel', 'Movistar', 'Parmalat']; // todavía sin plantilla
     var COMIDAS = ['una cachapa', 'una reina pepiada', 'un jugo de mango', 'un pabellón', 'unas tajadas con queso', 'un perro caliente', 'una empanada de carne mechada', 'un queso guayanés metido en una arepa'];
     var FRUTAS = ['parchita', 'mango', 'cambur', 'patilla'];
-    var OBJETOS = ['chinchorro', 'budare', 'tanque de agua', 'durazno de la Colonia Tovar', 'aguacate'];
+    var OBJETOS = ['chinchorro', 'budare', 'durazno de la Colonia Tovar', 'aguacate'];
     var BEBIDAS = ['un ron', 'unas birras', 'una curda', 'un anís'];
     // acciones románticas (la lista nueva no trae banco propio)
     var ACCIONES = ['te quiero besar', 'te quiero amar', 'te quiero abrazar', 'te quiero cantar', 'te quiero esperar',
@@ -503,38 +501,26 @@
       });
     });
 
-    // ===== ¿qué más se te ocurre?: llega por correo vía FormSubmit =====
+    // ===== ¿qué más se te ocurre?: cada palabra se guarda como fila en la hoja de Google de Lorena =====
+    // (Apps Script publicado como aplicación web; el código está en hoja-google.gs)
+    var HOJA = '';
     var form = document.getElementById('form'), estado = document.getElementById('estado'), boton = form.querySelector('.enviar');
     form.addEventListener('submit', function(ev){
       ev.preventDefault();
       if (!form.reportValidity()) return;
       var d = new FormData(form);
       if (d.get('_honey')) return;
+      if (!HOJA) { estado.className = 'estado'; estado.textContent = 'el formulario se está estrenando, vuelve en un ratico'; return; }
       boton.disabled = true; estado.className = 'estado'; estado.textContent = 'mandando...';
-      fetch('https://formsubmit.co/ajax/soylorenaorlando@gmail.com', {
-        method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify({
-          'categoría': d.get('categoría'), palabra: d.get('palabra'), email: d.get('email'),
-          _subject: 'generador de canciones: ' + d.get('palabra') + ' (' + d.get('categoría') + ')', _template: 'table', _captcha: 'false'
+      fetch(HOJA, {method: 'POST', body: new URLSearchParams({categoria: d.get('categoria'), palabra: d.get('palabra'), email: d.get('email')})})
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          if (!j.ok) throw j;
+          estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; form.reset();
         })
-      }).then(function(r){ return r.json().then(function(j){ return {ok: r.ok, j: j}; }); })
-        .then(function(res){
-          if (res.ok && String(res.j.success) === 'true') {
-            estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; form.reset();
-          } else if (/activ/i.test(res.j.message || '')) {
-            // FormSubmit pide activar el formulario la primera vez (llega un correo con "Activate Form")
-            estado.textContent = 'el formulario está recién hecho y todavía falta activarlo. inténtalo de nuevo en un ratico';
-          } else throw res.j;
-        })
-        .catch(function(e){
-          // si el envío por detrás falla (red, bloqueador...), se manda el formulario normal y FormSubmit devuelve aquí
-          try { console.warn('formsubmit', e); } catch (x) {}
-          form.querySelector('[name="_subject"]').value = 'generador de canciones: ' + d.get('palabra') + ' (' + d.get('categoría') + ')';
-          HTMLFormElement.prototype.submit.call(form);
-        })
+        .catch(function(){ estado.textContent = 'uy, no se pudo mandar. inténtalo de nuevo en un ratico'; })
         .then(function(){ boton.disabled = false; });
     });
-    if (/[?&]gracias=1/.test(location.search)) { estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; }
   })();
 </script>
 </body>
