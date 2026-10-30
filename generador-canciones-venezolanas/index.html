@@ -526,13 +526,18 @@
       if (d.get('_honey')) return;
       if (!HOJA) { estado.className = 'estado'; estado.textContent = 'el formulario se está estrenando, vuelve en un ratico'; return; }
       boton.disabled = true; estado.className = 'estado'; estado.textContent = 'mandando...';
-      fetch(HOJA, {method: 'POST', body: new URLSearchParams({categoria: d.get('categoria'), palabra: d.get('palabra'), email: d.get('email')})})
+      var datos = new URLSearchParams({categoria: d.get('categoria'), palabra: d.get('palabra'), email: d.get('email')});
+      function listo(){ estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; form.reset(); }
+      fetch(HOJA, {method: 'POST', body: datos})
         .then(function(r){ return r.json(); })
-        .then(function(j){
-          if (!j.ok) throw j;
-          estado.className = 'estado ok'; estado.textContent = 'listo! gracias por la palabra, la voy a meter en el generador'; form.reset();
-        })
-        .catch(function(){ estado.textContent = 'uy, no se pudo mandar. inténtalo de nuevo en un ratico'; })
+        .then(function(j){ if (!j.ok) throw {google: j}; listo(); },
+              function(err){
+                // si el navegador no deja leer la respuesta de Google (pasa en algunos celulares),
+                // se manda de nuevo sin esperar respuesta: el script igual guarda la fila
+                try { console.warn('hoja', err); } catch (x) {}
+                return fetch(HOJA, {method: 'POST', mode: 'no-cors', body: datos}).then(listo);
+              })
+        .catch(function(err){ try { console.warn('hoja', err); } catch (x) {} estado.textContent = 'uy, no se pudo mandar. inténtalo de nuevo en un ratico'; })
         .then(function(){ boton.disabled = false; });
     });
   })();
