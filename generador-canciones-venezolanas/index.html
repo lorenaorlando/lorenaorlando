@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>generador de canciones mainstream venezolanas · LORENA ORLANDO</title>
-<meta name="description" content="Genera la primera estrofa de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
+<meta name="description" content="Genera la primera estrofa y el coro de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
 <meta property="og:title" content="generador de canciones mainstream venezolanas">
-<meta property="og:description" content="Genera la primera estrofa de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
+<meta property="og:description" content="Genera la primera estrofa y el coro de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
 <meta property="og:image" content="https://lorenaorlando.com/assets/FAVICON.png">
 <meta property="og:url" content="https://lorenaorlando.com/generador-canciones-venezolanas/">
 <meta name="theme-color" content="#8441B7">
@@ -57,9 +57,10 @@
   .letra{align-self:stretch;margin:clamp(26px,5vh,44px) 0 0;padding:clamp(24px,4vw,44px) clamp(20px,4.4vw,52px) clamp(24px,3.4vw,36px);border-radius:12px;background:var(--panel-osc);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:.3rem .5rem 1.4rem rgba(54,1,133,.45);rotate:-.8deg}
   .tag{margin:0 0 .7em;font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--mostaza);text-shadow:var(--sombra-sm)}
-  .lyric{margin:0;min-height:6em;font-size:clamp(21px,2.7vw,27px);line-height:1.45;letter-spacing:.012em;font-weight:500}
+  .lyric{margin:0;font-size:clamp(21px,2.7vw,27px);line-height:1.45;letter-spacing:.012em;font-weight:500}
   .lyric span{display:block;padding-left:1.1em;text-indent:-1.1em}
-  .lyric b{font-weight:600;color:var(--mostaza)}
+  .letra[hidden]{display:none}
+  .tag.coro{margin-top:1.4em}
   .lyric.in span{animation:entra .5s cubic-bezier(.2,.8,.2,1) both}
   @keyframes entra{from{opacity:0;translate:0 .5em}}
   .nota{margin:1.6em 0 0;padding-top:1.1em;border-top:1px solid rgba(255,240,214,.18);font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.9}
@@ -77,8 +78,9 @@
   /* la fórmula */
   .formula{align-self:stretch;margin:clamp(30px,6vh,52px) 0 0;padding:clamp(22px,3.4vw,34px) clamp(20px,4vw,44px);border-radius:12px;background:var(--panel);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);rotate:.8deg}
-  .pasos{margin:0;padding:0;list-style:none;font-size:clamp(20px,2.4vw,24px);line-height:1.4;letter-spacing:-.015em}
-  .pasos b{font-weight:600;color:var(--mostaza)}
+  .receta{margin:0;font-size:clamp(21px,2.6vw,27px);font-weight:500;line-height:1.45;letter-spacing:-.015em}
+  .receta i{font-style:normal;color:var(--mostaza);margin:0 .2em}
+  .formula .gen{display:flex;width:max-content;margin:1.4em auto 0}
   .formula .no{margin:1.3em 0 .4em;color:var(--crema)}
   .prohibido{margin:0;font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.9}
 
@@ -126,21 +128,17 @@
 
   <section class="formula" aria-labelledby="tagF">
     <p class="tag" id="tagF">la fórmula es sencilla</p>
-    <ol class="pasos">
-      <li><b>mami / mamita</b> + frase construida</li>
-      <li>+ frase hecha</li>
-      <li>+ frase hecha</li>
-      <li>+ <b>mi amor / baby / mami</b> + frase construida</li>
-    </ol>
+    <p class="receta">un lugar <i>+</i> una acción romántica <i>+</i> una marca, sabor, objeto <i>+</i> cualquier vaina ahí que te ocurra</p>
     <p class="tag no">prohibido mencionar</p>
     <p class="prohibido">la crisis económica y política en Venezuela, los cortes de luz y agua, la precariedad del día a día, los costos de vida elevados, la poca calidad de vida, que Venezuela ya no es lo que recuerdan, la peladera de bolas, las tragedias naturales</p>
+    <button type="button" class="gen" id="gen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.8C9.4 3.2 14.6 3.4 19.6 4.1C20.3 9.2 20.5 14.4 19.9 19.6C14.8 20.4 9.4 20.3 4.3 19.8C3.6 14.5 3.7 9.1 4.5 3.8Z"/><path d="M8.4 8.2h.1M15.6 8.3h.1M12 12h.1M8.3 15.8h.1M15.7 15.7h.1" stroke-width="3.2"/></svg><span>generar</span></button>
   </section>
 
-  <button type="button" class="gen" id="gen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.8C9.4 3.2 14.6 3.4 19.6 4.1C20.3 9.2 20.5 14.4 19.9 19.6C14.8 20.4 9.4 20.3 4.3 19.8C3.6 14.5 3.7 9.1 4.5 3.8Z"/><path d="M8.4 8.2h.1M15.6 8.3h.1M12 12h.1M8.3 15.8h.1M15.7 15.7h.1" stroke-width="3.2"/></svg><span>generar</span></button>
-
-  <section class="letra" aria-labelledby="tagE">
-    <p class="tag" id="tagE">estrofa</p>
-    <p class="lyric" id="lyric" aria-live="polite"></p>
+  <section class="letra" id="letra" aria-label="tu canción" aria-live="polite" hidden>
+    <p class="tag">estrofa</p>
+    <p class="lyric" id="estrofa"></p>
+    <p class="tag coro">coro</p>
+    <p class="lyric" id="coro"></p>
     <p class="nota">esta es solo una primera estrofa, síguela tú con tu propia imaginación, te juro que no es tan difícil</p>
     <div class="acts">
       <button type="button" id="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4C12.4 8 16.3 8.1 20 8.6C20.4 12.4 20.4 16.3 19.9 20.1C16.2 20.6 12.4 20.5 8.7 20.1C8.2 16.2 8.2 12.3 8.6 8.4Z"/><path d="M15.4 4.3C11.7 3.8 7.9 3.8 4.2 4.3C3.8 8 3.8 11.8 4.2 15.6"/></svg>copiar letra</button>
@@ -331,7 +329,39 @@
       var l1 = el.v1.lines.slice(), l4 = el.v4.lines.slice();
       l1[0] = pre1 + ', ' + l1[0];
       l4[0] = pre4 + ', ' + l4[0];
-      return {lines: l1.concat(mejor.b.lines, l4), score: el.s};
+      var estrofa = l1.concat(mejor.b.lines, l4);
+      return {estrofa: estrofa, coro: coro(estrofa)};
+    }
+
+    // coro: una frase hecha de dos versos que no salió en la estrofa, una construida que rime con ella
+    // y de remate otra construida que rime o la repetición del segundo verso (el gancho)
+    function prefijo(v, txt){
+      var ops = v.t.pre || ['mi amor', 'baby', 'mami'];
+      return (pick(ops.filter(function(p){ return txt.indexOf(p) < 0; })) || ops[0]) + ', ';
+    }
+    function coro(estrofa){
+      var usadas = contenido(estrofa), finales = estrofa.map(rhymeOf);
+      var dobles = HECHAS_INFO.filter(function(h){ return h.lines.length === 2 && !choca(h.words, usadas); });
+      var propias = dobles.filter(function(h){ return !finales.some(function(f){ return rima(f, h.last) || f.word === h.last.word; }); });
+      if (propias.length) dobles = propias;
+      var mejor = null;
+      dobles.slice().sort(function(){ return Math.random() - .5; }).some(function(h){
+        var libres = VARIANTES.filter(function(v){ return !choca(v.words, usadas) && !choca(v.words, h.words) && rima(v.end, h.last); });
+        var cortas = libres.filter(function(v){ return v.lines.length === 1; });   // frases cortas, para cantar en grupo
+        if (cortas.length) libres = cortas;
+        if (!libres.length) return false;
+        var top = Math.max.apply(null, libres.map(function(v){ return rima(v.end, h.last); }));
+        if (!mejor || top > mejor.top) mejor = {h: h, libres: libres.filter(function(v){ return rima(v.end, h.last) === top; }), top: top};
+        return top === 2;
+      });
+      var h = mejor.h, txt = h.lines.join(' ').toLowerCase();
+      var c3 = pick(mejor.libres), l3 = c3.lines.slice(), c4;
+      l3[0] = prefijo(c3, txt) + l3[0];
+      var remates = mejor.libres.filter(function(v){ return v.t !== c3.t && v.end.word !== c3.end.word && !choca(v.words, c3.words); });
+      if (remates.length && Math.random() < .5) {
+        var v4 = pick(remates); c4 = v4.lines.slice(); c4[0] = prefijo(v4, txt + ' ' + l3[0]) + c4[0];
+      } else c4 = [h.lines[1]];
+      return h.lines.concat(l3, c4);
     }
 
     // ===== interfaz =====
@@ -348,25 +378,29 @@
       wrap.appendChild(im);
     }
 
-    var lyricEl = document.getElementById('lyric'), actual = [];
+    var letra = document.getElementById('letra'), actual = null;
     function esc(s){ return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
-    function pintar(lines){
-      actual = lines;
-      // la palabra que rima, en mostaza
-      lyricEl.innerHTML = lines.map(function(l, k){
-        var m = l.match(/^(.*?)([^\s,]+)([,.]?)$/);
-        return '<span style="animation-delay:' + (k * 70) + 'ms">' + esc(m[1]) + '<b>' + esc(m[2]) + '</b>' + esc(m[3]) + '</span>';
-      }).join('');
-      lyricEl.classList.remove('in'); void lyricEl.offsetWidth; lyricEl.classList.add('in');
+    function pintar(c){
+      actual = c;
+      var k = 0;
+      ['estrofa', 'coro'].forEach(function(id){
+        var el = document.getElementById(id);
+        el.innerHTML = c[id].map(function(l){ return '<span style="animation-delay:' + (k++ * 70) + 'ms">' + esc(l) + '</span>'; }).join('');
+        el.classList.remove('in'); void el.offsetWidth; el.classList.add('in');
+      });
     }
-    document.getElementById('gen').addEventListener('click', function(){ pintar(generar().lines); });
-    pintar(generar().lines);
+    // la letra no está al abrir: aparece al darle generar
+    document.getElementById('gen').addEventListener('click', function(){
+      var primera = letra.hidden;
+      pintar(generar()); letra.hidden = false;
+      if (primera) letra.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+    });
 
     var toast = document.getElementById('toast'), tt;
     function aviso(t){ toast.textContent = t; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove('on'); }, 1800); }
 
     document.getElementById('copy').addEventListener('click', function(){
-      var txt = actual.join('\n');
+      var txt = 'estrofa\n' + actual.estrofa.join('\n') + '\n\ncoro\n' + actual.coro.join('\n');
       function viejo(){
         var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
         document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove();
@@ -374,7 +408,7 @@
       (navigator.clipboard ? navigator.clipboard.writeText(txt).catch(viejo) : Promise.resolve(viejo())).then(function(){ aviso('letra copiada!'); });
     });
 
-    // ===== compartir: una imagen 1080 × 1440 con la estrofa =====
+    // ===== compartir: una imagen 1080 × 1440 con la estrofa y el coro =====
     var CREDITO = ['generador de canciones mainstream venezolanas - un proyecto de Lorena Orlando', '@lorenamariaorlando   lorenaorlando.com'];
     var nubes = null;
     function cargarNubes(){
@@ -388,7 +422,7 @@
       if (cur) out.push(cur);
       return out;
     }
-    function dibujar(lines, imgs){
+    function dibujar(c, imgs){
       var W = 1080, H = 1440, M = 80, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
       ctx.fillStyle = '#8441B7'; ctx.fillRect(0, 0, W, H);
@@ -404,32 +438,28 @@
       ctx.fillStyle = '#F4B342'; ctx.fillText('mainstream', 30, 78);
       ctx.fillStyle = '#FFF0D6'; ctx.fillText('venezolanas', 30 + ctx.measureText('mainstream ').width, 78);
       ctx.restore();
-      // panel con la estrofa: la letra más grande que quepa, idealmente sin partir versos
-      var pw = W - 2 * (M - 20), pad = 60, ancho = pw - 2 * pad, size = 50, filas, alto;
+      // panel con la estrofa y el coro: la letra más grande que quepa, idealmente sin partir versos
+      var pw = W - 2 * (M - 20), pad = 60, ancho = pw - 2 * pad, size = 48, filas, alto, total = c.estrofa.length + c.coro.length;
       try { ctx.letterSpacing = '0px'; } catch (e) {}
       function armar(){
         ctx.font = '500 ' + size + 'px "Funnel Display"';
-        filas = [];
-        lines.forEach(function(l){
-          var fs = partir(ctx, l, ancho - size * .9);
-          fs.forEach(function(f, k){ filas.push({t: f, sang: k > 0, fin: k === fs.length - 1}); });
+        filas = []; alto = 0;
+        ['estrofa', 'coro'].forEach(function(id, n){
+          filas.push({tag: id, y: alto + (n ? 40 : 0)}); alto += (n ? 40 : 0) + 56;
+          c[id].forEach(function(l){
+            partir(ctx, l, ancho - size * .9).forEach(function(f, k){ filas.push({t: f, sang: k > 0, y: alto}); alto += size * 1.42; });
+          });
         });
-        alto = filas.length * size * 1.45;
       }
-      do { armar(); size -= 2; } while (size >= 30 && (filas.length > lines.length || alto > 760));
+      do { armar(); size -= 2; } while (size >= 26 && (filas.length - 2 > total || alto > 900));
       size += 2; armar();
-      var ph = pad * 2 + 50 + alto, px = M - 20, py = 300 + Math.max(0, (840 - ph) / 2);
+      var ph = pad * 2 + alto, px = M - 20, py = 290 + Math.max(0, (920 - ph) / 2);
       ctx.save(); sombra(true, 10); ctx.fillStyle = 'rgba(30,0,75,.86)';
       ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(px, py, pw, ph, 14); else ctx.rect(px, py, pw, ph); ctx.fill(); ctx.restore();
-      ctx.font = '34px Lacquer'; ctx.fillStyle = '#F4B342'; ctx.fillText('estrofa', px + pad, py + pad + 22);
-      ctx.font = '500 ' + size + 'px "Funnel Display"';
-      filas.forEach(function(f, k){
-        var x = px + pad + (f.sang ? size * .9 : 0), y = py + pad + 50 + size * 1.05 + k * size * 1.45;
-        var m = f.fin ? f.t.match(/^(.*?)([^\s,]+)([,.]?)$/) : null;
-        if (!m) { ctx.fillStyle = '#FFF0D6'; ctx.fillText(f.t, x, y); return; }
-        ctx.fillStyle = '#FFF0D6'; ctx.fillText(m[1], x, y); x += ctx.measureText(m[1]).width;
-        ctx.fillStyle = '#F4B342'; ctx.fillText(m[2], x, y); x += ctx.measureText(m[2]).width;
-        ctx.fillStyle = '#FFF0D6'; ctx.fillText(m[3], x, y);
+      filas.forEach(function(f){
+        if (f.tag) { ctx.font = '34px Lacquer'; ctx.fillStyle = '#F4B342'; ctx.fillText(f.tag, px + pad, py + pad + f.y + 30); return; }
+        ctx.font = '500 ' + size + 'px "Funnel Display"'; ctx.fillStyle = '#FFF0D6';
+        ctx.fillText(f.t, px + pad + (f.sang ? size * .9 : 0), py + pad + f.y + size * 1.05);
       });
       // crédito al pie
       ctx.font = '500 34px "Funnel Display"'; sombra(true, 3); ctx.textAlign = 'center';
@@ -439,9 +469,9 @@
       return cv;
     }
     document.getElementById('share').addEventListener('click', function(){
-      var lines = actual.slice();
+      var c = actual;
       Promise.all([cargarNubes(), document.fonts.load('74px Lacquer'), document.fonts.load('500 46px "Funnel Display"')]).then(function(res){
-        dibujar(lines, res[0]).toBlob(function(blob){
+        dibujar(c, res[0]).toBlob(function(blob){
           var nombre = 'cancion-mainstream-venezolana.png', file = new File([blob], nombre, {type: 'image/png'});
           // en el celu abre el menú de compartir; en la compu se descarga la imagen
           if (matchMedia('(hover:none)').matches && navigator.canShare && navigator.canShare({files: [file]})) {
