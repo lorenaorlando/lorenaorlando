@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>generador de canciones mainstream venezolanas · LORENA ORLANDO</title>
+<meta name="description" content="Genera la primera estrofa de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
+<meta property="og:title" content="generador de canciones mainstream venezolanas">
+<meta property="og:description" content="Genera la primera estrofa de tu próximo éxito venezolano. Un proyecto de Lorena Orlando.">
+<meta property="og:image" content="https://lorenaorlando.com/assets/FAVICON.png">
+<meta property="og:url" content="https://lorenaorlando.com/generador-canciones-venezolanas/">
+<meta name="theme-color" content="#8441B7">
+<link rel="icon" type="image/png" href="../assets/FAVICON.png">
+<link rel="apple-touch-icon" href="../assets/FAVICON.png">
+<!-- Google Analytics (GA4) con consentimiento: no se carga nada hasta que hay permiso.
+     En la UE/EEE, Reino Unido y Suiza se pregunta con un aviso; en el resto del mundo se activa solo. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
+  window.loadGA = function(){
+    if (window.__ga) return; window.__ga = true;
+    gtag('consent', 'update', {analytics_storage: 'granted'});
+    var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D5MZNYQB7Q';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-D5MZNYQB7Q');
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lacquer&family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+<style>
+  /* generador de canciones: una columna sobre el cielo lila, la estrofa en un panel oscuro */
+  :root{
+    --lila:#8441B7; --morado:#360185; --violeta:#8F0177; --magenta:#DE1A58; --mostaza:#F4B342; --crema:#FFF0D6;
+    --panel:rgba(54,1,133,.34); --panel-osc:rgba(30,0,75,.78);
+    --display:"Lacquer","Marker Felt",cursive;
+    --texto:"Funnel Display",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --sombra:.25rem .35rem .7rem rgba(54,1,133,.85);
+    --sombra-sm:.12rem .18rem .35rem rgba(54,1,133,.85);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--lila)}
+  body{margin:0;min-height:100vh;background:var(--lila);color:var(--crema);font-family:var(--texto);letter-spacing:-.02em;overflow-x:hidden;
+    padding:calc(18px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(64px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  a{color:inherit}
+  #clouds{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  #clouds img{position:absolute;height:auto;animation:float 12s ease-in-out infinite;opacity:.92}
+  @keyframes float{50%{translate:var(--dx) var(--dy)}}
+
+  .by{position:relative;z-index:1;margin:0;font-family:var(--display);font-size:16px;letter-spacing:.05em;text-shadow:var(--sombra-sm)}
+  .by a{color:var(--mostaza);text-decoration:none}
+  .by a:hover,.by a:focus-visible{text-decoration:underline}
+
+  main{position:relative;z-index:1;max-width:820px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+  h1{margin:clamp(28px,7vh,72px) 0 0;align-self:stretch;font-family:var(--display);font-weight:400;font-size:clamp(46px,9.4vw,92px);line-height:.92;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2.5deg;text-wrap:balance}
+  h1 span{display:block}
+  h1 .mo{color:var(--mostaza);rotate:2deg;translate:.4em 0;width:max-content}
+
+  /* botón principal: crema, late cada tanto para invitar a tocarlo */
+  .gen{all:unset;cursor:pointer;margin:clamp(30px,6vh,52px) 0 0;display:inline-flex;align-items:center;gap:.5em;padding:.62em 1.4em .68em;border-radius:999px;background:var(--crema);color:var(--morado);
+    font-family:var(--display);font-size:clamp(24px,3.4vw,30px);letter-spacing:.04em;line-height:1;box-shadow:.25rem .4rem 1rem rgba(54,1,133,.55);rotate:1.5deg;transition:background .2s,scale .2s;animation:late 2.6s ease-in-out infinite}
+  .gen:hover,.gen:focus-visible{background:var(--mostaza);scale:1.06}
+  .gen:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
+  .gen svg{width:1.05em;height:auto;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+  @keyframes late{0%,100%{scale:1;translate:0 0}12%{scale:1.08}20%{translate:-.12em 0}26%{translate:.12em 0}32%{translate:-.08em 0}38%{scale:1;translate:0 0}}
+  .gen:hover{animation:none}
+
+  /* la estrofa */
+  .letra{align-self:stretch;margin:clamp(26px,5vh,44px) 0 0;padding:clamp(24px,4vw,44px) clamp(20px,4.4vw,52px) clamp(24px,3.4vw,36px);border-radius:12px;background:var(--panel-osc);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:.3rem .5rem 1.4rem rgba(54,1,133,.45);rotate:-.8deg}
+  .tag{margin:0 0 .7em;font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--mostaza);text-shadow:var(--sombra-sm)}
+  .lyric{margin:0;min-height:6em;font-size:clamp(21px,2.7vw,27px);line-height:1.45;letter-spacing:.012em;font-weight:500}
+  .lyric span{display:block;padding-left:1.1em;text-indent:-1.1em}
+  .lyric b{font-weight:600;color:var(--mostaza)}
+  .lyric.in span{animation:entra .5s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes entra{from{opacity:0;translate:0 .5em}}
+  .nota{margin:1.6em 0 0;padding-top:1.1em;border-top:1px solid rgba(255,240,214,.18);font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.9}
+  .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .acts button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;padding:.55em 1.1em .6em;border-radius:999px;font-family:var(--display);font-size:20px;letter-spacing:.04em;line-height:1;
+    background:var(--crema);color:var(--morado);transition:background .2s,scale .2s}
+  .acts button+button{background:transparent;color:var(--crema);box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.55)}
+  .acts button:hover,.acts button:focus-visible{background:var(--mostaza);color:var(--morado);scale:1.05;box-shadow:none}
+  .acts button:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
+  .acts svg{width:1em;height:auto;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:50;translate:-50% 20px;opacity:0;pointer-events:none;font-family:var(--display);font-size:20px;letter-spacing:.04em;
+    padding:.5em 1.1em;border-radius:999px;background:var(--crema);color:var(--morado);transition:opacity .25s,translate .25s}
+  .toast.on{opacity:1;translate:-50% 0}
+
+  @media (max-width:700px){
+    h1{rotate:-2deg}
+    .letra{rotate:0deg}
+    .lyric span{padding-left:.8em;text-indent:-.8em}
+  }
+  @media (prefers-reduced-motion:reduce){#clouds img,.gen,.lyric.in span{animation:none}.gen,.acts button,.toast{transition:none}}
+</style>
+</head>
+<body>
+<div id="clouds" aria-hidden="true"></div>
+<p class="by">creado por <a href="https://lorenaorlando.com">Lorena Orlando</a></p>
+
+<main>
+  <h1><span>generador de</span> <span>canciones</span> <span class="mo">mainstream</span> <span>venezolanas</span></h1>
+
+  <button type="button" class="gen" id="gen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.8C9.4 3.2 14.6 3.4 19.6 4.1C20.3 9.2 20.5 14.4 19.9 19.6C14.8 20.4 9.4 20.3 4.3 19.8C3.6 14.5 3.7 9.1 4.5 3.8Z"/><path d="M8.4 8.2h.1M15.6 8.3h.1M12 12h.1M8.3 15.8h.1M15.7 15.7h.1" stroke-width="3.2"/></svg><span>generar</span></button>
+
+  <section class="letra" aria-labelledby="tagE">
+    <p class="tag" id="tagE">estrofa</p>
+    <p class="lyric" id="lyric" aria-live="polite"></p>
+    <p class="nota">esta es solo una primera estrofa, síguela tú con tu propia imaginación, te juro que no es tan difícil</p>
+    <div class="acts">
+      <button type="button" id="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 8.4C12.4 8 16.3 8.1 20 8.6C20.4 12.4 20.4 16.3 19.9 20.1C16.2 20.6 12.4 20.5 8.7 20.1C8.2 16.2 8.2 12.3 8.6 8.4Z"/><path d="M15.4 4.3C11.7 3.8 7.9 3.8 4.2 4.3C3.8 8 3.8 11.8 4.2 15.6"/></svg>copiar letra</button>
+      <button type="button" id="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.1 15.2C11.9 11.2 12.2 7.3 12 3.6M7.4 8C9 6.6 10.6 5.1 12 3.4C13.5 5 15 6.6 16.8 7.9"/><path d="M4.4 12.6C4 15.1 4.1 17.6 4.5 20.1C9.5 20.6 14.6 20.6 19.6 20C20 17.5 20 15 19.6 12.5"/></svg>compartir</button>
+    </div>
+  </section>
+</main>
+<p class="toast" id="toast" role="status"></p>
+
+<script>
+  (function(){
+    // ===== generador: bancos, plantillas y rima =====
+    var MONTANAS = ['El Ávila', 'La Colonia Tovar', 'Mérida', 'El Pico Bolívar', 'Galipán'];
+    var PLAYAS = ['Cuyagua', 'Choroní', 'Playa Pantaleta', 'Catia la Mar'];
+    var AVENIDAS = ['La Cota Mil', 'La Libertador', 'La Pastora', 'Plaza Venezuela', 'Sabana Grande', 'Chacao', 'Los Palos Grandes', 'El Cafetal', 'Macaracuay', 'La Central'];
+    var LUGARES = AVENIDAS.concat(MONTANAS, PLAYAS);
+    var CHUCHERIAS = ['Samba de fresa', 'Samba de chocolate', 'Cocossette', 'Chocolate Savoy', 'Bambino', 'Chocomalta', 'Cerelac', 'Toddy caliente', 'Nestea', 'Toronto'];
+    var MARCAS = ['Digitel', 'Telcel', 'Movistar', 'Parmalat']; // todavía sin plantilla
+    var COMIDAS = ['una cachapa', 'una reina pepiada', 'un jugo de mango', 'un pabellón', 'unas tajadas con queso', 'un perro caliente', 'una empanada de carne mechada', 'un queso guayanés metido en una arepa'];
+    var FRUTAS = ['parchita', 'mango', 'cambur', 'patilla'];
+    var OBJETOS = ['chinchorro', 'budare', 'tanque de agua', 'durazno de la Colonia Tovar', 'aguacate'];
+    var BEBIDAS = ['un ron', 'unas birras', 'una curda', 'un anís'];
+    // acciones románticas (la lista nueva no trae banco propio)
+    var ACCIONES = ['te quiero besar', 'te quiero amar', 'te quiero abrazar', 'te quiero cantar', 'te quiero esperar',
+      'quiero bailar contigo', 'quiero quedarme contigo', 'quiero perderme contigo', 'quiero hacerte reír', 'quiero darte duro',
+      'quiero regalarte un aguacate', 'quiero acostarte en mi chinchorro'];
+
+    // frases construidas: cada una da una o dos líneas; la última palabra es la que rima
+    var CONSTRUIDAS = [
+      {id: 'quiero', banks: [ACCIONES, LUGARES], make: function(a, l){ return [a + ' en ' + l]; }},
+      {id: 'besos', banks: [CHUCHERIAS], make: function(c){ return ['porque tus besos saben a ' + c]; }},
+      {id: 'culo', banks: [OBJETOS], make: function(o){ return ['qué rico tu culo parece un ' + o]; }},
+      {id: 'aliento', banks: [CHUCHERIAS], make: function(c){ return ['qué rico besarte con ese aliento a ' + c]; }},
+      {id: 'comida', banks: [COMIDAS], pre: ['mami'], make: function(c){ return ['tas más rica que comerse ' + c + ' con las manos,', 'te lo digo de corazón, tú sabes que siempre hablo claro']; }},
+      {id: 'quesuo', banks: [LUGARES], make: function(l){ return ['cuando bailamos en ' + l + ' me puse quesúo', 'sé que tú y yo hacemos buen dúo']; }},
+      {id: 'corazon', banks: [OBJETOS], make: function(o){ return ['mi corazón es un ' + o + ' cuando te ve llegar']; }},
+      {id: 'zapatos', banks: [LUGARES], make: function(l){ return ['con mis zapatos bambino a ' + l + ' me fui contigo']; }},
+      {id: 'sonrisa', banks: [PLAYAS], make: function(p){ return ['tu sonrisa es el sol de ' + p]; }},
+      {id: 'fresas', banks: [MONTANAS], make: function(m){ return ['comiendo fresas con crema contigo en ' + m]; }},
+      {id: 'bebiendo', banks: [BEBIDAS], make: function(b){ return ['bebiendo contigo ' + b]; }},
+      {id: 'espero', banks: [BEBIDAS], pre: ['baby', 'mami'], make: function(b){ return ['y te dije, mi amor a ti yo sí te espero,', 'bebiendo ' + b + ' que me pone sincero']; }},
+      {id: 'hueles', banks: [FRUTAS], pre: ['baby', 'mami'], make: function(f){ return ['hueles a ' + f + ', qué rico mi amor']; }}
+    ];
+
+    // frases hechas completas, una línea por verso
+    var HECHAS = [
+      ['eres la guacayama en mi playa'],
+      ['yo tan malandro, tú tan fresa', 'te amo aunque me des dolores de cabeza'],
+      ['mi corazón es un chinchorro', 'se abre cuando nos fumamos un porro'],
+      ['no me pude comunicar a tu línea movilnet', 'es tan chimba que parece telcel'],
+      ['mi corazón es un chinchorro en el que te puedes acostar', 'baby, conmigo siempre puedes contar'],
+      ['me dejaste varao en chacao', 'así que baby yo te digo chao', 'y como vine me voy', 'ya no te doy', 'mi chocolate savoy'],
+      ['linda mamita, olor a parchita', 'mi reina pepiada', 'eres tú o nada'],
+      ['montado en mi mata de mango te canto'],
+      ['con mis bambino te sigo hasta san bernardino'],
+      ['un heladito contigo en Sabana Grande,', 'me pones romántico como era antes'],
+      ['contigo voy del mar hasta la colonia tovar'],
+      ['ese día borrachos en Catia la mar,', 'me di cuenta que contigo me quiero quedar'],
+      ['y yo te sigo esperando aquí', 'tomando una hit con anís'],
+      ['y ojalá mañana mientras te tomes unos rones', 'reflexiones, me extrañes y me perdones'],
+      ['yo sé que soy más tierrúo que pasapalo e\' yuca', 'por eso te digo mami, enséñame esa cuca'],
+      ['desde que usaba camisa azul', 'me di cuenta que no hay nadie como tú'],
+      ['besarte, amarte', 'y abajo de la mata', 'regalarte un aguacate'],
+      ['mami pareces una miss venezuela', 'yo sé que te hago reír más que la rochela'],
+      ['y aunque seas rockera y escuches a caramelos de cianuro', 'no me importa mami, igual te doy bien duro'],
+      ['tú tan fresa con tu perfume de chanel,', 'yo tan malandro saliendo del 23'],
+      ['desde que te vi estudiando comunicación social en la central,', 'supe que contigo quería estar']
+    ];
+    // prohibido mencionar: la crisis económica y política en Venezuela, los cortes de luz y agua, la precariedad del día a día,
+    // los costos de vida elevados, la poca calidad de vida, que Venezuela ya no es lo que recuerdan, la peladera de bolas,
+    // las tragedias naturales. (El generador solo usa el material de arriba, así que nunca sale nada de eso.)
+
+    // --- rima: desde la vocal tónica (consonante) y vocales tónica + final (asonante) ---
+    var STRONG = 'aeoáéó', ACC = 'áéíóú';
+    var SUENA = {'23': 'veintitrés', 'cocossette': 'cocosét', 'movilnet': 'movilnét'};
+    function plain(s){ return s.normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+    function wordsOf(s){ return s.toLowerCase().match(/[a-záéíóúüñ0-9']+/g) || []; }
+    function rhymeOf(line){
+      var ws = wordsOf(line), word = ws[ws.length - 1], w = SUENA[word] || word;
+      var aguda = /[^aeiouáéíóúns]$/.test(w) || /y$/.test(w);
+      w = w.replace(/y$/, 'i').replace(/([qg])u(?=[eiéí])/g, '$1').replace(/ü/g, 'u');
+      var nuc = [], cur = null;
+      for (var i = 0; i < w.length; i++) {
+        var c = w[i];
+        if ('aeiouáéíóú'.indexOf(c) < 0) { cur = null; continue; }
+        var strong = STRONG.indexOf(c) > -1, accW = 'íú'.indexOf(c) > -1;
+        if (!cur || (strong && cur.strong) || accW || cur.accW) { cur = {idx: [i], strong: strong, accW: accW}; nuc.push(cur); }
+        else { cur.idx.push(i); if (strong) cur.strong = true; }
+      }
+      var t = -1;
+      nuc.forEach(function(n, k){ if (n.idx.some(function(i){ return ACC.indexOf(w[i]) > -1; })) t = k; });
+      if (t < 0) t = (!aguda && nuc.length > 1) ? nuc.length - 2 : nuc.length - 1;
+      function main(n){
+        var a = n.idx.filter(function(i){ return ACC.indexOf(w[i]) > -1; })[0];
+        if (a === undefined) a = n.idx.filter(function(i){ return STRONG.indexOf(w[i]) > -1; })[0];
+        return a === undefined ? n.idx[n.idx.length - 1] : a;
+      }
+      var ti = main(nuc[t]);
+      var cons = plain(w.slice(ti)).replace(/h/g, '').replace(/z/g, 's').replace(/c(?=[ei])/g, 's').replace(/v/g, 'b').replace(/ll/g, 'y');
+      var ason = plain(w[ti]) + (t < nuc.length - 1 ? plain(w[main(nuc[nuc.length - 1])]) : '');
+      return {word: plain(word), cons: cons, ason: ason};
+    }
+    // 2 = consonante, 1 = asonante, 0 = no rima (una palabra nunca rima consigo misma)
+    function rima(a, b){ return a.word === b.word ? 0 : a.cons === b.cons ? 2 : a.ason === b.ason ? 1 : 0; }
+    // palabras con contenido, para no repetir bancos ni imágenes dentro de la estrofa
+    var VACIAS = 'como para pero mami baby amor contigo cuando porque siempre digo'.split(' ');
+    function contenido(lines){
+      var set = {};
+      lines.forEach(function(l){ wordsOf(l).forEach(function(x){ x = plain(x); if (x.length > 3 && VACIAS.indexOf(x) < 0) set[x] = 1; }); });
+      return set;
+    }
+    function choca(a, b){ for (var k in a) if (b[k]) return true; return false; }
+
+    // todas las frases construidas posibles, con su rima ya calculada
+    var VARIANTES = [];
+    CONSTRUIDAS.forEach(function(t){
+      (function rec(args, k){
+        if (k === t.banks.length) {
+          var lines = t.make.apply(null, args).map(function(l){ return l.replace(/\ba El /g, 'al ').replace(/\bde El /g, 'del '); });
+          VARIANTES.push({t: t, lines: lines, end: rhymeOf(lines[lines.length - 1]), words: contenido(lines)});
+          return;
+        }
+        t.banks[k].forEach(function(x){ rec(args.concat([x]), k + 1); });
+      })([], 0);
+    });
+    var HECHAS_INFO = HECHAS.map(function(h){ return {lines: h, first: rhymeOf(h[0]), last: rhymeOf(h[h.length - 1]), words: contenido(h)}; });
+
+    function pick(a){ return a[Math.floor(Math.random() * a.length)]; }
+    function bloque(){
+      // una frase hecha de varios versos, o dos sueltas de un verso
+      var h = pick(HECHAS_INFO);
+      if (h.lines.length > 1) return h;
+      var otra = pick(HECHAS_INFO.filter(function(x){ return x.lines.length === 1 && x !== h; }));
+      var lines = h.lines.concat(otra.lines);
+      return {lines: lines, first: h.first, last: otra.last, words: contenido(lines)};
+    }
+    function puntaje(b, v1, v4){
+      var r1 = rima(v1.end, b.first), r4 = rima(b.last, v4.end), r14 = rima(v1.end, v4.end);
+      var aabb = r1 && r4 ? 4 + r1 + r4 + (r14 ? 1 : 0) : 0;   // L1 con la hecha, la hecha con L4
+      var abba = r14 ? 2 + r14 : 0;                             // L1 con L4, la hecha rima por dentro
+      return Math.max(aabb, abba);
+    }
+    function generar(){
+      var mejor = null;
+      for (var intento = 0; intento < 12; intento++) {
+        var b = bloque(), cands = [], top = 0;
+        var libres = VARIANTES.filter(function(v){ return !choca(v.words, b.words); });
+        for (var i = 0; i < libres.length; i++) for (var j = 0; j < libres.length; j++) {
+          var v1 = libres[i], v4 = libres[j];
+          if (v1.t === v4.t || v1.end.word === v4.end.word) continue;
+          var s = puntaje(b, v1, v4);
+          if (s < 3 || s < top - 1) continue;
+          if (choca(v1.words, v4.words)) continue;
+          if (s > top) { top = s; cands = cands.filter(function(c){ return c.s >= top - 1; }); }
+          cands.push({v1: v1, v4: v4, s: s});
+        }
+        if (!cands.length) continue;
+        var piso = top >= 6 ? Math.max(6, top - 1) : top;
+        cands = cands.filter(function(c){ return c.s >= piso; });
+        if (!mejor || top > mejor.top) mejor = {b: b, cands: cands, top: top};
+        if (top >= 6) break;
+      }
+      // variedad: primero un par de plantillas al azar, después una frase de ese par
+      var grupos = {};
+      mejor.cands.forEach(function(c){ var k = c.v1.t.id + '|' + c.v4.t.id; (grupos[k] = grupos[k] || []).push(c); });
+      var el = pick(pick(Object.keys(grupos).map(function(k){ return grupos[k]; })));
+      var hechaTxt = mejor.b.lines.join(' ').toLowerCase();
+      // L1 abre con mami/mamita; L4 con mi amor, baby o mami (sin repetir lo que ya dice la estrofa)
+      var ops4 = el.v4.t.pre || ['mi amor', 'baby', 'mami'];
+      var pre1 = pick(['mami', 'mamita'].filter(function(p){ return hechaTxt.indexOf(p) < 0 && !(ops4.length === 1 && ops4[0] === p); })) || 'mamita';
+      var pre4 = pick(ops4.filter(function(p){ return p !== pre1 && hechaTxt.indexOf(p) < 0; })) || ops4[0];
+      var l1 = el.v1.lines.slice(), l4 = el.v4.lines.slice();
+      l1[0] = pre1 + ', ' + l1[0];
+      l4[0] = pre4 + ', ' + l4[0];
+      return {lines: l1.concat(mejor.b.lines, l4), score: el.s};
+    }
+
+    // ===== interfaz =====
+    // nubes fijas que flotan (mismo truco que el sitio)
+    var F = ['1.png', '2.png', '4.png', '5.png', '6.png'], seed = 11, wrap = document.getElementById('clouds');
+    function r(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    for (var i = 0; i < 14; i++) {
+      var im = new Image(); im.alt = ''; im.src = '../assets/' + F[i % F.length];
+      im.style.width = (24 + r() * 26) + 'vw'; im.style.maxWidth = '460px';
+      im.style.left = (r() * 110 - 20) + 'vw'; im.style.top = (i / 14 * 100 + r() * 6 - 6) + 'vh';
+      im.style.setProperty('--dx', ((r() * 2 - 1) * 2).toFixed(1) + 'vw'); im.style.setProperty('--dy', ((r() * 2 - 1) * 2).toFixed(1) + 'vh');
+      im.style.animationDuration = (8 + r() * 8).toFixed(1) + 's';
+      im.style.animationDelay = '-' + (r() * 12).toFixed(1) + 's';
+      wrap.appendChild(im);
+    }
+
+    function track(name, params){ try { if (window.gtag) gtag('event', name, params || {}); } catch (e) {} }
+    var lyricEl = document.getElementById('lyric'), actual = [];
+    function esc(s){ return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+    function pintar(lines){
+      actual = lines;
+      // la palabra que rima, en mostaza
+      lyricEl.innerHTML = lines.map(function(l, k){
+        var m = l.match(/^(.*?)([^\s,]+)([,.]?)$/);
+        return '<span style="animation-delay:' + (k * 70) + 'ms">' + esc(m[1]) + '<b>' + esc(m[2]) + '</b>' + esc(m[3]) + '</span>';
+      }).join('');
+      lyricEl.classList.remove('in'); void lyricEl.offsetWidth; lyricEl.classList.add('in');
+    }
+    document.getElementById('gen').addEventListener('click', function(){ pintar(generar().lines); track('song_generate'); });
+    pintar(generar().lines);
+
+    var toast = document.getElementById('toast'), tt;
+    function aviso(t){ toast.textContent = t; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove('on'); }, 1800); }
+
+    document.getElementById('copy').addEventListener('click', function(){
+      var txt = actual.join('\n');
+      function viejo(){
+        var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove();
+      }
+      (navigator.clipboard ? navigator.clipboard.writeText(txt).catch(viejo) : Promise.resolve(viejo())).then(function(){ aviso('letra copiada!'); });
+      track('lyrics_copy');
+    });
+
+    // ===== compartir: una imagen 1080 × 1440 con la estrofa =====
+    var CREDITO = ['generador de canciones mainstream venezolanas - un proyecto de Lorena Orlando', '@lorenamariaorlando   lorenaorlando.com'];
+    var nubes = null;
+    function cargarNubes(){
+      if (nubes) return nubes;
+      nubes = Promise.all(F.map(function(f){ return new Promise(function(ok){ var im = new Image(); im.onload = function(){ ok(im); }; im.onerror = function(){ ok(null); }; im.src = '../assets/' + f; }); }));
+      return nubes;
+    }
+    function partir(ctx, txt, ancho){
+      var out = [], cur = '';
+      txt.split(' ').forEach(function(w){ var t = cur ? cur + ' ' + w : w; if (cur && ctx.measureText(t).width > ancho) { out.push(cur); cur = w; } else cur = t; });
+      if (cur) out.push(cur);
+      return out;
+    }
+    function dibujar(lines, imgs){
+      var W = 1080, H = 1440, M = 80, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var ctx = cv.getContext('2d');
+      ctx.fillStyle = '#8441B7'; ctx.fillRect(0, 0, W, H);
+      [[0, -120, 40, 560], [1, 640, 120, 520], [2, -60, 760, 480], [3, 700, 980, 520], [4, 300, 1240, 460], [0, 520, -40, 380]].forEach(function(n){
+        var im = imgs[n[0]]; if (!im) return;
+        ctx.globalAlpha = .92; ctx.drawImage(im, n[1], n[2], n[3], n[3] * im.height / im.width); ctx.globalAlpha = 1;
+      });
+      function sombra(on, s){ ctx.shadowColor = on ? 'rgba(54,1,133,.85)' : 'transparent'; ctx.shadowBlur = on ? s * 2 : 0; ctx.shadowOffsetX = on ? s * .7 : 0; ctx.shadowOffsetY = on ? s : 0; }
+      // título
+      ctx.save(); ctx.translate(M, 150); ctx.rotate(-2.5 * Math.PI / 180);
+      ctx.font = '74px Lacquer'; ctx.textBaseline = 'alphabetic'; sombra(true, 7);
+      ctx.fillStyle = '#FFF0D6'; ctx.fillText('generador de canciones', 0, 0);
+      ctx.fillStyle = '#F4B342'; ctx.fillText('mainstream', 30, 78);
+      ctx.fillStyle = '#FFF0D6'; ctx.fillText('venezolanas', 30 + ctx.measureText('mainstream ').width, 78);
+      ctx.restore();
+      // panel con la estrofa: la letra más grande que quepa, idealmente sin partir versos
+      var pw = W - 2 * (M - 20), pad = 60, ancho = pw - 2 * pad, size = 50, filas, alto;
+      try { ctx.letterSpacing = '0px'; } catch (e) {}
+      function armar(){
+        ctx.font = '500 ' + size + 'px "Funnel Display"';
+        filas = [];
+        lines.forEach(function(l){
+          var fs = partir(ctx, l, ancho - size * .9);
+          fs.forEach(function(f, k){ filas.push({t: f, sang: k > 0, fin: k === fs.length - 1}); });
+        });
+        alto = filas.length * size * 1.45;
+      }
+      do { armar(); size -= 2; } while (size >= 30 && (filas.length > lines.length || alto > 760));
+      size += 2; armar();
+      var ph = pad * 2 + 50 + alto, px = M - 20, py = 300 + Math.max(0, (840 - ph) / 2);
+      ctx.save(); sombra(true, 10); ctx.fillStyle = 'rgba(30,0,75,.86)';
+      ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(px, py, pw, ph, 14); else ctx.rect(px, py, pw, ph); ctx.fill(); ctx.restore();
+      ctx.font = '34px Lacquer'; ctx.fillStyle = '#F4B342'; ctx.fillText('estrofa', px + pad, py + pad + 22);
+      ctx.font = '500 ' + size + 'px "Funnel Display"';
+      filas.forEach(function(f, k){
+        var x = px + pad + (f.sang ? size * .9 : 0), y = py + pad + 50 + size * 1.05 + k * size * 1.45;
+        var m = f.fin ? f.t.match(/^(.*?)([^\s,]+)([,.]?)$/) : null;
+        if (!m) { ctx.fillStyle = '#FFF0D6'; ctx.fillText(f.t, x, y); return; }
+        ctx.fillStyle = '#FFF0D6'; ctx.fillText(m[1], x, y); x += ctx.measureText(m[1]).width;
+        ctx.fillStyle = '#F4B342'; ctx.fillText(m[2], x, y); x += ctx.measureText(m[2]).width;
+        ctx.fillStyle = '#FFF0D6'; ctx.fillText(m[3], x, y);
+      });
+      // crédito al pie
+      ctx.font = '500 34px "Funnel Display"'; sombra(true, 3); ctx.textAlign = 'center';
+      var pie = partir(ctx, CREDITO[0], W - 2 * M), yp = H - 90 - pie.length * 46;
+      ctx.fillStyle = '#FFF0D6'; pie.forEach(function(f, k){ ctx.fillText(f, W / 2, yp + k * 46); });
+      ctx.fillStyle = '#F4B342'; ctx.fillText(CREDITO[1], W / 2, H - 80);
+      return cv;
+    }
+    document.getElementById('share').addEventListener('click', function(){
+      var lines = actual.slice();
+      Promise.all([cargarNubes(), document.fonts.load('74px Lacquer'), document.fonts.load('500 46px "Funnel Display"')]).then(function(res){
+        dibujar(lines, res[0]).toBlob(function(blob){
+          var nombre = 'cancion-mainstream-venezolana.png', file = new File([blob], nombre, {type: 'image/png'});
+          // en el celu abre el menú de compartir; en la compu se descarga la imagen
+          if (matchMedia('(hover:none)').matches && navigator.canShare && navigator.canShare({files: [file]})) {
+            navigator.share({files: [file], title: 'generador de canciones mainstream venezolanas'}).catch(function(){});
+          } else {
+            var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre;
+            document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+            aviso('imagen descargada!');
+          }
+        }, 'image/png');
+      });
+      track('song_share');
+    });
+  })();
+</script>
+<div class="gaok" id="gaok" role="dialog" aria-labelledby="gaokT" hidden>
+  <p class="gaok-t" id="gaokT" data-es="¿me dejas contar las visitas?" data-en="can I count your visit?">¿me dejas contar las visitas?</p>
+  <p class="gaok-p" data-es="Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad." data-en="I use Google Analytics to see which parts of the site get seen the most. It uses cookies, but no ads.">Uso Google Analytics para saber qué partes del sitio se ven más. Usa cookies, pero nada de publicidad.</p>
+  <div class="gaok-b"><button type="button" id="gaokYes" data-es="dale!" data-en="sure!">dale!</button><button type="button" id="gaokNo" data-es="no, gracias" data-en="no, thanks">no, gracias</button></div>
+</div>
+<button type="button" class="gaok-link" id="gaokLink" hidden data-es="cookies" data-en="cookies">cookies</button>
+<style>
+  .gaok{position:fixed;z-index:900;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(380px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:12px;background:rgba(20,0,52,.84);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);border:1px solid rgba(255,240,214,.14);color:#FFF0D6;box-shadow:0 .4rem 1.4rem rgba(20,0,52,.45);font-family:"Funnel Display",system-ui,sans-serif;letter-spacing:-.01em;transition:opacity .4s,translate .4s}
+  .gaok[hidden]{display:none}
+  .gaok.out{opacity:0;translate:0 12px}
+  .gaok-t{margin:0 0 6px;font-family:"Lacquer",cursive;font-size:20px;line-height:1.1;letter-spacing:.03em;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85)}
+  .gaok-p{margin:0 0 14px;font-size:15px;line-height:1.4}
+  .gaok-b{display:flex;gap:10px;flex-wrap:wrap}
+  .gaok-b button{all:unset;cursor:pointer;font-family:"Lacquer",cursive;font-size:16px;letter-spacing:.04em;line-height:1;padding:.6em 1.1em .65em;border-radius:999px;background:#FFF0D6;color:#360185;transition:background .2s,scale .2s}
+  .gaok-b button+button{background:transparent;color:#FFF0D6;box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.5)}
+  .gaok-b button:hover,.gaok-b button:focus-visible{background:#F4B342;color:#360185;scale:1.05}
+  .gaok-b button:focus-visible{outline:2px solid #FFF0D6;outline-offset:3px}
+  .gaok-link{all:unset;position:fixed;z-index:899;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));cursor:pointer;font-family:"Lacquer",cursive;font-size:13px;letter-spacing:.06em;color:#FFF0D6;opacity:.55;text-shadow:.12rem .18rem .35rem rgba(54,1,133,.85);padding:4px 6px}
+  .gaok-link[hidden]{display:none}
+  .gaok-link:hover,.gaok-link:focus-visible{opacity:1;color:#F4B342}
+  .gaok-link:focus-visible{outline:2px solid #FFF0D6;outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){.gaok{transition:none}}
+</style>
+<script>
+  (function(){
+    var KEY = 'ga-consent', box = document.getElementById('gaok'), link = document.getElementById('gaokLink');
+    var EU = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ');
+    var saved = null, asked = false; try { saved = localStorage.getItem(KEY); asked = localStorage.getItem('ga-asked') === '1'; } catch (e) {}
+    // quien vio el aviso tiene siempre a mano el link "cookies" para cambiar de opinión
+    function showLink(){ if (document.getElementById('preload')) return setTimeout(showLink, 400); link.hidden = false; }
+    link.addEventListener('click', function(){ box.classList.remove('out'); ask(); });
+    function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
+    function ask(){
+      // en el sitio, espera a que se vaya el preloader
+      if (document.getElementById('preload')) return setTimeout(ask, 400);
+      var l = lang();
+      box.querySelectorAll('[data-es]').forEach(function(el){ el.textContent = el.getAttribute('data-' + l); });
+      box.hidden = false; link.hidden = true;
+      try { localStorage.setItem('ga-asked', '1'); } catch (e) {}
+    }
+    function choose(v){
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+      if (v === 'yes') loadGA();
+      if (v === 'no' && window.__ga) {               // retira el permiso: borra las cookies de GA y recarga sin él
+        gtag('consent', 'update', {analytics_storage: 'denied'});
+        document.cookie.split(';').forEach(function(c){
+          var n = c.split('=')[0].trim();
+          if (/^_ga/.test(n)) [location.hostname, '.' + location.hostname.replace(/^www\./, '')].forEach(function(d){ document.cookie = n + '=; Max-Age=0; path=/; domain=' + d; document.cookie = n + '=; Max-Age=0; path=/'; });
+        });
+        return location.reload();
+      }
+      box.classList.add('out'); setTimeout(function(){ box.hidden = true; link.hidden = false; }, 400);
+    }
+    document.getElementById('gaokYes').addEventListener('click', function(){ choose('yes'); });
+    document.getElementById('gaokNo').addEventListener('click', function(){ choose('no'); });
+    if (saved) { if (saved === 'yes') loadGA(); if (asked) showLink(); return; }
+    // fuera de Europa se mide sin preguntar; si no se sabe el país, se pregunta
+    fetch('https://get.geojs.io/v1/ip/country.json', {cache: 'no-store'}).then(function(r){ return r.json(); })
+      .then(function(j){ var c = String(j.country || '').toUpperCase(); if (c && EU.indexOf(c) === -1) loadGA(); else ask(); }, ask);
+  })();
+</script>
+
+</body>
+</html>
