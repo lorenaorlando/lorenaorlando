@@ -96,7 +96,6 @@
   .form option{background:var(--morado);color:var(--crema)}
   .form input::placeholder{color:rgba(255,240,214,.5)}
   .form input:focus,.form select:focus{outline:none;border-color:var(--mostaza)}
-  .honey{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
   .enviar{all:unset;cursor:pointer;justify-self:start;padding:.6em 1.3em .65em;border-radius:999px;background:var(--crema);color:var(--morado);font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;transition:background .2s,scale .2s}
   .enviar:hover,.enviar:focus-visible{background:var(--mostaza);scale:1.05}
   .enviar:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
@@ -157,7 +156,6 @@
         </select></label>
       <label><span>palabra</span><input name="palabra" type="text" required maxlength="80" placeholder="ej. una camionetica" autocomplete="off"></label>
       <label class="ancho"><span>email</span><input name="email" type="email" required maxlength="120" placeholder="tu@email.com" autocomplete="email"></label>
-      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" class="enviar">sumar palabra</button>
       <p class="estado" id="estado" role="status"></p>
       <p class="aviso">al mandar tu palabra, aceptas que Lorena guarde tu email para contarte de sus proyectos</p>
@@ -523,7 +521,6 @@
       ev.preventDefault();
       if (!form.reportValidity()) return;
       var d = new FormData(form);
-      if (d.get('_honey')) return;
       if (!HOJA) { estado.className = 'estado'; estado.textContent = 'el formulario se está estrenando, vuelve en un ratico'; return; }
       boton.disabled = true; estado.className = 'estado'; estado.textContent = 'mandando...';
       var datos = new URLSearchParams({categoria: d.get('categoria'), palabra: d.get('palabra'), email: d.get('email')});
