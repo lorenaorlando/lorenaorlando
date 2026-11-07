@@ -57,6 +57,10 @@
 
   /* 3D: solo escala */
   .model-wrap{position:absolute;left:50%;top:50%;width:70vw;height:120vh;transform:translate(-50%,-50%);will-change:transform;z-index:2}
+  /* foto fija de la cabeza: se ve mientras carga el 3D (o si el navegador no puede mostrarlo) y se va cuando el 3D está listo */
+  .headfb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;transition:opacity .6s}
+  .model-wrap model-viewer{position:relative}
+  .model-wrap.ready .headfb{opacity:0}
   /* aviso de que la cabeza 3D se puede girar: se va en cuanto alguien la toca */
   .dragme{position:absolute;left:74%;top:22%;z-index:3;display:flex;align-items:center;gap:.45em;padding:.4em .9em .45em .75em;border-radius:999px;background:rgba(30,0,75,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--crema);font-family:var(--display);font-size:max(1.3vw,18px);line-height:1;letter-spacing:.04em;white-space:nowrap;rotate:-6deg;pointer-events:none;box-shadow:0 .3vh 1vh rgba(30,0,75,.35);transition:opacity .5s,scale .5s}
   .dragme svg{width:1.7em;height:auto;fill:none;stroke:var(--mostaza);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:dragspin 2.2s ease-in-out infinite}
@@ -568,6 +572,7 @@
   </div>
 
   <div class="model-wrap" id="model">
+    <img class="headfb" src="assets/HEAD_POSTER.webp" alt="">
     <model-viewer
       id="mv"
       alt="Lorena asomándose sobre una isla flotante"
@@ -1000,7 +1005,7 @@ tarot reading app</span></a>
     status.hidden = false;
     status.textContent = 'No se pudo cargar el modelo 3D. Abre la consola (F12) para ver el motivo.';
   });
-  mv.addEventListener('load', function(){ status.hidden = true; console.log('GLB cargado:', mv.getAttribute('src')); });
+  mv.addEventListener('load', function(){ status.hidden = true; mv.parentNode.classList.add('ready'); console.log('GLB cargado:', mv.getAttribute('src')); });
   mv.setAttribute('src', LOCAL + 'HEAD_EXP.glb');
   mv.addEventListener('pointerdown', function(){ document.querySelector('.dragme').classList.add('gone'); }, {once:true});
 
@@ -1890,7 +1895,10 @@ tarot reading app</span></a>
     loadGlb(organ, 'FUNMACHINE_EXP.glb'); loadGlb(zenit, 'ZENIT.glb'); loadGlb(lapi, 'LAPI_EXP.glb');
     loadGlb(logo3d, 'LOGO_COMP.glb'); loadGlb(compu, 'COMPU_VIEJA.glb'); loadGlb(vela, 'VELA.glb');
     CAROUSELS.get(story).load(); CAROUSELS.get(photoStory).load();
+    // sin WebGL el 3D nunca carga: no se espera (la cabeza queda como foto fija)
+    var hasGL = (function(){ try { var c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
     customElements.whenDefined('model-viewer').then(function(){
+      if (!hasGL) return;
       document.querySelectorAll('model-viewer[src]').forEach(function(m){
         var o = part(), errors = 0;
         m.setAttribute('loading', 'eager');
@@ -1931,8 +1939,12 @@ tarot reading app</span></a>
       }, 900);
     }
     setTimeout(finish, 40000);                        // red muy lenta: no dejar a nadie fuera
+    // si la carga deja de avanzar 12 s (casi siempre un 3D que no responde), se entra igual; el 3D aparece cuando llegue
+    var lastP = -1, lastChange = performance.now();
     (function loop(){
-      var p = progress();
+      var p = progress(), now = performance.now();
+      if (p !== lastP) { lastP = p; lastChange = now; }
+      else if (p < 1 && now - lastChange > 12000) { finish(); return; }
       shown += (p - shown) * .12;
       if (p >= 1 && shown > .995) shown = 1;
       var pct = Math.round(shown * 100);
