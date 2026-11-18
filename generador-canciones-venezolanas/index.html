@@ -29,24 +29,24 @@
   *{box-sizing:border-box}
   html{background:var(--lila)}
   body{margin:0;min-height:100vh;background:var(--lila);color:var(--crema);font-family:var(--texto);letter-spacing:-.02em;overflow-x:hidden;
-    padding:calc(18px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(64px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+    padding:calc(18px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(64px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));text-transform:none}
   a{color:inherit}
   #clouds{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   #clouds img{position:absolute;height:auto;animation:float 12s ease-in-out infinite;opacity:.92}
   @keyframes float{50%{translate:var(--dx) var(--dy)}}
 
-  .by{position:relative;z-index:1;margin:0;font-family:var(--display);font-size:16px;letter-spacing:.05em;text-shadow:var(--sombra-sm)}
+  .by{position:relative;z-index:1;margin:0;font-family:var(--display);font-size:16px;letter-spacing:.05em;text-shadow:var(--sombra-sm);text-transform:lowercase}
   .by a{color:var(--mostaza);text-decoration:none}
   .by a:hover,.by a:focus-visible{text-decoration:underline}
 
   main{position:relative;z-index:1;max-width:820px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-  h1{margin:clamp(28px,7vh,72px) 0 0;align-self:stretch;font-family:var(--display);font-weight:400;font-size:clamp(46px,9.4vw,92px);line-height:.92;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2.5deg;text-wrap:balance}
+  h1{margin:clamp(28px,7vh,72px) 0 0;align-self:stretch;font-family:var(--display);font-weight:400;font-size:clamp(46px,9.4vw,92px);line-height:.92;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2.5deg;text-wrap:balance;text-transform:lowercase}
   h1 span{display:block}
   h1 .mo{color:var(--mostaza);rotate:2deg;translate:.4em 0;width:max-content}
 
   /* botón principal: crema, late cada tanto para invitar a tocarlo */
   .gen{all:unset;cursor:pointer;margin:clamp(30px,6vh,52px) 0 0;display:inline-flex;align-items:center;gap:.5em;padding:.62em 1.4em .68em;border-radius:999px;background:var(--crema);color:var(--morado);
-    font-family:var(--display);font-size:clamp(24px,3.4vw,30px);letter-spacing:.04em;line-height:1;box-shadow:.25rem .4rem 1rem rgba(54,1,133,.55);rotate:1.5deg;transition:background .2s,scale .2s;animation:late 2.6s ease-in-out infinite}
+    font-family:var(--display);font-size:clamp(24px,3.4vw,30px);letter-spacing:.04em;line-height:1;box-shadow:.25rem .4rem 1rem rgba(54,1,133,.55);rotate:1.5deg;transition:background .2s,scale .2s;animation:late 2.6s ease-in-out infinite;text-transform:lowercase}
   .gen:hover,.gen:focus-visible{background:var(--mostaza);scale:1.06}
   .gen:focus-visible{outline:2px solid var(--crema);outline-offset:4px}
   .gen svg{width:1.05em;height:auto;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
@@ -56,7 +56,7 @@
   /* la estrofa */
   .letra{align-self:stretch;margin:clamp(26px,5vh,44px) 0 0;padding:clamp(24px,4vw,44px) clamp(20px,4.4vw,52px) clamp(24px,3.4vw,36px);border-radius:12px;background:var(--panel-osc);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:.3rem .5rem 1.4rem rgba(54,1,133,.45);rotate:-.8deg}
-  .tag{margin:0 0 .7em;font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--mostaza);text-shadow:var(--sombra-sm)}
+  .tag{margin:0 0 .7em;font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--mostaza);text-shadow:var(--sombra-sm);text-transform:lowercase}
   .lyric{margin:0;font-size:clamp(21px,2.7vw,27px);line-height:1.45;letter-spacing:.012em;font-weight:500}
   .lyric span{display:block;padding-left:1.1em;text-indent:-1.1em}
   .letra[hidden]{display:none}
@@ -66,7 +66,7 @@
   .nota{margin:1.6em 0 0;padding-top:1.1em;border-top:1px solid rgba(255,240,214,.18);font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.9}
   .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
   .acts button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;padding:.55em 1.1em .6em;border-radius:999px;font-family:var(--display);font-size:20px;letter-spacing:.04em;line-height:1;
-    background:var(--crema);color:var(--morado);transition:background .2s,scale .2s}
+    background:var(--crema);color:var(--morado);transition:background .2s,scale .2s;text-transform:lowercase}
   .acts button+button{background:transparent;color:var(--crema);box-shadow:inset 0 0 0 1.5px rgba(255,240,214,.55)}
   .acts button:hover,.acts button:focus-visible{background:var(--mostaza);color:var(--morado);scale:1.05;box-shadow:none}
   .acts button:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
@@ -86,17 +86,17 @@
 
   /* ¿qué más se te ocurre? */
   .mas{align-self:stretch;margin:clamp(48px,9vh,90px) 0 0}
-  .mas h2{margin:0 0 .5em;font-family:var(--display);font-weight:400;font-size:clamp(36px,6vw,58px);line-height:.95;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2deg}
+  .mas h2{margin:0 0 .5em;font-family:var(--display);font-weight:400;font-size:clamp(36px,6vw,58px);line-height:.95;letter-spacing:.02em;text-shadow:var(--sombra);rotate:-2deg;text-transform:lowercase}
   .form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;padding:clamp(22px,3.4vw,34px);border-radius:12px;background:var(--panel);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
   .form label{display:flex;flex-direction:column;gap:6px;min-width:0}
-  .form label span{font-family:var(--display);font-size:20px;letter-spacing:.05em;color:var(--mostaza);text-shadow:var(--sombra-sm)}
+  .form label span{font-family:var(--display);font-size:20px;letter-spacing:.05em;color:var(--mostaza);text-shadow:var(--sombra-sm);text-transform:lowercase}
   .form .ancho{grid-column:1/-1}
   .form input,.form select{font:500 20px/1.2 var(--texto);letter-spacing:-.015em;color:var(--crema);background:rgba(30,0,75,.62);border:1.5px solid rgba(255,240,214,.3);border-radius:10px;padding:.6em .75em;width:100%;min-width:0}
   .form select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--crema) 50%),linear-gradient(135deg,var(--crema) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:2.2em}
   .form option{background:var(--morado);color:var(--crema)}
   .form input::placeholder{color:rgba(255,240,214,.5)}
   .form input:focus,.form select:focus{outline:none;border-color:var(--mostaza)}
-  .enviar{all:unset;cursor:pointer;justify-self:start;padding:.6em 1.3em .65em;border-radius:999px;background:var(--crema);color:var(--morado);font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;transition:background .2s,scale .2s}
+  .enviar{all:unset;cursor:pointer;justify-self:start;padding:.6em 1.3em .65em;border-radius:999px;background:var(--crema);color:var(--morado);font-family:var(--display);font-size:22px;letter-spacing:.04em;line-height:1;transition:background .2s,scale .2s;text-transform:lowercase}
   .enviar:hover,.enviar:focus-visible{background:var(--mostaza);scale:1.05}
   .enviar:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
   .enviar[disabled]{opacity:.6;cursor:wait}
@@ -105,7 +105,7 @@
   .aviso{grid-column:1/-1;margin:0;font-size:20px;line-height:1.4;letter-spacing:-.015em;opacity:.75}
 
   .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:50;translate:-50% 20px;opacity:0;pointer-events:none;font-family:var(--display);font-size:20px;letter-spacing:.04em;
-    padding:.5em 1.1em;border-radius:999px;background:var(--crema);color:var(--morado);transition:opacity .25s,translate .25s}
+    padding:.5em 1.1em;border-radius:999px;background:var(--crema);color:var(--morado);transition:opacity .25s,translate .25s;text-transform:lowercase}
   .toast.on{opacity:1;translate:-50% 0}
 
   @media (max-width:700px){
