@@ -52,7 +52,7 @@ Soy **Lorena Orlando**, artista multidisciplinaria venezolana (música, fotograf
 ## 5. Cómo funciona el sitio principal (`index.html`)
 
 - **Sin scroll real:** pantallas a pantalla completa (`.layer`) que cambian con rueda, deslizamiento táctil vertical o teclado, con una transición tipo ruleta (lo actual sube y gira, lo siguiente entra desde abajo). Un gesto = una pantalla. Si el cursor está sobre un panel con scroll propio, se desplaza el panel (función `scrolls()`).
-- **Pantallas** (índice que usa `go(n)`): 0 hero ("hola! soy Lorena" + cabeza 3D), 1 lista de secciones + redes, 2 música, 3 fotografía, 4 escritura, 5 net art, 6 diseño web, 7 magick, 8 otros proyectos (la última). Están en `LAYERS`; `LAST` es la última; `SECTION_NAMES` tiene sus nombres para Analytics.
+- **Pantallas** (índice que usa `go(n)`): 0 hero ("hola! soy Lorena" + cabeza 3D), 1 lista de secciones + redes, 2 música, 3 fotografía, 4 escritura, 5 proyectos web (antes "net art"), 6 diseño web, 7 magick, 8 proyectos pasados (antes "otros proyectos"; la última). Están en `LAYERS`; `LAST` es la última; `SECTION_NAMES` tiene sus nombres para Analytics.
 - **Subpantallas** (solo con click, `← volver`/Escape para salir): ficha de cada disco (`openAlbum`) y "mi historia" de música y de fotografía (`openStory`, con carrusel de 3D).
 - **Música** tiene modos (`setMode()`): discos propios (arreglo `ALBUMS`), "otros proyectos & arte sonoro" (`PROJECTS` + videos `ONIRIAS`), "collabs" (`COLLABS`, portadas que llevan directo al link) y "en vivo & covers" (videos de una playlist de YouTube, `LIVE`).
 - **Fotografía:** collage del arreglo `PHOTOS` (fotos de `assets/portfolio/`), todo lleva a https://lorenaorlando.art.
