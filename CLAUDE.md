@@ -41,7 +41,7 @@ Página estática publicada con GitHub Pages desde `main`. Todo vive en `index.h
 - **Sin scroll real.** La rueda, el táctil (solo gestos verticales) y el teclado cambian de pantalla. Un gesto = una pantalla: la rueda cuenta como gesto nuevo solo tras una pausa de 260 ms o un empujón claramente más fuerte que la inercia, y se ignora durante la transición y 250 ms después. Si el cursor/dedo está sobre un panel con scroll propio que todavía puede desplazarse (función `scrolls()`), se desplaza el panel y no cambia la pantalla.
 - **Botones de "mi historia"** (`button.rw`): texto suelto en Lacquer como "otros proyectos & arte sonoro" (sin fondo ni ícono), un poco más chico, con un latido y un meneo cada tanto (`rwpulse`) que invitan a tocarlo. Música: "cómo llegué a tener 13 oyentes mensuales en spotify: un caso de éxito" / "how i got to 13 monthly listeners on spotify: a success story", arriba del órgano. Fotografía: "detrás del encuadre" / "behind the frame", junto a "indivirtual" (en escritorio abajo a la derecha; en móvil, a la izquierda de la imagen).
 - **Transiciones tipo ruleta.** Cada cambio de pantalla es una animación de rotación: lo actual sube y gira, y lo siguiente sube después.
-- **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca.
+- **Nubes.** Son 14 y quedan siempre fijas de fondo, flotando suavemente. Lo que cambia es el contenido. Los mockups no las muestran, pero no se quitan nunca. Excepción: en música, al llegar a la pantalla, las nubes que quedan detrás o alrededor de los textos (`.t`, `.listen`) se desvanecen (`cloudsAway()`, clase `.away`) y vuelven al salir, para que el crema no se pierda sobre el blanco.
 - **Cabeza 3D.** `assets/HEAD_EXP.glb` en `<model-viewer>` gira sola y se puede girar con el mouse/dedo; detrás va una foto fija de la cabeza (`HEAD_POSTER.webp`, `.headfb`, sacada del mismo 3D con la misma cámara) que se ve mientras carga el 3D, o siempre si el navegador no puede mostrarlo, y se desvanece cuando el 3D está listo (también en la página de links); a su lado una pastilla "arrástrame!"/"drag me!" (`.dragme`, con ícono de giro) que desaparece en cuanto alguien la toca. En la pantalla 2 se reduce y se mueve a la izquierda (en móvil, hacia arriba).
 - **Títulos.** Los de la pantalla 2 hacen pulse al hover. Sin 3D al lado (se quitaron porque hacían lenta la transición). "música" lleva a la pantalla 3 y "fotografía" a la de fotografía. Son 7 (el último, "otros proyectos", en inglés "other projects" con "(spanish)" chiquito debajo, solo en inglés: `small[hidden]` lleva `display:none!important` porque `display:block` le ganaba a `hidden`), en `min(6.4vw,11.6vh)` para que quepan en ventanas bajitas.
 - **Redes (pantalla 2).** Debajo de la cabeza (en móvil, entre la cabeza y los títulos), fila de íconos `.social` que abren en otra pestaña:
@@ -148,7 +148,7 @@ Si una portada no carga, se ve un recuadro violeta con el nombre.
 | `BRUNO.jpg` | *Bruno EP* (Jóvenes y sexys) |
 | `RESISTANCE.webp` | *La Resistance* |
 | `ENTUPIEL.jpeg` | *En tu piel* (Aida Rojas) |
-| `Corazon-lleno-de-liquen-soundtrack.jpg` | *Corazón lleno de liquen (soundtrack)*, del libro de Victor Noé Arandia |
+| `Corazon-lleno-de-liquen-soundtrack.jpg` | *Corazón lleno de liquen (soundtrack)*, del libro de Victor Noé Arandia (6 de diciembre de 2024) |
 
 ### Fotografía
 

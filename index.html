@@ -53,7 +53,8 @@
 
   /* Nubes de fondo: fijas */
   #clouds{position:absolute;inset:0;z-index:0;pointer-events:none}
-  #clouds img{position:absolute;height:auto;user-select:none;-webkit-user-drag:none;animation:float 10s ease-in-out infinite}
+  #clouds img{position:absolute;height:auto;user-select:none;-webkit-user-drag:none;animation:float 10s ease-in-out infinite;transition:opacity .6s}
+  #clouds img.away{opacity:0!important}   /* en música, las nubes que quedan detrás de los textos se desvanecen */
   @keyframes float{0%,100%{translate:0 0}50%{translate:var(--dx,1vw) var(--dy,calc(-1.5 * var(--vh)))}}
 
   /* 3D: solo escala */
@@ -1194,7 +1195,7 @@ tarot reading app</span></a>
       pos:[12,58,18,'-3deg',1,1], mx:63,
       credits:{es:['Single de la artista de folk venezolana Aida Rojas.', 'Grabación, producción, mezcla y master por Lorena Orlando en Cariaquito Morao Estudios.'],
                en:['Single by Venezuelan folk artist Aida Rojas.', 'Recording, production, mixing and mastering by Lorena Orlando at Cariaquito Morao Estudios.']} },
-    { f:'Corazon-lleno-de-liquen-soundtrack.jpg', title:'Corazón lleno de liquen (soundtrack)', type:'comp',
+    { f:'Corazon-lleno-de-liquen-soundtrack.jpg', title:'Corazón lleno de liquen (soundtrack)', type:'comp', date:[6,12,2024],
       pos:[27.5,79,18,'5deg',2,-1], mx:87,
       spotify:'1j0wXbqDf2eJfWJPh4kAuo',
       info:{es:['Soundtrack del libro “Corazón lleno de liquen” de Victor Noé Arandia. Conformado por canciones inéditas por artistas de Venezuela basadas en los poemas del libro.'],
@@ -1538,7 +1539,29 @@ tarot reading app</span></a>
     // otros proyectos: los embeds (podcasts, playlists) se cargan al entrar
     if (v === 8) more.querySelectorAll('iframe').forEach(function(f){ if (!f.src) f.src = f.dataset.src; });
     navUpdate(v);
+    cloudsAway();
   }
+  // en música ninguna nube queda detrás o alrededor de los textos (crema sobre nube blanca no se lee)
+  var cloudT = 0;
+  function cloudsAway(){
+    clearTimeout(cloudT);
+    var on = !subOpen && target === 2;
+    if (!on) { document.querySelectorAll('#clouds img.away').forEach(function(c){ c.classList.remove('away'); }); return; }
+    cloudT = setTimeout(function(){
+      if (subOpen || target !== 2) return;
+      var pad = Math.max(window.innerWidth * .035, 24);
+      var boxes = [].filter.call(music.querySelectorAll('.t, .listen'), function(el){ return getComputedStyle(el).visibility !== 'hidden' && el.offsetWidth; })
+        .map(function(el){ return el.getBoundingClientRect(); });
+      document.querySelectorAll('#clouds img').forEach(function(c){
+        var q = c.getBoundingClientRect(), ix = q.width * .08, iy = q.height * .14;   // las nubes traen un borde transparente
+        var r = {left: q.left + ix, right: q.right - ix, top: q.top + iy, bottom: q.bottom - iy}, hit = boxes.some(function(b){
+          return r.left < b.right + pad && r.right > b.left - pad && r.top < b.bottom + pad && r.bottom > b.top - pad;
+        });
+        c.classList.toggle('away', hit);
+      });
+    }, reduce ? 0 : DURATION + 50);
+  }
+  window.addEventListener('resize', function(){ if (target === 2) cloudsAway(); });
   // aviso de scroll: cada caja con scroll propio lleva al pie un "desliza" que se va al llegar al final
   var SCROLLERS = document.querySelectorAll('.mpanel, .album-info, .tale, .album-in, .story-in, .mobox');
   SCROLLERS.forEach(function(el){
